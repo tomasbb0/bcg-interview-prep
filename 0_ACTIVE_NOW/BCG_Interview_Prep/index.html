@@ -23556,23 +23556,41 @@ Margin                       20.0%              6.6%          -13.4pp
           svg.innerHTML = "";
           var cr = c.getBoundingClientRect();
 
-          /* Build ancestor set for highlighted pill */
+          /* Build highlight set: ancestors (up to root) + descendants (down to leaves) */
           var hlSet = {};
           if (window.fwmHighlightPill) {
-            /* Build parent map from current FWM_CONNS */
+            /* Build parent map (solid connections only for upward walk) */
             var parentMap = {};
             FWM_CONNS.forEach(function (conn) {
               if (!conn.d) {
-                /* only solid connections */
                 parentMap[conn.t] = conn.f;
               }
             });
-            /* Walk up from highlighted pill to root */
+
+            /* Walk UP from highlighted pill to root */
             var cur = window.fwmHighlightPill;
             while (cur && parentMap[cur]) {
               var p = parentMap[cur];
               hlSet[p + "|" + cur] = true;
               cur = p;
+            }
+
+            /* Build children map (ALL connections including dashed) for downward walk */
+            var childMap = {};
+            FWM_CONNS.forEach(function (conn) {
+              if (!childMap[conn.f]) childMap[conn.f] = [];
+              childMap[conn.f].push(conn.t);
+            });
+
+            /* Walk DOWN from highlighted pill to all descendants (BFS) */
+            var queue = [window.fwmHighlightPill];
+            while (queue.length > 0) {
+              var node = queue.shift();
+              var kids = childMap[node] || [];
+              kids.forEach(function (kid) {
+                hlSet[node + "|" + kid] = true;
+                queue.push(kid);
+              });
             }
           }
 
@@ -23636,7 +23654,7 @@ Margin                       20.0%              6.6%          -13.4pp
             path.setAttribute("d", hp.d);
             path.setAttribute("fill", "none");
             path.setAttribute("stroke", "#00a651");
-            path.setAttribute("stroke-width", "4");
+            path.setAttribute("stroke-width", "3");
             if (hp.dashed) path.setAttribute("stroke-dasharray", "6,4");
             svg.appendChild(path);
           });
