@@ -22889,8 +22889,11 @@ Margin                       20.0%              6.6%          -13.4pp
         /* Click handler for inline tree nodes — highlights ONLY the selected path */
         window.fwmItClick = function (el, e) {
           e.stopPropagation();
-          var box = el.closest('.fwm-it-box');
-          if (!box) { console.warn('fwmItClick: no .fwm-it-box found'); return; }
+          var box = el.closest(".fwm-it-box");
+          if (!box) {
+            console.warn("fwmItClick: no .fwm-it-box found");
+            return;
+          }
 
           /* Reset ALL highlights */
           box.querySelectorAll(".fwm-it-node").forEach(function (n) {
@@ -24842,23 +24845,38 @@ Margin                       20.0%              6.6%          -13.4pp
 
         function positionRow(row, parentPillEl) {
           /* Center the row's pills underneath the parent pill.
-             Use requestAnimationFrame to wait for layout. */
+             Use double-rAF to wait for full layout. */
           requestAnimationFrame(function () {
-            var container = document.getElementById("fwm-tree-container");
-            if (!container) return;
-            var cRect = container.getBoundingClientRect();
-            var pRect = parentPillEl.getBoundingClientRect();
-            var parentCenter = pRect.left + pRect.width / 2 - cRect.left;
-            var rowWidth = row.scrollWidth;
-            var containerWidth = cRect.width;
-            /* clamp so pills don't go off-screen */
-            var offset = Math.max(
-              0,
-              Math.min(parentCenter - rowWidth / 2, containerWidth - rowWidth),
-            );
-            row.style.justifyContent = "flex-start";
-            row.style.paddingLeft = offset + "px";
-            row.style.boxSizing = "border-box";
+            requestAnimationFrame(function () {
+              var container = document.getElementById("fwm-tree-container");
+              if (!container) return;
+              var cRect = container.getBoundingClientRect();
+              var pRect = parentPillEl.getBoundingClientRect();
+              var parentCenter = pRect.left + pRect.width / 2 - cRect.left;
+
+              /* Calculate actual pill group width */
+              var pills = row.children;
+              if (pills.length === 0) return;
+              var gap = parseFloat(getComputedStyle(row).gap) || 14;
+              var totalWidth = 0;
+              for (var i = 0; i < pills.length; i++) {
+                totalWidth += pills[i].offsetWidth;
+              }
+              totalWidth += Math.max(0, pills.length - 1) * gap;
+
+              var containerWidth = cRect.width;
+              /* clamp so pills don't go off-screen */
+              var offset = Math.max(
+                0,
+                Math.min(
+                  parentCenter - totalWidth / 2,
+                  containerWidth - totalWidth,
+                ),
+              );
+              row.style.justifyContent = "flex-start";
+              row.style.paddingLeft = offset + "px";
+              row.style.boxSizing = "border-box";
+            });
           });
         }
 
