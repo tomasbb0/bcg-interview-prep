@@ -1,0 +1,2519 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logic Tree: Young-Wook Response</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            min-height: 100vh;
+            padding: 20px;
+            padding-top: 70px;
+            padding-left: 280px;
+            color: #fff;
+            transition: padding-left 0.3s ease;
+        }
+        body.sidebar-collapsed { padding-left: 40px; }
+        
+        /* ========== TOOLBAR ========== */
+        .toolbar {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            background: rgba(15, 52, 96, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            border-bottom: 1px solid #e94560;
+        }
+        .toolbar-left, .toolbar-center, .toolbar-right { display: flex; gap: 8px; align-items: center; }
+        .toolbar-btn {
+            background: #16213e;
+            border: 1px solid #0f3460;
+            color: #fff;
+            padding: 6px 10px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 11px;
+            transition: all 0.2s ease;
+        }
+        .toolbar-btn:hover { border-color: #e94560; }
+        .toolbar-btn.primary { background: linear-gradient(135deg, #e94560 0%, #0f3460 100%); border-color: #e94560; }
+        .toolbar-btn.success { background: #4ade80; color: #000; }
+        .unsaved-indicator { display: none; color: #fbbf24; font-size: 10px; margin-left: 8px; }
+        .unsaved-indicator.visible { display: inline; }
+        
+        /* ========== FILTER SIDEBAR ========== */
+        .filter-sidebar {
+            position: fixed;
+            left: 0; top: 60px; bottom: 0;
+            width: 260px;
+            background: rgba(15, 52, 96, 0.95);
+            border-right: 1px solid #0f3460;
+            padding: 15px;
+            overflow-y: auto;
+            z-index: 900;
+            transition: transform 0.3s ease, width 0.3s ease;
+        }
+        .filter-sidebar.collapsed {
+            transform: translateX(-245px);
+        }
+        .filter-sidebar.collapsed .filter-content { opacity: 0; pointer-events: none; }
+        .filter-sidebar.collapsed .collapse-btn { transform: rotate(180deg); }
+        .collapse-btn {
+            position: absolute;
+            right: -12px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 24px;
+            height: 48px;
+            background: #0f3460;
+            border: 1px solid #e94560;
+            border-radius: 0 8px 8px 0;
+            color: #e94560;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            transition: transform 0.3s ease;
+        }
+        .collapse-btn:hover { background: #e94560; color: #fff; }
+        .filter-content { transition: opacity 0.2s ease; }
+        .filter-title {
+            color: #e94560;
+            font-size: 14px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .clear-filters-btn {
+            background: none;
+            border: 1px solid #e94560;
+            color: #e94560;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 10px;
+            cursor: pointer;
+        }
+        .clear-filters-btn:hover { background: #e94560; color: #fff; }
+        .filter-section {
+            margin-bottom: 20px;
+            background: rgba(22, 33, 62, 0.8);
+            border-radius: 8px;
+            padding: 10px;
+        }
+        .filter-section-title {
+            color: #4ade80;
+            font-size: 11px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .filter-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 0;
+            font-size: 11px;
+            color: #ccc;
+            cursor: pointer;
+        }
+        .filter-item:hover { color: #fff; }
+        .filter-item input[type="checkbox"] {
+            width: 14px; height: 14px;
+            accent-color: #4ade80;
+        }
+        .filter-item.selected { color: #4ade80; font-weight: 600; }
+        .add-filter-btn {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 10px;
+            margin-top: 8px;
+            background: rgba(74, 222, 128, 0.1);
+            border: 1px dashed #4ade80;
+            border-radius: 6px;
+            color: #4ade80;
+            font-size: 10px;
+            cursor: pointer;
+            width: 100%;
+        }
+        .add-filter-btn:hover { background: rgba(74, 222, 128, 0.2); }
+        
+        /* ========== VIEW TOGGLES ========== */
+        .view-toggles {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .toggle-btn {
+            background: #0f3460;
+            border: 2px solid #0f3460;
+            color: #fff;
+            padding: 8px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+        .toggle-btn:hover { border-color: #e94560; }
+        .toggle-btn.active { background: linear-gradient(135deg, #e94560 0%, #0f3460 100%); border-color: #e94560; }
+        
+        /* ========== LEGEND ========== */
+        .legend { display: flex; justify-content: center; gap: 15px; margin-bottom: 20px; flex-wrap: wrap; }
+        .legend-item { display: flex; align-items: center; gap: 5px; font-size: 10px; color: #aaa; }
+        .legend-icon { width: 16px; height: 16px; border-radius: 3px; display: flex; align-items: center; justify-content: center; font-size: 8px; }
+        
+        /* ========== NODES ========== */
+        .node {
+            background: #16213e;
+            border: 2px solid #0f3460;
+            border-radius: 10px;
+            padding: 10px 12px;
+            min-width: 140px;
+            max-width: 170px;
+            position: relative;
+            transition: all 0.3s ease;
+            flex-shrink: 0;
+        }
+        .node:hover { border-color: #e94560; }
+        .node.hidden { display: none !important; }
+        .node-title { font-weight: 700; font-size: 11px; margin-bottom: 3px; color: #fff; }
+        .node-desc { font-size: 9px; color: #888; line-height: 1.2; }
+        .node.root { background: linear-gradient(135deg, #e94560 0%, #0f3460 100%); border-color: #e94560; min-width: 160px; }
+        .node.intention-best { border-left: 4px solid #4ade80; }
+        .node.intention-mid { border-left: 4px solid #fbbf24; }
+        .node.intention-worst { border-left: 4px solid #f87171; }
+        .node.personality-high { border-left: 4px solid #4ade80; }
+        .node.personality-med { border-left: 4px solid #fbbf24; }
+        .node.personality-low { border-left: 4px solid #f87171; }
+        .node.recommended { border-color: #4ade80; box-shadow: 0 0 12px rgba(74, 222, 128, 0.3); }
+        
+        .rank-badge {
+            position: absolute;
+            top: -6px; left: 6px;
+            background: #0f3460;
+            color: #e94560;
+            font-size: 7px;
+            font-weight: 700;
+            padding: 2px 5px;
+            border-radius: 3px;
+            border: 1px solid #e94560;
+        }
+        .node.recommended .rank-badge { background: #4ade80; color: #000; border-color: #4ade80; }
+        
+        /* Outcome category colors for Layer 4 nodes */
+        .node.outcome-best { border-color: #4ade80; background: linear-gradient(135deg, #16213e 0%, rgba(74, 222, 128, 0.15) 100%); }
+        .node.outcome-best::before { content: '✓✓'; position: absolute; top: 3px; left: 3px; font-size: 8px; }
+        .node.outcome-good { border-color: #22d3ee; background: linear-gradient(135deg, #16213e 0%, rgba(34, 211, 238, 0.15) 100%); }
+        .node.outcome-good::before { content: '✓'; position: absolute; top: 3px; left: 3px; font-size: 8px; }
+        .node.outcome-neutral { border-color: #6b7280; background: linear-gradient(135deg, #16213e 0%, rgba(107, 114, 128, 0.15) 100%); }
+        .node.outcome-neutral::before { content: '—'; position: absolute; top: 3px; left: 3px; font-size: 8px; }
+        .node.outcome-risky { border-color: #fbbf24; background: linear-gradient(135deg, #16213e 0%, rgba(251, 191, 36, 0.15) 100%); }
+        .node.outcome-risky::before { content: '!'; position: absolute; top: 3px; left: 3px; font-size: 8px; color: #fbbf24; font-weight: bold; }
+        .node.outcome-bad { border-color: #ef4444; background: linear-gradient(135deg, #16213e 0%, rgba(239, 68, 68, 0.15) 100%); }
+        .node.outcome-bad::before { content: '✗'; position: absolute; top: 3px; left: 3px; font-size: 8px; color: #ef4444; }
+        
+        /* ========== TREE STRUCTURE ========== */
+        .tree-container {
+            padding: 20px;
+            overflow: auto;
+            min-height: calc(100vh - 100px);
+        }
+        .tree-view {
+            display: flex;
+            align-items: flex-start;
+        }
+        
+        /* Layer titles */
+        .layer-label {
+            position: absolute;
+            top: -25px;
+            left: 0;
+            background: #0f3460;
+            color: #e94560;
+            font-size: 9px;
+            font-weight: 600;
+            padding: 3px 8px;
+            border-radius: 4px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            white-space: nowrap;
+        }
+        
+        .tree-node {
+            display: flex;
+            align-items: center;
+            position: relative;
+        }
+        .tree-children {
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            margin-left: 8px;
+            padding-top: 30px;
+        }
+        .tree-children::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 45px;
+            bottom: 15px;
+            width: 2px;
+            background: #0f3460;
+        }
+        .tree-children.hidden { display: none !important; }
+        .tree-child {
+            display: flex;
+            align-items: center;
+            position: relative;
+            padding: 6px 0;
+        }
+        .tree-child::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            width: 15px;
+            height: 2px;
+            background: #0f3460;
+        }
+        .tree-child.hidden { display: none !important; }
+        .tree-child > .node,
+        .tree-child > .tree-node > .node {
+            margin-left: 15px;
+        }
+        .tree-connector {
+            width: 25px;
+            height: 2px;
+            background: linear-gradient(90deg, #0f3460, #e94560);
+            position: relative;
+            flex-shrink: 0;
+        }
+        .tree-connector::after {
+            content: '';
+            position: absolute;
+            right: -4px;
+            top: -3px;
+            width: 0; height: 0;
+            border-top: 4px solid transparent;
+            border-bottom: 4px solid transparent;
+            border-left: 5px solid #e94560;
+        }
+        /* Probability badge on connector/branch */
+        .branch-prob-badge {
+            position: absolute;
+            top: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(15, 52, 96, 0.95);
+            border: 1px solid #fbbf24;
+            color: #fbbf24;
+            font-size: 8px;
+            font-weight: 700;
+            padding: 1px 4px;
+            border-radius: 8px;
+            white-space: nowrap;
+            z-index: 5;
+        }
+        /* Final probability badge inside node box */
+        .node {
+            position: relative;
+        }
+        .final-prob-badge {
+            position: absolute;
+            top: 4px;
+            right: 4px;
+            background: #e94560;
+            color: #fff;
+            font-size: 8px;
+            font-weight: 700;
+            padding: 2px 5px;
+            border-radius: 6px;
+            z-index: 10;
+        }
+        
+        /* ========== COMPACT VIEW - Response Cards with Conditional Outcomes ========== */
+        .compact-container {
+            display: none;
+            flex-direction: column;
+            padding: 30px;
+            gap: 20px;
+            overflow-y: auto;
+            min-height: calc(100vh - 150px);
+        }
+        .compact-header {
+            text-align: center;
+            margin-bottom: 10px;
+        }
+        .compact-header h2 {
+            color: #e94560;
+            font-size: 18px;
+            margin-bottom: 8px;
+        }
+        .compact-header p {
+            color: #8892b0;
+            font-size: 12px;
+        }
+        .compact-legend {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        .compact-legend-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 11px;
+        }
+        .compact-legend-item .legend-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+        }
+        .compact-legend-item .legend-dot.best { background: #4ade80; }
+        .compact-legend-item .legend-dot.good { background: #22d3ee; }
+        .compact-legend-item .legend-dot.neutral { background: #6b7280; }
+        .compact-legend-item .legend-dot.risky { background: #fbbf24; }
+        .compact-legend-item .legend-dot.bad { background: #ef4444; }
+        
+        .compact-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        .response-card {
+            background: #16213e;
+            border: 2px solid #0f3460;
+            border-radius: 12px;
+            padding: 16px;
+            transition: all 0.3s ease;
+        }
+        .response-card:hover {
+            border-color: #e94560;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(233, 69, 96, 0.2);
+        }
+        .response-card.recommended {
+            border-color: #4ade80;
+            box-shadow: 0 0 15px rgba(74, 222, 128, 0.2);
+        }
+        .response-card .card-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 14px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #0f3460;
+        }
+        .response-card .card-rank {
+            background: #e94560;
+            color: white;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 11px;
+            font-weight: 700;
+        }
+        .response-card.recommended .card-rank {
+            background: #4ade80;
+            color: #000;
+        }
+        .response-card .card-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #fff;
+        }
+        .response-card .card-subtitle {
+            font-size: 10px;
+            color: #8892b0;
+            margin-left: auto;
+        }
+        .outcome-row {
+            display: flex;
+            align-items: center;
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(15, 52, 96, 0.5);
+        }
+        .outcome-row:last-child {
+            border-bottom: none;
+        }
+        .outcome-scenario {
+            font-size: 11px;
+            font-weight: 600;
+            min-width: 100px;
+            color: #8892b0;
+        }
+        .outcome-scenario.a { color: #4ade80; }
+        .outcome-scenario.c { color: #fbbf24; }
+        .outcome-scenario.b { color: #ef4444; }
+        .outcome-result {
+            font-size: 11px;
+            padding: 3px 8px;
+            border-radius: 4px;
+            margin-left: 8px;
+        }
+        .outcome-result.best { background: rgba(74, 222, 128, 0.2); color: #4ade80; }
+        .outcome-result.good { background: rgba(34, 211, 238, 0.2); color: #22d3ee; }
+        .outcome-result.neutral { background: rgba(107, 114, 128, 0.2); color: #9ca3af; }
+        .outcome-result.risky { background: rgba(251, 191, 36, 0.2); color: #fbbf24; }
+        .outcome-result.bad { background: rgba(239, 68, 68, 0.2); color: #ef4444; }
+        
+        /* Pie Chart Styles */
+        .card-pie-section {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid #0f3460;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .pie-chart {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            position: relative;
+            flex-shrink: 0;
+        }
+        .pie-legend {
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+            flex: 1;
+        }
+        .pie-legend-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 10px;
+        }
+        .pie-legend-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+        .pie-legend-label {
+            color: #8892b0;
+            flex: 1;
+        }
+        .pie-legend-value {
+            font-weight: 700;
+            min-width: 35px;
+            text-align: right;
+        }
+        .pie-legend-value.best { color: #4ade80; }
+        .pie-legend-value.good { color: #22d3ee; }
+        .pie-legend-value.neutral { color: #9ca3af; }
+        .pie-legend-value.risky { color: #fbbf24; }
+        .pie-legend-value.bad { color: #ef4444; }
+        
+        /* Sub pie charts for intentions */
+        .intention-pies-section {
+            margin-top: 12px;
+            padding-top: 12px;
+            border-top: 1px solid #0f3460;
+        }
+        .intention-pies-title {
+            font-size: 10px;
+            color: #8892b0;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+        .intention-pies-grid {
+            display: flex;
+            justify-content: space-around;
+            gap: 8px;
+        }
+        .mini-pie-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+        }
+        .mini-pie {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: 2px solid transparent;
+        }
+        .mini-pie.intention-a { border-color: #4ade80; }
+        .mini-pie.intention-c { border-color: #fbbf24; }
+        .mini-pie.intention-b { border-color: #ef4444; }
+        .mini-pie-label {
+            font-size: 9px;
+            font-weight: 600;
+        }
+        .mini-pie-label.intention-a { color: #4ade80; }
+        .mini-pie-label.intention-c { color: #fbbf24; }
+        .mini-pie-label.intention-b { color: #ef4444; }
+        .mini-pie-success {
+            font-size: 10px;
+            font-weight: 700;
+        }
+        
+        /* View states */
+        .compact-view .compact-container { display: flex; }
+        .compact-view .tree-container { display: none; }
+        .tree-view-mode .compact-container { display: none; }
+        .tree-view-mode .tree-container { display: block; }
+        
+        /* Toast & Modal */
+        .toast { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%) translateY(100px); background: #4ade80; color: #000; padding: 10px 20px; border-radius: 8px; font-size: 12px; font-weight: 600; opacity: 0; transition: all 0.3s ease; z-index: 2000; }
+        .toast.visible { transform: translateX(-50%) translateY(0); opacity: 1; }
+        .changelog-modal { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.8); z-index: 3000; justify-content: center; align-items: center; }
+        .changelog-modal.visible { display: flex; }
+        .changelog-content { background: #16213e; border: 2px solid #e94560; border-radius: 12px; padding: 20px; max-width: 450px; width: 90%; }
+        .changelog-content h2 { color: #e94560; margin-bottom: 12px; font-size: 16px; }
+        .changelog-content pre { background: #1a1a2e; padding: 12px; border-radius: 6px; font-size: 11px; color: #4ade80; white-space: pre-wrap; margin-bottom: 12px; max-height: 250px; overflow-y: auto; }
+        .changelog-actions { display: flex; gap: 10px; justify-content: flex-end; }
+        
+        /* Add Modal */
+        .add-modal { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.8); z-index: 3000; justify-content: center; align-items: center; }
+        .add-modal.visible { display: flex; }
+        .add-modal-content { background: #16213e; border: 2px solid #4ade80; border-radius: 12px; padding: 20px; max-width: 500px; width: 90%; max-height: 80vh; overflow-y: auto; }
+        .add-modal-content h3 { color: #4ade80; margin-bottom: 15px; font-size: 14px; }
+        .add-modal-content input, .add-modal-content textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            background: #1a1a2e;
+            border: 1px solid #0f3460;
+            border-radius: 6px;
+            color: #fff;
+            font-size: 12px;
+        }
+        .add-modal-content textarea { min-height: 80px; resize: vertical; }
+        .add-modal-content input:focus, .add-modal-content textarea:focus { border-color: #4ade80; outline: none; }
+        .add-modal-actions { display: flex; gap: 10px; justify-content: flex-end; margin-top: 15px; }
+        
+        /* AI Estimation Section */
+        .ai-section { margin-top: 15px; padding: 12px; background: rgba(34, 211, 238, 0.1); border: 1px solid #22d3ee; border-radius: 8px; }
+        .ai-section-title { color: #22d3ee; font-size: 11px; font-weight: 600; margin-bottom: 10px; display: flex; align-items: center; gap: 6px; }
+        .ai-api-key { display: flex; gap: 8px; margin-bottom: 10px; }
+        .ai-api-key input { flex: 1; font-size: 11px; }
+        .ai-estimate-btn { background: linear-gradient(135deg, #22d3ee 0%, #0f3460 100%); border: none; color: #fff; padding: 8px 16px; border-radius: 6px; cursor: pointer; font-size: 11px; font-weight: 600; }
+        .ai-estimate-btn:hover { opacity: 0.9; }
+        .ai-estimate-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+        .ai-status { font-size: 10px; color: #888; margin-top: 8px; }
+        .ai-status.loading { color: #22d3ee; }
+        .ai-status.success { color: #4ade80; }
+        .ai-status.error { color: #ef4444; }
+        
+        /* Probability Preview */
+        .prob-preview { margin-top: 12px; padding: 10px; background: #1a1a2e; border-radius: 6px; }
+        .prob-preview-title { font-size: 10px; color: #888; margin-bottom: 8px; }
+        .prob-preview-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+        .prob-item { text-align: center; }
+        .prob-item-label { font-size: 9px; color: #666; }
+        .prob-item-value { font-size: 14px; font-weight: 700; }
+        .prob-item-value.best { color: #4ade80; }
+        .prob-item-value.good { color: #22d3ee; }
+        .prob-item-value.neutral { color: #6b7280; }
+        .prob-item-value.risky { color: #fbbf24; }
+        .prob-item-value.bad { color: #ef4444; }
+        
+        /* Inline add button in tree */
+        .tree-add-btn { 
+            display: inline-flex; align-items: center; justify-content: center;
+            width: 28px; height: 28px; 
+            background: rgba(74, 222, 128, 0.1); 
+            border: 2px dashed #4ade80; 
+            border-radius: 50%; 
+            color: #4ade80; 
+            font-size: 16px; 
+            cursor: pointer; 
+            margin-left: 10px;
+            transition: all 0.2s;
+        }
+        .tree-add-btn:hover { background: rgba(74, 222, 128, 0.3); transform: scale(1.1); }
+    </style>
+</head>
+<body class="tree-view-mode">
+    <!-- TOOLBAR -->
+    <div class="toolbar">
+        <div class="toolbar-left">
+            <button class="toolbar-btn" onclick="undo()" id="undoBtn" disabled>↶ Undo</button>
+            <button class="toolbar-btn" onclick="redo()" id="redoBtn" disabled>↷ Redo</button>
+            <button class="toolbar-btn" onclick="resetTree()">🔄 Reset</button>
+        </div>
+        <div class="toolbar-center">
+            <span style="color:#888;font-size:11px;">Logic Tree: Young-Wook</span>
+            <span class="unsaved-indicator" id="unsavedIndicator">● Unsaved</span>
+        </div>
+        <div class="toolbar-right">
+            <button class="toolbar-btn" onclick="openSavedVersions()">📂 Load</button>
+            <button class="toolbar-btn" onclick="saveAs()">💾 Save As</button>
+            <button class="toolbar-btn primary" onclick="saveAndNotify()">✓ Save</button>
+        </div>
+    </div>
+    
+    <!-- FILTER SIDEBAR -->
+    <div class="filter-sidebar" id="filterSidebar">
+        <button class="collapse-btn" onclick="toggleSidebar()" title="Toggle Sidebar">◀</button>
+        <div class="filter-content">
+            <div class="filter-title">
+                🔍 Filters
+                <button class="clear-filters-btn" onclick="clearAllFilters()">Clear All</button>
+            </div>
+            <div id="filterContent">
+                <p style="color:#888;font-size:11px;">Loading filters...</p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="toast" id="toast"></div>
+    
+    <div class="changelog-modal" id="changelogModal">
+        <div class="changelog-content">
+            <h2>📋 Changes Saved</h2>
+            <pre id="changelogText"></pre>
+            <div class="changelog-actions">
+                <button class="toolbar-btn" onclick="closeChangelog()">Close</button>
+                <button class="toolbar-btn success" onclick="copyChangelog()">📋 Copy</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- ADD MODAL (enhanced with AI estimation) -->
+    <div class="add-modal" id="addModal">
+        <div class="add-modal-content">
+            <h3 id="addModalTitle">Add New Response</h3>
+            <input type="text" id="addItemTitle" placeholder="Response name (e.g., 'Warm + Delay')">
+            <textarea id="addItemDesc" placeholder="Describe your response strategy in detail...
+Example: Express warmth, acknowledge his situation, but mention you need to focus on other projects. Keep door open for future."></textarea>
+            <input type="hidden" id="addItemLayer">
+            
+            <!-- AI Estimation Section (only for Layer 2) -->
+            <div class="ai-section" id="aiSection" style="display: none;">
+                <div class="ai-section-title">🤖 Claude AI Probability Estimation</div>
+                <div class="ai-api-key">
+                    <input type="password" id="openaiApiKey" placeholder="Anthropic API Key (sk-ant-...)">
+                    <button class="ai-estimate-btn" onclick="estimateWithAI()" id="aiEstimateBtn">✨ Estimate with Claude</button>
+                </div>
+                <div class="ai-status" id="aiStatus">Enter your Anthropic API key and click Estimate to analyze outcome probabilities</div>
+                
+                <div class="prob-preview" id="probPreview" style="display: none;">
+                    <div class="prob-preview-title">Estimated Outcome Distribution:</div>
+                    <div class="prob-preview-grid">
+                        <div class="prob-item"><div class="prob-item-value best" id="estBest">-</div><div class="prob-item-label">Best</div></div>
+                        <div class="prob-item"><div class="prob-item-value good" id="estGood">-</div><div class="prob-item-label">Good</div></div>
+                        <div class="prob-item"><div class="prob-item-value neutral" id="estNeutral">-</div><div class="prob-item-label">Neutral</div></div>
+                        <div class="prob-item"><div class="prob-item-value risky" id="estRisky">-</div><div class="prob-item-label">Risky</div></div>
+                        <div class="prob-item"><div class="prob-item-value bad" id="estBad">-</div><div class="prob-item-label">Bad</div></div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="add-modal-actions">
+                <button class="toolbar-btn" onclick="closeAddModal()">Cancel</button>
+                <button class="toolbar-btn success" onclick="confirmAddItem()">+ Add Response</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="view-toggles">
+        <button class="toggle-btn" onclick="switchView('compact-view')">📊 Compact</button>
+        <button class="toggle-btn active" onclick="switchView('tree-view-mode')">🌲 Logic Tree</button>
+    </div>
+
+    <div class="legend">
+        <div class="legend-item"><div class="legend-icon" style="background:#4ade80;">✓✓</div> Best</div>
+        <div class="legend-item"><div class="legend-icon" style="background:#22c55e;">✓</div> Good</div>
+        <div class="legend-item"><div class="legend-icon" style="background:#6b7280;">—</div> Neutral</div>
+        <div class="legend-item"><div class="legend-icon" style="background:#fbbf24;">!</div> Risky</div>
+        <div class="legend-item"><div class="legend-icon" style="background:#ef4444;">✗</div> Bad</div>
+    </div>
+
+    <!-- ========== LOGIC TREE VIEW (FULLY EXPANDED) ========== -->
+    <div class="tree-container">
+        <div class="tree-view">
+            <!-- ROOT: Layer 0 -->
+            <div class="tree-node">
+                <div class="node root" data-layer="0" data-id="trigger">
+                    <div class="layer-label">Layer 0: Trigger</div>
+                    <div class="node-title">Young-Wook's Message</div>
+                    <div class="node-desc">"Hackathon, reconvene Feb"</div>
+                </div>
+                <div class="tree-connector"></div>
+            </div>
+            
+            <!-- LAYER 1: His Intentions -->
+            <div class="tree-children" data-layer="1">
+                <div class="layer-label">Layer 1: His Intentions</div>
+                
+                <!-- Intention A: Genuine Pause -->
+                <div class="tree-child" data-parent="trigger">
+                    <div class="tree-node">
+                        <div class="node intention-best" data-layer="1" data-id="intention-a">
+                            <div class="rank-badge">🥇</div>
+                            <div class="node-title">A: Genuine Pause</div>
+                            <div class="node-desc">Still interested</div>
+                        </div>
+                        <div class="tree-connector"></div>
+                    </div>
+                    
+                    <!-- LAYER 2: Your Responses for Intention A -->
+                    <div class="tree-children" data-layer="2">
+                        <div class="layer-label">Layer 2: Your Responses <button class="tree-add-btn" onclick="openAddModal(2)" title="Add new response">+</button></div>
+                        
+                        <!-- Response 1 -->
+                        <div class="tree-child" data-parent="intention-a">
+                            <div class="tree-node">
+                                <div class="node recommended" data-layer="2" data-id="response-1">
+                                    <div class="rank-badge">#1</div>
+                                    <div class="node-title">Disappoint + Help</div>
+                                    <div class="node-desc">✓✓ Valued & useful</div>
+                                </div>
+                                <div class="tree-connector"></div>
+                            </div>
+                            
+                            <!-- LAYER 3: Personalities -->
+                            <div class="tree-children" data-layer="3">
+                                <div class="layer-label">Layer 3: His Personality</div>
+                                
+                                <div class="tree-child" data-parent="response-1">
+                                    <div class="tree-node">
+                                        <div class="node personality-high" data-layer="3" data-id="personality-careful">
+                                            <div class="node-title">Careful Committer</div>
+                                            <div class="node-desc">✓✓ Appreciates</div>
+                                        </div>
+                                        <div class="tree-connector"></div>
+                                    </div>
+                                    <!-- LAYER 4: His Reactions -->
+                                    <div class="tree-children" data-layer="4">
+                                        <div class="layer-label">Layer 4: His Reaction</div>
+                                        <div class="tree-child" data-parent="personality-careful"><div class="node recommended" data-layer="4" data-id="reaction-eager"><div class="rank-badge">#1</div><div class="node-title">Accepts Eagerly</div><div class="node-desc">✓✓ You're IN</div></div></div>
+                                        <div class="tree-child" data-parent="personality-careful"><div class="node" data-layer="4" data-id="reaction-soft"><div class="rank-badge">#2</div><div class="node-title">Accepts Softly</div><div class="node-desc">✓ Door open</div></div></div>
+                                        <div class="tree-child" data-parent="personality-careful"><div class="node" data-layer="4" data-id="reaction-feb"><div class="rank-badge">#3</div><div class="node-title">Declines + Feb</div><div class="node-desc">✓ Genuine</div></div></div>
+                                    </div>
+                                </div>
+                                
+                                <div class="tree-child" data-parent="response-1">
+                                    <div class="tree-node">
+                                        <div class="node personality-high" data-layer="3" data-id="personality-family">
+                                            <div class="node-title">Family First</div>
+                                            <div class="node-desc">✓✓ Grateful</div>
+                                        </div>
+                                        <div class="tree-connector"></div>
+                                    </div>
+                                    <div class="tree-children" data-layer="4">
+                                        <div class="tree-child" data-parent="personality-family"><div class="node recommended" data-layer="4" data-id="reaction-eager"><div class="rank-badge">#1</div><div class="node-title">Accepts Eagerly</div><div class="node-desc">✓✓ You're IN</div></div></div>
+                                        <div class="tree-child" data-parent="personality-family"><div class="node" data-layer="4" data-id="reaction-feb"><div class="rank-badge">#2</div><div class="node-title">Declines + Feb</div><div class="node-desc">✓ Genuine</div></div></div>
+                                    </div>
+                                </div>
+                                
+                                <div class="tree-child" data-parent="response-1">
+                                    <div class="tree-node">
+                                        <div class="node personality-med" data-layer="3" data-id="personality-comparing">
+                                            <div class="node-title">Always Comparing</div>
+                                            <div class="node-desc">✓ Impressed</div>
+                                        </div>
+                                        <div class="tree-connector"></div>
+                                    </div>
+                                    <div class="tree-children" data-layer="4">
+                                        <div class="tree-child" data-parent="personality-comparing"><div class="node" data-layer="4" data-id="reaction-soft"><div class="rank-badge">#1</div><div class="node-title">Accepts Softly</div><div class="node-desc">✓ Considering</div></div></div>
+                                        <div class="tree-child" data-parent="personality-comparing"><div class="node" data-layer="4" data-id="reaction-vague"><div class="rank-badge">#2</div><div class="node-title">Declines Vague</div><div class="node-desc">! Still weighing</div></div></div>
+                                    </div>
+                                </div>
+                                
+                                <div class="tree-child" data-parent="response-1">
+                                    <div class="tree-node">
+                                        <div class="node personality-low" data-layer="3" data-id="personality-avoider">
+                                            <div class="node-title">Polite Avoider</div>
+                                            <div class="node-desc">— Awkward</div>
+                                        </div>
+                                        <div class="tree-connector"></div>
+                                    </div>
+                                    <div class="tree-children" data-layer="4">
+                                        <div class="tree-child" data-parent="personality-avoider"><div class="node" data-layer="4" data-id="reaction-vague"><div class="rank-badge">#1</div><div class="node-title">Declines Vague</div><div class="node-desc">! Exit politely</div></div></div>
+                                        <div class="tree-child" data-parent="personality-avoider"><div class="node" data-layer="4" data-id="reaction-silent"><div class="rank-badge">#2</div><div class="node-title">Slow/Silent</div><div class="node-desc">! Avoiding</div></div></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Response 2 -->
+                        <div class="tree-child" data-parent="intention-a">
+                            <div class="tree-node">
+                                <div class="node" data-layer="2" data-id="response-2">
+                                    <div class="rank-badge">#2</div>
+                                    <div class="node-title">Warm + Help</div>
+                                    <div class="node-desc">✓✓ Stay in world</div>
+                                </div>
+                                <div class="tree-connector"></div>
+                            </div>
+                            <div class="tree-children" data-layer="3">
+                                <div class="tree-child" data-parent="response-2">
+                                    <div class="tree-node">
+                                        <div class="node personality-high" data-layer="3" data-id="personality-careful"><div class="node-title">Careful Committer</div><div class="node-desc">✓ Appreciates</div></div>
+                                        <div class="tree-connector"></div>
+                                    </div>
+                                    <div class="tree-children" data-layer="4">
+                                        <div class="tree-child" data-parent="personality-careful"><div class="node" data-layer="4" data-id="reaction-soft"><div class="node-title">Accepts Softly</div><div class="node-desc">✓ Door open</div></div></div>
+                                        <div class="tree-child" data-parent="personality-careful"><div class="node" data-layer="4" data-id="reaction-feb"><div class="node-title">Declines + Feb</div><div class="node-desc">✓ Genuine</div></div></div>
+                                    </div>
+                                </div>
+                                <div class="tree-child" data-parent="response-2">
+                                    <div class="tree-node">
+                                        <div class="node personality-high" data-layer="3" data-id="personality-family"><div class="node-title">Family First</div><div class="node-desc">✓ Grateful</div></div>
+                                        <div class="tree-connector"></div>
+                                    </div>
+                                    <div class="tree-children" data-layer="4">
+                                        <div class="tree-child" data-parent="personality-family"><div class="node" data-layer="4" data-id="reaction-soft"><div class="node-title">Accepts Softly</div><div class="node-desc">✓ Appreciates</div></div></div>
+                                        <div class="tree-child" data-parent="personality-family"><div class="node" data-layer="4" data-id="reaction-feb"><div class="node-title">Declines + Feb</div><div class="node-desc">✓ Genuine</div></div></div>
+                                    </div>
+                                </div>
+                                <div class="tree-child" data-parent="response-2">
+                                    <div class="tree-node">
+                                        <div class="node personality-med" data-layer="3" data-id="personality-comparing"><div class="node-title">Always Comparing</div><div class="node-desc">— Less impact</div></div>
+                                        <div class="tree-connector"></div>
+                                    </div>
+                                    <div class="tree-children" data-layer="4">
+                                        <div class="tree-child" data-parent="personality-comparing"><div class="node" data-layer="4" data-id="reaction-vague"><div class="node-title">Declines Vague</div><div class="node-desc">— Weighing</div></div></div>
+                                        <div class="tree-child" data-parent="personality-comparing"><div class="node" data-layer="4" data-id="reaction-silent"><div class="node-title">Slow/Silent</div><div class="node-desc">— Distracted</div></div></div>
+                                    </div>
+                                </div>
+                                <div class="tree-child" data-parent="response-2">
+                                    <div class="tree-node">
+                                        <div class="node personality-low" data-layer="3" data-id="personality-avoider"><div class="node-title">Polite Avoider</div><div class="node-desc">— Polite decline</div></div>
+                                        <div class="tree-connector"></div>
+                                    </div>
+                                    <div class="tree-children" data-layer="4">
+                                        <div class="tree-child" data-parent="personality-avoider"><div class="node" data-layer="4" data-id="reaction-vague"><div class="node-title">Declines Vague</div><div class="node-desc">— Easy exit</div></div></div>
+                                        <div class="tree-child" data-parent="personality-avoider"><div class="node" data-layer="4" data-id="reaction-silent"><div class="node-title">Slow/Silent</div><div class="node-desc">! Ghosting</div></div></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Response 3 -->
+                        <div class="tree-child" data-parent="intention-a">
+                            <div class="tree-node">
+                                <div class="node" data-layer="2" data-id="response-3">
+                                    <div class="rank-badge">#3</div>
+                                    <div class="node-title">Warm + Disappoint</div>
+                                    <div class="node-desc">✓ Shows investment</div>
+                                </div>
+                                <div class="tree-connector"></div>
+                            </div>
+                            <div class="tree-children" data-layer="3">
+                                <div class="tree-child" data-parent="response-3">
+                                    <div class="tree-node">
+                                        <div class="node personality-high" data-layer="3" data-id="personality-careful"><div class="node-title">Careful Committer</div><div class="node-desc">✓ Respects</div></div>
+                                        <div class="tree-connector"></div>
+                                    </div>
+                                    <div class="tree-children" data-layer="4">
+                                        <div class="tree-child" data-parent="personality-careful"><div class="node" data-layer="4" data-id="reaction-soft"><div class="node-title">Accepts Softly</div><div class="node-desc">✓ Respects honesty</div></div></div>
+                                        <div class="tree-child" data-parent="personality-careful"><div class="node" data-layer="4" data-id="reaction-feb"><div class="node-title">Declines + Feb</div><div class="node-desc">✓ Noted</div></div></div>
+                                    </div>
+                                </div>
+                                <div class="tree-child" data-parent="response-3">
+                                    <div class="tree-node">
+                                        <div class="node personality-high" data-layer="3" data-id="personality-family"><div class="node-title">Family First</div><div class="node-desc">✓ Understands</div></div>
+                                        <div class="tree-connector"></div>
+                                    </div>
+                                    <div class="tree-children" data-layer="4">
+                                        <div class="tree-child" data-parent="personality-family"><div class="node" data-layer="4" data-id="reaction-feb"><div class="node-title">Declines + Feb</div><div class="node-desc">✓ Genuine</div></div></div>
+                                        <div class="tree-child" data-parent="personality-family"><div class="node" data-layer="4" data-id="reaction-vague"><div class="node-title">Declines Vague</div><div class="node-desc">— Busy</div></div></div>
+                                    </div>
+                                </div>
+                                <div class="tree-child" data-parent="response-3">
+                                    <div class="tree-node">
+                                        <div class="node personality-med" data-layer="3" data-id="personality-comparing"><div class="node-title">Always Comparing</div><div class="node-desc">— Noted</div></div>
+                                        <div class="tree-connector"></div>
+                                    </div>
+                                    <div class="tree-children" data-layer="4">
+                                        <div class="tree-child" data-parent="personality-comparing"><div class="node" data-layer="4" data-id="reaction-vague"><div class="node-title">Declines Vague</div><div class="node-desc">— Still comparing</div></div></div>
+                                        <div class="tree-child" data-parent="personality-comparing"><div class="node" data-layer="4" data-id="reaction-silent"><div class="node-title">Slow/Silent</div><div class="node-desc">— Processing</div></div></div>
+                                    </div>
+                                </div>
+                                <div class="tree-child" data-parent="response-3">
+                                    <div class="tree-node">
+                                        <div class="node personality-low" data-layer="3" data-id="personality-avoider"><div class="node-title">Polite Avoider</div><div class="node-desc">! Guilt</div></div>
+                                        <div class="tree-connector"></div>
+                                    </div>
+                                    <div class="tree-children" data-layer="4">
+                                        <div class="tree-child" data-parent="personality-avoider"><div class="node" data-layer="4" data-id="reaction-vague"><div class="node-title">Declines Vague</div><div class="node-desc">! Uncomfortable</div></div></div>
+                                        <div class="tree-child" data-parent="personality-avoider"><div class="node" data-layer="4" data-id="reaction-silent"><div class="node-title">Slow/Silent</div><div class="node-desc">! Avoids guilt</div></div></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Response 4 -->
+                        <div class="tree-child" data-parent="intention-a">
+                            <div class="tree-node">
+                                <div class="node" data-layer="2" data-id="response-4">
+                                    <div class="rank-badge">#4</div>
+                                    <div class="node-title">Warm & Brief</div>
+                                    <div class="node-desc">✓ Respects space</div>
+                                </div>
+                                <div class="tree-connector"></div>
+                            </div>
+                            <div class="tree-children" data-layer="3">
+                                <div class="tree-child" data-parent="response-4">
+                                    <div class="tree-node">
+                                        <div class="node personality-high" data-layer="3" data-id="personality-careful"><div class="node-title">Careful Committer</div><div class="node-desc">— Safe</div></div>
+                                        <div class="tree-connector"></div>
+                                    </div>
+                                    <div class="tree-children" data-layer="4">
+                                        <div class="tree-child" data-parent="personality-careful"><div class="node" data-layer="4" data-id="reaction-feb"><div class="node-title">Declines + Feb</div><div class="node-desc">— Routine</div></div></div>
+                                        <div class="tree-child" data-parent="personality-careful"><div class="node" data-layer="4" data-id="reaction-silent"><div class="node-title">Slow/Silent</div><div class="node-desc">— Forgotten</div></div></div>
+                                    </div>
+                                </div>
+                                <div class="tree-child" data-parent="response-4">
+                                    <div class="tree-node">
+                                        <div class="node personality-high" data-layer="3" data-id="personality-family"><div class="node-title">Family First</div><div class="node-desc">— Neutral</div></div>
+                                        <div class="tree-connector"></div>
+                                    </div>
+                                    <div class="tree-children" data-layer="4">
+                                        <div class="tree-child" data-parent="personality-family"><div class="node" data-layer="4" data-id="reaction-feb"><div class="node-title">Declines + Feb</div><div class="node-desc">— Fine</div></div></div>
+                                        <div class="tree-child" data-parent="personality-family"><div class="node" data-layer="4" data-id="reaction-silent"><div class="node-title">Slow/Silent</div><div class="node-desc">— Busy</div></div></div>
+                                    </div>
+                                </div>
+                                <div class="tree-child" data-parent="response-4">
+                                    <div class="tree-node">
+                                        <div class="node personality-med" data-layer="3" data-id="personality-comparing"><div class="node-title">Always Comparing</div><div class="node-desc">— Forgettable</div></div>
+                                        <div class="tree-connector"></div>
+                                    </div>
+                                    <div class="tree-children" data-layer="4">
+                                        <div class="tree-child" data-parent="personality-comparing"><div class="node" data-layer="4" data-id="reaction-silent"><div class="node-title">Slow/Silent</div><div class="node-desc">— Low priority</div></div></div>
+                                        <div class="tree-child" data-parent="personality-comparing"><div class="node" data-layer="4" data-id="reaction-vague"><div class="node-title">Declines Vague</div><div class="node-desc">— Whatever</div></div></div>
+                                    </div>
+                                </div>
+                                <div class="tree-child" data-parent="response-4">
+                                    <div class="tree-node">
+                                        <div class="node personality-low" data-layer="3" data-id="personality-avoider"><div class="node-title">Polite Avoider</div><div class="node-desc">— Easy out</div></div>
+                                        <div class="tree-connector"></div>
+                                    </div>
+                                    <div class="tree-children" data-layer="4">
+                                        <div class="tree-child" data-parent="personality-avoider"><div class="node" data-layer="4" data-id="reaction-silent"><div class="node-title">Slow/Silent</div><div class="node-desc">— Perfect exit</div></div></div>
+                                        <div class="tree-child" data-parent="personality-avoider"><div class="node" data-layer="4" data-id="reaction-vague"><div class="node-title">Declines Vague</div><div class="node-desc">— Easy</div></div></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Response 5 -->
+                        <div class="tree-child" data-parent="intention-a">
+                            <div class="tree-node">
+                                <div class="node" data-layer="2" data-id="response-5">
+                                    <div class="rank-badge">#5</div>
+                                    <div class="node-title">Challenge</div>
+                                    <div class="node-desc">! Risky</div>
+                                </div>
+                                <div class="tree-connector"></div>
+                            </div>
+                            <div class="tree-children" data-layer="3">
+                                <div class="tree-child" data-parent="response-5">
+                                    <div class="tree-node">
+                                        <div class="node personality-high" data-layer="3" data-id="personality-careful"><div class="node-title">Careful Committer</div><div class="node-desc">! May respect</div></div>
+                                        <div class="tree-connector"></div>
+                                    </div>
+                                    <div class="tree-children" data-layer="4">
+                                        <div class="tree-child" data-parent="personality-careful"><div class="node" data-layer="4" data-id="reaction-soft"><div class="node-title">Accepts Softly</div><div class="node-desc">! Surprised respect</div></div></div>
+                                        <div class="tree-child" data-parent="personality-careful"><div class="node" data-layer="4" data-id="reaction-vague"><div class="node-title">Declines Vague</div><div class="node-desc">! Put off</div></div></div>
+                                    </div>
+                                </div>
+                                <div class="tree-child" data-parent="response-5">
+                                    <div class="tree-node">
+                                        <div class="node personality-high" data-layer="3" data-id="personality-family"><div class="node-title">Family First</div><div class="node-desc">! Defensive</div></div>
+                                        <div class="tree-connector"></div>
+                                    </div>
+                                    <div class="tree-children" data-layer="4">
+                                        <div class="tree-child" data-parent="personality-family"><div class="node" data-layer="4" data-id="reaction-vague"><div class="node-title">Declines Vague</div><div class="node-desc">! Defensive</div></div></div>
+                                        <div class="tree-child" data-parent="personality-family"><div class="node" data-layer="4" data-id="reaction-silent"><div class="node-title">Slow/Silent</div><div class="node-desc">! Offended</div></div></div>
+                                    </div>
+                                </div>
+                                <div class="tree-child" data-parent="response-5">
+                                    <div class="tree-node">
+                                        <div class="node personality-med" data-layer="3" data-id="personality-comparing"><div class="node-title">Always Comparing</div><div class="node-desc">✗ Turned off</div></div>
+                                        <div class="tree-connector"></div>
+                                    </div>
+                                    <div class="tree-children" data-layer="4">
+                                        <div class="tree-child" data-parent="personality-comparing"><div class="node" data-layer="4" data-id="reaction-silent"><div class="node-title">Slow/Silent</div><div class="node-desc">✗ Hard pass</div></div></div>
+                                        <div class="tree-child" data-parent="personality-comparing"><div class="node" data-layer="4" data-id="reaction-vague"><div class="node-title">Declines Vague</div><div class="node-desc">✗ Red flag</div></div></div>
+                                    </div>
+                                </div>
+                                <div class="tree-child" data-parent="response-5">
+                                    <div class="tree-node">
+                                        <div class="node personality-low" data-layer="3" data-id="personality-avoider"><div class="node-title">Polite Avoider</div><div class="node-desc">✗ Confirms exit</div></div>
+                                        <div class="tree-connector"></div>
+                                    </div>
+                                    <div class="tree-children" data-layer="4">
+                                        <div class="tree-child" data-parent="personality-avoider"><div class="node" data-layer="4" data-id="reaction-silent"><div class="node-title">Slow/Silent</div><div class="node-desc">✗ Gone forever</div></div></div>
+                                        <div class="tree-child" data-parent="personality-avoider"><div class="node" data-layer="4" data-id="reaction-vague"><div class="node-title">Declines Vague</div><div class="node-desc">✗ Confirmed out</div></div></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Intention C: Unsure -->
+                <div class="tree-child" data-parent="trigger">
+                    <div class="tree-node">
+                        <div class="node intention-mid" data-layer="1" data-id="intention-c">
+                            <div class="rank-badge">🥈</div>
+                            <div class="node-title">C: Unsure</div>
+                            <div class="node-desc">Not ready to commit</div>
+                        </div>
+                        <div class="tree-connector"></div>
+                    </div>
+                    
+                    <div class="tree-children" data-layer="2">
+                        <!-- Response 1 for Intention C -->
+                        <div class="tree-child" data-parent="intention-c">
+                            <div class="tree-node">
+                                <div class="node recommended" data-layer="2" data-id="response-1">
+                                    <div class="rank-badge">#1</div>
+                                    <div class="node-title">Disappoint + Help</div>
+                                    <div class="node-desc">✓✓ Tips scales</div>
+                                </div>
+                                <div class="tree-connector"></div>
+                            </div>
+                            <div class="tree-children" data-layer="3">
+                                <div class="tree-child" data-parent="response-1">
+                                    <div class="tree-node">
+                                        <div class="node personality-high" data-layer="3" data-id="personality-careful"><div class="node-title">Careful Committer</div><div class="node-desc">✓✓ Swayed</div></div>
+                                        <div class="tree-connector"></div>
+                                    </div>
+                                    <div class="tree-children" data-layer="4">
+                                        <div class="tree-child" data-parent="personality-careful"><div class="node recommended" data-layer="4" data-id="reaction-eager"><div class="node-title">Accepts Eagerly</div><div class="node-desc">✓✓ Convinced</div></div></div>
+                                        <div class="tree-child" data-parent="personality-careful"><div class="node" data-layer="4" data-id="reaction-soft"><div class="node-title">Accepts Softly</div><div class="node-desc">✓ Leaning yes</div></div></div>
+                                    </div>
+                                </div>
+                                <div class="tree-child" data-parent="response-1">
+                                    <div class="tree-node">
+                                        <div class="node personality-high" data-layer="3" data-id="personality-family"><div class="node-title">Family First</div><div class="node-desc">✓ Noted</div></div>
+                                        <div class="tree-connector"></div>
+                                    </div>
+                                    <div class="tree-children" data-layer="4">
+                                        <div class="tree-child" data-parent="personality-family"><div class="node" data-layer="4" data-id="reaction-soft"><div class="node-title">Accepts Softly</div><div class="node-desc">✓ Appreciated</div></div></div>
+                                        <div class="tree-child" data-parent="personality-family"><div class="node" data-layer="4" data-id="reaction-feb"><div class="node-title">Declines + Feb</div><div class="node-desc">✓ Genuine</div></div></div>
+                                    </div>
+                                </div>
+                                <div class="tree-child" data-parent="response-1">
+                                    <div class="tree-node">
+                                        <div class="node personality-med" data-layer="3" data-id="personality-comparing"><div class="node-title">Always Comparing</div><div class="node-desc">✓✓ Impressed</div></div>
+                                        <div class="tree-connector"></div>
+                                    </div>
+                                    <div class="tree-children" data-layer="4">
+                                        <div class="tree-child" data-parent="personality-comparing"><div class="node" data-layer="4" data-id="reaction-soft"><div class="node-title">Accepts Softly</div><div class="node-desc">✓✓ Tipping</div></div></div>
+                                        <div class="tree-child" data-parent="personality-comparing"><div class="node" data-layer="4" data-id="reaction-vague"><div class="node-title">Declines Vague</div><div class="node-desc">— Still weighing</div></div></div>
+                                    </div>
+                                </div>
+                                <div class="tree-child" data-parent="response-1">
+                                    <div class="tree-node">
+                                        <div class="node personality-low" data-layer="3" data-id="personality-avoider"><div class="node-title">Polite Avoider</div><div class="node-desc">— Awkward</div></div>
+                                        <div class="tree-connector"></div>
+                                    </div>
+                                    <div class="tree-children" data-layer="4">
+                                        <div class="tree-child" data-parent="personality-avoider"><div class="node" data-layer="4" data-id="reaction-vague"><div class="node-title">Declines Vague</div><div class="node-desc">— Polite exit</div></div></div>
+                                        <div class="tree-child" data-parent="personality-avoider"><div class="node" data-layer="4" data-id="reaction-silent"><div class="node-title">Slow/Silent</div><div class="node-desc">! Avoiding</div></div></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Response 2-5 for Intention C (simplified - main outcomes) -->
+                        <div class="tree-child" data-parent="intention-c">
+                            <div class="tree-node">
+                                <div class="node" data-layer="2" data-id="response-2"><div class="rank-badge">#2</div><div class="node-title">Warm + Help</div><div class="node-desc">✓ Keeps alive</div></div>
+                                <div class="tree-connector"></div>
+                            </div>
+                            <div class="tree-children" data-layer="3">
+                                <div class="tree-child" data-parent="response-2">
+                                    <div class="tree-node"><div class="node personality-high" data-layer="3" data-id="personality-careful"><div class="node-title">Careful Committer</div><div class="node-desc">✓ Noted</div></div><div class="tree-connector"></div></div>
+                                    <div class="tree-children" data-layer="4">
+                                        <div class="tree-child" data-parent="personality-careful"><div class="node" data-layer="4" data-id="reaction-soft"><div class="node-title">Accepts Softly</div><div class="node-desc">✓ Open</div></div></div>
+                                        <div class="tree-child" data-parent="personality-careful"><div class="node" data-layer="4" data-id="reaction-feb"><div class="node-title">Declines + Feb</div><div class="node-desc">— Wait</div></div></div>
+                                    </div>
+                                </div>
+                                <div class="tree-child" data-parent="response-2">
+                                    <div class="tree-node"><div class="node personality-high" data-layer="3" data-id="personality-family"><div class="node-title">Family First</div><div class="node-desc">✓ Grateful</div></div><div class="tree-connector"></div></div>
+                                    <div class="tree-children" data-layer="4">
+                                        <div class="tree-child" data-parent="personality-family"><div class="node" data-layer="4" data-id="reaction-feb"><div class="node-title">Declines + Feb</div><div class="node-desc">✓ Genuine</div></div></div>
+                                    </div>
+                                </div>
+                                <div class="tree-child" data-parent="response-2">
+                                    <div class="tree-node"><div class="node personality-med" data-layer="3" data-id="personality-comparing"><div class="node-title">Always Comparing</div><div class="node-desc">— Meh</div></div><div class="tree-connector"></div></div>
+                                    <div class="tree-children" data-layer="4">
+                                        <div class="tree-child" data-parent="personality-comparing"><div class="node" data-layer="4" data-id="reaction-vague"><div class="node-title">Declines Vague</div><div class="node-desc">— Low impact</div></div></div>
+                                    </div>
+                                </div>
+                                <div class="tree-child" data-parent="response-2">
+                                    <div class="tree-node"><div class="node personality-low" data-layer="3" data-id="personality-avoider"><div class="node-title">Polite Avoider</div><div class="node-desc">— Easy</div></div><div class="tree-connector"></div></div>
+                                    <div class="tree-children" data-layer="4">
+                                        <div class="tree-child" data-parent="personality-avoider"><div class="node" data-layer="4" data-id="reaction-silent"><div class="node-title">Slow/Silent</div><div class="node-desc">— Fades</div></div></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tree-child" data-parent="intention-c">
+                            <div class="tree-node">
+                                <div class="node" data-layer="2" data-id="response-3"><div class="rank-badge">#3</div><div class="node-title">Warm + Disappoint</div><div class="node-desc">✓ Shows serious</div></div>
+                                <div class="tree-connector"></div>
+                            </div>
+                            <div class="tree-children" data-layer="3">
+                                <div class="tree-child" data-parent="response-3">
+                                    <div class="tree-node"><div class="node personality-high" data-layer="3" data-id="personality-careful"><div class="node-title">Careful Committer</div><div class="node-desc">✓ Respects</div></div><div class="tree-connector"></div></div>
+                                    <div class="tree-children" data-layer="4">
+                                        <div class="tree-child" data-parent="personality-careful"><div class="node" data-layer="4" data-id="reaction-soft"><div class="node-title">Accepts Softly</div><div class="node-desc">✓ Noted</div></div></div>
+                                    </div>
+                                </div>
+                                <div class="tree-child" data-parent="response-3">
+                                    <div class="tree-node"><div class="node personality-high" data-layer="3" data-id="personality-family"><div class="node-title">Family First</div><div class="node-desc">✓ Understands</div></div><div class="tree-connector"></div></div>
+                                    <div class="tree-children" data-layer="4">
+                                        <div class="tree-child" data-parent="personality-family"><div class="node" data-layer="4" data-id="reaction-feb"><div class="node-title">Declines + Feb</div><div class="node-desc">✓ Genuine</div></div></div>
+                                    </div>
+                                </div>
+                                <div class="tree-child" data-parent="response-3">
+                                    <div class="tree-node"><div class="node personality-med" data-layer="3" data-id="personality-comparing"><div class="node-title">Always Comparing</div><div class="node-desc">— Noted</div></div><div class="tree-connector"></div></div>
+                                    <div class="tree-children" data-layer="4">
+                                        <div class="tree-child" data-parent="personality-comparing"><div class="node" data-layer="4" data-id="reaction-vague"><div class="node-title">Declines Vague</div><div class="node-desc">— Processing</div></div></div>
+                                    </div>
+                                </div>
+                                <div class="tree-child" data-parent="response-3">
+                                    <div class="tree-node"><div class="node personality-low" data-layer="3" data-id="personality-avoider"><div class="node-title">Polite Avoider</div><div class="node-desc">! Guilt</div></div><div class="tree-connector"></div></div>
+                                    <div class="tree-children" data-layer="4">
+                                        <div class="tree-child" data-parent="personality-avoider"><div class="node" data-layer="4" data-id="reaction-silent"><div class="node-title">Slow/Silent</div><div class="node-desc">! Avoids</div></div></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tree-child" data-parent="intention-c">
+                            <div class="tree-node">
+                                <div class="node" data-layer="2" data-id="response-4"><div class="rank-badge">#4</div><div class="node-title">Warm & Brief</div><div class="node-desc">— Forgettable</div></div>
+                                <div class="tree-connector"></div>
+                            </div>
+                            <div class="tree-children" data-layer="3">
+                                <div class="tree-child" data-parent="response-4">
+                                    <div class="tree-node"><div class="node personality-high" data-layer="3" data-id="personality-careful"><div class="node-title">Careful Committer</div><div class="node-desc">— Fine</div></div><div class="tree-connector"></div></div>
+                                    <div class="tree-children" data-layer="4">
+                                        <div class="tree-child" data-parent="personality-careful"><div class="node" data-layer="4" data-id="reaction-feb"><div class="node-title">Declines + Feb</div><div class="node-desc">— Routine</div></div></div>
+                                    </div>
+                                </div>
+                                <div class="tree-child" data-parent="response-4">
+                                    <div class="tree-node"><div class="node personality-high" data-layer="3" data-id="personality-family"><div class="node-title">Family First</div><div class="node-desc">— OK</div></div><div class="tree-connector"></div></div>
+                                    <div class="tree-children" data-layer="4">
+                                        <div class="tree-child" data-parent="personality-family"><div class="node" data-layer="4" data-id="reaction-silent"><div class="node-title">Slow/Silent</div><div class="node-desc">— Busy</div></div></div>
+                                    </div>
+                                </div>
+                                <div class="tree-child" data-parent="response-4">
+                                    <div class="tree-node"><div class="node personality-med" data-layer="3" data-id="personality-comparing"><div class="node-title">Always Comparing</div><div class="node-desc">— Meh</div></div><div class="tree-connector"></div></div>
+                                    <div class="tree-children" data-layer="4">
+                                        <div class="tree-child" data-parent="personality-comparing"><div class="node" data-layer="4" data-id="reaction-silent"><div class="node-title">Slow/Silent</div><div class="node-desc">— Forgotten</div></div></div>
+                                    </div>
+                                </div>
+                                <div class="tree-child" data-parent="response-4">
+                                    <div class="tree-node"><div class="node personality-low" data-layer="3" data-id="personality-avoider"><div class="node-title">Polite Avoider</div><div class="node-desc">— Perfect</div></div><div class="tree-connector"></div></div>
+                                    <div class="tree-children" data-layer="4">
+                                        <div class="tree-child" data-parent="personality-avoider"><div class="node" data-layer="4" data-id="reaction-silent"><div class="node-title">Slow/Silent</div><div class="node-desc">— Gone</div></div></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tree-child" data-parent="intention-c">
+                            <div class="tree-node">
+                                <div class="node" data-layer="2" data-id="response-5"><div class="rank-badge">#5</div><div class="node-title">Challenge</div><div class="node-desc">✗ Pressure</div></div>
+                                <div class="tree-connector"></div>
+                            </div>
+                            <div class="tree-children" data-layer="3">
+                                <div class="tree-child" data-parent="response-5">
+                                    <div class="tree-node"><div class="node personality-high" data-layer="3" data-id="personality-careful"><div class="node-title">Careful Committer</div><div class="node-desc">! Pressured</div></div><div class="tree-connector"></div></div>
+                                    <div class="tree-children" data-layer="4">
+                                        <div class="tree-child" data-parent="personality-careful"><div class="node" data-layer="4" data-id="reaction-vague"><div class="node-title">Declines Vague</div><div class="node-desc">! Retreats</div></div></div>
+                                    </div>
+                                </div>
+                                <div class="tree-child" data-parent="response-5">
+                                    <div class="tree-node"><div class="node personality-high" data-layer="3" data-id="personality-family"><div class="node-title">Family First</div><div class="node-desc">! Defensive</div></div><div class="tree-connector"></div></div>
+                                    <div class="tree-children" data-layer="4">
+                                        <div class="tree-child" data-parent="personality-family"><div class="node" data-layer="4" data-id="reaction-silent"><div class="node-title">Slow/Silent</div><div class="node-desc">! Offended</div></div></div>
+                                    </div>
+                                </div>
+                                <div class="tree-child" data-parent="response-5">
+                                    <div class="tree-node"><div class="node personality-med" data-layer="3" data-id="personality-comparing"><div class="node-title">Always Comparing</div><div class="node-desc">✗ Red flag</div></div><div class="tree-connector"></div></div>
+                                    <div class="tree-children" data-layer="4">
+                                        <div class="tree-child" data-parent="personality-comparing"><div class="node" data-layer="4" data-id="reaction-silent"><div class="node-title">Slow/Silent</div><div class="node-desc">✗ Done</div></div></div>
+                                    </div>
+                                </div>
+                                <div class="tree-child" data-parent="response-5">
+                                    <div class="tree-node"><div class="node personality-low" data-layer="3" data-id="personality-avoider"><div class="node-title">Polite Avoider</div><div class="node-desc">✗ Confirmed</div></div><div class="tree-connector"></div></div>
+                                    <div class="tree-children" data-layer="4">
+                                        <div class="tree-child" data-parent="personality-avoider"><div class="node" data-layer="4" data-id="reaction-silent"><div class="node-title">Slow/Silent</div><div class="node-desc">✗ Gone</div></div></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Intention B: Soft No -->
+                <div class="tree-child" data-parent="trigger">
+                    <div class="tree-node">
+                        <div class="node intention-worst" data-layer="1" data-id="intention-b">
+                            <div class="rank-badge">🥉</div>
+                            <div class="node-title">B: Soft No</div>
+                            <div class="node-desc">Using as exit</div>
+                        </div>
+                        <div class="tree-connector"></div>
+                    </div>
+                    
+                    <div class="tree-children" data-layer="2">
+                        <!-- Response 1 for Intention B -->
+                        <div class="tree-child" data-parent="intention-b">
+                            <div class="tree-node">
+                                <div class="node recommended" data-layer="2" data-id="response-1"><div class="rank-badge">#1</div><div class="node-title">Disappoint + Help</div><div class="node-desc">! Dignity exit</div></div>
+                                <div class="tree-connector"></div>
+                            </div>
+                            <div class="tree-children" data-layer="3">
+                                <div class="tree-child" data-parent="response-1">
+                                    <div class="tree-node"><div class="node personality-low" data-layer="3" data-id="personality-avoider"><div class="node-title">Polite Avoider</div><div class="node-desc">— Respectful</div></div><div class="tree-connector"></div></div>
+                                    <div class="tree-children" data-layer="4">
+                                        <div class="tree-child" data-parent="personality-avoider"><div class="node" data-layer="4" data-id="reaction-vague"><div class="node-title">Declines Vague</div><div class="node-desc">— Clean exit</div></div></div>
+                                        <div class="tree-child" data-parent="personality-avoider"><div class="node" data-layer="4" data-id="reaction-silent"><div class="node-title">Slow/Silent</div><div class="node-desc">— Fades</div></div></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tree-child" data-parent="intention-b">
+                            <div class="tree-node">
+                                <div class="node" data-layer="2" data-id="response-2"><div class="rank-badge">#2</div><div class="node-title">Warm + Help</div><div class="node-desc">— Declines</div></div>
+                                <div class="tree-connector"></div>
+                            </div>
+                            <div class="tree-children" data-layer="3">
+                                <div class="tree-child" data-parent="response-2">
+                                    <div class="tree-node"><div class="node personality-low" data-layer="3" data-id="personality-avoider"><div class="node-title">Polite Avoider</div><div class="node-desc">— Easy</div></div><div class="tree-connector"></div></div>
+                                    <div class="tree-children" data-layer="4">
+                                        <div class="tree-child" data-parent="personality-avoider"><div class="node" data-layer="4" data-id="reaction-vague"><div class="node-title">Declines Vague</div><div class="node-desc">— Thanks bye</div></div></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tree-child" data-parent="intention-b">
+                            <div class="tree-node">
+                                <div class="node" data-layer="2" data-id="response-3"><div class="rank-badge">#3</div><div class="node-title">Warm + Disappoint</div><div class="node-desc">! Guilt</div></div>
+                                <div class="tree-connector"></div>
+                            </div>
+                            <div class="tree-children" data-layer="3">
+                                <div class="tree-child" data-parent="response-3">
+                                    <div class="tree-node"><div class="node personality-low" data-layer="3" data-id="personality-avoider"><div class="node-title">Polite Avoider</div><div class="node-desc">! Awkward</div></div><div class="tree-connector"></div></div>
+                                    <div class="tree-children" data-layer="4">
+                                        <div class="tree-child" data-parent="personality-avoider"><div class="node" data-layer="4" data-id="reaction-silent"><div class="node-title">Slow/Silent</div><div class="node-desc">! Avoids guilt</div></div></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tree-child" data-parent="intention-b">
+                            <div class="tree-node">
+                                <div class="node" data-layer="2" data-id="response-4"><div class="rank-badge">#4</div><div class="node-title">Warm & Brief</div><div class="node-desc">— Confirms</div></div>
+                                <div class="tree-connector"></div>
+                            </div>
+                            <div class="tree-children" data-layer="3">
+                                <div class="tree-child" data-parent="response-4">
+                                    <div class="tree-node"><div class="node personality-low" data-layer="3" data-id="personality-avoider"><div class="node-title">Polite Avoider</div><div class="node-desc">— Perfect</div></div><div class="tree-connector"></div></div>
+                                    <div class="tree-children" data-layer="4">
+                                        <div class="tree-child" data-parent="personality-avoider"><div class="node" data-layer="4" data-id="reaction-silent"><div class="node-title">Slow/Silent</div><div class="node-desc">— Gone</div></div></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tree-child" data-parent="intention-b">
+                            <div class="tree-node">
+                                <div class="node" data-layer="2" data-id="response-5"><div class="rank-badge">#5</div><div class="node-title">Challenge</div><div class="node-desc">✗ Difficult</div></div>
+                                <div class="tree-connector"></div>
+                            </div>
+                            <div class="tree-children" data-layer="3">
+                                <div class="tree-child" data-parent="response-5">
+                                    <div class="tree-node"><div class="node personality-low" data-layer="3" data-id="personality-avoider"><div class="node-title">Polite Avoider</div><div class="node-desc">✗ Angry</div></div><div class="tree-connector"></div></div>
+                                    <div class="tree-children" data-layer="4">
+                                        <div class="tree-child" data-parent="personality-avoider"><div class="node" data-layer="4" data-id="reaction-silent"><div class="node-title">Slow/Silent</div><div class="node-desc">✗ Blocked</div></div></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- COMPACT VIEW - Response Cards with Conditional Outcomes -->
+    <div class="compact-container">
+        <div class="compact-header">
+            <h2>📋 Response Strategy Matrix</h2>
+            <p>Each response shows probability of outcomes based on personality analysis</p>
+        </div>
+        <div class="compact-legend">
+            <div class="compact-legend-item"><div class="legend-dot best"></div> Best (Accepts Eagerly)</div>
+            <div class="compact-legend-item"><div class="legend-dot good"></div> Good (Accepts Softly)</div>
+            <div class="compact-legend-item"><div class="legend-dot neutral"></div> Neutral (Declines + Feb)</div>
+            <div class="compact-legend-item"><div class="legend-dot risky"></div> Risky (Vague Decline)</div>
+            <div class="compact-legend-item"><div class="legend-dot bad"></div> Bad (Silent/Blocked)</div>
+        </div>
+        <div class="compact-cards" id="compactCardsContainer">
+            <!-- Cards generated by JavaScript -->
+        </div>
+    </div>
+
+    <script>
+        // ========== CORE DATA STRUCTURE ==========
+        const treeData = {
+            layers: {
+                0: { name: 'Trigger', items: ['trigger'] },
+                1: { name: 'His Intentions', items: ['intention-a', 'intention-c', 'intention-b'] },
+                2: { name: 'Your Responses', items: ['response-1', 'response-2', 'response-3', 'response-4', 'response-5'] },
+                3: { name: 'His Personality', items: ['personality-careful', 'personality-family', 'personality-comparing', 'personality-avoider'] },
+                4: { name: 'His Reaction', items: ['reaction-eager', 'reaction-soft', 'reaction-feb', 'reaction-vague', 'reaction-silent'] }
+            },
+            itemNames: {
+                'trigger': 'Young-Wook\'s Message',
+                'intention-a': 'A: Genuine Pause',
+                'intention-c': 'C: Unsure',
+                'intention-b': 'B: Soft No',
+                'response-1': 'Disappoint + Help',
+                'response-2': 'Warm + Help',
+                'response-3': 'Warm + Disappoint',
+                'response-4': 'Warm & Brief',
+                'response-5': 'Challenge',
+                'personality-careful': 'Careful Committer',
+                'personality-family': 'Family First',
+                'personality-comparing': 'Always Comparing',
+                'personality-avoider': 'Polite Avoider',
+                'reaction-eager': 'Accepts Eagerly',
+                'reaction-soft': 'Accepts Softly',
+                'reaction-feb': 'Declines + Feb',
+                'reaction-vague': 'Declines Vague',
+                'reaction-silent': 'Slow/Silent'
+            }
+        };
+        
+        // ========== PROBABILITY DATA ==========
+        // Layer 3 personality probabilities (must sum to 100 for each response path)
+        const personalityProbs = {
+            'personality-careful': 35,   // 35% chance he's a Careful Committer
+            'personality-family': 30,    // 30% chance Family First
+            'personality-comparing': 20, // 20% chance Always Comparing
+            'personality-avoider': 15    // 15% chance Polite Avoider
+        };
+        
+        // Layer 4 reaction probabilities WITHIN each personality (context-dependent per response)
+        // Format: responseId -> personalityId -> { reactionId: probability }
+        const reactionProbs = {
+            'response-1': { // Disappoint + Help (Best)
+                'personality-careful':   { 'reaction-eager': 50, 'reaction-soft': 35, 'reaction-feb': 15, 'reaction-vague': 0, 'reaction-silent': 0 },
+                'personality-family':    { 'reaction-eager': 40, 'reaction-soft': 40, 'reaction-feb': 15, 'reaction-vague': 5, 'reaction-silent': 0 },
+                'personality-comparing': { 'reaction-eager': 25, 'reaction-soft': 40, 'reaction-feb': 25, 'reaction-vague': 10, 'reaction-silent': 0 },
+                'personality-avoider':   { 'reaction-eager': 10, 'reaction-soft': 25, 'reaction-feb': 35, 'reaction-vague': 20, 'reaction-silent': 10 }
+            },
+            'response-2': { // Warm + Help
+                'personality-careful':   { 'reaction-eager': 30, 'reaction-soft': 45, 'reaction-feb': 20, 'reaction-vague': 5, 'reaction-silent': 0 },
+                'personality-family':    { 'reaction-eager': 25, 'reaction-soft': 45, 'reaction-feb': 20, 'reaction-vague': 10, 'reaction-silent': 0 },
+                'personality-comparing': { 'reaction-eager': 15, 'reaction-soft': 35, 'reaction-feb': 30, 'reaction-vague': 15, 'reaction-silent': 5 },
+                'personality-avoider':   { 'reaction-eager': 5, 'reaction-soft': 20, 'reaction-feb': 30, 'reaction-vague': 30, 'reaction-silent': 15 }
+            },
+            'response-3': { // Warm + Disappoint
+                'personality-careful':   { 'reaction-eager': 25, 'reaction-soft': 40, 'reaction-feb': 25, 'reaction-vague': 10, 'reaction-silent': 0 },
+                'personality-family':    { 'reaction-eager': 20, 'reaction-soft': 40, 'reaction-feb': 25, 'reaction-vague': 10, 'reaction-silent': 5 },
+                'personality-comparing': { 'reaction-eager': 10, 'reaction-soft': 30, 'reaction-feb': 30, 'reaction-vague': 20, 'reaction-silent': 10 },
+                'personality-avoider':   { 'reaction-eager': 5, 'reaction-soft': 15, 'reaction-feb': 25, 'reaction-vague': 35, 'reaction-silent': 20 }
+            },
+            'response-4': { // Warm & Brief
+                'personality-careful':   { 'reaction-eager': 10, 'reaction-soft': 30, 'reaction-feb': 40, 'reaction-vague': 15, 'reaction-silent': 5 },
+                'personality-family':    { 'reaction-eager': 10, 'reaction-soft': 25, 'reaction-feb': 40, 'reaction-vague': 20, 'reaction-silent': 5 },
+                'personality-comparing': { 'reaction-eager': 5, 'reaction-soft': 20, 'reaction-feb': 35, 'reaction-vague': 30, 'reaction-silent': 10 },
+                'personality-avoider':   { 'reaction-eager': 0, 'reaction-soft': 10, 'reaction-feb': 25, 'reaction-vague': 35, 'reaction-silent': 30 }
+            },
+            'response-5': { // Challenge (Risky)
+                'personality-careful':   { 'reaction-eager': 10, 'reaction-soft': 20, 'reaction-feb': 25, 'reaction-vague': 30, 'reaction-silent': 15 },
+                'personality-family':    { 'reaction-eager': 5, 'reaction-soft': 15, 'reaction-feb': 20, 'reaction-vague': 35, 'reaction-silent': 25 },
+                'personality-comparing': { 'reaction-eager': 5, 'reaction-soft': 10, 'reaction-feb': 20, 'reaction-vague': 35, 'reaction-silent': 30 },
+                'personality-avoider':   { 'reaction-eager': 0, 'reaction-soft': 5, 'reaction-feb': 10, 'reaction-vague': 30, 'reaction-silent': 55 }
+            }
+        };
+        
+        // Outcome categories mapping
+        const outcomeCategories = {
+            'reaction-eager': 'best',
+            'reaction-soft': 'good',
+            'reaction-feb': 'neutral',
+            'reaction-vague': 'risky',
+            'reaction-silent': 'bad'
+        };
+        
+        const categoryColors = {
+            'best': '#4ade80',
+            'good': '#22d3ee',
+            'neutral': '#6b7280',
+            'risky': '#fbbf24',
+            'bad': '#ef4444'
+        };
+        
+        const categoryLabels = {
+            'best': 'Best (Work ASAP + Paid)',
+            'good': 'Good (Work ASAP)',
+            'neutral': 'Neutral (Delayed)',
+            'risky': 'Risky (Non-committal)',
+            'bad': 'Bad (Ghosted)'
+        };
+        
+        // Intention-specific personality probability distributions
+        // If his intention is A (Genuine), he's more likely Careful/Family
+        // If his intention is C (Unsure), he's more likely Comparing
+        // If his intention is B (Soft No), he's more likely Avoider
+        const intentionPersonalityProbs = {
+            'intention-a': { // Genuine Pause - more committed personalities
+                'personality-careful': 45,
+                'personality-family': 35,
+                'personality-comparing': 15,
+                'personality-avoider': 5
+            },
+            'intention-c': { // Unsure - more comparing/weighing
+                'personality-careful': 25,
+                'personality-family': 25,
+                'personality-comparing': 35,
+                'personality-avoider': 15
+            },
+            'intention-b': { // Soft No - more avoidant
+                'personality-careful': 10,
+                'personality-family': 15,
+                'personality-comparing': 25,
+                'personality-avoider': 50
+            }
+        };
+        
+        // Intention probabilities (baseline guess)
+        const intentionProbs = {
+            'intention-a': 50,  // 50% chance genuine
+            'intention-c': 30,  // 30% chance unsure
+            'intention-b': 20   // 20% chance soft no
+        };
+        
+        // Calculate outcome percentages for a given response (overall, weighted by intention probs)
+        function calculateOutcomes(responseId) {
+            const outcomes = { best: 0, good: 0, neutral: 0, risky: 0, bad: 0 };
+            
+            if (!reactionProbs[responseId]) return outcomes;
+            
+            // Weight by intention probability
+            Object.keys(intentionProbs).forEach(intentionId => {
+                const intentionProb = intentionProbs[intentionId] / 100;
+                const persProbs = intentionPersonalityProbs[intentionId];
+                
+                Object.keys(persProbs).forEach(persId => {
+                    const persProb = persProbs[persId] / 100;
+                    const reactions = reactionProbs[responseId][persId];
+                    
+                    if (reactions) {
+                        Object.keys(reactions).forEach(reactionId => {
+                            const reactionProb = reactions[reactionId] / 100;
+                            const finalProb = intentionProb * persProb * reactionProb * 100;
+                            const category = outcomeCategories[reactionId];
+                            outcomes[category] += finalProb;
+                        });
+                    }
+                });
+            });
+            
+            return outcomes;
+        }
+        
+        // Calculate outcomes for a specific intention scenario
+        function calculateOutcomesForIntention(responseId, intentionId) {
+            const outcomes = { best: 0, good: 0, neutral: 0, risky: 0, bad: 0 };
+            
+            if (!reactionProbs[responseId]) return outcomes;
+            
+            const persProbs = intentionPersonalityProbs[intentionId];
+            
+            Object.keys(persProbs).forEach(persId => {
+                const persProb = persProbs[persId] / 100;
+                const reactions = reactionProbs[responseId][persId];
+                
+                if (reactions) {
+                    Object.keys(reactions).forEach(reactionId => {
+                        const reactionProb = reactions[reactionId] / 100;
+                        const finalProb = persProb * reactionProb * 100;
+                        const category = outcomeCategories[reactionId];
+                        outcomes[category] += finalProb;
+                    });
+                }
+            });
+            
+            return outcomes;
+        }
+        
+        // Get probability % for a personality given response (used in tree view)
+        function getPersonalityProb(persId) {
+            return personalityProbs[persId] || 0;
+        }
+        
+        // Get reaction probability for a specific path
+        function getReactionProb(responseId, persId, reactionId) {
+            return reactionProbs[responseId]?.[persId]?.[reactionId] || 0;
+        }
+        
+        // Get final % for a Layer 4 node (L3 × L4)
+        function getFinalProb(responseId, persId, reactionId) {
+            const l3Prob = personalityProbs[persId] || 0;
+            const l4Prob = reactionProbs[responseId]?.[persId]?.[reactionId] || 0;
+            return (l3Prob * l4Prob / 100).toFixed(1);
+        }
+        
+        let activeFilters = { 1: [], 2: [], 3: [], 4: [], outcome: [] };
+        let undoStack = [];
+        let redoStack = [];
+        let changeLog = [];
+        
+        // ========== INITIALIZATION ==========
+        document.addEventListener('DOMContentLoaded', () => {
+            saveStateForUndo();
+            buildFilterSidebar();
+            buildCompactCards();
+            addProbabilityBadges();
+        });
+        
+        // ========== ADD PROBABILITY BADGES ==========
+        function addProbabilityBadges() {
+            // Add probability badges ON THE BRANCH for Layer 3 (Personality) nodes
+            document.querySelectorAll('.tree-container .node[data-layer="3"]').forEach(node => {
+                const persId = node.dataset.id;
+                const prob = personalityProbs[persId];
+                
+                // Find the tree-child that contains this node and add badge to the branch line
+                const treeChild = node.closest('.tree-child');
+                
+                if (prob && treeChild && !treeChild.querySelector('.branch-prob-badge')) {
+                    const badge = document.createElement('span');
+                    badge.className = 'branch-prob-badge';
+                    badge.textContent = `${prob}%`;
+                    badge.title = `${prob}% chance of this personality`;
+                    badge.style.cssText = `
+                        position: absolute;
+                        left: -5px;
+                        top: 50%;
+                        transform: translateY(-50%);
+                        background: rgba(15, 52, 96, 0.95);
+                        border: 1px solid #fbbf24;
+                        color: #fbbf24;
+                        font-size: 8px;
+                        font-weight: 700;
+                        padding: 1px 4px;
+                        border-radius: 8px;
+                        white-space: nowrap;
+                        z-index: 5;
+                    `;
+                    treeChild.style.position = 'relative';
+                    treeChild.appendChild(badge);
+                }
+            });
+            
+            // Add badges for Layer 4 (Reaction) nodes
+            // Branch: reaction probability | Box: final probability
+            document.querySelectorAll('.tree-container .node[data-layer="4"]').forEach(node => {
+                const reactionId = node.dataset.id;
+                
+                // Walk up to find parent personality and response
+                let current = node.closest('.tree-child');
+                let persId = null;
+                let responseId = null;
+                
+                while (current && (!persId || !responseId)) {
+                    const parentNode = current.querySelector(':scope > .tree-node > .node, :scope > .node');
+                    if (parentNode) {
+                        const layer = parseInt(parentNode.dataset.layer);
+                        if (layer === 3) persId = parentNode.dataset.id;
+                        if (layer === 2) responseId = parentNode.dataset.id;
+                    }
+                    current = current.parentElement?.closest('.tree-child');
+                }
+                
+                if (responseId && persId && reactionId) {
+                    const l4Prob = reactionProbs[responseId]?.[persId]?.[reactionId] || 0;
+                    const l3Prob = personalityProbs[persId] || 0;
+                    const finalProb = (l3Prob * l4Prob / 100).toFixed(1);
+                    
+                    const treeChild = node.closest('.tree-child');
+                    
+                    // Add reaction probability ON THE BRANCH
+                    if (treeChild && !treeChild.querySelector('.branch-prob-badge')) {
+                        const branchBadge = document.createElement('span');
+                        branchBadge.className = 'branch-prob-badge';
+                        branchBadge.textContent = `${l4Prob}%`;
+                        branchBadge.title = `${l4Prob}% chance of this reaction given ${treeData.itemNames[persId]}`;
+                        branchBadge.style.cssText = `
+                            position: absolute;
+                            left: -5px;
+                            top: 50%;
+                            transform: translateY(-50%);
+                            background: rgba(15, 52, 96, 0.95);
+                            border: 1px solid #22d3ee;
+                            color: #22d3ee;
+                            font-size: 8px;
+                            font-weight: 700;
+                            padding: 1px 4px;
+                            border-radius: 8px;
+                            white-space: nowrap;
+                            z-index: 5;
+                        `;
+                        treeChild.style.position = 'relative';
+                        treeChild.appendChild(branchBadge);
+                    }
+                    
+                    // Add FINAL probability INSIDE THE BOX (top right)
+                    if (!node.querySelector('.final-prob-badge')) {
+                        const finalBadge = document.createElement('span');
+                        finalBadge.className = 'final-prob-badge';
+                        finalBadge.textContent = `${finalProb}%`;
+                        finalBadge.title = `Final: ${l3Prob}% × ${l4Prob}% = ${finalProb}%`;
+                        node.appendChild(finalBadge);
+                    }
+                    
+                    // Apply outcome category class based on reaction-id
+                    const category = outcomeCategories[reactionId];
+                    if (category) {
+                        node.classList.remove('outcome-best', 'outcome-good', 'outcome-neutral', 'outcome-risky', 'outcome-bad');
+                        node.classList.add(`outcome-${category}`);
+                    }
+                }
+            });
+        }
+        
+        // ========== COMPACT CARDS WITH PIE CHARTS ==========
+        function buildCompactCards() {
+            const container = document.getElementById('compactCardsContainer');
+            container.innerHTML = '';
+            
+            const responses = [
+                { id: 'response-1', rank: '#1 ⭐', title: 'Disappoint + Help', recommended: true, subtitle: 'RECOMMENDED' },
+                { id: 'response-2', rank: '#2', title: 'Warm + Help', recommended: false },
+                { id: 'response-3', rank: '#3', title: 'Warm + Disappoint', recommended: false },
+                { id: 'response-4', rank: '#4', title: 'Warm & Brief', recommended: false },
+                { id: 'response-5', rank: '#5', title: 'Challenge', recommended: false, subtitle: '⚠️ HIGH RISK' }
+            ];
+            
+            responses.forEach(resp => {
+                const outcomes = calculateOutcomes(resp.id);
+                const card = document.createElement('div');
+                card.className = 'response-card' + (resp.recommended ? ' recommended' : '');
+                card.dataset.responseId = resp.id;
+                
+                // Build pie chart gradient
+                const pieGradient = buildPieGradient(outcomes);
+                
+                // Calculate "success rate" (best + good)
+                const successRate = (outcomes.best + outcomes.good).toFixed(0);
+                
+                // Calculate outcomes for each intention
+                const outcomesA = calculateOutcomesForIntention(resp.id, 'intention-a');
+                const outcomesC = calculateOutcomesForIntention(resp.id, 'intention-c');
+                const outcomesB = calculateOutcomesForIntention(resp.id, 'intention-b');
+                
+                const successA = (outcomesA.best + outcomesA.good).toFixed(0);
+                const successC = (outcomesC.best + outcomesC.good).toFixed(0);
+                const successB = (outcomesB.best + outcomesB.good).toFixed(0);
+                
+                card.innerHTML = `
+                    <div class="card-header">
+                        <span class="card-rank">${resp.rank}</span>
+                        <span class="card-title">${resp.title}</span>
+                        ${resp.subtitle ? `<span class="card-subtitle">${resp.subtitle}</span>` : ''}
+                    </div>
+                    
+                    <!-- Intention-specific mini pie charts -->
+                    <div class="intention-pies-section">
+                        <div class="intention-pies-title">If his intention is...</div>
+                        <div class="intention-pies-grid">
+                            <div class="mini-pie-container">
+                                <div class="mini-pie intention-a" style="background: ${buildPieGradient(outcomesA)};" title="If A: Genuine"></div>
+                                <span class="mini-pie-label intention-a">A: Genuine</span>
+                                <span class="mini-pie-success" style="color: ${successA >= 50 ? '#4ade80' : '#fbbf24'};">${successA}%</span>
+                            </div>
+                            <div class="mini-pie-container">
+                                <div class="mini-pie intention-c" style="background: ${buildPieGradient(outcomesC)};" title="If C: Unsure"></div>
+                                <span class="mini-pie-label intention-c">C: Unsure</span>
+                                <span class="mini-pie-success" style="color: ${successC >= 50 ? '#4ade80' : successC >= 30 ? '#fbbf24' : '#ef4444'};">${successC}%</span>
+                            </div>
+                            <div class="mini-pie-container">
+                                <div class="mini-pie intention-b" style="background: ${buildPieGradient(outcomesB)};" title="If B: Soft No"></div>
+                                <span class="mini-pie-label intention-b">B: Soft No</span>
+                                <span class="mini-pie-success" style="color: ${successB >= 30 ? '#fbbf24' : '#ef4444'};">${successB}%</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Main pie chart (overall weighted) -->
+                    <div class="card-pie-section">
+                        <div class="pie-chart" style="background: ${pieGradient};" title="Overall Outcome Distribution"></div>
+                        <div class="pie-legend">
+                            <div class="pie-legend-item">
+                                <div class="pie-legend-dot" style="background: #4ade80;"></div>
+                                <span class="pie-legend-label">Best</span>
+                                <span class="pie-legend-value best">${outcomes.best.toFixed(1)}%</span>
+                            </div>
+                            <div class="pie-legend-item">
+                                <div class="pie-legend-dot" style="background: #22d3ee;"></div>
+                                <span class="pie-legend-label">Good</span>
+                                <span class="pie-legend-value good">${outcomes.good.toFixed(1)}%</span>
+                            </div>
+                            <div class="pie-legend-item">
+                                <div class="pie-legend-dot" style="background: #6b7280;"></div>
+                                <span class="pie-legend-label">Neutral</span>
+                                <span class="pie-legend-value neutral">${outcomes.neutral.toFixed(1)}%</span>
+                            </div>
+                            <div class="pie-legend-item">
+                                <div class="pie-legend-dot" style="background: #fbbf24;"></div>
+                                <span class="pie-legend-label">Risky</span>
+                                <span class="pie-legend-value risky">${outcomes.risky.toFixed(1)}%</span>
+                            </div>
+                            <div class="pie-legend-item">
+                                <div class="pie-legend-dot" style="background: #ef4444;"></div>
+                                <span class="pie-legend-label">Bad</span>
+                                <span class="pie-legend-value bad">${outcomes.bad.toFixed(1)}%</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="text-align: center; margin-top: 10px; padding-top: 10px; border-top: 1px solid #0f3460;">
+                        <span style="font-size: 11px; color: #8892b0;">Overall Success Rate: </span>
+                        <span style="font-size: 14px; font-weight: 700; color: ${successRate >= 50 ? '#4ade80' : successRate >= 30 ? '#fbbf24' : '#ef4444'};">${successRate}%</span>
+                    </div>
+                `;
+                
+                container.appendChild(card);
+            });
+        }
+        
+        function buildPieGradient(outcomes) {
+            // Build conic-gradient for pie chart
+            let current = 0;
+            const segments = [];
+            
+            const order = ['best', 'good', 'neutral', 'risky', 'bad'];
+            order.forEach(cat => {
+                const pct = outcomes[cat];
+                if (pct > 0) {
+                    segments.push(`${categoryColors[cat]} ${current}% ${current + pct}%`);
+                    current += pct;
+                }
+            });
+            
+            // Fill any remaining (rounding errors)
+            if (current < 100) {
+                segments.push(`#1a1a2e ${current}% 100%`);
+            }
+            
+            return `conic-gradient(${segments.join(', ')})`;
+        }
+        
+        // ========== FILTER SIDEBAR (Phase 2: Complete) ==========
+        function buildFilterSidebar() {
+            const container = document.getElementById('filterContent');
+            container.innerHTML = '';
+            
+            // Build each layer section
+            Object.keys(treeData.layers).forEach(layerNum => {
+                const layer = treeData.layers[layerNum];
+                const section = document.createElement('div');
+                section.className = 'filter-section';
+                section.dataset.layer = layerNum;
+                
+                // Section title with layer badge color
+                const layerColors = { 0: '#e94560', 1: '#4ade80', 2: '#60a5fa', 3: '#fbbf24', 4: '#a78bfa' };
+                section.innerHTML = `
+                    <div class="filter-section-title" style="border-left: 3px solid ${layerColors[layerNum]}; padding-left: 8px;">
+                        Layer ${layerNum}: ${layer.name}
+                    </div>
+                `;
+                
+                // Add checkboxes for each item
+                layer.items.forEach(itemId => {
+                    const itemName = treeData.itemNames[itemId] || itemId;
+                    const itemDiv = document.createElement('label');
+                    itemDiv.className = 'filter-item';
+                    itemDiv.innerHTML = `
+                        <input type="checkbox" 
+                               data-layer="${layerNum}" 
+                               data-id="${itemId}"
+                               onchange="toggleFilter(${layerNum}, '${itemId}', this.checked)">
+                        <span>${getItemIcon(layerNum, itemId)} ${itemName}</span>
+                    `;
+                    section.appendChild(itemDiv);
+                });
+                
+                // Add "+ Add" button for each layer (except trigger)
+                if (parseInt(layerNum) > 0) {
+                    const addBtn = document.createElement('button');
+                    addBtn.className = 'add-filter-btn';
+                    addBtn.innerHTML = `<span>+</span> Add ${layer.name}`;
+                    addBtn.onclick = () => openAddModal(parseInt(layerNum));
+                    section.appendChild(addBtn);
+                }
+                
+                container.appendChild(section);
+            });
+            
+            // Add quick actions at bottom
+            const quickActions = document.createElement('div');
+            quickActions.className = 'filter-section';
+            quickActions.innerHTML = `
+                <div class="filter-section-title" style="color:#e94560;">Quick Actions</div>
+                <button class="add-filter-btn" onclick="selectAllInLayer(1)" style="border-color:#4ade80;">Select All Intentions</button>
+                <button class="add-filter-btn" onclick="selectAllInLayer(2)" style="border-color:#60a5fa;">Select All Responses</button>
+                <button class="add-filter-btn" onclick="selectAllInLayer(3)" style="border-color:#fbbf24;">Select All Personalities</button>
+            `;
+            container.appendChild(quickActions);
+            
+            // Add Outcome Category Filter
+            const outcomeSection = document.createElement('div');
+            outcomeSection.className = 'filter-section';
+            outcomeSection.innerHTML = `
+                <div class="filter-section-title" style="border-left: 3px solid #e94560; padding-left: 8px;">
+                    🎯 Filter by Outcome
+                </div>
+            `;
+            
+            const outcomeTypes = [
+                { id: 'best', icon: '🟢', label: 'Best (Accepts Eagerly)', color: '#4ade80' },
+                { id: 'good', icon: '🔵', label: 'Good (Accepts Softly)', color: '#22d3ee' },
+                { id: 'neutral', icon: '⚫', label: 'Neutral (Declines + Feb)', color: '#6b7280' },
+                { id: 'risky', icon: '🟡', label: 'Risky (Vague Decline)', color: '#fbbf24' },
+                { id: 'bad', icon: '🔴', label: 'Bad (Silent/Blocked)', color: '#ef4444' }
+            ];
+            
+            outcomeTypes.forEach(outcome => {
+                const itemDiv = document.createElement('label');
+                itemDiv.className = 'filter-item';
+                itemDiv.innerHTML = `
+                    <input type="checkbox" 
+                           data-outcome="${outcome.id}"
+                           onchange="toggleOutcomeFilter('${outcome.id}', this.checked)">
+                    <span style="color: ${outcome.color};">${outcome.icon} ${outcome.label}</span>
+                `;
+                outcomeSection.appendChild(itemDiv);
+            });
+            
+            container.appendChild(outcomeSection);
+        }
+        
+        // Get icon/emoji for item based on layer and id
+        function getItemIcon(layer, id) {
+            const icons = {
+                'trigger': '📨',
+                'intention-a': '🥇',
+                'intention-c': '🥈', 
+                'intention-b': '🥉',
+                'response-1': '✓✓',
+                'response-2': '✓',
+                'response-3': '✓',
+                'response-4': '—',
+                'response-5': '!',
+                'personality-careful': '🧠',
+                'personality-family': '👨‍👩‍👦',
+                'personality-comparing': '⚖️',
+                'personality-avoider': '🚪',
+                'reaction-eager': '🎉',
+                'reaction-soft': '👍',
+                'reaction-feb': '📅',
+                'reaction-vague': '❓',
+                'reaction-silent': '🔇'
+            };
+            return icons[id] || '•';
+        }
+        
+        // Toggle filter checkbox
+        function toggleFilter(layer, itemId, checked) {
+            if (checked) {
+                if (!activeFilters[layer]) activeFilters[layer] = [];
+                if (!activeFilters[layer].includes(itemId)) {
+                    activeFilters[layer].push(itemId);
+                }
+            } else {
+                if (activeFilters[layer]) {
+                    activeFilters[layer] = activeFilters[layer].filter(id => id !== itemId);
+                }
+            }
+            updateFilterUI();
+            applyFilters();
+            updateFilterCount();
+        }
+        
+        // Update checkbox visual states
+        function updateFilterUI() {
+            document.querySelectorAll('.filter-item input[type="checkbox"]').forEach(checkbox => {
+                const layer = checkbox.dataset.layer;
+                const id = checkbox.dataset.id;
+                const isSelected = activeFilters[layer]?.includes(id);
+                checkbox.checked = isSelected;
+                checkbox.closest('.filter-item').classList.toggle('selected', isSelected);
+            });
+        }
+        
+        // Update filter count badge
+        function updateFilterCount() {
+            const total = Object.values(activeFilters).reduce((sum, arr) => {
+                if (Array.isArray(arr)) return sum + arr.length;
+                return sum;
+            }, 0);
+            const title = document.querySelector('.filter-title');
+            if (total > 0) {
+                title.innerHTML = `🔍 Filters <span style="background:#e94560;color:#fff;padding:2px 6px;border-radius:10px;font-size:10px;margin-left:5px;">${total}</span>
+                    <button class="clear-filters-btn" onclick="clearAllFilters()">Clear All</button>`;
+            } else {
+                title.innerHTML = `🔍 Filters <button class="clear-filters-btn" onclick="clearAllFilters()">Clear All</button>`;
+            }
+        }
+        
+        // Select all items in a layer
+        function selectAllInLayer(layer) {
+            const layerItems = treeData.layers[layer]?.items || [];
+            const allSelected = layerItems.every(id => activeFilters[layer]?.includes(id));
+            
+            if (allSelected) {
+                // Deselect all
+                activeFilters[layer] = [];
+            } else {
+                // Select all
+                activeFilters[layer] = [...layerItems];
+            }
+            
+            updateFilterUI();
+            applyFilters();
+            updateFilterCount();
+            showToast(allSelected ? `Cleared Layer ${layer}` : `Selected all in Layer ${layer}`);
+        }
+        
+        function clearAllFilters() {
+            activeFilters = { 0: [], 1: [], 2: [], 3: [], 4: [], outcome: [] };
+            updateFilterUI();
+            updateOutcomeFilterUI();
+            applyFilters();
+            updateFilterCount();
+            showToast('All filters cleared');
+        }
+        
+        // ========== OUTCOME CATEGORY FILTER ==========
+        function toggleOutcomeFilter(outcomeId, checked) {
+            if (!activeFilters.outcome) activeFilters.outcome = [];
+            
+            if (checked) {
+                if (!activeFilters.outcome.includes(outcomeId)) {
+                    activeFilters.outcome.push(outcomeId);
+                }
+            } else {
+                activeFilters.outcome = activeFilters.outcome.filter(id => id !== outcomeId);
+            }
+            updateOutcomeFilterUI();
+            applyFilters();
+            updateFilterCount();
+        }
+        
+        function updateOutcomeFilterUI() {
+            document.querySelectorAll('.filter-item input[data-outcome]').forEach(checkbox => {
+                const outcomeId = checkbox.dataset.outcome;
+                const isSelected = activeFilters.outcome?.includes(outcomeId);
+                checkbox.checked = isSelected;
+                checkbox.closest('.filter-item').classList.toggle('selected', isSelected);
+            });
+        }
+        
+        // Toggle sidebar collapse
+        function toggleSidebar() {
+            const sidebar = document.getElementById('filterSidebar');
+            sidebar.classList.toggle('collapsed');
+            document.body.classList.toggle('sidebar-collapsed');
+        }
+        
+        function applyFilters() {
+            // Check if any filters are active (including outcome filters)
+            const hasLayerFilters = Object.keys(activeFilters)
+                .filter(k => k !== 'outcome')
+                .some(k => activeFilters[k] && activeFilters[k].length > 0);
+            const hasOutcomeFilters = activeFilters.outcome && activeFilters.outcome.length > 0;
+            const hasActiveFilters = hasLayerFilters || hasOutcomeFilters;
+            
+            // Reset all visibility first
+            document.querySelectorAll('.tree-child').forEach(el => el.classList.remove('hidden'));
+            document.querySelectorAll('.tree-children').forEach(el => el.classList.remove('hidden'));
+            
+            if (!hasActiveFilters) {
+                showToast('Showing all paths');
+                return;
+            }
+            
+            // ========== OUTCOME FILTERING ==========
+            // If outcome filters are active, first identify which Layer 4 reactions match
+            let allowedReactions = [];
+            if (hasOutcomeFilters) {
+                // Map outcome categories to reaction IDs
+                const outcomeToReaction = {
+                    'best': 'reaction-eager',
+                    'good': 'reaction-soft',
+                    'neutral': 'reaction-feb',
+                    'risky': 'reaction-vague',
+                    'bad': 'reaction-silent'
+                };
+                activeFilters.outcome.forEach(outcat => {
+                    if (outcomeToReaction[outcat]) {
+                        allowedReactions.push(outcomeToReaction[outcat]);
+                    }
+                });
+            }
+            
+            // Get all tree-child elements (these are the actual branches)
+            const allBranches = document.querySelectorAll('.tree-child');
+            
+            // For each branch, check if it should be visible
+            allBranches.forEach(branch => {
+                const node = branch.querySelector(':scope > .node, :scope > .tree-node > .node');
+                if (!node) return;
+                
+                const nodeLayer = parseInt(node.dataset.layer);
+                const nodeId = node.dataset.id;
+                const layerFilters = activeFilters[nodeLayer] || [];
+                
+                // Layer-based filtering
+                if (layerFilters.length > 0 && !layerFilters.includes(nodeId)) {
+                    branch.classList.add('hidden');
+                }
+                
+                // Outcome-based filtering (only for Layer 4 nodes)
+                if (nodeLayer === 4 && allowedReactions.length > 0) {
+                    if (!allowedReactions.includes(nodeId)) {
+                        branch.classList.add('hidden');
+                    }
+                }
+            });
+            
+            // If outcome filter is active, also hide paths that don't lead to valid Layer 4 outcomes
+            if (hasOutcomeFilters) {
+                // Work backwards: hide Layer 3, 2, 1 nodes that have no visible Layer 4 children
+                for (let layer = 3; layer >= 1; layer--) {
+                    document.querySelectorAll(`.tree-child`).forEach(branch => {
+                        const node = branch.querySelector(':scope > .node, :scope > .tree-node > .node');
+                        if (!node || parseInt(node.dataset.layer) !== layer) return;
+                        if (branch.classList.contains('hidden')) return;
+                        
+                        // Check if this branch has any visible children
+                        const childContainer = branch.querySelector('.tree-children');
+                        if (childContainer) {
+                            const visibleChildren = childContainer.querySelectorAll('.tree-child:not(.hidden)');
+                            if (visibleChildren.length === 0) {
+                                branch.classList.add('hidden');
+                            }
+                        }
+                    });
+                }
+            }
+            
+            // Second pass: for intersection logic across layers
+            // If we have filters in multiple layers, ensure parent-child relationships match
+            const activeLayers = Object.keys(activeFilters)
+                .filter(l => l !== 'outcome' && activeFilters[l] && activeFilters[l].length > 0)
+                .map(Number)
+                .sort((a, b) => a - b);
+            
+            if (activeLayers.length > 1) {
+                // Check each visible branch to ensure its ancestors/descendants are also valid
+                document.querySelectorAll('.tree-child:not(.hidden)').forEach(branch => {
+                    const node = branch.querySelector(':scope > .node, :scope > .tree-node > .node');
+                    if (!node) return;
+                    
+                    const nodeLayer = parseInt(node.dataset.layer);
+                    
+                    // Check if this branch leads to any selected items in lower layers
+                    let hasValidDescendant = true;
+                    const lowerFilteredLayers = activeLayers.filter(l => l > nodeLayer);
+                    
+                    if (lowerFilteredLayers.length > 0) {
+                        // Check if any descendant matches the filters
+                        const childrenContainer = branch.querySelector('.tree-children');
+                        if (childrenContainer) {
+                            const visibleDescendants = childrenContainer.querySelectorAll('.tree-child:not(.hidden)');
+                            hasValidDescendant = visibleDescendants.length > 0;
+                        } else if (nodeLayer < Math.max(...lowerFilteredLayers)) {
+                            // This node has no children container but there are filters below
+                            hasValidDescendant = false;
+                        }
+                    }
+                    
+                    // Check if this branch comes from a valid ancestor
+                    let hasValidAncestor = true;
+                    const higherFilteredLayers = activeLayers.filter(l => l < nodeLayer);
+                    
+                    if (higherFilteredLayers.length > 0) {
+                        // Walk up the tree and check if all filtered ancestors are selected
+                        let current = branch.parentElement?.closest('.tree-child');
+                        while (current) {
+                            if (current.classList.contains('hidden')) {
+                                hasValidAncestor = false;
+                                break;
+                            }
+                            current = current.parentElement?.closest('.tree-child');
+                        }
+                    }
+                    
+                    if (!hasValidDescendant || !hasValidAncestor) {
+                        branch.classList.add('hidden');
+                    }
+                });
+            }
+            
+            // Count visible nodes
+            const visibleCount = document.querySelectorAll('.tree-child:not(.hidden)').length;
+            showToast(`Showing ${visibleCount} branches`);
+        }
+        
+        // ========== VIEW SWITCHING ==========
+        function switchView(view) {
+            document.body.classList.remove('compact-view', 'tree-view-mode');
+            document.body.classList.add(view);
+            document.querySelectorAll('.toggle-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+        }
+        
+        // ========== UNDO/REDO ==========
+        function getTreeState() {
+            return document.querySelector('.tree-container').innerHTML;
+        }
+        
+        function setTreeState(state) {
+            document.querySelector('.tree-container').innerHTML = state;
+        }
+        
+        function saveStateForUndo() {
+            undoStack.push(getTreeState());
+            if (undoStack.length > 50) undoStack.shift();
+            redoStack = [];
+            updateUndoRedoButtons();
+        }
+        
+        function undo() {
+            if (undoStack.length > 1) {
+                redoStack.push(undoStack.pop());
+                setTreeState(undoStack[undoStack.length - 1]);
+                updateUndoRedoButtons();
+                markUnsaved();
+                showToast('Undone');
+            }
+        }
+        
+        function redo() {
+            if (redoStack.length > 0) {
+                const state = redoStack.pop();
+                undoStack.push(state);
+                setTreeState(state);
+                updateUndoRedoButtons();
+                markUnsaved();
+                showToast('Redone');
+            }
+        }
+        
+        function updateUndoRedoButtons() {
+            document.getElementById('undoBtn').disabled = undoStack.length <= 1;
+            document.getElementById('redoBtn').disabled = redoStack.length === 0;
+        }
+        
+        document.addEventListener('keydown', (e) => {
+            if (e.metaKey || e.ctrlKey) {
+                if (e.key === 'z' && !e.shiftKey) { e.preventDefault(); undo(); }
+                else if (e.key === 'z' && e.shiftKey) { e.preventDefault(); redo(); }
+                else if (e.key === 's') { e.preventDefault(); saveAndNotify(); }
+            }
+        });
+        
+        // ========== SAVE/LOAD ==========
+        function markUnsaved() { document.getElementById('unsavedIndicator').classList.add('visible'); }
+        function markSaved() { document.getElementById('unsavedIndicator').classList.remove('visible'); }
+        
+        function saveAndNotify() {
+            localStorage.setItem('logicTreeState', getTreeState());
+            if (changeLog.length === 0) { showToast('Saved'); markSaved(); return; }
+            document.getElementById('changelogText').textContent = `📋 CHANGES:\n${changeLog.join('\n')}`;
+            document.getElementById('changelogModal').classList.add('visible');
+            markSaved();
+        }
+        
+        function closeChangelog() {
+            document.getElementById('changelogModal').classList.remove('visible');
+            changeLog = [];
+        }
+        
+        function copyChangelog() {
+            navigator.clipboard.writeText(document.getElementById('changelogText').textContent);
+            showToast('Copied!');
+            closeChangelog();
+        }
+        
+        function saveAs() {
+            const filename = `LogicTree_${new Date().toISOString().replace(/[:.]/g,'-')}.html`;
+            const blob = new Blob([document.documentElement.outerHTML], {type:'text/html'});
+            const a = document.createElement('a');
+            a.href = URL.createObjectURL(blob);
+            a.download = filename;
+            a.click();
+            showToast(`Saved: ${filename}`);
+        }
+        
+        function openSavedVersions() {
+            const input = document.createElement('input');
+            input.type = 'file';
+            input.accept = '.html';
+            input.onchange = (e) => {
+                const file = e.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = (ev) => {
+                        const doc = new DOMParser().parseFromString(ev.target.result, 'text/html');
+                        const tree = doc.querySelector('.tree-container')?.innerHTML;
+                        if (tree) {
+                            saveStateForUndo();
+                            setTreeState(tree);
+                            showToast(`Loaded: ${file.name}`);
+                            markUnsaved();
+                        }
+                    };
+                    reader.readAsText(file);
+                }
+            };
+            input.click();
+        }
+        
+        function resetTree() { if (confirm('Reset? Cannot undo.')) location.reload(); }
+        
+        // ========== AI ESTIMATION ==========
+        let estimatedProbs = null;
+        
+        async function estimateWithAI() {
+            const apiKey = document.getElementById('openaiApiKey').value.trim();
+            const title = document.getElementById('addItemTitle').value.trim();
+            const desc = document.getElementById('addItemDesc').value.trim();
+            const status = document.getElementById('aiStatus');
+            const btn = document.getElementById('aiEstimateBtn');
+            
+            if (!apiKey) {
+                status.className = 'ai-status error';
+                status.textContent = '❌ Please enter your Anthropic API key (get one at console.anthropic.com)';
+                return;
+            }
+            if (!title && !desc) {
+                status.className = 'ai-status error';
+                status.textContent = '❌ Please describe your response first';
+                return;
+            }
+            
+            btn.disabled = true;
+            status.className = 'ai-status loading';
+            status.textContent = '🔄 Analyzing with Claude...';
+            
+            const context = `
+You are analyzing a negotiation scenario. Young-Wook is a Korean healthtech startup founder who sent a message saying he's busy with a hackathon and wants to reconvene in February. Tomas (the user) wants to work with him ASAP, ideally getting paid.
+
+Young-Wook's possible intentions:
+- A (50%): Genuine Pause - truly busy but interested
+- C (30%): Unsure - weighing options
+- B (20%): Soft No - using as polite exit
+
+Young-Wook's personality types:
+- Careful Committer (35%): Thoughtful, values trust
+- Family First (30%): Prioritizes family time
+- Always Comparing (20%): Weighing alternatives
+- Polite Avoider (15%): Avoids confrontation
+
+Possible outcomes:
+- Best: Works with Tomas ASAP + pays him
+- Good: Works with Tomas ASAP (may not pay initially)
+- Neutral: Delays involvement to February
+- Risky: Gives vague non-committal response
+- Bad: Goes silent/blocks
+
+The user is considering this response strategy:
+Title: "${title}"
+Description: "${desc || 'No description provided'}"
+
+Based on this response strategy, estimate the probability distribution of outcomes. Consider how each personality type under each intention would likely react.
+
+Return ONLY a JSON object with exactly these 5 numbers that sum to 100:
+{"best": X, "good": X, "neutral": X, "risky": X, "bad": X}
+`;
+
+            try {
+                const response = await fetch('https://api.anthropic.com/v1/messages', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'x-api-key': apiKey,
+                        'anthropic-version': '2023-06-01',
+                        'anthropic-dangerous-direct-browser-access': 'true'
+                    },
+                    body: JSON.stringify({
+                        model: 'claude-sonnet-4-20250514',
+                        max_tokens: 150,
+                        messages: [{ role: 'user', content: context }]
+                    })
+                });
+                
+                if (!response.ok) {
+                    const err = await response.json();
+                    throw new Error(err.error?.message || 'API error');
+                }
+                
+                const data = await response.json();
+                const content = data.content[0].text.trim();
+                
+                // Parse JSON from response
+                const jsonMatch = content.match(/\{[\s\S]*\}/);
+                if (!jsonMatch) throw new Error('No JSON in response');
+                
+                estimatedProbs = JSON.parse(jsonMatch[0]);
+                
+                // Validate
+                const total = Object.values(estimatedProbs).reduce((a, b) => a + b, 0);
+                if (Math.abs(total - 100) > 2) {
+                    // Normalize
+                    const factor = 100 / total;
+                    for (let k in estimatedProbs) estimatedProbs[k] = Math.round(estimatedProbs[k] * factor);
+                }
+                
+                // Display results
+                document.getElementById('estBest').textContent = estimatedProbs.best + '%';
+                document.getElementById('estGood').textContent = estimatedProbs.good + '%';
+                document.getElementById('estNeutral').textContent = estimatedProbs.neutral + '%';
+                document.getElementById('estRisky').textContent = estimatedProbs.risky + '%';
+                document.getElementById('estBad').textContent = estimatedProbs.bad + '%';
+                document.getElementById('probPreview').style.display = 'block';
+                
+                status.className = 'ai-status success';
+                status.textContent = '✓ Claude analysis complete! These probabilities will be used when you add the response.';
+                
+                // Save API key for convenience
+                localStorage.setItem('anthropic_api_key', apiKey);
+                
+            } catch (err) {
+                status.className = 'ai-status error';
+                status.textContent = `❌ ${err.message}`;
+                estimatedProbs = null;
+            }
+            
+            btn.disabled = false;
+        }
+        
+        // ========== ADD MODAL (Phase 3) ==========
+        function openAddModal(layer) {
+            document.getElementById('addModalTitle').textContent = `Add to Layer ${layer}: ${treeData.layers[layer].name}`;
+            
+            // Show AI section only for Layer 2 (responses)
+            const aiSection = document.getElementById('aiSection');
+            if (layer === 2) {
+                aiSection.style.display = 'block';
+                // Restore saved API key
+                const savedKey = localStorage.getItem('anthropic_api_key');
+                if (savedKey) document.getElementById('openaiApiKey').value = savedKey;
+            } else {
+                aiSection.style.display = 'none';
+            }
+            
+            // Reset form
+            estimatedProbs = null;
+            document.getElementById('probPreview').style.display = 'none';
+            document.getElementById('aiStatus').className = 'ai-status';
+            document.getElementById('aiStatus').textContent = 'Enter your Anthropic API key and click Estimate to analyze outcome probabilities';
+            document.getElementById('addItemLayer').value = layer;
+            document.getElementById('addItemTitle').value = '';
+            document.getElementById('addItemDesc').value = '';
+            document.getElementById('addModal').classList.add('visible');
+        }
+        
+        function closeAddModal() {
+            document.getElementById('addModal').classList.remove('visible');
+        }
+        
+        function confirmAddItem() {
+            const layer = parseInt(document.getElementById('addItemLayer').value);
+            const title = document.getElementById('addItemTitle').value.trim();
+            const desc = document.getElementById('addItemDesc').value.trim();
+            
+            if (!title) {
+                showToast('Please enter a title');
+                return;
+            }
+            
+            // Generate unique ID
+            const layerPrefix = { 1: 'intention', 2: 'response', 3: 'personality', 4: 'reaction' };
+            const newId = `${layerPrefix[layer]}-custom-${Date.now()}`;
+            
+            // Add to treeData
+            treeData.layers[layer].items.push(newId);
+            treeData.itemNames[newId] = title;
+            
+            // Add to Compact View
+            const compactLayer = document.querySelector(`.compact-container .layer:nth-child(${layer * 2 + 1}) .nodes-grid`);
+            if (compactLayer) {
+                const newNode = document.createElement('div');
+                newNode.className = 'node';
+                newNode.dataset.layer = layer;
+                newNode.dataset.id = newId;
+                newNode.innerHTML = `
+                    <div class="rank-badge">+NEW</div>
+                    <div class="node-title">${title}</div>
+                    <div class="node-desc">${desc || 'Custom item'}</div>
+                `;
+                compactLayer.appendChild(newNode);
+            }
+            
+            // Add to Tree View - find appropriate parent containers and add
+            const treeChildrenContainers = document.querySelectorAll(`.tree-children[data-layer="${layer}"]`);
+            treeChildrenContainers.forEach(container => {
+                const parentNode = container.previousElementSibling?.querySelector('.node');
+                const parentId = parentNode?.dataset.id || 'trigger';
+                
+                const newChild = document.createElement('div');
+                newChild.className = 'tree-child';
+                newChild.dataset.parent = parentId;
+                newChild.innerHTML = `
+                    <div class="node" data-layer="${layer}" data-id="${newId}">
+                        <div class="rank-badge">+NEW</div>
+                        <div class="node-title">${title}</div>
+                        <div class="node-desc">${desc || 'Custom'}</div>
+                    </div>
+                `;
+                container.appendChild(newChild);
+            });
+            
+            // Add to changelog
+            const timestamp = new Date().toLocaleTimeString();
+            changeLog.push(`[${timestamp}] Added to Layer ${layer} (${treeData.layers[layer].name}): "${title}"`);
+            
+            // Rebuild filter sidebar to include new item
+            buildFilterSidebar();
+            
+            // Save state for undo
+            saveStateForUndo();
+            markUnsaved();
+            
+            closeAddModal();
+            showToast(`Added: ${title}`);
+        }
+        
+        // ========== TOAST ==========
+        function showToast(msg) {
+            const t = document.getElementById('toast');
+            t.textContent = msg;
+            t.classList.add('visible');
+            setTimeout(() => t.classList.remove('visible'), 3000);
+        }
+    </script>
+</body>
+</html>

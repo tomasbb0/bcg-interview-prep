@@ -1,0 +1,1321 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tomás Batalha — Three Realistic Futures</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family:
+          "Segoe UI",
+          -apple-system,
+          BlinkMacSystemFont,
+          sans-serif;
+        background: linear-gradient(
+          135deg,
+          #0a0a0a 0%,
+          #1a1a2e 50%,
+          #0a0a0a 100%
+        );
+        color: #e0e0e0;
+        min-height: 100vh;
+        line-height: 1.6;
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 40px 20px;
+      }
+
+      header {
+        text-align: center;
+        margin-bottom: 60px;
+        padding: 40px;
+        background: rgba(255, 255, 255, 0.03);
+        border-radius: 20px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      h1 {
+        font-size: 2.5rem;
+        font-weight: 300;
+        margin-bottom: 10px;
+        background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+
+      .subtitle {
+        font-size: 1.1rem;
+        color: #888;
+        margin-bottom: 30px;
+      }
+
+      .baseline {
+        background: rgba(102, 126, 234, 0.1);
+        border-radius: 12px;
+        padding: 20px;
+        text-align: left;
+        max-width: 700px;
+        margin: 0 auto;
+      }
+
+      .baseline h3 {
+        color: #667eea;
+        margin-bottom: 15px;
+        font-size: 0.9rem;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+      }
+
+      .baseline-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+        font-size: 0.9rem;
+      }
+
+      .baseline-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 8px;
+      }
+
+      .baseline-item span:first-child {
+        color: #667eea;
+        font-weight: 600;
+        min-width: 80px;
+      }
+
+      .timeline-section {
+        margin-bottom: 80px;
+      }
+
+      .timeline-header {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        margin-bottom: 30px;
+        padding: 30px;
+        border-radius: 16px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .timeline-header:hover {
+        transform: translateX(10px);
+      }
+
+      .timeline-1 .timeline-header {
+        background: linear-gradient(
+          135deg,
+          rgba(16, 185, 129, 0.2) 0%,
+          rgba(16, 185, 129, 0.05) 100%
+        );
+        border-left: 4px solid #10b981;
+      }
+
+      .timeline-2 .timeline-header {
+        background: linear-gradient(
+          135deg,
+          rgba(59, 130, 246, 0.2) 0%,
+          rgba(59, 130, 246, 0.05) 100%
+        );
+        border-left: 4px solid #3b82f6;
+      }
+
+      .timeline-3 .timeline-header {
+        background: linear-gradient(
+          135deg,
+          rgba(168, 85, 247, 0.2) 0%,
+          rgba(168, 85, 247, 0.05) 100%
+        );
+        border-left: 4px solid #a855f7;
+      }
+
+      .timeline-number {
+        font-size: 3rem;
+        font-weight: 700;
+        opacity: 0.3;
+      }
+
+      .timeline-1 .timeline-number {
+        color: #10b981;
+      }
+      .timeline-2 .timeline-number {
+        color: #3b82f6;
+      }
+      .timeline-3 .timeline-number {
+        color: #a855f7;
+      }
+
+      .timeline-title h2 {
+        font-size: 1.5rem;
+        font-weight: 600;
+        margin-bottom: 5px;
+      }
+
+      .timeline-title p {
+        color: #888;
+        font-size: 0.95rem;
+      }
+
+      .timeline-meta {
+        margin-left: auto;
+        text-align: right;
+        font-size: 0.85rem;
+      }
+
+      .timeline-meta .time {
+        font-weight: 600;
+        font-size: 1.1rem;
+      }
+
+      .timeline-1 .timeline-meta .time {
+        color: #10b981;
+      }
+      .timeline-2 .timeline-meta .time {
+        color: #3b82f6;
+      }
+      .timeline-3 .timeline-meta .time {
+        color: #a855f7;
+      }
+
+      .timeline-content {
+        padding-left: 40px;
+        border-left: 2px solid rgba(255, 255, 255, 0.1);
+        margin-left: 30px;
+      }
+
+      .timeline-event {
+        position: relative;
+        padding: 20px 25px;
+        margin-bottom: 15px;
+        background: rgba(255, 255, 255, 0.03);
+        border-radius: 12px;
+        transition: all 0.3s ease;
+      }
+
+      .timeline-event:hover {
+        background: rgba(255, 255, 255, 0.06);
+        transform: translateX(5px);
+      }
+
+      .timeline-event::before {
+        content: "";
+        position: absolute;
+        left: -33px;
+        top: 28px;
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        border: 2px solid;
+      }
+
+      .timeline-1 .timeline-event::before {
+        border-color: #10b981;
+        background: #0a0a0a;
+      }
+      .timeline-2 .timeline-event::before {
+        border-color: #3b82f6;
+        background: #0a0a0a;
+      }
+      .timeline-3 .timeline-event::before {
+        border-color: #a855f7;
+        background: #0a0a0a;
+      }
+
+      .timeline-event.milestone::before {
+        width: 16px;
+        height: 16px;
+        left: -35px;
+        top: 26px;
+      }
+
+      .timeline-1 .timeline-event.milestone::before {
+        background: #10b981;
+      }
+      .timeline-2 .timeline-event.milestone::before {
+        background: #3b82f6;
+      }
+      .timeline-3 .timeline-event.milestone::before {
+        background: #a855f7;
+      }
+
+      .event-date {
+        font-size: 0.8rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-bottom: 5px;
+      }
+
+      .timeline-1 .event-date {
+        color: #10b981;
+      }
+      .timeline-2 .event-date {
+        color: #3b82f6;
+      }
+      .timeline-3 .event-date {
+        color: #a855f7;
+      }
+
+      .event-age {
+        font-size: 0.75rem;
+        color: #666;
+        margin-left: 10px;
+      }
+
+      .event-description {
+        font-size: 0.95rem;
+        color: #ccc;
+      }
+
+      .event-metric {
+        display: inline-block;
+        background: rgba(255, 255, 255, 0.1);
+        padding: 2px 8px;
+        border-radius: 4px;
+        font-size: 0.85rem;
+        margin-top: 8px;
+        font-weight: 500;
+      }
+
+      .timeline-1 .event-metric {
+        color: #10b981;
+      }
+      .timeline-2 .event-metric {
+        color: #3b82f6;
+      }
+      .timeline-3 .event-metric {
+        color: #a855f7;
+      }
+
+      .outcome-box {
+        margin-top: 30px;
+        padding: 25px;
+        border-radius: 12px;
+        background: rgba(255, 255, 255, 0.05);
+      }
+
+      .outcome-box h4 {
+        font-size: 0.85rem;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        margin-bottom: 15px;
+        opacity: 0.7;
+      }
+
+      .outcome-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+      }
+
+      .outcome-item {
+        background: rgba(0, 0, 0, 0.3);
+        padding: 15px;
+        border-radius: 8px;
+      }
+
+      .outcome-label {
+        font-size: 0.75rem;
+        color: #888;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+
+      .outcome-value {
+        font-size: 1.3rem;
+        font-weight: 600;
+        margin-top: 5px;
+      }
+
+      .timeline-1 .outcome-value {
+        color: #10b981;
+      }
+      .timeline-2 .outcome-value {
+        color: #3b82f6;
+      }
+      .timeline-3 .outcome-value {
+        color: #a855f7;
+      }
+
+      .messy-middle {
+        margin-top: 80px;
+        padding: 40px;
+        background: rgba(239, 68, 68, 0.1);
+        border-radius: 20px;
+        border: 1px solid rgba(239, 68, 68, 0.3);
+      }
+
+      .messy-middle h2 {
+        color: #ef4444;
+        margin-bottom: 10px;
+      }
+
+      .messy-middle .subtitle {
+        margin-bottom: 30px;
+      }
+
+      .messy-grid {
+        display: grid;
+        gap: 15px;
+      }
+
+      .messy-item {
+        display: flex;
+        gap: 15px;
+        padding: 15px;
+        background: rgba(0, 0, 0, 0.3);
+        border-radius: 8px;
+      }
+
+      .messy-year {
+        font-weight: 600;
+        color: #ef4444;
+        min-width: 100px;
+      }
+
+      .skills-section {
+        margin-top: 80px;
+        padding: 40px;
+        background: rgba(255, 255, 255, 0.03);
+        border-radius: 20px;
+      }
+
+      .skills-section h2 {
+        margin-bottom: 30px;
+        color: #667eea;
+      }
+
+      .skills-table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+
+      .skills-table th,
+      .skills-table td {
+        padding: 15px;
+        text-align: left;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .skills-table th {
+        color: #888;
+        font-weight: 500;
+        font-size: 0.85rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+
+      .skills-table td:first-child {
+        color: #667eea;
+        font-weight: 500;
+      }
+
+      footer {
+        margin-top: 80px;
+        text-align: center;
+        padding: 40px;
+        color: #666;
+        font-size: 0.9rem;
+      }
+
+      footer p {
+        margin-bottom: 10px;
+      }
+
+      .nav-tabs {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        margin-bottom: 40px;
+        flex-wrap: wrap;
+      }
+
+      .nav-tab {
+        padding: 12px 24px;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        background: rgba(255, 255, 255, 0.03);
+        color: #888;
+        font-size: 0.9rem;
+      }
+
+      .nav-tab:hover {
+        background: rgba(255, 255, 255, 0.08);
+        color: #fff;
+      }
+
+      .nav-tab.active {
+        border-color: #667eea;
+        color: #667eea;
+      }
+
+      @media (max-width: 768px) {
+        h1 {
+          font-size: 1.8rem;
+        }
+        .baseline-grid {
+          grid-template-columns: 1fr;
+        }
+        .timeline-header {
+          flex-direction: column;
+          text-align: center;
+        }
+        .timeline-meta {
+          margin-left: 0;
+          text-align: center;
+          margin-top: 15px;
+        }
+        .outcome-grid {
+          grid-template-columns: 1fr;
+        }
+        .timeline-content {
+          margin-left: 15px;
+          padding-left: 25px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <h1>Three Realistic Futures</h1>
+        <p class="subtitle">Tomás Batalha — February 2026</p>
+
+        <div class="baseline">
+          <h3>Your Baseline</h3>
+          <div class="baseline-grid">
+            <div class="baseline-item">
+              <span>Age:</span>
+              <span>25 (turning 26)</span>
+            </div>
+            <div class="baseline-item">
+              <span>Status:</span>
+              <span>Unemployed, applying selectively</span>
+            </div>
+            <div class="baseline-item">
+              <span>Education:</span>
+              <span>NOVA BSc, Rotterdam MSc, NUS</span>
+            </div>
+            <div class="baseline-item">
+              <span>Experience:</span>
+              <span>EY, Amazon, Google, Pairwire</span>
+            </div>
+            <div class="baseline-item">
+              <span>Health:</span>
+              <span>OCD + ADHD, on medication</span>
+            </div>
+            <div class="baseline-item">
+              <span>Idea:</span>
+              <span>Mental health marketplace (PT)</span>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <nav class="nav-tabs">
+        <div class="nav-tab active" onclick="scrollToSection('timeline-1')">
+          🏥 Mental Health
+        </div>
+        <div class="nav-tab" onclick="scrollToSection('timeline-2')">
+          🤖 AI Sales
+        </div>
+        <div class="nav-tab" onclick="scrollToSection('timeline-3')">
+          🧬 Longevity
+        </div>
+        <div class="nav-tab" onclick="scrollToSection('messy')">
+          ⚡ Reality Check
+        </div>
+      </nav>
+
+      <!-- TIMELINE 1: MENTAL HEALTH -->
+      <section id="timeline-1" class="timeline-section timeline-1">
+        <div class="timeline-header">
+          <div class="timeline-number">01</div>
+          <div class="timeline-title">
+            <h2>The Mental Health Infrastructure Path</h2>
+            <p>From therapist tool to EU compliance platform</p>
+          </div>
+          <div class="timeline-meta">
+            <div class="time">11-15 years</div>
+            <div>to first €100M+</div>
+          </div>
+        </div>
+
+        <div class="timeline-content">
+          <div class="timeline-event">
+            <div class="event-date">
+              Feb–Apr 2026 <span class="event-age">Age 25</span>
+            </div>
+            <div class="event-description">
+              Keep applying to Anthropic, Google, Stripe. Get rejected from all.
+              Depression intensifies. Family interventions.
+            </div>
+          </div>
+
+          <div class="timeline-event">
+            <div class="event-date">
+              May 2026 <span class="event-age">Age 26</span>
+            </div>
+            <div class="event-description">
+              Finally accept a job at a mid-tier SaaS company in Lisbon. SDR
+              role. Hate it but need it.
+            </div>
+            <div class="event-metric">€28K salary</div>
+          </div>
+
+          <div class="timeline-event">
+            <div class="event-date">
+              May–Dec 2026 <span class="event-age">Age 26</span>
+            </div>
+            <div class="event-description">
+              Grind the SDR job. Use evenings to talk to 15 psychologists about
+              their problems. Learn: they hate admin, scheduling, patient
+              tracking.
+            </div>
+          </div>
+
+          <div class="timeline-event milestone">
+            <div class="event-date">
+              Jan 2027 <span class="event-age">Age 26</span>
+            </div>
+            <div class="event-description">
+              Quit the SDR job. Family furious. Move back with parents.
+            </div>
+            <div class="event-metric">€8K saved</div>
+          </div>
+
+          <div class="timeline-event">
+            <div class="event-date">
+              Feb–Jun 2027 <span class="event-age">Age 26-27</span>
+            </div>
+            <div class="event-description">
+              Build MVP of therapist practice management tool. Not a marketplace
+              — simpler. Just scheduling + notes + billing for Portuguese
+              therapists.
+            </div>
+          </div>
+
+          <div class="timeline-event">
+            <div class="event-date">
+              Jul 2027 <span class="event-age">Age 27</span>
+            </div>
+            <div class="event-description">
+              Launch. 3 psychologists use it (friends of your psychiatrist).
+              Free.
+            </div>
+          </div>
+
+          <div class="timeline-event milestone">
+            <div class="event-date">
+              Jan 2028 <span class="event-age">Age 27</span>
+            </div>
+            <div class="event-description">
+              89 paying users. Proof of concept validated.
+            </div>
+            <div class="event-metric">€2,500 MRR</div>
+          </div>
+
+          <div class="timeline-event">
+            <div class="event-date">
+              Mar 2028 <span class="event-age">Age 28</span>
+            </div>
+            <div class="event-description">
+              Apply to Portuguese startup accelerator (Demium or Beta-i). Get
+              in.
+            </div>
+            <div class="event-metric">€20K funding</div>
+          </div>
+
+          <div class="timeline-event">
+            <div class="event-date">
+              Jun 2028 <span class="event-age">Age 28</span>
+            </div>
+            <div class="event-description">
+              A clinic (not solo practitioners) asks for a multi-therapist
+              version. Build it in 8 weeks.
+            </div>
+            <div class="event-metric">€400/month contract</div>
+          </div>
+
+          <div class="timeline-event milestone">
+            <div class="event-date">
+              Dec 2028 <span class="event-age">Age 28</span>
+            </div>
+            <div class="event-description">
+              12 clinics, 230 solo practitioners. Hire first employee.
+            </div>
+            <div class="event-metric">€18K MRR</div>
+          </div>
+
+          <div class="timeline-event">
+            <div class="event-date">
+              2029 <span class="event-age">Age 28-29</span>
+            </div>
+            <div class="event-description">
+              Expand to Spain. Your Spanish is fluent from Amazon days. Slow but
+              steady growth.
+            </div>
+          </div>
+
+          <div class="timeline-event milestone">
+            <div class="event-date">
+              Jun 2029 <span class="event-age">Age 29</span>
+            </div>
+            <div class="event-description">
+              Portuguese health-tech fund leads seed round.
+            </div>
+            <div class="event-metric">€600K raised • 71% ownership</div>
+          </div>
+
+          <div class="timeline-event">
+            <div class="event-date">
+              2030 <span class="event-age">Age 29-30</span>
+            </div>
+            <div class="event-description">
+              40 clinics, 1,100 solo practitioners. 6 employees. Sustainable but
+              not rich.
+            </div>
+            <div class="event-metric">€85K MRR</div>
+          </div>
+
+          <div class="timeline-event milestone">
+            <div class="event-date">
+              2031 <span class="event-age">Age 30-31</span>
+            </div>
+            <div class="event-description">
+              B2B pivot: Corporate mental health departments need software to
+              manage EAP providers. You're already integrated with therapists.
+              Build the connector.
+            </div>
+          </div>
+
+          <div class="timeline-event milestone">
+            <div class="event-date">
+              2032 <span class="event-age">Age 31-32</span>
+            </div>
+            <div class="event-description">
+              EU Workplace Mental Health Directive passes. Companies scramble.
+              Your tool is one of 3 that's compliant.
+            </div>
+          </div>
+
+          <div class="timeline-event milestone">
+            <div class="event-date">
+              2033 <span class="event-age">Age 32-33</span>
+            </div>
+            <div class="event-description">Series A round.</div>
+            <div class="event-metric">
+              €8M at €40M valuation • 52% ownership
+            </div>
+          </div>
+
+          <div class="timeline-event">
+            <div class="event-date">
+              2035 <span class="event-age">Age 34-35</span>
+            </div>
+            <div class="event-description">
+              Series B round. Pan-European expansion complete.
+            </div>
+            <div class="event-metric">
+              €35M at €180M valuation • 38% ownership
+            </div>
+          </div>
+
+          <div class="timeline-event milestone">
+            <div class="event-date">
+              2037 <span class="event-age">Age 36-37</span>
+            </div>
+            <div class="event-description">
+              Acquisition offer from UnitedHealth or similar.
+            </div>
+            <div class="event-metric">
+              €400M exit • Your 38% = €152M pre-tax
+            </div>
+          </div>
+
+          <div class="outcome-box">
+            <h4>Outcome Summary</h4>
+            <div class="outcome-grid">
+              <div class="outcome-item">
+                <div class="outcome-label">Time to first millions</div>
+                <div class="outcome-value">11 years</div>
+              </div>
+              <div class="outcome-item">
+                <div class="outcome-label">Exit value (your stake)</div>
+                <div class="outcome-value">€152M</div>
+              </div>
+              <div class="outcome-item">
+                <div class="outcome-label">Billionaire probability</div>
+                <div class="outcome-value">~15%</div>
+              </div>
+              <div class="outcome-item">
+                <div class="outcome-label">Requires</div>
+                <div class="outcome-value">EU expansion + IPO</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TIMELINE 2: AI SALES -->
+      <section id="timeline-2" class="timeline-section timeline-2">
+        <div class="timeline-header">
+          <div class="timeline-number">02</div>
+          <div class="timeline-title">
+            <h2>The AI Sales Infrastructure Path</h2>
+            <p>From BDR to building the trust layer for AI</p>
+          </div>
+          <div class="timeline-meta">
+            <div class="time">12 years</div>
+            <div>to €100-300M exit</div>
+          </div>
+        </div>
+
+        <div class="timeline-content">
+          <div class="timeline-event">
+            <div class="event-date">
+              Feb–May 2026 <span class="event-age">Age 25-26</span>
+            </div>
+            <div class="event-description">
+              Apply to Anthropic BDR Dublin, Stripe, Google. Get to final round
+              at Anthropic. Rejected. "Not enough technical depth."
+            </div>
+          </div>
+
+          <div class="timeline-event milestone">
+            <div class="event-date">
+              Jun 2026 <span class="event-age">Age 26</span>
+            </div>
+            <div class="event-description">
+              Accept BDR role at a Series B AI startup. Move to Dublin.
+            </div>
+            <div class="event-metric">€45K + commission</div>
+          </div>
+
+          <div class="timeline-event">
+            <div class="event-date">
+              Jun–Dec 2026 <span class="event-age">Age 26</span>
+            </div>
+            <div class="event-description">
+              Learn the AI sales cycle. It's broken. Enterprise buyers don't
+              trust AI. Sales cycles are 9-14 months. Close 2 deals in 6 months.
+            </div>
+          </div>
+
+          <div class="timeline-event">
+            <div class="event-date">
+              2027 <span class="event-age">Age 26-27</span>
+            </div>
+            <div class="event-description">
+              Promoted to Account Executive. Start systematizing what works.
+              Build internal playbooks. Your manager notices.
+            </div>
+          </div>
+
+          <div class="timeline-event">
+            <div class="event-date">
+              Jan 2028 <span class="event-age">Age 27</span>
+            </div>
+            <div class="event-description">
+              The startup gets acquired. Small payout but valuable experience.
+            </div>
+            <div class="event-metric">€22K from options</div>
+          </div>
+
+          <div class="timeline-event milestone">
+            <div class="event-date">
+              Mar 2028 <span class="event-age">Age 28</span>
+            </div>
+            <div class="event-description">
+              Hired by larger AI company (Cohere, Mistral, or similar) as Senior
+              AE for EMEA.
+            </div>
+            <div class="event-metric">€90K base + €50K OTE</div>
+          </div>
+
+          <div class="timeline-event">
+            <div class="event-date">
+              2028–2029 <span class="event-age">Age 28-29</span>
+            </div>
+            <div class="event-description">
+              Become a top performer. Start getting asked to train new hires.
+            </div>
+            <div class="event-metric">€2.3M ARR closed</div>
+          </div>
+
+          <div class="timeline-event milestone">
+            <div class="event-date">
+              Oct 2029 <span class="event-age">Age 29</span>
+            </div>
+            <div class="event-description">
+              Leave to consult. First client: an AI startup that can't close
+              enterprise deals.
+            </div>
+            <div class="event-metric">€8K/month retainer</div>
+          </div>
+
+          <div class="timeline-event">
+            <div class="event-date">
+              2030 <span class="event-age">Age 29-30</span>
+            </div>
+            <div class="event-description">
+              4 consulting clients. Hire one junior to help with research.
+            </div>
+            <div class="event-metric">€32K/month revenue</div>
+          </div>
+
+          <div class="timeline-event milestone">
+            <div class="event-date">
+              Jun 2030 <span class="event-age">Age 30</span>
+            </div>
+            <div class="event-description">
+              Realize the methodology should be software. Start building "proof
+              room" tool — a deal room specifically for AI trust/compliance.
+            </div>
+          </div>
+
+          <div class="timeline-event">
+            <div class="event-date">
+              Dec 2030 <span class="event-age">Age 30</span>
+            </div>
+            <div class="event-description">
+              MVP live. 3 AI startups using it. Free beta.
+            </div>
+          </div>
+
+          <div class="timeline-event milestone">
+            <div class="event-date">
+              2031 <span class="event-age">Age 30-31</span>
+            </div>
+            <div class="event-description">
+              EU AI Act enforcement begins. Every AI company needs to prove
+              model safety to buyers. Your tool becomes relevant.
+            </div>
+          </div>
+
+          <div class="timeline-event">
+            <div class="event-date">
+              Jun 2031 <span class="event-age">Age 31</span>
+            </div>
+            <div class="event-description">
+              Raise seed from firstminute capital. Consulting revenue as
+              backstop reassures investors.
+            </div>
+            <div class="event-metric">€1.5M raised</div>
+          </div>
+
+          <div class="timeline-event milestone">
+            <div class="event-date">
+              2032 <span class="event-age">Age 31-32</span>
+            </div>
+            <div class="event-description">
+              Product-market fit. 67 AI companies paying €500-2K/month.
+            </div>
+            <div class="event-metric">€58K MRR</div>
+          </div>
+
+          <div class="timeline-event">
+            <div class="event-date">
+              2033 <span class="event-age">Age 32-33</span>
+            </div>
+            <div class="event-description">Series A round.</div>
+            <div class="event-metric">
+              €12M at €55M valuation • 48% ownership
+            </div>
+          </div>
+
+          <div class="timeline-event milestone">
+            <div class="event-date">
+              2035 <span class="event-age">Age 34-35</span>
+            </div>
+            <div class="event-description">
+              Platform becomes standard infrastructure. 400+ AI companies.
+            </div>
+            <div class="event-metric">
+              €3.2M ARR • €220M valuation • 34% ownership
+            </div>
+          </div>
+
+          <div class="timeline-event milestone">
+            <div class="event-date">
+              2038 <span class="event-age">Age 37-38</span>
+            </div>
+            <div class="event-description">
+              Acquired by Salesforce/DocuSign.
+            </div>
+            <div class="event-metric">€600M exit • Your cut: €200M+</div>
+          </div>
+
+          <div class="outcome-box">
+            <h4>Outcome Summary</h4>
+            <div class="outcome-grid">
+              <div class="outcome-item">
+                <div class="outcome-label">Time to first millions</div>
+                <div class="outcome-value">12 years</div>
+              </div>
+              <div class="outcome-item">
+                <div class="outcome-label">Exit value (your stake)</div>
+                <div class="outcome-value">€200M+</div>
+              </div>
+              <div class="outcome-item">
+                <div class="outcome-label">Billionaire probability</div>
+                <div class="outcome-value">~5%</div>
+              </div>
+              <div class="outcome-item">
+                <div class="outcome-label">More likely</div>
+                <div class="outcome-value">€100-300M, then invest</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TIMELINE 3: LONGEVITY -->
+      <section id="timeline-3" class="timeline-section timeline-3">
+        <div class="timeline-header">
+          <div class="timeline-number">03</div>
+          <div class="timeline-title">
+            <h2>The Longevity Ecosystem Path</h2>
+            <p>Longest, riskiest, highest ceiling</p>
+          </div>
+          <div class="timeline-meta">
+            <div class="time">15-20 years</div>
+            <div>to potential billionaire</div>
+          </div>
+        </div>
+
+        <div class="timeline-content">
+          <div class="timeline-event">
+            <div class="event-date">
+              Feb–Aug 2026 <span class="event-age">Age 25-26</span>
+            </div>
+            <div class="event-description">
+              Keep applying to top companies. Keep getting rejected. Take
+              consulting gigs to buy time.
+            </div>
+            <div class="event-metric">€3-5K/month</div>
+          </div>
+
+          <div class="timeline-event">
+            <div class="event-date">
+              Sep 2026 <span class="event-age">Age 26</span>
+            </div>
+            <div class="event-description">
+              Start reading longevity research again. Your old obsession from
+              age 17. Ask: "What's the business infrastructure problem, not the
+              science problem?"
+            </div>
+          </div>
+
+          <div class="timeline-event milestone">
+            <div class="event-date">
+              Dec 2026 <span class="event-age">Age 26</span>
+            </div>
+            <div class="event-description">
+              Answer: European founders can't access US longevity capital. US
+              longevity companies can't access cheap European clinical trials.
+            </div>
+          </div>
+
+          <div class="timeline-event">
+            <div class="event-date">
+              2027 <span class="event-age">Age 26-27</span>
+            </div>
+            <div class="event-description">
+              Keep doing consulting. Save money. Start a blog/newsletter about
+              longevity investing for European audiences.
+            </div>
+            <div class="event-metric">400 subscribers</div>
+          </div>
+
+          <div class="timeline-event milestone">
+            <div class="event-date">
+              Jan 2028 <span class="event-age">Age 27</span>
+            </div>
+            <div class="event-description">
+              Pitch your first syndicate: "I'll find and diligence longevity
+              seed deals. You invest. I take 20% carry."
+            </div>
+            <div class="event-metric">6 LPs • €180K committed</div>
+          </div>
+
+          <div class="timeline-event">
+            <div class="event-date">
+              2028 <span class="event-age">Age 27-28</span>
+            </div>
+            <div class="event-description">
+              Invest in 3 longevity startups. Small checks (€30-50K each). Deep
+              diligence using Pairwire skills. Your memos circulate.
+            </div>
+          </div>
+
+          <div class="timeline-event">
+            <div class="event-date">
+              2029 <span class="event-age">Age 28-29</span>
+            </div>
+            <div class="event-description">
+              Second fund. Start taking management fee (2%).
+            </div>
+            <div class="event-metric">
+              14 LPs • €1.2M AUM • €24K/year to live
+            </div>
+          </div>
+
+          <div class="timeline-event milestone">
+            <div class="event-date">
+              2030 <span class="event-age">Age 29-30</span>
+            </div>
+            <div class="event-description">
+              One Year 1 investment (senolytics company) raises Series A at 4x
+              your entry. LPs happy. Third fund closes.
+            </div>
+            <div class="event-metric">€4M AUM</div>
+          </div>
+
+          <div class="timeline-event">
+            <div class="event-date">
+              2031 <span class="event-age">Age 30-31</span>
+            </div>
+            <div class="event-description">
+              Realize the real bottleneck: clinical trial operations in Europe
+              are fragmented. No one specializes in aging trials.
+            </div>
+          </div>
+
+          <div class="timeline-event milestone">
+            <div class="event-date">
+              2032 <span class="event-age">Age 31-32</span>
+            </div>
+            <div class="event-description">
+              Partner with a Portuguese biotech ops person. Start "LongPath CRO"
+              — contract research for longevity trials. Bootstrap with
+              management fees.
+            </div>
+            <div class="event-metric">€200K initial capital</div>
+          </div>
+
+          <div class="timeline-event">
+            <div class="event-date">
+              2033 <span class="event-age">Age 32-33</span>
+            </div>
+            <div class="event-description">
+              LongPath runs 3 trials. Profitable from year 1.
+            </div>
+            <div class="event-metric">€1.8M revenue</div>
+          </div>
+
+          <div class="timeline-event">
+            <div class="event-date">
+              2035 <span class="event-age">Age 34-35</span>
+            </div>
+            <div class="event-description">
+              Fund IV closes. LongPath growing steadily. You're now "the
+              longevity guy in Europe."
+            </div>
+            <div class="event-metric">€18M AUM • €7M LongPath revenue</div>
+          </div>
+
+          <div class="timeline-event milestone">
+            <div class="event-date">
+              2037 <span class="event-age">Age 36-37</span>
+            </div>
+            <div class="event-description">
+              Fund V closes. LongPath acquired by Lonza or similar.
+            </div>
+            <div class="event-metric">
+              €45M AUM • LongPath exit: €35M (60% = €21M)
+            </div>
+          </div>
+
+          <div class="timeline-event">
+            <div class="event-date">
+              2040 <span class="event-age">Age 39-40</span>
+            </div>
+            <div class="event-description">
+              Fund VI. You're now a legitimate institutional investor. Carry
+              from Funds I-V starts paying out as companies exit.
+            </div>
+            <div class="event-metric">€120M AUM</div>
+          </div>
+
+          <div class="timeline-event milestone">
+            <div class="event-date">
+              2045 <span class="event-age">Age 44-45</span>
+            </div>
+            <div class="event-description">
+              If one portfolio company becomes a longevity breakthrough (10x+
+              return), your carry could be €200M+. If multiple hit, billionaire
+              is possible.
+            </div>
+          </div>
+
+          <div class="outcome-box">
+            <h4>Outcome Summary</h4>
+            <div class="outcome-grid">
+              <div class="outcome-item">
+                <div class="outcome-label">Time to first millions</div>
+                <div class="outcome-value">11 years</div>
+              </div>
+              <div class="outcome-item">
+                <div class="outcome-label">LongPath exit</div>
+                <div class="outcome-value">€21M</div>
+              </div>
+              <div class="outcome-item">
+                <div class="outcome-label">Billionaire probability</div>
+                <div class="outcome-value">~8%</div>
+              </div>
+              <div class="outcome-item">
+                <div class="outcome-label">Requires</div>
+                <div class="outcome-value">Breakout portfolio company</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- MESSY MIDDLE -->
+      <section id="messy" class="messy-middle">
+        <h2>⚡ The Realistic Messy Middle</h2>
+        <p class="subtitle">
+          What happens regardless of which path — the stuff the clean timelines
+          don't show
+        </p>
+
+        <div class="messy-grid">
+          <div class="messy-item">
+            <div class="messy-year">2026</div>
+            <div>
+              Depression. Family fights. At least 2-3 months where you
+              accomplish nothing. Meds get adjusted twice. Consider giving up on
+              everything.
+            </div>
+          </div>
+          <div class="messy-item">
+            <div class="messy-year">2027</div>
+            <div>
+              One period where you almost take a corporate job just to make
+              everyone shut up. Relationship drama (new person, or old
+              patterns). Health scare from stress.
+            </div>
+          </div>
+          <div class="messy-item">
+            <div class="messy-year">2028</div>
+            <div>
+              Money stress. Months where you can't pay rent. Ask family for
+              help. Feel shame.
+            </div>
+          </div>
+          <div class="messy-item">
+            <div class="messy-year">2029</div>
+            <div>
+              First real win. But impostor syndrome peaks. You'll wonder if it
+              was luck.
+            </div>
+          </div>
+          <div class="messy-item">
+            <div class="messy-year">2030-2032</div>
+            <div>
+              Hiring mistakes. At least one co-founder or early employee
+              betrayal. Legal issue (small). You'll want to quit at least twice.
+            </div>
+          </div>
+          <div class="messy-item">
+            <div class="messy-year">2033+</div>
+            <div>
+              The grind becomes different — not survival, but scaling. Different
+              problems, still hard.
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SKILLS -->
+      <section class="skills-section">
+        <h2>What Your CV Actually Enables</h2>
+        <table class="skills-table">
+          <thead>
+            <tr>
+              <th>Skill</th>
+              <th>Where It Came From</th>
+              <th>What It's Good For</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Enterprise sales cycle</td>
+              <td>Amazon B2B (2,311 companies), Pairwire (23 pilots)</td>
+              <td>Any B2B startup</td>
+            </tr>
+            <tr>
+              <td>Data/automation</td>
+              <td>Google dashboards (App Script), Python, SQL</td>
+              <td>Building internal tools, MVPs</td>
+            </tr>
+            <tr>
+              <td>Due diligence</td>
+              <td>Pairwire (AI due-diligence platform), EY (€41B audit)</td>
+              <td>Investing, consulting</td>
+            </tr>
+            <tr>
+              <td>Ops setup</td>
+              <td>Pairwire (built whole operational stack from scratch)</td>
+              <td>Early-stage startups</td>
+            </tr>
+            <tr>
+              <td>Languages</td>
+              <td>Portuguese, English, Spanish fluent</td>
+              <td>Iberian market, LATAM, US</td>
+            </tr>
+            <tr>
+              <td>Network</td>
+              <td>NOVA, Rotterdam, NUS, Google, Amazon alumni</td>
+              <td>Warm intros across EU + US</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <footer>
+        <p>
+          Your CV is strong. The problem is you're 26, have gaps, and left a
+          co-founder role messily.
+        </p>
+        <p>
+          <strong
+            >That's fixable with 2-3 years of clean execution anywhere.</strong
+          >
+        </p>
+        <p style="margin-top: 20px; color: #444">
+          Generated February 2026 • Based on actual background and market
+          conditions
+        </p>
+      </footer>
+    </div>
+
+    <script>
+      function scrollToSection(id) {
+        document.getElementById(id).scrollIntoView({ behavior: "smooth" });
+
+        // Update active tab
+        document
+          .querySelectorAll(".nav-tab")
+          .forEach((tab) => tab.classList.remove("active"));
+        event.target.classList.add("active");
+      }
+    </script>
+  </body>
+</html>

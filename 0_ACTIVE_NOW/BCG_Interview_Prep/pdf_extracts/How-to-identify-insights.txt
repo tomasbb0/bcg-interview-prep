@@ -1,0 +1,284 @@
+--- PAGE 1 ---
+How to identify insights
+Case Interview Prep 
+Course
+         Private copy of Tomás Batalha
+      (madalenabmaia@gmail.com)
+Copy and Sharing Prohibited.
+
+
+--- PAGE 2 ---
+OBJECTIVE
+Comparison
+Composition
+Distribution
+Trend
+Relationship
+CHARACTERISTICS
+•
+Several data series against the 
+same axis
+•
+A total, broken down into 
+components
+•
+How many times an event 
+occurs
+•
+Time as an axis
+•
+At least three dimensions
+FREQUENT CHART TYPES
+•
+Bar charts
+•
+Harvey balls
+•
+Pie chart
+•
+Waterfall
+•
+Mekko
+•
+Area chart
+•
+Stacked bar
+•
+Bar chart
+•
+Line chart 
+•
+Scatter plot
+•
+Bubble chart
+•
+Bar chart
+•
+Line chart
+•
+Dual axis
+•
+Scatter plot
+•
+Bubble chart
+CASES CAN INVOLVE A VARIETY OF CHARTS
+         Private copy of Tomás Batalha
+      (madalenabmaia@gmail.com)
+Copy and Sharing Prohibited.
+
+
+--- PAGE 3 ---
+50
+36
+4
+10
+4
+26
+6
+Invited to 
+interview
+Pulled
+out
+In
+process
+Processed
+Rejected
+round 1
+Rejected
+round 2
+Hired
+WATERFALL
+CANDIDATES INVITED TO INTERVIEW
+         Private copy of Tomás Batalha
+      (madalenabmaia@gmail.com)
+Copy and Sharing Prohibited.
+
+
+--- PAGE 4 ---
+Other 
+consumer
+ electronics
+137
+Video
+150
+Outsourcing and helpdesk
+183 
+Audio
+46
+Product support
+119
+Peripherals
+111
+Applications
+115
+PCs
+237
+Infras-
+tructure
+55 
+Office 
+automation
+174
+IT services
+Network & 
+servers
+139
+Hardware
+Applications
+117
+Consumer elec. 
+57
+Infrastructure
+76
+Communications
+76
+Application tools
+55
+Data processing
+102 
+Software
+Indus.
+23
+Semiconductors
+MEKKO
+WORLDWIDE IT REVENUE, $B (TOTAL = $1,972B)
+Enterprise
+Enterprise and Consumer
+Consumer
+         Private copy of Tomás Batalha
+      (madalenabmaia@gmail.com)
+Copy and Sharing Prohibited.
+
+
+--- PAGE 5 ---
+0
+10
+20
+30
+40
+50
+60
+70
+80
+Y-40
+Y-35
+Y-30
+Y-25
+Y-20
+Y-15
+Y-10
+Y-5
+Y0
+AREA CHART
+HOLDING OF FAMILY WEALTH BY WEALTH GROUP, $T
+Bottom 50 percent
+51st to 90th percentiles
+Top 10 percent
+         Private copy of Tomás Batalha
+      (madalenabmaia@gmail.com)
+Copy and Sharing Prohibited.
+
+
+--- PAGE 6 ---
+450
+550
+600
+650
+500
+700
+750
+300
+800
+400
+500
+350
+450
+550
+650
+750
+800
+600
+700
+0
+0
+350
+400
+Math
+Verbal
+SCATTER PLOT
+SAT SCORES
+         Private copy of Tomás Batalha
+      (madalenabmaia@gmail.com)
+Copy and Sharing Prohibited.
+
+
+--- PAGE 7 ---
+0
+5,000
+10,000
+15,000
+20,000
+25,000
+30,000
+35,000
+40,000
+45,000
+50,000
+55,000
+60,000
+0
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+Emissions
+per capita (t)
+GDP per
+capita ($)
+Egypt
+Iran
+South Africa
+China
+India
+Indonesia
+Pakistan
+Japan
+Thailand
+South Korea
+Russia
+Germany
+Turkey
+France
+United Kingdom
+Italy
+Spain
+Ukraine
+Brazil
+Mexico
+United States
+Middle East & Africa
+Asia Pacific
+Europe
+Latin America
+North America
+BUBBLE CHART
+CARBON EMISSIONS LAST YEAR
+         Private copy of Tomás Batalha
+      (madalenabmaia@gmail.com)
+Copy and Sharing Prohibited.

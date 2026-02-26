@@ -1,0 +1,319 @@
+# Tomás — Master Brief: Pairwire Decision, Gemini Sprint, Next Moves
+
+This document consolidates everything we discussed so **I** can share context with another LLM or mentor and act fast. It includes my profile, the Pairwire situation, decision options, negotiation drafts, a playbook for the Gemini API Sprint, and ready‑to‑send messages.
+
+---
+
+## 1) Executive summary
+
+* I am 25, GTM‑focused, and think strategically about people, systems, and the future of work. I perform best with structure, clear agreements, and aligned expectations.
+* I have spent about a year operating as a de‑facto cofounder at Pairwire **without a signed contract or salary**. Equity proposals shifted from an implied floor to all‑or‑nothing.
+* Product readiness and limited technical bandwidth constrained sales. My demos surfaced repeated objections, while leadership framed it as “wrong leads” and “just sell”.
+* Trust hits included a YC application submitted without listing me and requests to change my public title for optics before anything was signed.
+* I have roughly a one‑week decision window on a contract I consider weak and risky for me.
+* I am at a Gemini API Sprint in Paris, prototyping a **strictly separate** personal workflow to validate a path forward and recruit help.
+* My goal now: decide between three paths, protect my reputation, and align the next 90 days with my 2025–2030 plan to build seriously.
+
+---
+
+## 2) My operating profile
+
+* I am 25 and a strategic thinker about people, systems, and the future of work.
+* I have a history of existential anxiety, OCD, and burnout. I function best with some structure, clear agreements, aligned expectations, and a steady cadence.
+* What I want in my career:
+
+  * Solve structural problems in work, mental health, and social organization.
+  * **Build** products/companies, not stay in theory.
+  * Preserve deep thinking time paired with strong execution.
+* 2025–2030 vision: I initially planned time in Big Tech or a scale‑up (GTM/Strategy) to build finances and execution base, then found. After this year I see founding **sooner** as realistic.
+
+---
+
+## 3) Pairwire — my situation, timeline, and dynamics
+
+* **My role:** de‑facto GTM cofounder for ~1 year without a signed agreement and without salary.
+* **Equity:** early conversations implied a floor; recent proposals removed it, turning it into all‑or‑nothing with high activation targets.
+* **CTO:** holds ~45 percent, later took a full‑time job, often unavailable, cancels meetings, limited support bandwidth.
+* **CEO:** resists basic structure (weekly founder cadence, KPIs, incubator/mentor engagement), frames my mandate as “just sell”, and asked me to change my LinkedIn title for optics before any contract.
+* **YC:** application was submitted without listing me as cofounder; I was asked to remove “cofounder” on LinkedIn shortly before a planned agreement.
+* **Transparency gaps:** I was discouraged from contacting the CTO directly, and I suspect side conversations with third parties occur without shared visibility.
+
+**Effects on me:** high effort, many demos, significant GTM groundwork, but zero closed revenue, diffuse accountability, and erosion of trust. The impact on my health and motivation is material.
+
+---
+
+## 4) What I actually built and did this year
+
+* **GTM system:** ICP proposals, pipeline stages, qualification rules, internal GTM setup.
+* **Lead generation:** thousands of leads sourced, segmented lists, outreach sequences, intern program to scale top‑of‑funnel.
+* **Sales execution:** discovery calls, many demos, proposal drafts, objection capture and synthesis.
+* **RevOps and cadence:** simple KPI set, weekly sync proposal, shared definitions (e.g., “qualified pipeline”).
+* **Market feedback:** consolidated demo feedback into product gaps and translated buyer pains to engineering language.
+* **Positioning:** ICP focus ideas, pricing levers, and advocacy for incubators/mentors/community to accelerate trust.
+* **Partnerships/community:** networking at events, mentor conversations, incubation options.
+* **Business ops:** drafted performance‑based equity terms with activation and upside tiers, consulted lawyers, prepared Path A and Path B letters.
+
+**Outcome:** strong groundwork and learning; **no closed revenue yet**.
+
+---
+
+## 5) Product vs. sales constraints — my neutral read
+
+* My demos produced repeated objections that indicate product gaps and readiness constraints.
+* Technical bandwidth limited iteration speed and pilot delivery.
+* Leadership framed lack of sales as poor lead selection and insufficient push.
+* Reality likely contains both: imperfect ICP targeting **and** product readiness bottlenecks. Without agreed ICP, metrics, and CTO support, conversion is unlikely.
+
+---
+
+## 6) Trust and governance tensions
+
+* YC submission without me, and later title‑change requests before a signed contract.
+* Removal of any equity floor despite my year of unpaid work.
+* Discouragement from engaging the CTO, then judgment on outcomes that require CTO.
+* Private conversations with third parties that influence my scope without shared visibility.
+
+### Why I feel conversations are being hidden (I‑statements)
+
+* I am told “I already spoke with X,” but I never see the original thread.
+* I am kept out of shared channels and see only paraphrases.
+* I get last‑minute updates attributed to others, with shifting details when I ask specifics.
+* I am asked not to contact people directly while decisions affecting me happen in private.
+
+---
+
+## 7) My minimum criteria to consider staying
+
+* **Equity floor:** 5–7 percent, time‑vested over 4 years with a 12‑month cliff. Vest start Dec‑2024 or Jan‑2025.
+* **Performance tiers:** on top of the floor up to the agreed total.
+* **Operating cadence:** weekly 30‑minute founders sync with decisions and clear owners.
+* **Transparency protocol:** for any external conversations that impact contract, product, pilots, or deadlines.
+* **Technical support:** minimum CTO support commitments that unblock pilots.
+
+---
+
+## 8) My three decision options
+
+### Option A — Do not sign and leave
+
+* **Advantages for me:** I exit a draining context quickly and free time/headspace to find another startup, a scale‑up/Big Tech role, or structure my own idea.
+* **Costs for me:** fear of looking like a quitter; guilt around no revenue; financial/status anxiety without the next step locked.
+
+**48‑hour checklist (A)**
+
+* I write a neutral exit note that thanks the team, states factual contributions, and defines handover.
+* I send brief updates to key contacts.
+* I lock one pilot for my personal workflow and line up a developer.
+* I do a legal consult on confidentiality and any remaining obligations.
+
+**Exit note template (A)**
+
+* “After careful review, I will not proceed with the proposed agreement. I am grateful for the last year, especially the chance to design GTM, run discovery and demos, and structure campaigns and interns. I will be available this week for a clean handover on materials and leads. I wish you both the best building Pairwire.”
+
+### Option B — Sign and stay
+
+* **Advantages for me:** I don’t discard the year, I preserve relationships, I avoid appearing unstable.
+* **Costs for me:** it goes against my fairness/clarity criteria; I remain in an ambiguous and weakly protected role; I risk reinforcing my pattern of trying to fix a structure from inside that doesn’t fit me.
+
+**48‑hour checklist (B)**
+
+* I ask for **written acceptance of the equity floor** principle before any other edits.
+* I calendar the weekly founder sync.
+* I agree on ICP, demo eligibility, and pilot qualification rules that the CTO commits to support.
+* I define one 30‑day revenue experiment with clear responsibilities.
+
+**Message to confirm floor principle (B)**
+
+* “Top priority is a time‑vested equity floor that recognizes the unpaid year. Without it everything becomes all or nothing and values this year at zero. If you agree on the floor principle we can close the rest immediately.”
+
+### Option C — Sign the full contract now, then resign after about one month
+
+* **Intent:** obtain formal proof of a founder‑like contract/title, then exit soon after.
+* **Advantages for me:** documented founder‑level status for track record; short runway to transition; preserves near‑term optics while I line up next steps.
+* **Costs/neutral facts:** a typical 12‑month cliff → likely **zero vested equity** on departure; possible notice periods/hand‑over duties; ongoing confidentiality/IP obligations; potential relationship/reputation friction if exit is very soon; “good/bad leaver” clauses may affect post‑exit rights.
+
+**30‑day checklist (C)**
+
+* I sign, perform courteously, and keep deliverables narrow and demonstrable.
+* I prepare handover materials from day one so exit is clean.
+* I line up my next team or pilot while honoring time, IP, and confidentiality boundaries.
+* I calendar a professional resignation conversation within the month and keep the narrative calm and factual.
+
+**Resignation template (C)**
+
+* “I am grateful for the opportunity and for the formalization period. After the last weeks it is clear that my best contribution sits elsewhere. I will transition respectfully and complete the agreed handover. I wish you continued success with Pairwire.”
+
+---
+
+## 9) Equity negotiation draft to CEO (floor first)
+
+“Hi Martim,
+
+I am closing my decision and want to align my number one priority to move forward.
+
+Top priority: a time‑vested equity floor over 4 years that recognizes the unpaid year. This is not about doubting activation; it is about honoring what you always stated. Without a floor, everything becomes all‑or‑nothing and values this year at zero.
+
+Concrete ask:
+• Floor: 5 to 7 percent, time‑vested over 4 years, 12‑month cliff.
+• Vesting start: December 2024. If simpler for you, January 2025.
+• On top of the floor we keep performance tiers that let me reach the total if I deliver revenue.
+
+If you agree on the floor principle we can close the rest now.
+
+Tomás”
+
+---
+
+## 10) Transparency protocol request for external conversations
+
+“Hey [Name], to avoid misunderstandings I need primary‑source visibility on anything with [external person] that touches my role, equity, product scope, pilots, or deadlines. Starting today, can we move those threads into a shared channel or email with me CC’d? If something has to stay one‑to‑one, I ask for a same‑day written recap with date, decision, who agreed, and next steps. I’m not trying to micromanage — this keeps a clean record so we move faster.”
+
+---
+
+## 11) Gemini API Sprint — my playbook
+
+### My framing
+
+* I prototype fast in **AI Studio** in the browser, then translate into **Gemini API** calls for a tiny pilot this week.
+* This is **personal R&D**: no Pairwire code, data, or clients; only public material.
+
+### My three demo options
+
+**A) Docs Q&A with citations**
+
+* I upload 3–5 public PDFs (e.g., SOC2, ISO 27001, GDPR DPIA templates, vendor security questionnaires).
+* **System prompt:** “You are a due‑diligence analyst. Answer only using the uploaded documents. If not in docs, reply ‘Not in docs’. For every answer append ‘Sources’ plus filename and pages. Be concise, max 6 lines.”
+* **User prompts:** “What encryption at rest is declared in these docs” “List data retention commitments and where they appear” “Summarize vendor incident response + sources.”
+
+**B) Lead‑Qualifier Copilot**
+
+* **System prompt:** “You qualify B2B leads for [domain]. Ask ≤6 questions. Then output exactly: 3 pains; one‑line budget/timing; fit score 1–5 with a reason; one‑line next step. Max 6 lines total.”
+
+**C) Meeting‑to‑Proposal Generator**
+
+* **System prompt:** “Turn raw meeting notes into a one‑page proposal with Problem, Approach, Deliverables, Timeline, Price range, Assumptions. Keep it scannable and concrete.”
+
+### My 15‑second opener
+
+“I’m Tomás, GTM founder. I’m validating a Gemini workflow for [due diligence / lead qualification / proposal drafting]. Success today is one developer for a one‑week pilot and one Google startup contact.”
+
+### My 90‑second demo choreography
+
+1. I show the input (docs or notes).
+2. I run once.
+3. I point to one useful thing in the output.
+4. I name the next improvement (JSON→Sheet, simple form, summary email).
+5. I make the ask (developer partner + Google contact).
+
+### When asked about my teammate
+
+* “My teammate had a last‑minute conflict, so I’m sprinting solo today. I own GTM and the prototype.”
+
+### Networking lines by audience
+
+* **Googler/organizer:** “I’m validating a Gemini workflow in AI Studio. Who here is from Google for Startups or Cloud Startups so I can get the right program contact”
+* **Senior engineer:** “Scope is tiny — Gemini→JSON→Google Sheet→email. Want to pair for a one‑day build and co‑demo next week”
+* **Founder/operator:** “If this matches your pain, can I run a mini pilot with you next week”
+
+### Outcomes I want to leave with
+
+* A Google sponsor plus the **exact program name** and a **contact**.
+* One developer who commits to a **one‑week pilot**.
+* Two warm **intros** to teams with the exact pain for discovery next week.
+
+---
+
+## 12) Mentor targets and my tailored asks
+
+* **Senior DevRel / product mentors** at the intersection of engineering and founders → ask for a sponsor + the right program contact.
+* **ML product or app‑dev specialists** → lock my minimal JSON schema, grounding rules, and a tiny Cloud Run architecture.
+* **Principal/security‑oriented architects** → craft an enterprise readiness checklist for early sales.
+
+**My example asks:**
+
+* “Can you be my sponsor for one week and point me to the best Google for Startups contact for Gemini work”
+* “What is the leanest path from AI Studio to API to a tiny pilot, and who should I email today”
+* “Help me lock a minimal JSON schema, a grounding rule, and a single pilot metric for next week”
+* “What is the smallest Cloud Run plan to go from API call to Sheet to email, and ballpark cost for a pilot”
+* “What three enterprise signals should I show a buyer to be taken seriously”
+
+---
+
+## 13) Ready‑to‑send messages (kept to what I need now)
+
+### Equity‑floor message to CEO
+
+Oi Martim,
+
+Estou a fechar a minha decisão e quero alinhar a prioridade número um para avançarmos.
+
+Prioridade máxima: ter um piso de equity em vesting de 4 anos que reconheça o ano sem salário. Não é por duvidar da activation; é por respeito ao que sempre disseste. Sem piso fica tudo all‑or‑nothing e este ano fica avaliado a zero.
+
+Pedido concreto:
+• Piso 5 a 7 por cento, time‑vested em 4 anos, com cliff de 12 meses.
+• Início do vesting em dezembro 2024; se for mais simples, aceito janeiro 2025.
+• Por cima do piso mantemos os tiers de performance para eu chegar ao total se entregar receita.
+
+Se concordares com o princípio do piso, fechamos o resto já.
+
+Tomás
+
+### Transparency request
+
+Hey [Name], starting today can we move any thread with [external person] that touches my role, equity, product scope, pilots, or deadlines into a shared channel or email with me CC’d If something has to stay one‑to‑one, please send a same‑day recap with date, decision, who agreed, and next steps. This keeps a clean record and speeds us up.
+
+---
+
+## 14) My reputation protection and communication framing
+
+* **Public narrative:** “I am Pairwire GTM and I’m validating a small adjacent workflow as personal R&D with strict separation. If it proves real, I will propose it inside Pairwire or spin it out cleanly with consent.”
+* **Private disclosure (max two people):** one senior Googler and one external operator/mentor. I frame it as exploring the **cleanest platform to execute**, never as drama.
+* **Lines I avoid:** “I’m in a bad position,” “My cofounders are the problem,” “I’ll do anything.” I replace with calm, forward‑looking framing.
+
+---
+
+## 15) My 90‑day plan aligned with 2025–2030
+
+* **Weeks 1–2:** I ship one tiny pilot (JSON→Sheet→email), a short proposal template, and get a mentor review.
+* **Weeks 3–6:** I run two more friendly pilots, instrument outputs, collect objections/wins, iterate.
+* **Weeks 7–12:** I decide the platform — either house it in a team that leans in or formalize my own project with clean IP/time boundaries. I build a small advisory circle that respects my need for structure and clarity.
+
+---
+
+## 16) Quick checklists
+
+**Event morning**
+
+* Laptop, charger, ID.
+* AI Studio tab open, files uploaded.
+* Sticky note with 15‑second opener and clear ask.
+
+**Mentor meeting**
+
+* One‑pager: problem, workflow, next step, ask.
+* Two questions maximum.
+* Book a 15‑minute slot for this week.
+
+**If I stay**
+
+* Written acceptance of floor principle.
+* Weekly founder sync scheduled.
+* ICP and pilot rules defined with CTO support written.
+
+**If I leave**
+
+* Neutral exit note.
+* Handover list.
+* Key‑contact updates.
+* Legal review of obligations.
+
+**If I sign then resign in ~1 month**
+
+* Track deliverables; keep scope narrow.
+* Prepare handover from day one.
+* Respect confidentiality and IP.
+* Book resignation conversation within the month.
+
+---
+
+This brief is designed to be copy‑paste ready for another LLM or mentor. I will use it as a single source of truth and only adjust dates/figures as needed.

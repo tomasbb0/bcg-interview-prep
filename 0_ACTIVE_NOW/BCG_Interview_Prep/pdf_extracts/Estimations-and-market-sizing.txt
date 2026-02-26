@@ -1,0 +1,122 @@
+--- PAGE 1 ---
+1
+Estimations and market 
+sizing
+Case Interview Prep 
+Course
+2
+TIP #1: BOTTOM-UP VS TOP-DOWN
+TOP-DOWN
+BOTTOM-UP
+Break down a large 
+number (e.g. market, 
+population)
+Gets to the right 
+order of magnitude
+Intangible
+Extrapolate a small 
+number (e.g. 
+observation, locality)
+Very tangible
+Small mistakes are 
+magnified
+Great for 
+sanity checks
+Preferred 
+approach
+         Private copy of Tomás Batalha
+          (madalenabmaia@gmail.com)
+        Copy and Sharing Prohibited.
+
+
+--- PAGE 2 ---
+2
+3
+TIP #2: THE REPLACEMENT METHOD
+1
+2
+3
+4
+5
+2. STRUCTURING
+# Cars sold in 
+the US
+# Cars sold in 
+the US
+# Cars sold to 
+maintain current stock
+# Cars sold to 
+maintain current stock
+# Cars sold to 
+increase stock
+# Cars sold to 
+increase stock
+# Cars in the US
+# Cars in the US
+Lifetime of a car
+Lifetime of a car
+4
+TIP #3: KEY NUMBERS TO KNOW
+Population
+~8b
+World
+330m (~300m)
+US
+1.4b (~1.5b)
+China
+1.4b (~1.5b)
+India
+83m (~80m)
+Germany
+67m (~70m)
+UK
+Demographics (US)
+~80 years
+Life expectancy
+2.5
+People / household
+1%
+Population growth
+Economics (US)
+$70,000
+GDP per capita
+$50,000
+Median individual income
+$75,000
+Median household income
+$600,000
+Top 1% individual income
+Labor (US)
+~2,000 hours
+Work per year p.p.
+As of 2023
+         Private copy of Tomás Batalha
+          (madalenabmaia@gmail.com)
+        Copy and Sharing Prohibited.
+
+
+--- PAGE 3 ---
+3
+5
+TIP #4: SEGMENTATION
+NUMBER OF CARS PER HOUSEHOLD 
+# OF CARS IN 
+HOUSEHOLD
+0
+1
+2
+3
+% OF HOUSEHOLDS
+10%
+10%
+30%
+50%
+100%
+0.0
+0.3
+1.0
+0.3
+1.6
+         Private copy of Tomás Batalha
+          (madalenabmaia@gmail.com)
+        Copy and Sharing Prohibited.

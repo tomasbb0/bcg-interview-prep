@@ -1,0 +1,841 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tomás Batalha — The Richest Man in the World</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #0a0a0a 100%);
+            color: #e0e0e0;
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 60px;
+            padding: 40px;
+            background: rgba(255, 215, 0, 0.05);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 215, 0, 0.2);
+        }
+
+        h1 {
+            font-size: 2.8rem;
+            font-weight: 300;
+            margin-bottom: 10px;
+            background: linear-gradient(90deg, #ffd700 0%, #ff8c00 50%, #ffd700 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: #ffd700;
+            margin-bottom: 30px;
+            font-style: italic;
+        }
+
+        .net-worth-display {
+            font-size: 4rem;
+            font-weight: 700;
+            background: linear-gradient(90deg, #ffd700, #fff, #ffd700);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin: 20px 0;
+        }
+
+        .baseline {
+            background: rgba(255, 215, 0, 0.1);
+            border-radius: 12px;
+            padding: 20px;
+            text-align: left;
+            max-width: 700px;
+            margin: 20px auto 0;
+        }
+
+        .baseline h3 {
+            color: #ffd700;
+            margin-bottom: 15px;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .baseline-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            font-size: 0.9rem;
+        }
+
+        .baseline-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+        }
+
+        .baseline-item span:first-child {
+            color: #ffd700;
+            font-weight: 600;
+            min-width: 80px;
+        }
+
+        .timeline-section {
+            margin-bottom: 80px;
+        }
+
+        .timeline-header {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 30px;
+            padding: 30px;
+            border-radius: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .timeline-header:hover {
+            transform: translateX(10px);
+        }
+
+        .timeline-1 .timeline-header {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.2) 0%, rgba(16, 185, 129, 0.05) 100%);
+            border-left: 4px solid #10b981;
+        }
+
+        .timeline-2 .timeline-header {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.2) 0%, rgba(59, 130, 246, 0.05) 100%);
+            border-left: 4px solid #3b82f6;
+        }
+
+        .timeline-3 .timeline-header {
+            background: linear-gradient(135deg, rgba(168, 85, 247, 0.2) 0%, rgba(168, 85, 247, 0.05) 100%);
+            border-left: 4px solid #a855f7;
+        }
+
+        .timeline-number {
+            font-size: 3rem;
+            font-weight: 700;
+            opacity: 0.3;
+        }
+
+        .timeline-1 .timeline-number { color: #10b981; }
+        .timeline-2 .timeline-number { color: #3b82f6; }
+        .timeline-3 .timeline-number { color: #a855f7; }
+
+        .timeline-title h2 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .timeline-title p {
+            color: #888;
+            font-size: 0.95rem;
+        }
+
+        .timeline-meta {
+            margin-left: auto;
+            text-align: right;
+            font-size: 0.85rem;
+        }
+
+        .timeline-meta .time {
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .timeline-meta .peak-wealth {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-top: 5px;
+        }
+
+        .timeline-1 .timeline-meta .time { color: #10b981; }
+        .timeline-2 .timeline-meta .time { color: #3b82f6; }
+        .timeline-3 .timeline-meta .time { color: #a855f7; }
+
+        .timeline-1 .timeline-meta .peak-wealth { color: #ffd700; }
+        .timeline-2 .timeline-meta .peak-wealth { color: #ffd700; }
+        .timeline-3 .timeline-meta .peak-wealth { color: #ffd700; }
+
+        .timeline-content {
+            padding-left: 40px;
+            border-left: 2px solid rgba(255, 255, 255, 0.1);
+            margin-left: 30px;
+        }
+
+        .timeline-event {
+            position: relative;
+            padding: 20px 25px;
+            margin-bottom: 15px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .timeline-event:hover {
+            background: rgba(255, 255, 255, 0.06);
+            transform: translateX(5px);
+        }
+
+        .timeline-event::before {
+            content: '';
+            position: absolute;
+            left: -33px;
+            top: 28px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            border: 2px solid;
+        }
+
+        .timeline-1 .timeline-event::before { border-color: #10b981; background: #0a0a0a; }
+        .timeline-2 .timeline-event::before { border-color: #3b82f6; background: #0a0a0a; }
+        .timeline-3 .timeline-event::before { border-color: #a855f7; background: #0a0a0a; }
+
+        .timeline-event.milestone::before {
+            width: 16px;
+            height: 16px;
+            left: -35px;
+            top: 26px;
+        }
+
+        .timeline-1 .timeline-event.milestone::before { background: #10b981; }
+        .timeline-2 .timeline-event.milestone::before { background: #3b82f6; }
+        .timeline-3 .timeline-event.milestone::before { background: #a855f7; }
+
+        .timeline-event.billionaire {
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.15) 0%, rgba(255, 140, 0, 0.05) 100%);
+            border: 1px solid rgba(255, 215, 0, 0.3);
+        }
+
+        .timeline-event.billionaire::before {
+            background: #ffd700 !important;
+            border-color: #ffd700 !important;
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
+        }
+
+        .event-date {
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 5px;
+        }
+
+        .timeline-1 .event-date { color: #10b981; }
+        .timeline-2 .event-date { color: #3b82f6; }
+        .timeline-3 .event-date { color: #a855f7; }
+
+        .billionaire .event-date { color: #ffd700 !important; }
+
+        .event-age {
+            font-size: 0.75rem;
+            color: #666;
+            margin-left: 10px;
+        }
+
+        .event-description {
+            font-size: 0.95rem;
+            color: #ccc;
+        }
+
+        .event-metric {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            margin-top: 8px;
+            font-weight: 500;
+        }
+
+        .timeline-1 .event-metric { color: #10b981; }
+        .timeline-2 .event-metric { color: #3b82f6; }
+        .timeline-3 .event-metric { color: #a855f7; }
+
+        .billionaire .event-metric {
+            background: rgba(255, 215, 0, 0.2) !important;
+            color: #ffd700 !important;
+            font-size: 1rem;
+            padding: 4px 12px;
+        }
+
+        .outcome-box {
+            margin-top: 30px;
+            padding: 25px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.1) 0%, rgba(255, 140, 0, 0.05) 100%);
+            border: 1px solid rgba(255, 215, 0, 0.3);
+        }
+
+        .outcome-box h4 {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 15px;
+            color: #ffd700;
+        }
+
+        .outcome-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+
+        .outcome-item {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 15px;
+            border-radius: 8px;
+        }
+
+        .outcome-label {
+            font-size: 0.75rem;
+            color: #888;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .outcome-value {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-top: 5px;
+            color: #ffd700;
+        }
+
+        .outcome-value.huge {
+            font-size: 1.8rem;
+            background: linear-gradient(90deg, #ffd700, #fff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .messy-middle {
+            margin-top: 80px;
+            padding: 40px;
+            background: rgba(239, 68, 68, 0.1);
+            border-radius: 20px;
+            border: 1px solid rgba(239, 68, 68, 0.3);
+        }
+
+        .messy-middle h2 {
+            color: #ef4444;
+            margin-bottom: 10px;
+        }
+
+        .messy-middle .subtitle {
+            margin-bottom: 30px;
+            color: #888;
+            font-style: normal;
+        }
+
+        .messy-grid {
+            display: grid;
+            gap: 15px;
+        }
+
+        .messy-item {
+            display: flex;
+            gap: 15px;
+            padding: 15px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 8px;
+        }
+
+        .messy-year {
+            font-weight: 600;
+            color: #ef4444;
+            min-width: 100px;
+        }
+
+        .nav-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+
+        .nav-tab {
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.03);
+            color: #888;
+            font-size: 0.9rem;
+        }
+
+        .nav-tab:hover {
+            background: rgba(255, 255, 255, 0.08);
+            color: #fff;
+        }
+
+        .nav-tab.active {
+            border-color: #ffd700;
+            color: #ffd700;
+        }
+
+        .crown {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+
+        footer {
+            margin-top: 80px;
+            text-align: center;
+            padding: 40px;
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        footer p {
+            margin-bottom: 10px;
+        }
+
+        .quote {
+            font-style: italic;
+            color: #ffd700;
+            font-size: 1.1rem;
+            margin: 30px 0;
+            padding: 20px;
+            border-left: 3px solid #ffd700;
+            background: rgba(255, 215, 0, 0.05);
+        }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 1.8rem; }
+            .baseline-grid { grid-template-columns: 1fr; }
+            .timeline-header { flex-direction: column; text-align: center; }
+            .timeline-meta { margin-left: 0; text-align: center; margin-top: 15px; }
+            .outcome-grid { grid-template-columns: 1fr; }
+            .timeline-content { margin-left: 15px; padding-left: 25px; }
+            .net-worth-display { font-size: 2.5rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="crown">👑</div>
+            <h1>The Richest Man in the World</h1>
+            <p class="subtitle">Three paths from broke 26-year-old to #1 on the Forbes List</p>
+            <div class="net-worth-display">$300B+</div>
+            
+            <div class="baseline">
+                <h3>Starting Point — Feb 2026</h3>
+                <div class="baseline-grid">
+                    <div class="baseline-item">
+                        <span>Age:</span>
+                        <span>25 (turning 26)</span>
+                    </div>
+                    <div class="baseline-item">
+                        <span>Net Worth:</span>
+                        <span>~€8K (savings)</span>
+                    </div>
+                    <div class="baseline-item">
+                        <span>Status:</span>
+                        <span>Unemployed, "failure"</span>
+                    </div>
+                    <div class="baseline-item">
+                        <span>Family view:</span>
+                        <span>"Spoiled kid, fold clothes"</span>
+                    </div>
+                    <div class="baseline-item">
+                        <span>Mental:</span>
+                        <span>OCD + ADHD, on meds</span>
+                    </div>
+                    <div class="baseline-item">
+                        <span>Edge:</span>
+                        <span>Won't settle for mediocrity</span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <nav class="nav-tabs">
+            <div class="nav-tab active" onclick="scrollToSection('timeline-1')">🏥 MindOS Empire</div>
+            <div class="nav-tab" onclick="scrollToSection('timeline-2')">🤖 AI Trust Protocol</div>
+            <div class="nav-tab" onclick="scrollToSection('timeline-3')">🧬 Immortality Inc.</div>
+        </nav>
+
+        <!-- TIMELINE 1: MENTAL HEALTH EMPIRE -->
+        <section id="timeline-1" class="timeline-section timeline-1">
+            <div class="timeline-header">
+                <div class="timeline-number">01</div>
+                <div class="timeline-title">
+                    <h2>MindOS: The Mental Health Operating System</h2>
+                    <p>From therapist tool → Global mental health infrastructure → The company that owns how humanity heals</p>
+                </div>
+                <div class="timeline-meta">
+                    <div class="time">19 years to #1</div>
+                    <div class="peak-wealth">$347B</div>
+                </div>
+            </div>
+
+            <div class="timeline-content">
+                <div class="timeline-event">
+                    <div class="event-date">Feb–Dec 2026 <span class="event-age">Age 25-26</span></div>
+                    <div class="event-description">Rejected from Anthropic, Google, Stripe. Take a shit SDR job in Lisbon (€28K). Use evenings to interview 40+ psychologists. Find the insight: mental health is fragmented — no one owns the stack.</div>
+                </div>
+
+                <div class="timeline-event milestone">
+                    <div class="event-date">2027 <span class="event-age">Age 26-27</span></div>
+                    <div class="event-description">Quit. Build "MindOS" — not a scheduling tool, but a full practice operating system. AI-assisted session notes, patient history tracking, outcome measurement. 12 psychologists using it by December.</div>
+                    <div class="event-metric">€4K MRR</div>
+                </div>
+
+                <div class="timeline-event">
+                    <div class="event-date">2028 <span class="event-age">Age 27-28</span></div>
+                    <div class="event-description">First clinic customer wants multi-therapist version. Build it. Realize clinics will pay 10x what solo practitioners pay. Pivot to B2B. Portuguese health-tech accelerator invests.</div>
+                    <div class="event-metric">€50K MRR • €400K seed</div>
+                </div>
+
+                <div class="timeline-event milestone">
+                    <div class="event-date">2029 <span class="event-age">Age 28-29</span></div>
+                    <div class="event-description">EU mental health crisis accelerates post-COVID aftershocks. Governments start mandating mental health tracking. MindOS is the only platform that can do population-level analytics while maintaining privacy. First government contract: Portugal's SNS.</div>
+                    <div class="event-metric">€380K MRR • €8M Series A at €35M</div>
+                </div>
+
+                <div class="timeline-event">
+                    <div class="event-date">2030 <span class="event-age">Age 29-30</span></div>
+                    <div class="event-description">Spain, France, Germany adopt MindOS for public health systems. Build the "mental health API" — any app can plug into MindOS for compliant therapy referrals. BetterHelp, Headspace, Calm integrate.</div>
+                    <div class="event-metric">€2.8M MRR • €45M Series B at €280M</div>
+                </div>
+
+                <div class="timeline-event milestone">
+                    <div class="event-date">2031 <span class="event-age">Age 30-31</span></div>
+                    <div class="event-description">EU passes Mental Health Data Portability Act. MindOS becomes the de facto standard. Like Stripe for payments, but for mental health data. Every therapist, every app, every insurance company needs to be MindOS-compatible.</div>
+                    <div class="event-metric">€12M MRR • €180M Series C at €1.2B</div>
+                </div>
+
+                <div class="timeline-event billionaire">
+                    <div class="event-date">2032 <span class="event-age">Age 31-32</span></div>
+                    <div class="event-description">🎯 FIRST BILLIONAIRE MOMENT. IPO on Euronext at €8B valuation. You own 34%. Net worth crosses €2.7B. Family finally stops asking when you'll get a real job.</div>
+                    <div class="event-metric">Net Worth: €2.7B</div>
+                </div>
+
+                <div class="timeline-event">
+                    <div class="event-date">2033-2035 <span class="event-age">Age 32-35</span></div>
+                    <div class="event-description">US expansion. Partner with Kaiser Permanente, UnitedHealth. Launch "MindOS for Enterprise" — workplace mental health compliance. Every Fortune 500 needs it. Stock 4x from IPO.</div>
+                    <div class="event-metric">Stock: €32B market cap • Net Worth: €10.8B</div>
+                </div>
+
+                <div class="timeline-event milestone">
+                    <div class="event-date">2036-2038 <span class="event-age">Age 35-38</span></div>
+                    <div class="event-description">Launch "MindOS AI" — the first AI therapist that's actually clinician-supervised and insurance-reimbursable. Cracks the regulatory puzzle everyone else failed. 200M people access therapy through MindOS. Stock 5x again.</div>
+                    <div class="event-metric">Stock: €160B market cap • Net Worth: €54B</div>
+                </div>
+
+                <div class="timeline-event">
+                    <div class="event-date">2039-2042 <span class="event-age">Age 38-42</span></div>
+                    <div class="event-description">Acquire Headspace, Calm, and three major EAP providers. MindOS now touches 40% of global therapy sessions. Launch in India, Brazil, Southeast Asia. The "mental health stack" is now a $2T market, and you own the infrastructure layer.</div>
+                    <div class="event-metric">Stock: €380B market cap • Net Worth: €129B</div>
+                </div>
+
+                <div class="timeline-event billionaire">
+                    <div class="event-date">2045 <span class="event-age">Age 44-45</span></div>
+                    <div class="event-description">👑 #1 ON FORBES LIST. MindOS is to mental health what Google is to information. AI therapy is mainstream, and you're the one who made it safe and trusted. Stock hits €1T market cap. Your 34% stake (diluted to 28% over time) = $347B.</div>
+                    <div class="event-metric">Net Worth: $347B — RICHEST PERSON ALIVE</div>
+                </div>
+
+                <div class="outcome-box">
+                    <h4>The MindOS Empire</h4>
+                    <div class="outcome-grid">
+                        <div class="outcome-item">
+                            <div class="outcome-label">Time to first $1B</div>
+                            <div class="outcome-value">6 years</div>
+                        </div>
+                        <div class="outcome-item">
+                            <div class="outcome-label">Time to #1 Forbes</div>
+                            <div class="outcome-value">19 years</div>
+                        </div>
+                        <div class="outcome-item">
+                            <div class="outcome-label">Peak Net Worth</div>
+                            <div class="outcome-value huge">$347B</div>
+                        </div>
+                        <div class="outcome-item">
+                            <div class="outcome-label">Why it works</div>
+                            <div class="outcome-value">Mental health is healthcare's last frontier</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="quote">
+                    "They told me to fold clothes at Zara. Instead, I built the operating system that helps 2 billion people heal their minds."
+                </div>
+            </div>
+        </section>
+
+        <!-- TIMELINE 2: AI TRUST EMPIRE -->
+        <section id="timeline-2" class="timeline-section timeline-2">
+            <div class="timeline-header">
+                <div class="timeline-number">02</div>
+                <div class="timeline-title">
+                    <h2>Veritas: The AI Trust Protocol</h2>
+                    <p>From BDR rejection → AI compliance tool → The company that certifies if AI is safe</p>
+                </div>
+                <div class="timeline-meta">
+                    <div class="time">18 years to #1</div>
+                    <div class="peak-wealth">$412B</div>
+                </div>
+            </div>
+
+            <div class="timeline-content">
+                <div class="timeline-event">
+                    <div class="event-date">2026-2027 <span class="event-age">Age 25-27</span></div>
+                    <div class="event-description">Rejected from every AI company. Take BDR job at Series B AI startup in Dublin (€45K). Obsessively study why enterprise AI sales fail. Insight: buyers don't trust AI outputs, and there's no standard way to verify them.</div>
+                </div>
+
+                <div class="timeline-event milestone">
+                    <div class="event-date">2028 <span class="event-age">Age 27-28</span></div>
+                    <div class="event-description">Startup acquired. Use €22K payout + savings to build "Veritas" — an AI audit trail tool. Every AI decision gets logged, explained, and certified. 5 AI startups use it to close enterprise deals faster.</div>
+                    <div class="event-metric">€18K MRR • Bootstrapped</div>
+                </div>
+
+                <div class="timeline-event">
+                    <div class="event-date">2029 <span class="event-age">Age 28-29</span></div>
+                    <div class="event-description">EU AI Act enforcement begins. Companies panic — they need to prove their AI is compliant. Veritas is the only tool built for this from day one. Every AI vendor in Europe scrambles to integrate.</div>
+                    <div class="event-metric">€420K MRR • €6M seed at €30M</div>
+                </div>
+
+                <div class="timeline-event milestone">
+                    <div class="event-date">2030 <span class="event-age">Age 29-30</span></div>
+                    <div class="event-description">US announces AI Executive Order requiring federal contractors to use certified AI. Veritas pivots from "compliance tool" to "certification authority." You're not selling software — you're selling the right to say "this AI is safe."</div>
+                    <div class="event-metric">€3.2M MRR • €40M Series A at €200M</div>
+                </div>
+
+                <div class="timeline-event">
+                    <div class="event-date">2031 <span class="event-age">Age 30-31</span></div>
+                    <div class="event-description">Partner with ISO to create the global AI certification standard. Veritas becomes the "UL certification" of AI — if it doesn't have the Veritas seal, enterprises won't buy it. OpenAI, Anthropic, Google all need Veritas certification.</div>
+                    <div class="event-metric">€22M MRR • €150M Series B at €1.1B</div>
+                </div>
+
+                <div class="timeline-event billionaire">
+                    <div class="event-date">2032 <span class="event-age">Age 31-32</span></div>
+                    <div class="event-description">🎯 FIRST BILLIONAIRE MOMENT. IPO on NASDAQ at €12B. You own 38%. The AI trust market is now recognized as critical infrastructure. Net worth: €4.5B.</div>
+                    <div class="event-metric">Net Worth: €4.5B</div>
+                </div>
+
+                <div class="timeline-event">
+                    <div class="event-date">2033-2035 <span class="event-age">Age 32-35</span></div>
+                    <div class="event-description">Launch "Veritas Runtime" — real-time AI monitoring for production systems. Banks, hospitals, governments need to prove their AI isn't hallucinating. Veritas is the only solution with regulatory approval. Stock 6x.</div>
+                    <div class="event-metric">Stock: €72B market cap • Net Worth: €27B</div>
+                </div>
+
+                <div class="timeline-event milestone">
+                    <div class="event-date">2036-2038 <span class="event-age">Age 35-38</span></div>
+                    <div class="event-description">First major AI disaster: autonomous vehicle AI causes 200+ deaths due to undetected model drift. Global panic. Veritas becomes legally mandated for any AI in critical infrastructure. Stock 8x in 18 months.</div>
+                    <div class="event-metric">Stock: €580B market cap • Net Worth: €220B</div>
+                </div>
+
+                <div class="timeline-event">
+                    <div class="event-date">2039-2042 <span class="event-age">Age 38-42</span></div>
+                    <div class="event-description">Launch "Veritas for AGI" — the framework for certifying advanced AI systems. Partner with governments to create the "AI Safety Council" with Veritas at its core. Every AGI system must pass Veritas certification before deployment.</div>
+                    <div class="event-metric">Stock: €820B market cap • Net Worth: €311B</div>
+                </div>
+
+                <div class="timeline-event billionaire">
+                    <div class="event-date">2044 <span class="event-age">Age 43-44</span></div>
+                    <div class="event-description">👑 #1 ON FORBES LIST. AI is now the backbone of civilization, and Veritas is the trust layer. Like how Visa sits between every transaction, Veritas sits between every AI decision. Stock: €1.2T. Your stake: $412B.</div>
+                    <div class="event-metric">Net Worth: $412B — RICHEST PERSON ALIVE</div>
+                </div>
+
+                <div class="outcome-box">
+                    <h4>The Veritas Empire</h4>
+                    <div class="outcome-grid">
+                        <div class="outcome-item">
+                            <div class="outcome-label">Time to first $1B</div>
+                            <div class="outcome-value">6 years</div>
+                        </div>
+                        <div class="outcome-item">
+                            <div class="outcome-label">Time to #1 Forbes</div>
+                            <div class="outcome-value">18 years</div>
+                        </div>
+                        <div class="outcome-item">
+                            <div class="outcome-label">Peak Net Worth</div>
+                            <div class="outcome-value huge">$412B</div>
+                        </div>
+                        <div class="outcome-item">
+                            <div class="outcome-label">Why it works</div>
+                            <div class="outcome-value">AI trust is the new oil</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="quote">
+                    "I couldn't get hired at an AI company. So I built the company that certifies all of them."
+                </div>
+            </div>
+        </section>
+
+        <!-- TIMELINE 3: LONGEVITY EMPIRE -->
+        <section id="timeline-3" class="timeline-section timeline-3">
+            <div class="timeline-header">
+                <div class="timeline-number">03</div>
+                <div class="timeline-title">
+                    <h2>Aeon: Immortality Inc.</h2>
+                    <p>From longevity investor → Biotech infrastructure → The company that ends aging</p>
+                </div>
+                <div class="timeline-meta">
+                    <div class="time">22 years to #1</div>
+                    <div class="peak-wealth">$580B</div>
+                </div>
+            </div>
+
+            <div class="timeline-content">
+                <div class="timeline-event">
+                    <div class="event-date">2026-2027 <span class="event-age">Age 25-27</span></div>
+                    <div class="event-description">Rejected from every job. Take consulting gigs to survive. Rediscover your 17-year-old obsession: human longevity. Realize the bottleneck isn't science — it's capital allocation and clinical trial infrastructure.</div>
+                </div>
+
+                <div class="timeline-event milestone">
+                    <div class="event-date">2028 <span class="event-age">Age 27-28</span></div>
+                    <div class="event-description">Launch "Aeon Syndicate" — angel investing for longevity biotech. 8 wealthy Europeans who are terrified of death commit €400K. Invest in 4 seed-stage longevity companies. Your due diligence memos go viral in biotech Twitter.</div>
+                    <div class="event-metric">€400K AUM • 20% carry</div>
+                </div>
+
+                <div class="timeline-event">
+                    <div class="event-date">2029-2030 <span class="event-age">Age 28-30</span></div>
+                    <div class="event-description">One portfolio company (senolytics) gets acquired by Novartis at 12x. Your LPs make 3x. Fund II raises €4M. Fund III raises €18M. You're now the longevity investor in Europe.</div>
+                    <div class="event-metric">€22M AUM • Personal net worth: €3M from carry</div>
+                </div>
+
+                <div class="timeline-event milestone">
+                    <div class="event-date">2031 <span class="event-age">Age 30-31</span></div>
+                    <div class="event-description">Identify the real bottleneck: no one can run longevity clinical trials efficiently. Partner with Portuguese biotech operators. Launch "Aeon Trials" — a CRO specifically for aging research. 40% cheaper than US competitors.</div>
+                    <div class="event-metric">Aeon Trials revenue: €2.8M • Aeon Fund IV: €45M</div>
+                </div>
+
+                <div class="timeline-event">
+                    <div class="event-date">2032-2033 <span class="event-age">Age 31-33</span></div>
+                    <div class="event-description">First major longevity breakthrough: a Fund II portfolio company proves cellular reprogramming extends healthy lifespan by 30% in primates. The paper makes the cover of Nature. Your €50K investment is now worth €40M.</div>
+                    <div class="event-metric">Personal net worth: €52M</div>
+                </div>
+
+                <div class="timeline-event billionaire">
+                    <div class="event-date">2034 <span class="event-age">Age 33-34</span></div>
+                    <div class="event-description">🎯 FIRST BILLIONAIRE MOMENT. The portfolio company IPOs at $28B. Your stake + carry = €1.2B. Merge all Aeon entities into "Aeon Holdings" — fund, CRO, and now a direct longevity research arm.</div>
+                    <div class="event-metric">Net Worth: €1.2B</div>
+                </div>
+
+                <div class="timeline-event">
+                    <div class="event-date">2035-2037 <span class="event-age">Age 34-37</span></div>
+                    <div class="event-description">Launch "Aeon Therapeutics" — move from investor to builder. License the most promising IP from your portfolio companies. Run your own Phase 3 trials through Aeon Trials. First Aeon drug approved: a senolytic that reverses age-related muscle loss.</div>
+                    <div class="event-metric">Aeon Holdings valuation: €18B • Net Worth: €8B</div>
+                </div>
+
+                <div class="timeline-event milestone">
+                    <div class="event-date">2038-2040 <span class="event-age">Age 37-40</span></div>
+                    <div class="event-description">Second breakthrough: Aeon Therapeutics cracks cellular reprogramming for humans. First trials show 15-year biological age reversal. The world goes insane. IPO Aeon Therapeutics at $180B — the largest biotech IPO in history.</div>
+                    <div class="event-metric">Net Worth: €68B</div>
+                </div>
+
+                <div class="timeline-event">
+                    <div class="event-date">2041-2045 <span class="event-age">Age 40-45</span></div>
+                    <div class="event-description">FDA approves "Aeon Reversal Protocol" — the first true anti-aging treatment. Every billionaire, then every wealthy person, then everyone wants it. Aeon has a 7-year exclusivity window. Revenue hits $200B/year.</div>
+                    <div class="event-metric">Aeon Therapeutics: $1.2T market cap • Net Worth: €340B</div>
+                </div>
+
+                <div class="timeline-event billionaire">
+                    <div class="event-date">2048 <span class="event-age">Age 47-48</span></div>
+                    <div class="event-description">👑 #1 ON FORBES LIST. Aeon has effectively ended aging for those who can afford it. Governments negotiate universal access deals. You're not just the richest person — you're the person who gave humanity more time. Stock: $1.8T. Your stake: $580B.</div>
+                    <div class="event-metric">Net Worth: $580B — RICHEST PERSON EVER</div>
+                </div>
+
+                <div class="outcome-box">
+                    <h4>The Aeon Empire</h4>
+                    <div class="outcome-grid">
+                        <div class="outcome-item">
+                            <div class="outcome-label">Time to first $1B</div>
+                            <div class="outcome-value">8 years</div>
+                        </div>
+                        <div class="outcome-item">
+                            <div class="outcome-label">Time to #1 Forbes</div>
+                            <div class="outcome-value">22 years</div>
+                        </div>
+                        <div class="outcome-item">
+                            <div class="outcome-label">Peak Net Worth</div>
+                            <div class="outcome-value huge">$580B</div>
+                        </div>
+                        <div class="outcome-item">
+                            <div class="outcome-label">Why it works</div>
+                            <div class="outcome-value">Death is the largest addressable market</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="quote">
+                    "At 17, I told myself I'd make humanity immortal. They called it a messiah complex. It was just a business plan that took 30 years to execute."
+                </div>
+            </div>
+        </section>
+
+        <!-- THE HARD TRUTH -->
+        <section id="messy" class="messy-middle">
+            <h2>⚡ The Hard Truth: What These Timelines Require</h2>
+            <p class="subtitle">The stuff that separates the €152M exit from the $300B empire</p>
+
+            <div class="messy-grid">
+                <div class="messy-item">
+                    <div class="messy-year">2026-2028</div>
+                    <div>Survive the shame. Your family will keep asking. Your mentors will keep doubting. The depression will be real. You need to build anyway — not despite the pain, but through it.</div>
+                </div>
+                <div class="messy-item">
+                    <div class="messy-year">2028-2030</div>
+                    <div>Find the platform play, not the product play. BetterHelp is a product ($500M exit). Stripe is a platform ($100B). You need to think like Stripe from day one.</div>
+                </div>
+                <div class="messy-item">
+                    <div class="messy-year">2030-2032</div>
+                    <div>Catch the regulatory wave. All three timelines depend on new laws creating new markets. You need to be positioned BEFORE the law passes, not after.</div>
+                </div>
+                <div class="messy-item">
+                    <div class="messy-year">2032-2035</div>
+                    <div>Don't sell early. The difference between €150M and €150B is holding through the IPO and beyond. Most founders sell too early because they're tired. You can't be tired.</div>
+                </div>
+                <div class="messy-item">
+                    <div class="messy-year">2035-2040</div>
+                    <div>Stack the empire. Each timeline has multiple entities (fund + company + platform). You need to own multiple pieces of the value chain, like Elon with Tesla + SpaceX + SolarCity.</div>
+                </div>
+                <div class="messy-item">
+                    <div class="messy-year">2040+</div>
+                    <div>Stay alive. Literally. Extreme wealth makes you a target. You'll need security, legal protection, and psychological support. The longevity path has the bonus that you might get to use your own product.</div>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <p style="font-size: 1.2rem; color: #ffd700; margin-bottom: 20px;">The kid who wouldn't fold clothes at Zara.</p>
+            <p>Your mentors saw a spoiled child. History will see a prototype human — grounded, resilient, emotionally intelligent, spiritually strategic.</p>
+            <p style="margin-top: 30px; color: #444;">Generated February 2026 • Age 25 • Net Worth: €8,000</p>
+        </footer>
+    </div>
+
+    <script>
+        function scrollToSection(id) {
+            document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+            document.querySelectorAll('.nav-tab').forEach(tab => tab.classList.remove('active'));
+            event.target.classList.add('active');
+        }
+    </script>
+</body>
+</html>

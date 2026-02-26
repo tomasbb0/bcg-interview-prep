@@ -1,0 +1,36 @@
+--- PAGE 1 ---
+Candidate
+Date
+Personal attributes
+Rapport-building
+Rating
+Comments
+Performance track record
+Rating
+Comments
+Transferable abilities
+Rating
+Comments
+Motivation
+Rating
+Comments
+General impression
+Presence
+Rating
+Comments
+Communication
+Rating
+Comments
+Summary
+Rating:  1 = Below the standard required to receive an offer. 3 = Meets the required standard.. 5 = Stands out in this dimension (top 10%). A score of 5 should only be given when the standard 
+required for a score of 3 has also been attained.
+Interviewer
+1 = Was not professional; 3 = Was professional, engaging, energetic and confident; 5 = Built genuine rapport; showed positive personality; displayed expert-like credibility 
+1 = Was unclear and scattered; 3 = Listened well; spoke precisely and concisely; 5 = Was particularly organised; shared main idea before details; communicated visually 
+1 = Failed to set the stage a good conversation; 3 = Maintained a fluid back-and-forth throughout the conversation; 5 = Made a personal connection; was engaging, positive and authentic; revealed 
+unique personal traits and experiences
+1 = Did not demonstrate top performance; 3 = Provided evidence of top performance;  5 = Presented environment as demanding; did not come across as boastful
+1  = Did not demonstrate transferable abilities in target areas; 3 = Demonstrated key transferable abilities such as ambition, initiative-taking, persistence, adaptability, leadership, teamwork, and 
+persuasion; 5 = Showcased particularly impressive achievements; gave detailed descriptions of own actions and thought process
+1 = Did not present a good reason for pursuing this opportunity; 3 = Put forward a convincing rationale for wanting to move into consulting in general, and the firm in particular; 
+5 = Explained rationale in personal terms; gave evidence of continuously seizing opportunities for self-development

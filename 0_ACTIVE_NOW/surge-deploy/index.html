@@ -1428,6 +1428,21 @@
         <a href="#" onclick="showSection('drills')" data-section="drills">
           <span class="icon">🧮</span> Drills (50 exercises)
         </a>
+        <a href="#" onclick="showSection('fw-map')" data-section="fw-map">
+          <span class="icon">🗺️</span> Framework Map
+          <span
+            style="
+              font-size: 0.65em;
+              background: var(--highlight);
+              color: #000;
+              padding: 1px 5px;
+              border-radius: 3px;
+              margin-left: 4px;
+              font-weight: 700;
+            "
+            >BETA</span
+          >
+        </a>
         <div class="divider"></div>
         <a
           href="#"
@@ -1656,7 +1671,6 @@
                     16:00-17:00
                   </td>
                   <td>❌ Indisponível</td>
-                  <td></td>
                 </tr>
                 <tr>
                   <td>
@@ -3038,7 +3052,6 @@
                   <td style="font-size: 16px; font-weight: 700">
                     🎯 ENTREVISTA
                   </td>
-                  <td></td>
                 </tr>
               </tbody>
             </table>
@@ -4516,6 +4529,7 @@
               cursor: pointer;
             "
           >
+            <option value="general">📚 General (Template)</option>
             <option value="retail">🛒 Retail & Consumer Goods</option>
             <option value="healthcare">🏥 Healthcare & Pharma</option>
             <option value="tech">💻 Technology / SaaS</option>
@@ -6232,98 +6246,168 @@
               <tr>
                 <th>English</th>
                 <th>Português</th>
+                <th>Explanation</th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <td colspan="2">
+                <td colspan="3">
                   <strong>Key Metrics / Métricas-Chave:</strong>
                 </td>
               </tr>
               <tr>
                 <td>Same-store sales growth (SSS)</td>
                 <td>Crescimento vendas mesma loja</td>
+                <td style="font-size: 0.82em; color: #666; font-style: italic">
+                  Revenue growth at stores open 1+ year; removes effect of new
+                  openings
+                </td>
               </tr>
               <tr>
                 <td>Revenue per sqm / sqft</td>
                 <td>Receita por m²</td>
+                <td style="font-size: 0.82em; color: #666; font-style: italic">
+                  Sales productivity of floor space; higher = better use of real
+                  estate
+                </td>
               </tr>
               <tr>
                 <td>Basket size × Footfall = Revenue</td>
                 <td>Ticket médio × Tráfego = Receita</td>
+                <td style="font-size: 0.82em; color: #666; font-style: italic">
+                  Revenue = avg spend per visit × number of visitors
+                </td>
               </tr>
               <tr>
                 <td>Inventory turnover</td>
                 <td>Rotação de inventário</td>
+                <td style="font-size: 0.82em; color: #666; font-style: italic">
+                  How many times stock is sold & replaced per year; higher =
+                  less capital tied up
+                </td>
               </tr>
               <tr>
                 <td>Gross margin (%)</td>
                 <td>Margem bruta (%)</td>
+                <td style="font-size: 0.82em; color: #666; font-style: italic">
+                  Revenue minus COGS as % of revenue; shows product-level
+                  profitability
+                </td>
               </tr>
               <tr>
                 <td>Customer acquisition cost (CAC)</td>
                 <td>Custo aquisição cliente</td>
+                <td style="font-size: 0.82em; color: #666; font-style: italic">
+                  Total marketing/sales spend ÷ new customers gained
+                </td>
               </tr>
               <tr>
-                <td colspan="2"><strong>Trends / Tendências:</strong></td>
+                <td colspan="3"><strong>Trends / Tendências:</strong></td>
               </tr>
               <tr>
                 <td>E-commerce cannibalization of physical stores</td>
                 <td>Canibalização do e-commerce sobre lojas físicas</td>
+                <td style="font-size: 0.82em; color: #666; font-style: italic">
+                  Online sales eating into physical store revenue
+                </td>
               </tr>
               <tr>
                 <td>Private label growth (+margin)</td>
                 <td>Crescimento de marca própria (+margem)</td>
+                <td style="font-size: 0.82em; color: #666; font-style: italic">
+                  Store's own brand products growing — higher margin than
+                  national brands
+                </td>
               </tr>
               <tr>
                 <td>Omnichannel (click & collect, BOPIS)</td>
                 <td>Omnicanal (compra online, levanta na loja)</td>
+                <td style="font-size: 0.82em; color: #666; font-style: italic">
+                  Integrating online + physical channels into seamless customer
+                  experience
+                </td>
               </tr>
               <tr>
                 <td>Supply chain optimization</td>
                 <td>Otimização da cadeia de abastecimento</td>
+                <td style="font-size: 0.82em; color: #666; font-style: italic">
+                  Reducing cost/time from supplier to shelf (logistics,
+                  warehousing, procurement)
+                </td>
               </tr>
               <tr>
-                <td colspan="2"><strong>Vocabulary / Vocabulário:</strong></td>
+                <td colspan="3"><strong>Vocabulary / Vocabulário:</strong></td>
               </tr>
               <tr>
                 <td>SKU (Stock Keeping Unit)</td>
                 <td>SKU (Unidade de Manutenção de Stock)</td>
+                <td style="font-size: 0.82em; color: #666; font-style: italic">
+                  Unique identifier for each product variant (size, color, etc.)
+                </td>
               </tr>
               <tr>
                 <td>Footfall / foot traffic</td>
                 <td>Tráfego de loja / afluência</td>
+                <td style="font-size: 0.82em; color: #666; font-style: italic">
+                  Number of people entering a store; key driver of retail
+                  revenue
+                </td>
               </tr>
               <tr>
                 <td>Shrinkage (theft/damage loss)</td>
                 <td>Quebras (perdas por roubo/dano)</td>
+                <td style="font-size: 0.82em; color: #666; font-style: italic">
+                  Inventory loss from theft, damage, or admin errors; typically
+                  1-3% of sales
+                </td>
               </tr>
               <tr>
                 <td>Planogram (shelf layout)</td>
                 <td>Planograma (layout de prateleira)</td>
+                <td style="font-size: 0.82em; color: #666; font-style: italic">
+                  Diagram showing exactly where products go on shelves;
+                  optimizes sales per sqm
+                </td>
               </tr>
               <tr>
                 <td>Markdown / clearance</td>
                 <td>Redução de preço / saldos</td>
+                <td style="font-size: 0.82em; color: #666; font-style: italic">
+                  Price reductions to clear slow-moving or seasonal stock
+                </td>
               </tr>
               <tr>
                 <td>Sell-through rate</td>
                 <td>Taxa de venda</td>
+                <td style="font-size: 0.82em; color: #666; font-style: italic">
+                  % of inventory sold vs received; measures buying accuracy
+                </td>
               </tr>
               <tr>
                 <td>Category management</td>
                 <td>Gestão de categoria</td>
+                <td style="font-size: 0.82em; color: #666; font-style: italic">
+                  Managing product groups (dairy, snacks) as strategic business
+                  units
+                </td>
               </tr>
               <tr>
                 <td>Stock-out</td>
                 <td>Rutura de stock</td>
+                <td style="font-size: 0.82em; color: #666; font-style: italic">
+                  Product unavailable when customer wants it; causes lost sales
+                  + brand damage
+                </td>
               </tr>
               <tr>
                 <td>BOPIS (Buy Online, Pick-up In Store)</td>
                 <td>Compra online, levanta na loja</td>
+                <td style="font-size: 0.82em; color: #666; font-style: italic">
+                  Customers order online, collect in-store; saves delivery cost
+                </td>
               </tr>
               <tr>
-                <td colspan="2">
+                <td colspan="3">
                   <strong>Typical Cases:</strong> Profitability, pricing
                   strategy, market entry, store footprint optimization
                 </td>
@@ -6408,92 +6492,163 @@
               <tr>
                 <th>English</th>
                 <th>Português</th>
+                <th>Explanation</th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <td colspan="2"><strong>Key Metrics:</strong></td>
+                <td colspan="3"><strong>Key Metrics:</strong></td>
               </tr>
               <tr>
                 <td>R&D pipeline (Phase I-III, approval rate ~10%)</td>
                 <td>Pipeline I&D (Fase I-III, taxa aprovação ~10%)</td>
+                <td style="font-size: 0.82em; color: #666; font-style: italic">
+                  Portfolio of drugs in development stages; only ~10% reach
+                  market
+                </td>
               </tr>
               <tr>
                 <td>Patent cliff / exclusivity expiry</td>
                 <td>Queda de patente / expiração exclusividade</td>
+                <td style="font-size: 0.82em; color: #666; font-style: italic">
+                  When drug patent expires, generics enter → revenue drops
+                  80-90%
+                </td>
               </tr>
               <tr>
                 <td>Gross margin (typically 70-90% for branded drugs)</td>
                 <td>Margem bruta (tipicamente 70-90% medicamentos de marca)</td>
+                <td style="font-size: 0.82em; color: #666; font-style: italic">
+                  Pharma has very high gross margins but massive R&D and SGA
+                  costs
+                </td>
               </tr>
               <tr>
                 <td>Market access & reimbursement</td>
                 <td>Acesso ao mercado e reembolso</td>
+                <td style="font-size: 0.82em; color: #666; font-style: italic">
+                  Whether payers (govt/insurers) will cover the drug and at what
+                  price
+                </td>
               </tr>
               <tr>
                 <td>Patient population × Treatment rate × Price = Revenue</td>
                 <td>Nº pacientes × Taxa tratamento × Preço = Receita</td>
+                <td style="font-size: 0.82em; color: #666; font-style: italic">
+                  Revenue formula: addressable patients × treatment rate × price
+                  per treatment
+                </td>
               </tr>
               <tr>
-                <td colspan="2"><strong>Trends:</strong></td>
+                <td colspan="3"><strong>Trends:</strong></td>
               </tr>
               <tr>
                 <td>Biosimilars / generics competition</td>
                 <td>Concorrência de biossimilares / genéricos</td>
+                <td style="font-size: 0.82em; color: #666; font-style: italic">
+                  Near-copy of a biologic drug after patent expiry; cheaper but
+                  not identical
+                </td>
               </tr>
               <tr>
                 <td>Gene therapy & personalized medicine</td>
                 <td>Terapia genética e medicina personalizada</td>
+                <td style="font-size: 0.82em; color: #666; font-style: italic">
+                  Tailoring treatment to individual patient genetics/biomarkers
+                </td>
               </tr>
               <tr>
                 <td>Value-based care / outcomes pricing</td>
                 <td>Cuidados baseados em valor / preços por resultados</td>
+                <td style="font-size: 0.82em; color: #666; font-style: italic">
+                  Paying providers for outcomes (patient health) not volume of
+                  services
+                </td>
               </tr>
               <tr>
                 <td>Digital health / telemedicine</td>
                 <td>Saúde digital / telemedicina</td>
+                <td style="font-size: 0.82em; color: #666; font-style: italic">
+                  Remote healthcare via apps/video; growing post-COVID
+                </td>
               </tr>
               <tr>
-                <td colspan="2"><strong>Vocabulary / Vocabulário:</strong></td>
+                <td colspan="3"><strong>Vocabulary / Vocabulário:</strong></td>
               </tr>
               <tr>
                 <td>Patent cliff</td>
                 <td>Queda de patente</td>
+                <td style="font-size: 0.82em; color: #666; font-style: italic">
+                  When drug patent expires, generics enter → revenue drops
+                  80-90%
+                </td>
               </tr>
               <tr>
                 <td>Formulary (list of approved drugs)</td>
                 <td>Formulário (lista medicamentos aprovados)</td>
+                <td style="font-size: 0.82em; color: #666; font-style: italic">
+                  List of drugs approved for reimbursement by a hospital or
+                  insurer
+                </td>
               </tr>
               <tr>
                 <td>Clinical trial (Phase I-III)</td>
                 <td>Ensaio clínico (Fase I-III)</td>
+                <td style="font-size: 0.82em; color: #666; font-style: italic">
+                  Testing stages: I=safety(20-80), II=efficacy(100-300),
+                  III=large-scale(1000+)
+                </td>
               </tr>
               <tr>
                 <td>FDA/EMA approval</td>
                 <td>Aprovação FDA/EMA</td>
+                <td style="font-size: 0.82em; color: #666; font-style: italic">
+                  Regulatory approval from US (FDA) or EU (EMA) required before
+                  drug can be sold
+                </td>
               </tr>
               <tr>
                 <td>Blockbuster drug (&gt;$1B revenue)</td>
                 <td>Medicamento blockbuster (&gt;$1B receita)</td>
+                <td style="font-size: 0.82em; color: #666; font-style: italic">
+                  Drug generating >$1B annual revenue; defines pharma company
+                  profitability
+                </td>
               </tr>
               <tr>
                 <td>Biosimilar</td>
                 <td>Biossimilar</td>
+                <td style="font-size: 0.82em; color: #666; font-style: italic">
+                  Near-copy of a biologic drug after patent expiry; cheaper but
+                  not identical
+                </td>
               </tr>
               <tr>
                 <td>Epidemiology / incidence / prevalence</td>
                 <td>Epidemiologia / incidência / prevalência</td>
+                <td style="font-size: 0.82em; color: #666; font-style: italic">
+                  Study of disease frequency; incidence = new cases/year,
+                  prevalence = total cases
+                </td>
               </tr>
               <tr>
                 <td>Indication (approved use)</td>
                 <td>Indicação (uso aprovado)</td>
+                <td style="font-size: 0.82em; color: #666; font-style: italic">
+                  Specific disease/condition a drug is approved to treat; more
+                  indications = more revenue
+                </td>
               </tr>
               <tr>
                 <td>Orphan drug (rare disease)</td>
                 <td>Medicamento órfão (doença rara)</td>
+                <td style="font-size: 0.82em; color: #666; font-style: italic">
+                  Treatment for rare diseases (<200K patients); gets special
+                  incentives and exclusivity
+                </td>
               </tr>
               <tr>
-                <td colspan="2">
+                <td colspan="3">
                   <strong>Typical Cases:</strong> Drug launch strategy, M&A,
                   market sizing, pricing new therapy
                 </td>
@@ -6577,100 +6732,178 @@
               <tr>
                 <th>English</th>
                 <th>Português</th>
+                <th>Explanation</th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <td colspan="2"><strong>Key Metrics:</strong></td>
+                <td colspan="3"><strong>Key Metrics:</strong></td>
               </tr>
               <tr>
                 <td>MRR / ARR (Monthly/Annual Recurring Revenue)</td>
                 <td>Receita Recorrente Mensal/Anual</td>
+                <td style="font-size: 0.82em; color: #666; font-style: italic">
+                  Monthly/Annual Recurring Revenue — subscription revenue that
+                  repeats predictably
+                </td>
               </tr>
               <tr>
                 <td>Churn rate (%)</td>
                 <td>Taxa de abandono (%)</td>
+                <td style="font-size: 0.82em; color: #666; font-style: italic">
+                  % of customers leaving per period; 5% monthly = losing half
+                  your base yearly
+                </td>
               </tr>
               <tr>
                 <td>LTV:CAC ratio (target >3:1)</td>
                 <td>Rácio LTV:CAC (objetivo >3:1)</td>
+                <td style="font-size: 0.82em; color: #666; font-style: italic">
+                  Customer lifetime value ÷ acquisition cost; >3:1 means healthy
+                  unit economics
+                </td>
               </tr>
               <tr>
                 <td>Net Revenue Retention (NRR)</td>
                 <td>Retenção Líquida de Receita</td>
+                <td style="font-size: 0.82em; color: #666; font-style: italic">
+                  Revenue from existing customers incl. upsells minus churn;
+                  >100% = growing without new sales
+                </td>
               </tr>
               <tr>
                 <td>Gross margin (SaaS typically 70-85%)</td>
                 <td>Margem bruta (SaaS tipicamente 70-85%)</td>
+                <td style="font-size: 0.82em; color: #666; font-style: italic">
+                  Revenue minus hosting/delivery costs; healthy SaaS = 70-85%
+                </td>
               </tr>
               <tr>
                 <td>DAU/MAU ratio</td>
                 <td>Rácio Utilizadores Diários/Mensais Ativos</td>
+                <td style="font-size: 0.82em; color: #666; font-style: italic">
+                  Daily vs monthly active users; higher ratio = more engaged,
+                  stickier product
+                </td>
               </tr>
               <tr>
-                <td colspan="2"><strong>Trends:</strong></td>
+                <td colspan="3"><strong>Trends:</strong></td>
               </tr>
               <tr>
                 <td>AI/ML adoption across industries</td>
                 <td>Adoção de IA/ML entre indústrias</td>
+                <td style="font-size: 0.82em; color: #666; font-style: italic">
+                  AI changing how products work, compete, and create value
+                  across all sectors
+                </td>
               </tr>
               <tr>
                 <td>Cloud migration & SaaS transformation</td>
                 <td>Migração cloud e transformação SaaS</td>
+                <td style="font-size: 0.82em; color: #666; font-style: italic">
+                  Moving from on-premise servers to AWS/Azure/GCP; shifts capex
+                  to opex
+                </td>
               </tr>
               <tr>
                 <td>Platform economics & network effects</td>
                 <td>Economia de plataformas e efeitos de rede</td>
+                <td style="font-size: 0.82em; color: #666; font-style: italic">
+                  Two-sided markets where more users attract more supply and
+                  vice versa
+                </td>
               </tr>
               <tr>
                 <td>Cybersecurity spending growth</td>
                 <td>Crescimento gastos em cibersegurança</td>
+                <td style="font-size: 0.82em; color: #666; font-style: italic">
+                  Growing fast as threats increase; now a board-level risk
+                  priority
+                </td>
               </tr>
               <tr>
-                <td colspan="2"><strong>Vocabulary / Vocabulário:</strong></td>
+                <td colspan="3"><strong>Vocabulary / Vocabulário:</strong></td>
               </tr>
               <tr>
                 <td>SaaS (Software as a Service)</td>
                 <td>SaaS (Software como Serviço)</td>
+                <td style="font-size: 0.82em; color: #666; font-style: italic">
+                  Software delivered via internet subscription vs one-time
+                  license purchase
+                </td>
               </tr>
               <tr>
                 <td>Churn rate</td>
                 <td>Taxa de abandono / churn</td>
+                <td style="font-size: 0.82em; color: #666; font-style: italic">
+                  % of customers leaving per period; 5% monthly = losing half
+                  your base yearly
+                </td>
               </tr>
               <tr>
                 <td>Freemium model</td>
                 <td>Modelo freemium</td>
+                <td style="font-size: 0.82em; color: #666; font-style: italic">
+                  Free basic product, paid premium features; used to drive
+                  adoption then convert
+                </td>
               </tr>
               <tr>
                 <td>API (Application Programming Interface)</td>
                 <td>API</td>
+                <td style="font-size: 0.82em; color: #666; font-style: italic">
+                  Interface letting software talk to other software; enables
+                  integrations & ecosystem
+                </td>
               </tr>
               <tr>
                 <td>Scalability / scale</td>
                 <td>Escalabilidade / escalar</td>
+                <td style="font-size: 0.82em; color: #666; font-style: italic">
+                  Ability to grow revenue without proportional increase in costs
+                </td>
               </tr>
               <tr>
                 <td>MVP (Minimum Viable Product)</td>
                 <td>MVP (Produto Mínimo Viável)</td>
+                <td style="font-size: 0.82em; color: #666; font-style: italic">
+                  Minimum Viable Product — simplest version released to test
+                  market demand quickly
+                </td>
               </tr>
               <tr>
                 <td>Burn rate (monthly cash consumption)</td>
                 <td>Burn rate (consumo mensal de caixa)</td>
+                <td style="font-size: 0.82em; color: #666; font-style: italic">
+                  Monthly cash spend / months until money runs out
+                </td>
               </tr>
               <tr>
                 <td>Product-market fit</td>
                 <td>Adequação produto-mercado</td>
+                <td style="font-size: 0.82em; color: #666; font-style: italic">
+                  When product satisfies strong market demand; validated by
+                  retention and organic growth
+                </td>
               </tr>
               <tr>
                 <td>Cloud-native</td>
                 <td>Nativo da cloud</td>
+                <td style="font-size: 0.82em; color: #666; font-style: italic">
+                  Built specifically for cloud infrastructure; auto-scales,
+                  resilient, containerized
+                </td>
               </tr>
               <tr>
                 <td>Total Addressable Market (TAM)</td>
                 <td>Mercado Total Endereçável</td>
+                <td style="font-size: 0.82em; color: #666; font-style: italic">
+                  Purchase + operating + maintenance + disposal; full lifecycle
+                  cost analysis
+                </td>
               </tr>
               <tr>
-                <td colspan="2">
+                <td colspan="3">
                   <strong>Typical Cases:</strong> Growth strategy, pricing
                   model, market entry, M&A of tech startup
                 </td>
@@ -6755,96 +6988,171 @@
               <tr>
                 <th>English</th>
                 <th>Português</th>
+                <th>Explanation</th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <td colspan="2"><strong>Key Metrics:</strong></td>
+                <td colspan="3"><strong>Key Metrics:</strong></td>
               </tr>
               <tr>
                 <td>Net Interest Margin (NIM)</td>
                 <td>Margem Financeira Líquida</td>
+                <td style="font-size: 0.82em; color: #666; font-style: italic">
+                  Difference between interest earned on loans and paid on
+                  deposits
+                </td>
               </tr>
               <tr>
                 <td>Cost-to-Income ratio (CIR)</td>
                 <td>Rácio Cost-to-Income</td>
+                <td style="font-size: 0.82em; color: #666; font-style: italic">
+                  Operating costs ÷ income; lower = more efficient; top banks <
+                  50%
+                </td>
               </tr>
               <tr>
                 <td>Assets Under Management (AUM)</td>
                 <td>Ativos Sob Gestão</td>
+                <td style="font-size: 0.82em; color: #666; font-style: italic">
+                  Total market value of investments managed; fee revenue = % of
+                  AUM
+                </td>
               </tr>
               <tr>
                 <td>Non-Performing Loans (NPL) ratio</td>
                 <td>Rácio de Crédito Malparado</td>
+                <td style="font-size: 0.82em; color: #666; font-style: italic">
+                  Non-Performing Loan — borrower missed payments 90+ days;
+                  signals credit quality issues
+                </td>
               </tr>
               <tr>
                 <td>Combined ratio (insurance)</td>
                 <td>Rácio combinado (seguros)</td>
+                <td style="font-size: 0.82em; color: #666; font-style: italic">
+                  Claims + expenses as % of premium income; <100% = underwriting
+                  profit
+                </td>
               </tr>
               <tr>
                 <td>Revenue = Fees + Interest income + Trading</td>
                 <td>Receita = Comissões + Juros + Trading</td>
+                <td style="font-size: 0.82em; color: #666; font-style: italic">
+                  Sales productivity of floor space; higher = better use of real
+                  estate
+                </td>
               </tr>
               <tr>
-                <td colspan="2"><strong>Trends:</strong></td>
+                <td colspan="3"><strong>Trends:</strong></td>
               </tr>
               <tr>
                 <td>Fintech disruption (neobanks, BNPL)</td>
                 <td>Disrupção fintech (neobancos, BNPL)</td>
+                <td style="font-size: 0.82em; color: #666; font-style: italic">
+                  Startups challenging banks with better UX, lower fees
+                  (neobanks, BNPL, crypto)
+                </td>
               </tr>
               <tr>
                 <td>Open banking / PSD2</td>
                 <td>Open banking / PSD2</td>
+                <td style="font-size: 0.82em; color: #666; font-style: italic">
+                  Regulations forcing banks to share data via APIs; enables
+                  fintech innovation
+                </td>
               </tr>
               <tr>
                 <td>ESG investing & green finance</td>
                 <td>Investimento ESG e finanças verdes</td>
+                <td style="font-size: 0.82em; color: #666; font-style: italic">
+                  Investing based on Environmental, Social, Governance criteria
+                  alongside returns
+                </td>
               </tr>
               <tr>
                 <td>Digital transformation of legacy banks</td>
                 <td>Transformação digital de bancos tradicionais</td>
+                <td style="font-size: 0.82em; color: #666; font-style: italic">
+                  Remote healthcare via apps/video; growing post-COVID
+                </td>
               </tr>
               <tr>
-                <td colspan="2"><strong>Vocabulary / Vocabulário:</strong></td>
+                <td colspan="3"><strong>Vocabulary / Vocabulário:</strong></td>
               </tr>
               <tr>
                 <td>Underwriting</td>
                 <td>Subscrição / avaliação de risco</td>
+                <td style="font-size: 0.82em; color: #666; font-style: italic">
+                  Assessing risk to decide whether to offer insurance/loan and
+                  at what price
+                </td>
               </tr>
               <tr>
                 <td>Securitization</td>
                 <td>Titularização</td>
+                <td style="font-size: 0.82em; color: #666; font-style: italic">
+                  Bundling assets (loans, mortgages) into tradeable securities;
+                  spreads risk
+                </td>
               </tr>
               <tr>
                 <td>Yield curve</td>
                 <td>Curva de rendimentos</td>
+                <td style="font-size: 0.82em; color: #666; font-style: italic">
+                  Revenue per passenger per km; higher = better pricing power
+                </td>
               </tr>
               <tr>
                 <td>Risk-weighted assets (RWA)</td>
                 <td>Ativos ponderados pelo risco</td>
+                <td style="font-size: 0.82em; color: #666; font-style: italic">
+                  Assets weighted by risk level; determines how much capital
+                  bank must hold
+                </td>
               </tr>
               <tr>
                 <td>Basel III / capital requirements</td>
                 <td>Basileia III / requisitos de capital</td>
+                <td style="font-size: 0.82em; color: #666; font-style: italic">
+                  Interface letting software talk to other software; enables
+                  integrations & ecosystem
+                </td>
               </tr>
               <tr>
                 <td>KYC (Know Your Customer)</td>
                 <td>KYC (Conhecer o Cliente)</td>
+                <td style="font-size: 0.82em; color: #666; font-style: italic">
+                  Know Your Customer — verifying client identity to prevent
+                  fraud and money laundering
+                </td>
               </tr>
               <tr>
                 <td>Solvency ratio</td>
                 <td>Rácio de solvência</td>
+                <td style="font-size: 0.82em; color: #666; font-style: italic">
+                  Measures if company can meet long-term obligations; key for
+                  insurers and banks
+                </td>
               </tr>
               <tr>
                 <td>Cross-selling</td>
                 <td>Venda cruzada</td>
+                <td style="font-size: 0.82em; color: #666; font-style: italic">
+                  Selling additional products to existing customers; increases
+                  revenue per customer
+                </td>
               </tr>
               <tr>
                 <td>Loss ratio (insurance)</td>
                 <td>Rácio de sinistralidade (seguros)</td>
+                <td style="font-size: 0.82em; color: #666; font-style: italic">
+                  Insurance claims paid ÷ premiums earned; lower = more
+                  profitable underwriting
+                </td>
               </tr>
               <tr>
-                <td colspan="2">
+                <td colspan="3">
                   <strong>Typical Cases:</strong> Cost cutting, digital
                   transformation, M&A, customer retention
                 </td>
@@ -6929,88 +7237,155 @@
               <tr>
                 <th>English</th>
                 <th>Português</th>
+                <th>Explanation</th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <td colspan="2"><strong>Key Metrics:</strong></td>
+                <td colspan="3"><strong>Key Metrics:</strong></td>
               </tr>
               <tr>
                 <td>LCOE (Levelized Cost of Energy)</td>
                 <td>Custo Nivelado de Energia</td>
+                <td style="font-size: 0.82em; color: #666; font-style: italic">
+                  Levelized Cost of Energy — total lifetime cost ÷ energy
+                  produced; compares sources
+                </td>
               </tr>
               <tr>
                 <td>Capacity factor (%)</td>
                 <td>Fator de capacidade (%)</td>
+                <td style="font-size: 0.82em; color: #666; font-style: italic">
+                  Actual output ÷ max possible; solar ~25%, wind ~35%, nuclear
+                  ~90%
+                </td>
               </tr>
               <tr>
                 <td>EBITDA / MWh</td>
                 <td>EBITDA / MWh</td>
+                <td style="font-size: 0.82em; color: #666; font-style: italic">
+                  Upstream (extraction) higher margins but more volatility than
+                  downstream (refining)
+                </td>
               </tr>
               <tr>
                 <td>Capex intensity</td>
                 <td>Intensidade de Capex</td>
+                <td style="font-size: 0.82em; color: #666; font-style: italic">
+                  Capital expenditure as % of revenue; telecom is capital-heavy
+                  (15-25%)
+                </td>
               </tr>
               <tr>
-                <td colspan="2"><strong>Trends:</strong></td>
+                <td colspan="3"><strong>Trends:</strong></td>
               </tr>
               <tr>
                 <td>Energy transition (fossil → renewable)</td>
                 <td>Transição energética (fóssil → renovável)</td>
+                <td style="font-size: 0.82em; color: #666; font-style: italic">
+                  Shift from fossil fuels to renewables driven by climate policy
+                  and cost declines
+                </td>
               </tr>
               <tr>
                 <td>Battery storage economics</td>
                 <td>Economia de armazenamento em baterias</td>
+                <td style="font-size: 0.82em; color: #666; font-style: italic">
+                  Storing renewable energy for use when unavailable; costs
+                  dropping fast
+                </td>
               </tr>
               <tr>
                 <td>Grid modernization & smart grids</td>
                 <td>Modernização da rede e redes inteligentes</td>
+                <td style="font-size: 0.82em; color: #666; font-style: italic">
+                  Digitally managed electricity grid that optimizes generation
+                  and distribution
+                </td>
               </tr>
               <tr>
                 <td>Carbon pricing / ETS</td>
                 <td>Preço do carbono / mercado de emissões</td>
+                <td style="font-size: 0.82em; color: #666; font-style: italic">
+                  Cost per tonne of CO₂ emitted; EU ETS ~€60-90/tonne currently
+                </td>
               </tr>
               <tr>
-                <td colspan="2"><strong>Vocabulary / Vocabulário:</strong></td>
+                <td colspan="3"><strong>Vocabulary / Vocabulário:</strong></td>
               </tr>
               <tr>
                 <td>Baseload / peak load</td>
                 <td>Carga base / carga de ponta</td>
+                <td style="font-size: 0.82em; color: #666; font-style: italic">
+                  Minimum constant electricity demand; peak = highest demand
+                  (evenings, extreme weather)
+                </td>
               </tr>
               <tr>
                 <td>Grid parity</td>
                 <td>Paridade de rede</td>
+                <td style="font-size: 0.82em; color: #666; font-style: italic">
+                  When renewable energy costs same as fossil fuels; reached in
+                  many markets
+                </td>
               </tr>
               <tr>
                 <td>PPA (Power Purchase Agreement)</td>
                 <td>Contrato de compra de energia</td>
+                <td style="font-size: 0.82em; color: #666; font-style: italic">
+                  Power Purchase Agreement — long-term fixed-price electricity
+                  contract; de-risks investments
+                </td>
               </tr>
               <tr>
                 <td>Carbon credit / offset</td>
                 <td>Crédito de carbono / compensação</td>
+                <td style="font-size: 0.82em; color: #666; font-style: italic">
+                  Cost per tonne of CO₂ emitted; EU ETS ~€60-90/tonne currently
+                </td>
               </tr>
               <tr>
                 <td>Curtailment (production cut)</td>
                 <td>Corte de produção</td>
+                <td style="font-size: 0.82em; color: #666; font-style: italic">
+                  Deliberately reducing energy production when supply exceeds
+                  demand or grid capacity
+                </td>
               </tr>
               <tr>
                 <td>Decommissioning</td>
                 <td>Desativação / descomissionamento</td>
+                <td style="font-size: 0.82em; color: #666; font-style: italic">
+                  Cost to safely shut down old power plants (esp. nuclear); can
+                  be billions
+                </td>
               </tr>
               <tr>
                 <td>Interconnector</td>
                 <td>Interligação</td>
+                <td style="font-size: 0.82em; color: #666; font-style: italic">
+                  Physical link between electricity grids of different
+                  regions/countries; enables trading
+                </td>
               </tr>
               <tr>
                 <td>Renewable energy certificate</td>
                 <td>Certificado de energia renovável</td>
+                <td style="font-size: 0.82em; color: #666; font-style: italic">
+                  Government mandate requiring utilities to source X% from
+                  renewables
+                </td>
               </tr>
               <tr>
                 <td>Dispatch (energy)</td>
                 <td>Despacho (energia)</td>
+                <td style="font-size: 0.82em; color: #666; font-style: italic">
+                  Decision of which power plants to activate and when based on
+                  demand and cost
+                </td>
               </tr>
               <tr>
-                <td colspan="2">
+                <td colspan="3">
                   <strong>Typical Cases:</strong> Investment decision, market
                   entry (renewables), cost optimization
                 </td>
@@ -7094,84 +7469,147 @@
               <tr>
                 <th>English</th>
                 <th>Português</th>
+                <th>Explanation</th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <td colspan="2"><strong>Key Metrics:</strong></td>
+                <td colspan="3"><strong>Key Metrics:</strong></td>
               </tr>
               <tr>
                 <td>RPK (Revenue Passenger Kilometers)</td>
                 <td>RPK (Receita por Passageiro-Km)</td>
+                <td style="font-size: 0.82em; color: #666; font-style: italic">
+                  Revenue Passenger Kilometre — one paying passenger transported
+                  one km; measures traffic
+                </td>
               </tr>
               <tr>
                 <td>Load factor (% seats filled)</td>
                 <td>Taxa de ocupação (% lugares preenchidos)</td>
+                <td style="font-size: 0.82em; color: #666; font-style: italic">
+                  % of seats filled; break-even typically 75-80%; higher = more
+                  profitable
+                </td>
               </tr>
               <tr>
                 <td>CASK (Cost per Available Seat Km)</td>
                 <td>CASK (Custo por Lugar-Km Disponível)</td>
+                <td style="font-size: 0.82em; color: #666; font-style: italic">
+                  Cost per Available Seat Km — total cost ÷ (seats × km); key
+                  efficiency metric
+                </td>
               </tr>
               <tr>
                 <td>Yield (revenue per passenger km)</td>
                 <td>Yield (receita por passageiro-km)</td>
+                <td style="font-size: 0.82em; color: #666; font-style: italic">
+                  Revenue per passenger per km; higher = better pricing power
+                </td>
               </tr>
               <tr>
                 <td>Revenue = # Passengers × Avg. Ticket × Load Factor</td>
                 <td>Receita = Nº Passageiros × Ticket Médio × Taxa Ocupação</td>
+                <td style="font-size: 0.82em; color: #666; font-style: italic">
+                  % of seats filled; break-even typically 75-80%; higher = more
+                  profitable
+                </td>
               </tr>
               <tr>
-                <td colspan="2"><strong>Trends:</strong></td>
+                <td colspan="3"><strong>Trends:</strong></td>
               </tr>
               <tr>
                 <td>Sustainable aviation fuel (SAF)</td>
                 <td>Combustível de aviação sustentável</td>
+                <td style="font-size: 0.82em; color: #666; font-style: italic">
+                  Biofuel with lower carbon footprint; currently 2-5x costlier
+                  than jet fuel
+                </td>
               </tr>
               <tr>
                 <td>Low-cost carrier expansion</td>
                 <td>Expansão companhias low-cost</td>
+                <td style="font-size: 0.82em; color: #666; font-style: italic">
+                  LCCs forcing legacy airlines to cut costs or match prices on
+                  sensitive routes
+                </td>
               </tr>
               <tr>
                 <td>Dynamic pricing / revenue management</td>
                 <td>Pricing dinâmico / gestão de receita</td>
+                <td style="font-size: 0.82em; color: #666; font-style: italic">
+                  Adjusting fares in real-time based on demand, competition, and
+                  booking time
+                </td>
               </tr>
               <tr>
-                <td colspan="2"><strong>Vocabulary / Vocabulário:</strong></td>
+                <td colspan="3"><strong>Vocabulary / Vocabulário:</strong></td>
               </tr>
               <tr>
                 <td>Hub-and-spoke vs point-to-point</td>
                 <td>Hub-and-spoke vs ponto-a-ponto</td>
+                <td style="font-size: 0.82em; color: #666; font-style: italic">
+                  Passengers connect through central hub; vs point-to-point (LCC
+                  model)
+                </td>
               </tr>
               <tr>
                 <td>Codeshare agreement</td>
                 <td>Acordo de codeshare</td>
+                <td style="font-size: 0.82em; color: #666; font-style: italic">
+                  Two airlines selling seats on same flight under both flight
+                  numbers; expands reach
+                </td>
               </tr>
               <tr>
                 <td>Wet lease / dry lease</td>
                 <td>Wet lease / dry lease</td>
+                <td style="font-size: 0.82em; color: #666; font-style: italic">
+                  Wet = aircraft with crew included; Dry = just the aircraft,
+                  you staff it
+                </td>
               </tr>
               <tr>
                 <td>Slot (takeoff/landing right)</td>
                 <td>Slot (direito de descolagem/aterragem)</td>
+                <td style="font-size: 0.82em; color: #666; font-style: italic">
+                  Permission to use airport runway at specific time; limited at
+                  congested airports
+                </td>
               </tr>
               <tr>
                 <td>Ancillary revenue (bags, food, seats)</td>
                 <td>Receita auxiliar (bagagem, comida, lugares)</td>
+                <td style="font-size: 0.82em; color: #666; font-style: italic">
+                  Non-ticket income (baggage, food, seats); 30-50% of LCC
+                  revenue
+                </td>
               </tr>
               <tr>
                 <td>Turnaround time</td>
                 <td>Tempo de rotação</td>
+                <td style="font-size: 0.82em; color: #666; font-style: italic">
+                  Time between landing and next takeoff; shorter = more flights
+                  per day
+                </td>
               </tr>
               <tr>
                 <td>Block hours (flight time)</td>
                 <td>Horas de bloco (tempo de voo)</td>
+                <td style="font-size: 0.82em; color: #666; font-style: italic">
+                  Time gate-to-gate; basis for crew pay and aircraft utilization
+                  metrics
+                </td>
               </tr>
               <tr>
                 <td>Yield management</td>
                 <td>Gestão de yield / pricing dinâmico</td>
+                <td style="font-size: 0.82em; color: #666; font-style: italic">
+                  Revenue per passenger per km; higher = better pricing power
+                </td>
               </tr>
               <tr>
-                <td colspan="2">
+                <td colspan="3">
                   <strong>Typical Cases:</strong> Route profitability, fleet
                   strategy, pricing, M&A
                 </td>
@@ -7256,88 +7694,157 @@
               <tr>
                 <th>English</th>
                 <th>Português</th>
+                <th>Explanation</th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <td colspan="2"><strong>Key Metrics:</strong></td>
+                <td colspan="3"><strong>Key Metrics:</strong></td>
               </tr>
               <tr>
                 <td>OEE (Overall Equipment Effectiveness)</td>
                 <td>Eficiência Global de Equipamento</td>
+                <td style="font-size: 0.82em; color: #666; font-style: italic">
+                  Overall Equipment Effectiveness = Availability × Performance ×
+                  Quality; world-class 85%+
+                </td>
               </tr>
               <tr>
                 <td>Capacity utilization (%)</td>
                 <td>Utilização de capacidade (%)</td>
+                <td style="font-size: 0.82em; color: #666; font-style: italic">
+                  Actual output ÷ max output; below 70% signals inefficiency or
+                  weak demand
+                </td>
               </tr>
               <tr>
                 <td>Unit cost = (Fixed + Variable) / Units</td>
                 <td>Custo unitário = (Fixos + Variáveis) / Unidades</td>
+                <td style="font-size: 0.82em; color: #666; font-style: italic">
+                  Revenue & cost per single unit (customer, transaction); must
+                  work before scaling
+                </td>
               </tr>
               <tr>
                 <td>Yield rate / Scrap rate</td>
                 <td>Taxa de rendimento / Taxa de sucata</td>
+                <td style="font-size: 0.82em; color: #666; font-style: italic">
+                  % of materials wasted in production; reducing scrap directly
+                  improves margins
+                </td>
               </tr>
               <tr>
                 <td>Lead time (days)</td>
                 <td>Prazo de entrega (dias)</td>
+                <td style="font-size: 0.82em; color: #666; font-style: italic">
+                  Time from order placement to delivery; shorter = more
+                  responsive supply chain
+                </td>
               </tr>
               <tr>
-                <td colspan="2"><strong>Trends:</strong></td>
+                <td colspan="3"><strong>Trends:</strong></td>
               </tr>
               <tr>
                 <td>Reshoring / nearshoring (post-COVID)</td>
                 <td>Reshoring / nearshoring (pós-COVID)</td>
+                <td style="font-size: 0.82em; color: #666; font-style: italic">
+                  Moving production back home/closer; driven by supply chain
+                  risks post-COVID
+                </td>
               </tr>
               <tr>
                 <td>Industry 4.0 (IoT, automation, digital twins)</td>
                 <td>Indústria 4.0 (IoT, automação, gémeos digitais)</td>
+                <td style="font-size: 0.82em; color: #666; font-style: italic">
+                  Smart factories using IoT, AI, robotics for automated
+                  manufacturing
+                </td>
               </tr>
               <tr>
                 <td>Lean / Six Sigma optimization</td>
                 <td>Otimização Lean / Six Sigma</td>
+                <td style="font-size: 0.82em; color: #666; font-style: italic">
+                  Lean = eliminate waste; Six Sigma = reduce variation; combined
+                  for efficiency
+                </td>
               </tr>
               <tr>
-                <td colspan="2"><strong>Vocabulary / Vocabulário:</strong></td>
+                <td colspan="3"><strong>Vocabulary / Vocabulário:</strong></td>
               </tr>
               <tr>
                 <td>OEE (Overall Equipment Effectiveness)</td>
                 <td>Eficiência Global de Equipamento</td>
+                <td style="font-size: 0.82em; color: #666; font-style: italic">
+                  Overall Equipment Effectiveness = Availability × Performance ×
+                  Quality; world-class 85%+
+                </td>
               </tr>
               <tr>
                 <td>Just-in-Time (JIT)</td>
                 <td>Just-in-Time (produção no momento certo)</td>
+                <td style="font-size: 0.82em; color: #666; font-style: italic">
+                  Minimal inventory (Toyota model); vs safety stock buffer;
+                  trade-off efficiency vs risk
+                </td>
               </tr>
               <tr>
                 <td>Kaizen (continuous improvement)</td>
                 <td>Kaizen (melhoria contínua)</td>
+                <td style="font-size: 0.82em; color: #666; font-style: italic">
+                  Japanese philosophy of continuous small improvements; core of
+                  lean manufacturing
+                </td>
               </tr>
               <tr>
                 <td>Throughput</td>
                 <td>Produtividade / rendimento</td>
+                <td style="font-size: 0.82em; color: #666; font-style: italic">
+                  Rate of production output; units produced per time period
+                  through a process
+                </td>
               </tr>
               <tr>
                 <td>WIP (Work in Progress)</td>
                 <td>Trabalho em curso</td>
+                <td style="font-size: 0.82em; color: #666; font-style: italic">
+                  Work in Progress — partially completed products; too much WIP
+                  = inefficiency
+                </td>
               </tr>
               <tr>
                 <td>Bill of Materials (BOM)</td>
                 <td>Lista de materiais</td>
+                <td style="font-size: 0.82em; color: #666; font-style: italic">
+                  Complete list of materials, parts, and quantities to make one
+                  product (BOM)
+                </td>
               </tr>
               <tr>
                 <td>Quality assurance (QA)</td>
                 <td>Garantia de qualidade</td>
+                <td style="font-size: 0.82em; color: #666; font-style: italic">
+                  Systematic process to ensure products meet defined quality
+                  standards (QA)
+                </td>
               </tr>
               <tr>
                 <td>Bottleneck</td>
                 <td>Gargalo / bottleneck</td>
+                <td style="font-size: 0.82em; color: #666; font-style: italic">
+                  Over-The-Top services (WhatsApp, Netflix) bypassing
+                  traditional telco revenue
+                </td>
               </tr>
               <tr>
                 <td>Capex vs Opex</td>
                 <td>Capex vs Opex (investimento vs custo operacional)</td>
+                <td style="font-size: 0.82em; color: #666; font-style: italic">
+                  Capital expenditure as % of revenue; telecom is capital-heavy
+                  (15-25%)
+                </td>
               </tr>
               <tr>
-                <td colspan="2">
+                <td colspan="3">
                   <strong>Typical Cases:</strong> Cost reduction, plant
                   investment, supply chain, make vs. buy
                 </td>
@@ -7421,86 +7928,151 @@
               <tr>
                 <th>English</th>
                 <th>Português</th>
+                <th>Explanation</th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <td colspan="2"><strong>Key Metrics:</strong></td>
+                <td colspan="3"><strong>Key Metrics:</strong></td>
               </tr>
               <tr>
                 <td>ARPU (Average Revenue Per User)</td>
                 <td>Receita Média Por Utilizador</td>
+                <td style="font-size: 0.82em; color: #666; font-style: italic">
+                  Average Revenue Per User — total revenue ÷ subscribers;
+                  pricing power metric
+                </td>
               </tr>
               <tr>
                 <td>Churn rate / subscriber growth</td>
                 <td>Taxa de churn / crescimento subscritores</td>
+                <td style="font-size: 0.82em; color: #666; font-style: italic">
+                  % of customers leaving per period; 5% monthly = losing half
+                  your base yearly
+                </td>
               </tr>
               <tr>
                 <td>Capex / Revenue ratio</td>
                 <td>Rácio Capex / Receita</td>
+                <td style="font-size: 0.82em; color: #666; font-style: italic">
+                  Capital expenditure as % of revenue; telecom is capital-heavy
+                  (15-25%)
+                </td>
               </tr>
               <tr>
                 <td>Content cost per subscriber</td>
                 <td>Custo de conteúdo por subscritor</td>
+                <td style="font-size: 0.82em; color: #666; font-style: italic">
+                  What a telco/streamer pays for content ÷ subscribers; key ARPU
+                  driver
+                </td>
               </tr>
               <tr>
-                <td colspan="2"><strong>Trends:</strong></td>
+                <td colspan="3"><strong>Trends:</strong></td>
               </tr>
               <tr>
                 <td>5G rollout & monetization</td>
                 <td>Implementação 5G e monetização</td>
+                <td style="font-size: 0.82em; color: #666; font-style: italic">
+                  Next-gen network: faster, lower latency; enables IoT,
+                  autonomous vehicles
+                </td>
               </tr>
               <tr>
                 <td>Streaming wars / content bundling</td>
                 <td>Guerras de streaming / bundling de conteúdo</td>
+                <td style="font-size: 0.82em; color: #666; font-style: italic">
+                  Combining mobile + broadband + TV in one package; reduces
+                  churn, ups ARPU
+                </td>
               </tr>
               <tr>
                 <td>Tower company spin-offs / infrastructure sharing</td>
                 <td>
                   Spin-offs de empresas de torres / partilha de infraestrutura
                 </td>
+                <td style="font-size: 0.82em; color: #666; font-style: italic">
+                  Multiple operators sharing same towers; significantly reduces
+                  capex
+                </td>
               </tr>
               <tr>
-                <td colspan="2"><strong>Vocabulary / Vocabulário:</strong></td>
+                <td colspan="3"><strong>Vocabulary / Vocabulário:</strong></td>
               </tr>
               <tr>
                 <td>MNO (Mobile Network Operator)</td>
                 <td>Operadora de rede móvel</td>
+                <td style="font-size: 0.82em; color: #666; font-style: italic">
+                  Mobile Network Operator — owns and operates its own wireless
+                  network (vs MVNO)
+                </td>
               </tr>
               <tr>
                 <td>MVNO (Mobile Virtual Network Operator)</td>
                 <td>Operadora virtual</td>
+                <td style="font-size: 0.82em; color: #666; font-style: italic">
+                  Mobile Virtual Network Operator — buys wholesale capacity,
+                  sells under own brand
+                </td>
               </tr>
               <tr>
                 <td>Spectrum (frequency bands)</td>
                 <td>Espectro (bandas de frequência)</td>
+                <td style="font-size: 0.82em; color: #666; font-style: italic">
+                  Price paid for radio frequencies; major investment enabling
+                  network capacity
+                </td>
               </tr>
               <tr>
                 <td>OTT (Over-The-Top content)</td>
                 <td>Conteúdo OTT</td>
+                <td style="font-size: 0.82em; color: #666; font-style: italic">
+                  Over-The-Top services (WhatsApp, Netflix) bypassing
+                  traditional telco revenue
+                </td>
               </tr>
               <tr>
                 <td>Latency</td>
                 <td>Latência</td>
+                <td style="font-size: 0.82em; color: #666; font-style: italic">
+                  Data travel time device→server; critical for gaming, video
+                  calls, autonomous cars
+                </td>
               </tr>
               <tr>
                 <td>Bandwidth</td>
                 <td>Largura de banda</td>
+                <td style="font-size: 0.82em; color: #666; font-style: italic">
+                  Maximum data transfer rate of a network connection; higher =
+                  faster internet
+                </td>
               </tr>
               <tr>
                 <td>Fiber-to-the-Home (FTTH)</td>
                 <td>Fibra até casa</td>
+                <td style="font-size: 0.82em; color: #666; font-style: italic">
+                  Running fiber optic directly to homes; highest speed but
+                  expensive to deploy
+                </td>
               </tr>
               <tr>
                 <td>Cord-cutting (cancel cable TV)</td>
                 <td>Corte do cabo (cancelar TV por cabo)</td>
+                <td style="font-size: 0.82em; color: #666; font-style: italic">
+                  Consumers cancelling traditional cable/satellite TV for
+                  streaming services
+                </td>
               </tr>
               <tr>
                 <td>Bundle / unbundle</td>
                 <td>Pacote / desagregar</td>
+                <td style="font-size: 0.82em; color: #666; font-style: italic">
+                  Bundling = selling services together (discount); unbundling =
+                  selling separately
+                </td>
               </tr>
               <tr>
-                <td colspan="2">
+                <td colspan="3">
                   <strong>Typical Cases:</strong> Growth strategy, pricing
                   tiers, M&A, customer retention
                 </td>
@@ -7585,19 +8157,28 @@
               <tr>
                 <th>English</th>
                 <th>Português</th>
+                <th>Explanation</th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <td colspan="2"><strong>Key Metrics:</strong></td>
+                <td colspan="3"><strong>Key Metrics:</strong></td>
               </tr>
               <tr>
                 <td>Impact per $ spent</td>
                 <td>Impacto por € gasto</td>
+                <td style="font-size: 0.82em; color: #666; font-style: italic">
+                  Measurable outcomes (lives saved, children educated); proves
+                  effectiveness
+                </td>
               </tr>
               <tr>
                 <td>Cost per beneficiary</td>
                 <td>Custo por beneficiário</td>
+                <td style="font-size: 0.82em; color: #666; font-style: italic">
+                  Total program cost ÷ people served; key efficiency metric for
+                  donors
+                </td>
               </tr>
               <tr>
                 <td>Funding diversification (grants, donations, earned)</td>
@@ -7605,67 +8186,119 @@
                   Diversificação de financiamento (subsídios, doações, receita
                   própria)
                 </td>
+                <td style="font-size: 0.82em; color: #666; font-style: italic">
+                  Spreading income across grants, donations, earned revenue;
+                  reduces risk
+                </td>
               </tr>
               <tr>
                 <td>Overhead ratio</td>
                 <td>Rácio de custos administrativos</td>
+                <td style="font-size: 0.82em; color: #666; font-style: italic">
+                  Admin + fundraising ÷ total spend; donors prefer <20%, but too
+                  low hurts effectiveness
+                </td>
               </tr>
               <tr>
-                <td colspan="2"><strong>Trends:</strong></td>
+                <td colspan="3"><strong>Trends:</strong></td>
               </tr>
               <tr>
                 <td>Outcome-based funding</td>
                 <td>Financiamento por resultados</td>
+                <td style="font-size: 0.82em; color: #666; font-style: italic">
+                  Donors pay based on results achieved, not activities performed
+                </td>
               </tr>
               <tr>
                 <td>Public-private partnerships (PPPs)</td>
                 <td>Parcerias público-privadas (PPPs)</td>
+                <td style="font-size: 0.82em; color: #666; font-style: italic">
+                  Govt + business + nonprofit collaboration; leverages different
+                  strengths
+                </td>
               </tr>
               <tr>
                 <td>Digital transformation of public services</td>
                 <td>Transformação digital de serviços públicos</td>
+                <td style="font-size: 0.82em; color: #666; font-style: italic">
+                  Remote healthcare via apps/video; growing post-COVID
+                </td>
               </tr>
               <tr>
-                <td colspan="2"><strong>Vocabulary / Vocabulário:</strong></td>
+                <td colspan="3"><strong>Vocabulary / Vocabulário:</strong></td>
               </tr>
               <tr>
                 <td>Theory of change</td>
                 <td>Teoria de mudança</td>
+                <td style="font-size: 0.82em; color: #666; font-style: italic">
+                  Logic model: activities → outputs → outcomes → impact; shows
+                  how change happens
+                </td>
               </tr>
               <tr>
                 <td>Donor retention</td>
                 <td>Retenção de doadores</td>
+                <td style="font-size: 0.82em; color: #666; font-style: italic">
+                  Cost to get one new donor; analogous to CAC in for-profit
+                  world
+                </td>
               </tr>
               <tr>
                 <td>Grant making</td>
                 <td>Atribuição de subsídios</td>
+                <td style="font-size: 0.82em; color: #666; font-style: italic">
+                  % of revenue from grants; high dependency = volatility risk
+                </td>
               </tr>
               <tr>
                 <td>Social enterprise</td>
                 <td>Empresa social</td>
+                <td style="font-size: 0.82em; color: #666; font-style: italic">
+                  Nonprofits earning revenue through market activities (fair
+                  trade, job training)
+                </td>
               </tr>
               <tr>
                 <td>Outcomes framework</td>
                 <td>Quadro de resultados</td>
+                <td style="font-size: 0.82em; color: #666; font-style: italic">
+                  Structured model defining what success looks like and how to
+                  measure it
+                </td>
               </tr>
               <tr>
                 <td>Beneficiary</td>
                 <td>Beneficiário</td>
+                <td style="font-size: 0.82em; color: #666; font-style: italic">
+                  Total program cost ÷ people served; key efficiency metric for
+                  donors
+                </td>
               </tr>
               <tr>
                 <td>Capacity building</td>
                 <td>Capacitação / reforço de capacidades</td>
+                <td style="font-size: 0.82em; color: #666; font-style: italic">
+                  Strengthening org's ability to deliver (training, systems,
+                  governance)
+                </td>
               </tr>
               <tr>
                 <td>Social ROI (SROI)</td>
                 <td>Retorno Social do Investimento</td>
+                <td style="font-size: 0.82em; color: #666; font-style: italic">
+                  Nonprofits earning revenue through market activities (fair
+                  trade, job training)
+                </td>
               </tr>
               <tr>
                 <td>Scalability (of programs)</td>
                 <td>Escalabilidade (de programas)</td>
+                <td style="font-size: 0.82em; color: #666; font-style: italic">
+                  Ability to grow revenue without proportional increase in costs
+                </td>
               </tr>
               <tr>
-                <td colspan="2">
+                <td colspan="3">
                   <strong>Typical Cases:</strong> Resource allocation, program
                   effectiveness, stakeholder strategy
                 </td>
@@ -9912,6 +10545,231 @@
       </div>
 
       <!-- ═══════════════════════════════════════════════════════ -->
+      <!-- SECTION: FRAMEWORK MAP -->
+      <!-- ═══════════════════════════════════════════════════════ -->
+      <div class="section" id="fw-map">
+        <div class="section-title">🗺️ Framework Map</div>
+        <div class="section-subtitle">
+          How the 10 case frameworks nest inside each other — all roads start from Profitability.
+          <span style="font-size:0.85em;color:var(--highlight);font-weight:600;">BETA — Experimental</span>
+        </div>
+
+        <div class="card" style="margin-bottom:20px;padding:16px;">
+          <p style="color:var(--text-muted);font-size:0.9em;line-height:1.6;margin-bottom:0;">
+            <strong>Key insight:</strong> Every case framework is a "zoom-in" on a branch of the Profitability tree.
+            Click any node to see its framework chain and expand the framework tree below. The same framework (e.g. Pricing) can appear in multiple places.
+          </p>
+        </div>
+
+        <!-- CSS for the map -->
+        <style>
+          .fwm-tree { position:relative; width:100%; overflow-x:auto; padding-bottom:20px; }
+          .fwm-row { display:flex; justify-content:center; gap:16px; margin-bottom:8px; position:relative; }
+          .fwm-row.fwm-row-wide { gap:12px; }
+          .fwm-pill { 
+            display:inline-flex; align-items:center; justify-content:center;
+            padding:8px 20px; border-radius:50px; font-size:13px; font-weight:600;
+            cursor:pointer; border:2px solid; transition: all 0.2s; position:relative;
+            white-space:nowrap; min-width:140px; text-align:center; user-select:none;
+          }
+          .fwm-pill:hover { transform:translateY(-2px); box-shadow:0 4px 12px rgba(0,0,0,0.15); }
+          .fwm-pill.active { box-shadow:0 0 0 3px rgba(0,166,81,0.4); transform:translateY(-2px); }
+          .fwm-connector { display:flex; justify-content:center; margin:2px 0; }
+          .fwm-connector svg { display:block; }
+          .fwm-label { text-align:center; color:#888; font-size:11px; font-style:italic; margin:4px 0; }
+          .fwm-expand {
+            margin-top:16px; padding:16px; background:var(--card-bg); border:1px solid var(--card-border);
+            border-radius:12px; display:none; animation: fwmSlideDown 0.25s ease;
+          }
+          .fwm-expand.show { display:block; }
+          @keyframes fwmSlideDown { from { opacity:0; transform:translateY(-8px); } to { opacity:1; transform:translateY(0); } }
+          .fwm-chain { font-size:1em; margin-bottom:10px; }
+          .fwm-chain-step { color:var(--text); font-weight:500; }
+          .fwm-chain-final { background:var(--bcg-green); color:#fff; padding:3px 12px; border-radius:50px; font-weight:700; }
+          .fwm-chain-arrow { color:var(--bcg-green); font-weight:bold; margin:0 4px; }
+          .fwm-fw-tree { margin-top:12px; padding:12px 16px; background:#f8f8f8; border-radius:8px; border-left:3px solid var(--bcg-green); }
+          .fwm-fw-tree ul { margin:4px 0 4px 18px; padding:0; list-style:none; }
+          .fwm-fw-tree li { position:relative; padding:2px 0; font-size:0.9em; color:var(--text); }
+          .fwm-fw-tree li::before { content:"├─ "; color:#ccc; font-family:monospace; }
+          .fwm-fw-tree li:last-child::before { content:"└─ "; }
+          .fwm-fw-tree .branch-name { font-weight:600; color:#333; }
+          .fwm-fw-tree .leaf { color:#666; font-size:0.88em; }
+          .fwm-legend { margin-top:16px; display:flex; gap:16px; flex-wrap:wrap; font-size:0.82em; color:#999; }
+          .fwm-legend-item { display:flex; align-items:center; gap:4px; }
+          .fwm-legend-line { width:24px; height:2px; }
+          .fwm-group { display:flex; flex-direction:column; align-items:center; gap:0; }
+          .fwm-vline { width:2px; height:20px; background:#ccc; }
+          .fwm-hline-group { display:flex; align-items:flex-start; position:relative; }
+          .fwm-fork { position:relative; display:flex; justify-content:center; }
+          .fwm-fork-line { position:absolute; top:0; height:2px; background:#ccc; }
+          .fwm-note { font-size:0.8em; color:#999; font-style:italic; text-align:center; margin:2px 0; }
+          @media (max-width:900px) {
+            .fwm-pill { font-size:11px; padding:6px 12px; min-width:110px; }
+            .fwm-row { gap:8px; flex-wrap:wrap; }
+          }
+        </style>
+
+        <!-- The Tree Map (HTML-based) -->
+        <div class="fwm-tree">
+
+          <!-- ROW 0: PROFITABILITY -->
+          <div class="fwm-row">
+            <div class="fwm-pill" data-fwm="profitability" style="background:#00a651;color:#fff;border-color:#008c44;font-size:15px;padding:10px 28px;">
+              💰 PROFITABILITY
+            </div>
+          </div>
+
+          <div class="fwm-label">"How to improve profits?" = Revenue − Costs</div>
+
+          <!-- CONNECTOR: split into Revenue / Costs -->
+          <div class="fwm-connector">
+            <svg width="600" height="30"><line x1="300" y1="0" x2="150" y2="28" stroke="#bbb" stroke-width="2"/><line x1="300" y1="0" x2="450" y2="28" stroke="#bbb" stroke-width="2"/></svg>
+          </div>
+
+          <!-- ROW 1: Revenue / Costs -->
+          <div class="fwm-row" style="gap:200px;">
+            <div class="fwm-pill" data-fwm="revenue" style="background:#e3f2fd;color:#1976d2;border-color:#1976d2;">
+              📈 Revenue
+            </div>
+            <div class="fwm-pill" data-fwm="costs" style="background:#fce4ec;color:#d32f2f;border-color:#d32f2f;">
+              📉 Costs
+            </div>
+          </div>
+
+          <!-- CONNECTOR: Revenue splits into Volume/Price, Costs splits into FC/VC -->
+          <div class="fwm-connector">
+            <svg width="800" height="30"><line x1="230" y1="0" x2="140" y2="28" stroke="#bbb" stroke-width="1.5"/><line x1="230" y1="0" x2="330" y2="28" stroke="#bbb" stroke-width="1.5"/><line x1="570" y1="0" x2="480" y2="28" stroke="#bbb" stroke-width="1.5"/><line x1="570" y1="0" x2="660" y2="28" stroke="#bbb" stroke-width="1.5"/></svg>
+          </div>
+
+          <!-- ROW 2: Volume / Price / FC / VC -->
+          <div class="fwm-row" style="gap:24px;">
+            <div class="fwm-pill" data-fwm="volume" style="background:#e8f5e9;color:#2e7d32;border-color:#a5d6a7;font-size:12px;">
+              📊 Volume
+            </div>
+            <div class="fwm-pill" data-fwm="price" style="background:#fff8e1;color:#f57f17;border-color:#ffe082;font-size:12px;">
+              💲 Price
+            </div>
+            <div style="width:60px;"></div>
+            <div class="fwm-pill" data-fwm="fixed-costs" style="background:#fce4ec;color:#c62828;border-color:#ef9a9a;font-size:12px;">
+              🏢 Fixed Costs
+            </div>
+            <div class="fwm-pill" data-fwm="variable-costs" style="background:#fce4ec;color:#c62828;border-color:#ef9a9a;font-size:12px;">
+              📦 Variable Costs
+            </div>
+          </div>
+
+          <div class="fwm-label">"How to increase volume? → Growth" &nbsp;&nbsp; "How to optimize price? → Pricing" &nbsp;&nbsp; "How to cut costs? → Cost Reduction"</div>
+
+          <!-- CONNECTOR: down to frameworks -->
+          <div class="fwm-connector">
+            <svg width="900" height="30"><line x1="130" y1="0" x2="130" y2="28" stroke="#bbb" stroke-width="1.5"/><line x1="280" y1="0" x2="340" y2="28" stroke="#bbb" stroke-width="1.5"/><line x1="540" y1="0" x2="590" y2="28" stroke="#bbb" stroke-width="1.5"/><line x1="670" y1="0" x2="590" y2="28" stroke="#bbb" stroke-width="1.5"/><line x1="790" y1="0" x2="790" y2="28" stroke="#bbb" stroke-width="1.5"/></svg>
+          </div>
+
+          <!-- ROW 3: GROWTH / PRICING / COST REDUCTION / INVESTMENT -->
+          <div class="fwm-row" style="gap:16px;">
+            <div class="fwm-pill" data-fwm="growth" style="background:#e8f5e9;color:#2e7d32;border-color:#2e7d32;">
+              📈 2. GROWTH
+            </div>
+            <div class="fwm-pill" data-fwm="pricing" style="background:#fffde7;color:#f57f17;border-color:#f57f17;">
+              🏷️ 6. PRICING
+            </div>
+            <div class="fwm-pill" data-fwm="competitive-response" style="background:#fff3e0;color:#e65100;border-color:#e65100;">
+              ⚔️ 9. COMP. RESPONSE
+            </div>
+            <div class="fwm-pill" data-fwm="cost-reduction" style="background:#ffebee;color:#c62828;border-color:#c62828;">
+              📉 3. COST REDUCTION
+            </div>
+            <div class="fwm-pill" data-fwm="investment" style="background:#ede7f6;color:#5e35b1;border-color:#5e35b1;">
+              💼 7. INVESTMENT
+            </div>
+          </div>
+
+          <div class="fwm-note">⚔️ Comp. Response = defending revenue from threats &nbsp;&nbsp;|&nbsp;&nbsp; 💼 Investment can sit on both sides (invest to grow OR invest to save costs)</div>
+
+          <!-- CONNECTOR: Growth branches down -->
+          <div class="fwm-connector">
+            <svg width="600" height="30"><line x1="90" y1="0" x2="60" y2="28" stroke="#bbb" stroke-width="1.5"/><line x1="90" y1="0" x2="200" y2="28" stroke="#bbb" stroke-width="1.5"/><line x1="90" y1="0" x2="340" y2="28" stroke="#bbb" stroke-width="1.5"/><line x1="510" y1="0" x2="480" y2="28" stroke="#bbb" stroke-width="1.5"/></svg>
+          </div>
+
+          <!-- ROW 4: MARKET ENTRY / NEW PRODUCT / M&A / PROCESS OPT -->
+          <div class="fwm-row fwm-row-wide" style="gap:14px;">
+            <div class="fwm-pill" data-fwm="market-entry" style="background:#e0f7fa;color:#00838f;border-color:#00838f;font-size:12px;">
+              🚀 4. MARKET ENTRY
+            </div>
+            <div class="fwm-pill" data-fwm="new-product" style="background:#f3e5f5;color:#7b1fa2;border-color:#7b1fa2;font-size:12px;">
+              🆕 5. NEW PRODUCT
+            </div>
+            <div class="fwm-pill" data-fwm="m-and-a" style="background:#e8eaf6;color:#283593;border-color:#283593;font-size:12px;">
+              🤝 8. M&A
+            </div>
+            <div style="width:100px;"></div>
+            <div class="fwm-pill" data-fwm="process-optimization" style="background:#efebe9;color:#4e342e;border-color:#4e342e;font-size:12px;">
+              ⚙️ 10. PROCESS OPT.
+            </div>
+          </div>
+
+          <div class="fwm-note" style="margin-top:8px;">
+            🏷️ Pricing can also be triggered from Market Entry / New Product (dashed connection) &nbsp;&nbsp;|&nbsp;&nbsp;
+            🤝 M&A = inorganic growth path
+          </div>
+        </div>
+
+        <!-- Expandable framework panel (shows on click) -->
+        <div id="fwm-expand-panel" class="fwm-expand">
+          <div class="fwm-chain" id="fwm-chain-display"></div>
+          <p id="fwm-insight" style="color:var(--text-muted);font-size:0.9em;line-height:1.6;margin-bottom:12px;"></p>
+          <div id="fwm-fw-tree-display" class="fwm-fw-tree" style="display:none;"></div>
+        </div>
+
+        <!-- Legend -->
+        <div class="fwm-legend" style="margin-top:16px;">
+          <div class="fwm-legend-item"><div class="fwm-legend-line" style="background:#bbb;"></div> Connection (parent → child)</div>
+          <div class="fwm-legend-item"><div class="fwm-legend-line" style="background:#bbb;border-top:2px dashed #bbb;height:0;"></div> Cross-cutting (e.g. Pricing)</div>
+          <div class="fwm-legend-item">Click a pill to expand the framework tree</div>
+        </div>
+
+        <!-- Reasoning table -->
+        <div class="card" style="margin-top:20px;padding:16px;">
+          <h3 style="margin-bottom:12px;">🧠 How to read this map</h3>
+          <table>
+            <thead><tr><th>Level</th><th>Question</th><th>Framework</th></tr></thead>
+            <tbody>
+              <tr><td><strong>0 — Start</strong></td><td>"How to improve profits?"</td><td>💰 Profitability (Revenue − Costs)</td></tr>
+              <tr><td><strong>1 — Revenue</strong></td><td>"Volume problem or price problem?"</td><td>Volume / Price decomposition</td></tr>
+              <tr><td><strong>1 — Costs</strong></td><td>"Fixed costs or variable costs?"</td><td>Fixed / Variable decomposition</td></tr>
+              <tr><td><strong>2a — Volume</strong></td><td>"How to sell more?"</td><td>📈 Growth</td></tr>
+              <tr><td><strong>2b — Price</strong></td><td>"How to optimize price?"</td><td>🏷️ Pricing</td></tr>
+              <tr><td><strong>2c — Revenue</strong></td><td>"How to defend from threats?"</td><td>⚔️ Competitive Response</td></tr>
+              <tr><td><strong>2d — Costs</strong></td><td>"How to reduce costs?"</td><td>📉 Cost Reduction</td></tr>
+              <tr><td><strong>2e — Costs</strong></td><td>"Should we invest to improve?"</td><td>💼 Investment</td></tr>
+              <tr><td><strong>3a — Growth</strong></td><td>"Enter a new market?"</td><td>🚀 Market Entry</td></tr>
+              <tr><td><strong>3b — Growth</strong></td><td>"Launch a new product?"</td><td>🆕 New Product</td></tr>
+              <tr><td><strong>3c — Growth</strong></td><td>"Acquire a company?"</td><td>🤝 M&A</td></tr>
+              <tr><td><strong>3d — Cost Red.</strong></td><td>"Optimize this process?"</td><td>⚙️ Process Optimization</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Venn insight -->
+        <div class="card card-accent" style="margin-top:16px;">
+          <h4>💡 The Venn Diagram Insight</h4>
+          <p style="margin-top:8px;line-height:1.6;color:var(--text-muted);">
+            Think of it as concentric circles: <strong>Profitability</strong> is the outer ring (every case is ultimately about profit).
+            Inside it, <strong>Revenue</strong> and <strong>Costs</strong> are the two halves.
+            Revenue decomposes into <strong>Volume</strong> and <strong>Price</strong>; Costs into <strong>Fixed</strong> and <strong>Variable</strong>.
+            Each of those leads to specific frameworks.
+            <strong>Pricing</strong> and <strong>Investment</strong> cut across both sides.
+            <strong>Competitive Response</strong> defends revenue when external threats appear.
+          </p>
+          <p style="margin-top:8px;line-height:1.6;">
+            <strong>In an interview:</strong> The prompt tells you WHERE in this map you are.
+            "Profits are declining" → start at Level 0. "Should we enter China?" → jump to Level 3a.
+            But always know which outer framework led here — it gives context for your recommendation.
+          </p>
+        </div>
+      </div>
+
+      <!-- ═══════════════════════════════════════════════════════ -->
       <!-- SECTION: PORTUGUESE TERMS -->
       <!-- ═══════════════════════════════════════════════════════ -->
       <div class="section" id="portuguese">
@@ -9947,12 +10805,10 @@
               <tr>
                 <td>Value chain</td>
                 <td>Cadeia de valor</td>
-                <td></td>
               </tr>
               <tr>
                 <td>Competitive advantage</td>
                 <td>Vantagem competitiva</td>
-                <td></td>
               </tr>
               <tr>
                 <td>Value proposition</td>
@@ -9962,17 +10818,14 @@
               <tr>
                 <td>Competitor</td>
                 <td>Concorrente</td>
-                <td></td>
               </tr>
               <tr>
                 <td>Supplier</td>
                 <td>Fornecedor</td>
-                <td></td>
               </tr>
               <tr>
                 <td>Retail</td>
                 <td>Retalho</td>
-                <td></td>
               </tr>
               <tr>
                 <td>Wholesale</td>
@@ -9982,12 +10835,10 @@
               <tr>
                 <td>Distribution channel</td>
                 <td>Canal de distribuição</td>
-                <td></td>
               </tr>
               <tr>
                 <td>Business model</td>
                 <td>Modelo de negócio</td>
-                <td></td>
               </tr>
             </tbody>
           </table>
@@ -10019,27 +10870,22 @@
               <tr>
                 <td>Loss</td>
                 <td>Prejuízo</td>
-                <td></td>
               </tr>
               <tr>
                 <td>Fixed / Variable costs</td>
                 <td>Custos fixos / variáveis</td>
-                <td></td>
               </tr>
               <tr>
                 <td>Gross / Operating margin</td>
                 <td>Margem bruta / operacional</td>
-                <td></td>
               </tr>
               <tr>
                 <td>Contribution margin</td>
                 <td>Margem de contribuição</td>
-                <td></td>
               </tr>
               <tr>
                 <td>Breakeven</td>
                 <td>Ponto de equilíbrio</td>
-                <td></td>
               </tr>
               <tr>
                 <td>Cash flow</td>
@@ -10054,32 +10900,26 @@
               <tr>
                 <td>NPV</td>
                 <td>Valor atual líquido (VAL)</td>
-                <td></td>
               </tr>
               <tr>
                 <td>Balance sheet</td>
                 <td>Balanço</td>
-                <td></td>
               </tr>
               <tr>
                 <td>P&L (Income Statement)</td>
                 <td>Demonstração de resultados</td>
-                <td></td>
               </tr>
               <tr>
                 <td>Assets / Liabilities</td>
                 <td>Ativo / Passivo</td>
-                <td></td>
               </tr>
               <tr>
                 <td>Equity</td>
                 <td>Capital próprio</td>
-                <td></td>
               </tr>
               <tr>
                 <td>Leverage</td>
                 <td>Alavancagem</td>
-                <td></td>
               </tr>
               <tr>
                 <td>Capital / Operating expenditure</td>
@@ -17787,6 +18627,223 @@ Margin                       20.0%              6.6%          -13.4pp
       };
 
       // ═══════════════════════════════════════════════
+      // GENERAL (TEMPLATE) EXAMPLES — INDUSTRY-AGNOSTIC
+      // ═══════════════════════════════════════════════
+      (function () {
+        var GEN = {
+          profitability: {
+            lvl2: [
+              "Revenue = Volume × Price — how many units sold and at what price?",
+              "Cost = Fixed + Variable — what doesn\'t change vs what scales with output?",
+            ],
+            lvl3: [
+              "# of customers, frequency per customer, units per transaction, channel mix",
+              "list price, discounts, promotions, price per unit, FX effects, price mix",
+              "rent, salaries, insurance, depreciation, IT, licenses, interest, admin overhead",
+              "raw materials, packaging, shipping, commissions, payment fees, energy per unit",
+            ],
+            prompts: [
+              "A mid-sized company has seen profit fall from 12% to 4% margin over two years, despite stable revenue. Why?",
+              "Revenue is growing 10% YoY, but net profit has declined. What could explain this?",
+              "A business unit that was the most profitable is now barely breaking even. Diagnose the problem.",
+            ],
+          },
+          growth: {
+            lvl2: [
+              "Expand what you already do — sell more to existing customers in existing markets",
+              "Go beyond current scope — new products, new customer types, new business models",
+            ],
+            lvl3: [
+              "improve product, enhance marketing, adjust pricing, increase retention, boost conversion",
+              "identify fastest-growing segments, reallocate resources and investment toward them",
+              "cross-sell, upsell, bundle, add complementary products or services",
+              "leverage capabilities into adjacent markets, partnerships, licensing, JVs",
+            ],
+            lvl4: [
+              "R&D, new features, higher quality, better UX, faster delivery, innovation pipeline",
+              "brand awareness, digital channels, content strategy, referral programs, CRM optimization",
+              "benchmarking, volume discounts, loyalty rewards, freemium tiers, flexible payment plans",
+            ],
+            prompts: [
+              "A company has grown 5% annually for 3 years but the board wants 15%. How would you structure your thinking?",
+              "The CEO wants to double revenue in 5 years. What strategic levers exist?",
+              "A mature business in a slow-growing market wants new growth avenues. How to approach?",
+            ],
+          },
+          "cost-reduction": {
+            lvl2: [
+              "Can we stop doing this entirely or reduce how much is needed?",
+              "Can we do the same thing using fewer resources?",
+              "Can we get the same resources for less money?",
+            ],
+            lvl3: [
+              "remove unnecessary steps, sunset low-value activities, automate fully, outsource entirely",
+              "offer lower-cost tiers, reduce frequency, shift to self-service, simplify specifications",
+              "reduce rework, minimize idle time, cut scrap/defects, lean processes, remove duplication",
+              "upskill staff, invest in tools/technology, optimize workflows, increase throughput per FTE",
+              "alternative suppliers, substitute materials, offshore/nearshore, open-source solutions",
+              "volume discounts, longer-term contracts, competitive bidding, renegotiate payment terms",
+            ],
+            prompts: [
+              "Costs have grown 20% faster than revenue over 3 years. The CEO wants to cut the cost base by 15%. Approach?",
+              "A business unit needs to cut \u20ac10M in annual costs without impacting service quality. Where to look?",
+              "SG&A is 30% of revenue vs 20% industry benchmark. How to close the gap?",
+            ],
+          },
+          "market-entry": {
+            lvl2: [
+              "Is the market big enough and growing?",
+              "Can we realistically win customers against existing players?",
+              "Will the economics work — can we make money here?",
+              "Do we have the skills and can we manage the risks?",
+            ],
+            lvl3: [
+              "TAM/SAM/SOM, units \u00d7 price, current size, historical growth rate",
+              "growth rate %, demand drivers, secular trends, regulatory tailwinds/headwinds",
+              "unmet needs, pain points, willingness to switch, decision criteria, buying process",
+              "differentiation, value proposition vs incumbents, product-market fit, brand recognition",
+              "# of players, market shares, strengths/weaknesses, barriers to entry, switching costs",
+              "capex required, working capital, setup costs, time to build, go-to-market spend",
+              "opex, cost to serve, supply chain, distribution, support, regulatory compliance",
+              "pricing model, revenue per customer, expected volume, ramp-up timeline, breakeven",
+            ],
+            prompts: [
+              "A company is considering entering a new geographic market. Should they? How to evaluate?",
+              "The CEO wants to expand into an adjacent product category. What factors to consider?",
+              "A company has been approached to enter a market where they have no presence. How to analyze?",
+            ],
+          },
+          "new-product": {
+            lvl2: [
+              "Which customer groups to target, and why those?",
+              "What should the 4P marketing mix look like?",
+              "What\u2019s needed to build, execute, and deliver?",
+            ],
+            lvl3: [
+              "segment size, growth rate, addressable market, willingness to pay",
+              "existing solutions, competitive intensity, market gaps, substitutes",
+              "pain points, jobs-to-be-done, desired features, buying criteria",
+              "features, design, quality, MVP scope, differentiation from alternatives",
+              "cost-plus, value-based, competitive, tiered, freemium, subscription model",
+              "online vs offline, direct vs partners, channel strategy, logistics",
+              "go-to-market plan, advertising, content marketing, PR, sales force, events",
+              "R&D, prototyping, user testing, iteration cycles, regulatory approvals",
+              "manufacturing or development, sourcing, capacity planning, quality control",
+              "launch campaign, sales enablement, channel activation, demos and trials",
+              "warehousing, fulfillment, delivery, inventory management, returns handling",
+              "customer support, warranties, maintenance, upgrades, community, feedback loops",
+            ],
+            prompts: [
+              "A company wants to launch a new product in a market they know well. How to approach the launch?",
+              "R&D has developed a new product. How to decide how to bring it to market?",
+              "A company\u2019s flagship product is maturing. They want to launch something new. How to plan?",
+            ],
+          },
+          pricing: {
+            lvl2: [
+              "Floor: minimum price to cover all costs and earn a margin",
+              "Benchmark: how are alternatives and substitutes priced?",
+              "Ceiling: maximum the customer will pay for the value delivered",
+            ],
+            lvl3: [
+              "unit COGS, raw materials, packaging, shipping, commissions, transaction fees",
+              "rent, salaries, insurance, depreciation, overhead — allocated per unit",
+              "R&D, tooling, setup, marketing launch spend — amortized over expected volume",
+              "target gross margin %, contribution margin, breakeven volume analysis",
+              "premium vs discount positioning, feature comparison, brand perception, segment",
+            ],
+            prompts: [
+              "A company is launching a new product and needs to set the price. How to approach?",
+              "A company thinks it\u2019s underpricing its product. How to evaluate the right price?",
+              "Competitors just cut prices 15%. Should the company match? How to think about it?",
+            ],
+          },
+          investment: {
+            lvl2: [
+              "Incremental revenue: additional volume \u00d7 price from the investment",
+              "Cost impact: savings generated minus new costs incurred",
+              "Payback: investment \u00f7 annual net benefit \u2192 years, plus NPV and IRR",
+              "Executability: capabilities needed, timeline, change management, risk factors",
+            ],
+            prompts: [
+              "A company is considering a \u20ac10M investment in new technology. Should they? How to evaluate?",
+              "The ops team proposes a major automation project. The CEO wants to know if it\u2019s worth it. Approach?",
+              "A company must choose between two investments with different risk profiles. How to compare?",
+            ],
+          },
+          "m-and-a": {
+            lvl2: [
+              "What is the target worth on its own? (DCF, multiples, asset value)",
+              "What extra value does combining create? (cost + revenue synergies)",
+              "Can we actually make it work? (integration, culture, regulatory risk)",
+            ],
+            lvl3: [
+              "revenue trend, growth rate, customer base, market position, contract pipeline",
+              "cost structure, margin trajectory, expected efficiencies, risks to cost base",
+              "EV/EBITDA, P/E, revenue multiples, comparable deals, premium over market price",
+              "eliminate duplicates (HQ, IT, back-office), procurement savings, shared services",
+              "cross-sell to combined base, enter new markets, bundled offerings, pricing power",
+            ],
+            prompts: [
+              "A company is considering acquiring a competitor. How to evaluate if it\u2019s a good idea?",
+              "An acquisition target is priced at 8\u00d7 EBITDA. Is it fair? How to assess the deal?",
+              "Two companies in the same industry are considering a merger. How to structure the analysis?",
+            ],
+          },
+          "competitive-response": {
+            lvl2: [
+              "How much of our business is actually at risk?",
+              "What exactly is the competitor doing — and what\u2019s their advantage?",
+              "What are our realistic response options — and which is smartest?",
+            ],
+            lvl3: [
+              "which customer groups, geographies, or product lines are most exposed",
+              "revenue at risk in affected segment, % of total business",
+              "margin on the affected segment — high-margin segments hurt most to lose",
+              "expected % of customers/revenue lost, over what timeframe",
+              "absorb the impact, focus resources elsewhere, let competitor overextend",
+              "loyalty programs, better service, contract extensions, relationship management",
+              "match competitor\u2019s product, launch own version, fast-follow strategy",
+              "partnership, joint venture, licensing, referral arrangement",
+              "price match, selective discounts, value bundles, promotional offers",
+            ],
+            prompts: [
+              "A competitor just launched a product that directly threatens your core business. How to respond?",
+              "A new entrant is offering a similar product at 30% lower price. What should the company do?",
+              "A competitor is aggressively poaching your customers. How to structure a response?",
+            ],
+          },
+          "process-optimization": {
+            lvl2: [
+              "What does the process look like today — where\u2019s the constraint?",
+              "For each step: can we cut it, speed it up, or redesign it?",
+              "What\u2019s the potential upside — in cost, quality, or speed?",
+            ],
+            lvl3: [
+              "max throughput (units/day, cases/hour), theoretical vs practical capacity",
+              "actual vs capacity, idle time, peak vs off-peak variation, resource allocation",
+              "slowest step, longest queue, highest wait time, constraining resource, SPOF",
+              "remove non-value-adding steps, cut handoffs, delete redundant approvals, automate",
+              "pre-process, batch, schedule ahead, predictive triggers, parallel processing",
+              "cost per unit processed, labor savings, material savings, overhead reduction",
+              "error rate, defect rate, rework rate, customer satisfaction, accuracy %",
+              "cycle time, lead time, throughput time, response time, time-to-delivery",
+            ],
+            prompts: [
+              "A key operational process is too slow and too expensive. How to optimize it?",
+              "A process that used to take 2 days now takes 2 weeks due to added complexity. How to fix?",
+              "The ops team says they\u2019re at full capacity but output hasn\u2019t increased in 2 years. Investigate.",
+            ],
+          },
+        };
+        Object.keys(GEN).forEach(function (fw) {
+          if (FW_EXAMPLES[fw] && FW_EXAMPLES[fw].examples) {
+            FW_EXAMPLES[fw].examples.general = GEN[fw];
+          }
+        });
+      })();
+
+      // ═══════════════════════════════════════════════
       // PORTUGUESE TRANSLATIONS FOR FRAMEWORK EXAMPLES
       // ═══════════════════════════════════════════════
       var FW_EXAMPLES_PT = {
@@ -19612,6 +20669,223 @@ Margin                       20.0%              6.6%          -13.4pp
         },
       };
 
+      // ═══════════════════════════════════════════════
+      // GENERAL (TEMPLATE) PT TRANSLATIONS
+      // ═══════════════════════════════════════════════
+      (function () {
+        var GEN_PT = {
+          profitability: {
+            lvl2: [
+              "Receita = Volume \u00d7 Pre\u00e7o \u2014 quantas unidades vendidas e a que pre\u00e7o?",
+              "Custo = Fixo + Vari\u00e1vel \u2014 o que n\u00e3o muda vs o que escala com o output?",
+            ],
+            lvl3: [
+              "n\u00ba de clientes, frequ\u00eancia por cliente, unidades por transa\u00e7\u00e3o, mix de canais",
+              "pre\u00e7o tabela, descontos, promo\u00e7\u00f5es, pre\u00e7o por unidade, efeitos cambiais, mix de pre\u00e7o",
+              "renda, sal\u00e1rios, seguros, deprecia\u00e7\u00e3o, IT, licen\u00e7as, juros, overhead admin",
+              "mat\u00e9rias-primas, embalagem, envio, comiss\u00f5es, taxas de pagamento, energia por unidade",
+            ],
+            prompts: [
+              "Uma empresa viu o lucro cair de 12% para 4% em dois anos, com receita est\u00e1vel. Porqu\u00ea?",
+              "Receita cresce 10% ao ano, mas lucro l\u00edquido desceu. O que pode explicar?",
+              "Uma unidade de neg\u00f3cio que era a mais rent\u00e1vel agora mal atinge o breakeven. Diagnosticar.",
+            ],
+          },
+          growth: {
+            lvl2: [
+              "Expandir o que j\u00e1 fazes \u2014 vender mais a clientes existentes em mercados atuais",
+              "Ir al\u00e9m do \u00e2mbito atual \u2014 novos produtos, novos tipos de cliente, novos modelos",
+            ],
+            lvl3: [
+              "melhorar produto, refor\u00e7ar marketing, ajustar pre\u00e7os, aumentar reten\u00e7\u00e3o, converter mais",
+              "identificar segmentos de maior crescimento, realocar recursos para esses",
+              "cross-sell, upsell, bundles, adicionar produtos/servi\u00e7os complementares",
+              "alavancar compet\u00eancias em mercados adjacentes, parcerias, licenciamento, JVs",
+            ],
+            lvl4: [
+              "I&D, novas funcionalidades, mais qualidade, melhor UX, entrega mais r\u00e1pida, pipeline inova\u00e7\u00e3o",
+              "notoriedade de marca, canais digitais, estrat\u00e9gia conte\u00fado, programas refer\u00eancia, CRM",
+              "benchmarking, descontos volume, recompensas fidelidade, tiers freemium, planos flex\u00edveis",
+            ],
+            prompts: [
+              "Uma empresa cresceu 5% ao ano nos \u00faltimos 3 anos mas o board quer 15%. Como estruturar?",
+              "O CEO quer duplicar a receita em 5 anos. Que alavancas estrat\u00e9gicas existem?",
+              "Neg\u00f3cio maduro num mercado de baixo crescimento procura novas vias. Abordagem?",
+            ],
+          },
+          "cost-reduction": {
+            lvl2: [
+              "Podemos parar de fazer isto ou reduzir a necessidade?",
+              "Podemos fazer o mesmo com menos recursos?",
+              "Podemos obter os mesmos recursos por menos dinheiro?",
+            ],
+            lvl3: [
+              "eliminar passos desnecess\u00e1rios, descontinuar atividades baixo valor, automatizar, externalizar",
+              "oferecer tiers mais baratos, reduzir frequ\u00eancia, self-service, simplificar especifica\u00e7\u00f5es",
+              "reduzir retrabalho, minimizar tempo morto, cortar desperd\u00edcio/defeitos, lean, eliminar duplica\u00e7\u00e3o",
+              "requalificar equipa, investir ferramentas/tecnologia, otimizar workflows, output por FTE",
+              "fornecedores alternativos, materiais substitutos, offshore/nearshore, solu\u00e7\u00f5es open-source",
+              "descontos volume, contratos mais longos, concurso competitivo, renegociar condi\u00e7\u00f5es pagamento",
+            ],
+            prompts: [
+              "Custos cresceram 20% mais r\u00e1pido que receita em 3 anos. CEO quer cortar 15%. Abordagem?",
+              "Uma unidade precisa cortar 10M\u20ac/ano sem impactar qualidade. Onde procurar?",
+              "SG&A \u00e9 30% da receita vs 20% benchmark. Como fechar o gap?",
+            ],
+          },
+          "market-entry": {
+            lvl2: [
+              "O mercado \u00e9 grande o suficiente e est\u00e1 a crescer?",
+              "Conseguimos conquistar clientes contra os players existentes?",
+              "A economia funciona \u2014 conseguimos ganhar dinheiro aqui?",
+              "Temos as compet\u00eancias e conseguimos gerir os riscos?",
+            ],
+            lvl3: [
+              "TAM/SAM/SOM, unidades \u00d7 pre\u00e7o, dimens\u00e3o atual, crescimento hist\u00f3rico",
+              "taxa crescimento %, demand drivers, tend\u00eancias seculares, regula\u00e7\u00e3o",
+              "necessidades por satisfazer, pain points, disposi\u00e7\u00e3o para mudar, crit\u00e9rios decis\u00e3o",
+              "diferencia\u00e7\u00e3o, proposta valor vs incumbentes, product-market fit, marca",
+              "n\u00ba de players, quotas mercado, for\u00e7as/fraquezas, barreiras, custos de mudan\u00e7a",
+              "capex necess\u00e1rio, fundo de maneio, custos setup, tempo constru\u00e7\u00e3o, go-to-market",
+              "opex, custo de servir, cadeia fornecimento, distribui\u00e7\u00e3o, suporte, compliance",
+              "modelo pre\u00e7o, receita por cliente, volume esperado, ramp-up, timeline breakeven",
+            ],
+            prompts: [
+              "Uma empresa considera entrar num novo mercado geogr\u00e1fico. Devem? Como avaliar?",
+              "O CEO quer expandir para uma categoria adjacente. Que fatores considerar?",
+              "Empresa abordada para entrar num mercado onde n\u00e3o tem presen\u00e7a. Como analisar?",
+            ],
+          },
+          "new-product": {
+            lvl2: [
+              "Que grupos de clientes devemos focar, e porqu\u00ea esses?",
+              "Como deve ser o marketing mix (4Ps)?",
+              "O que \u00e9 preciso construir, executar e entregar?",
+            ],
+            lvl3: [
+              "dimens\u00e3o segmento, taxa crescimento, mercado endere\u00e7\u00e1vel, disposi\u00e7\u00e3o a pagar",
+              "solu\u00e7\u00f5es existentes, intensidade competitiva, gaps, substitutos",
+              "pain points, jobs-to-be-done, funcionalidades desejadas, crit\u00e9rios de compra",
+              "funcionalidades, design, qualidade, \u00e2mbito MVP, diferencia\u00e7\u00e3o face alternativas",
+              "cost-plus, value-based, competitivo, tiered, freemium, modelo subscri\u00e7\u00e3o",
+              "online vs offline, direto vs parceiros, estrat\u00e9gia canal, log\u00edstica",
+              "plano go-to-market, publicidade, content marketing, PR, equipa comercial, eventos",
+              "I&D, prototipagem, testes utilizadores, ciclos itera\u00e7\u00e3o, aprova\u00e7\u00f5es regulat\u00f3rias",
+              "fabrico ou desenvolvimento, sourcing, planeamento capacidade, controlo qualidade",
+              "campanha lan\u00e7amento, sales enablement, ativa\u00e7\u00e3o canais, demos e trials",
+              "armazenagem, fulfillment, entrega, gest\u00e3o invent\u00e1rio, devolu\u00e7\u00f5es",
+              "suporte cliente, garantias, manuten\u00e7\u00e3o, upgrades, comunidade, feedback loops",
+            ],
+            prompts: [
+              "Empresa quer lan\u00e7ar novo produto num mercado que conhece bem. Como abordar?",
+              "I&D desenvolveu novo produto. Como decidir como lev\u00e1-lo ao mercado?",
+              "Produto principal est\u00e1 a amadurecer. Querem lan\u00e7ar algo novo. Como planear?",
+            ],
+          },
+          pricing: {
+            lvl2: [
+              "Piso: pre\u00e7o m\u00ednimo para cobrir custos e garantir margem",
+              "Benchmark: como est\u00e3o as alternativas e substitutos precificados?",
+              "Teto: m\u00e1ximo que o cliente pagar\u00e1 pelo valor entregue",
+            ],
+            lvl3: [
+              "COGS unit\u00e1rio, mat\u00e9rias-primas, embalagem, envio, comiss\u00f5es, taxas transa\u00e7\u00e3o",
+              "renda, sal\u00e1rios, seguros, deprecia\u00e7\u00e3o, overhead \u2014 alocados por unidade",
+              "I&D, ferramentas, setup, marketing lan\u00e7amento \u2014 amortizados pelo volume esperado",
+              "margem bruta alvo %, margem contribui\u00e7\u00e3o, an\u00e1lise breakeven volume",
+              "posicionamento premium vs desconto, compara\u00e7\u00e3o funcionalidades, perce\u00e7\u00e3o marca, segmento",
+            ],
+            prompts: [
+              "Empresa vai lan\u00e7ar novo produto e precisa definir pre\u00e7o. Como abordar?",
+              "Empresa acha que est\u00e1 a subprecificar o produto. Como avaliar o pre\u00e7o certo?",
+              "Concorrentes cortaram pre\u00e7os 15%. Devemos igualar? Como pensar nisto?",
+            ],
+          },
+          investment: {
+            lvl2: [
+              "Receita incremental: volume adicional \u00d7 pre\u00e7o gerado pelo investimento",
+              "Impacto nos custos: poupan\u00e7as geradas menos novos custos",
+              "Payback: investimento \u00f7 benef\u00edcio l\u00edquido anual \u2192 anos, mais NPV e IRR",
+              "Execu\u00e7\u00e3o: compet\u00eancias necess\u00e1rias, timeline, gest\u00e3o mudan\u00e7a, fatores risco",
+            ],
+            prompts: [
+              "Empresa pondera investir 10M\u20ac em nova tecnologia. Devem? Como avaliar?",
+              "Equipa opera\u00e7\u00f5es prop\u00f5e automa\u00e7\u00e3o. CEO quer saber se vale a pena. Abordagem?",
+              "Empresa deve escolher entre dois investimentos com perfis risco diferentes. Como comparar?",
+            ],
+          },
+          "m-and-a": {
+            lvl2: [
+              "Quanto vale o alvo sozinho? (DCF, m\u00faltiplos, valor ativos)",
+              "Que valor extra a combina\u00e7\u00e3o cria? (sinergias custo + receita)",
+              "Conseguimos faz\u00ea-lo funcionar? (integra\u00e7\u00e3o, cultura, risco regulat\u00f3rio)",
+            ],
+            lvl3: [
+              "tend\u00eancia receita, crescimento, base clientes, posi\u00e7\u00e3o mercado, pipeline contratos",
+              "estrutura custos, trajet\u00f3ria margens, efici\u00eancias esperadas, riscos base custos",
+              "EV/EBITDA, P/E, m\u00faltiplos receita, transa\u00e7\u00f5es compar\u00e1veis, pr\u00e9mio sobre mercado",
+              "eliminar duplicados (sede, IT, back-office), poupan\u00e7as procurement, shared services",
+              "cross-sell base combinada, novos mercados, ofertas bundle, pricing power",
+            ],
+            prompts: [
+              "Empresa pondera adquirir concorrente. Como avaliar se \u00e9 boa ideia?",
+              "Alvo est\u00e1 a 8\u00d7 EBITDA. \u00c9 justo? Como avaliar o neg\u00f3cio?",
+              "Duas empresas do mesmo setor ponderam fus\u00e3o. Como estruturar an\u00e1lise?",
+            ],
+          },
+          "competitive-response": {
+            lvl2: [
+              "Quanto do nosso neg\u00f3cio est\u00e1 realmente em risco?",
+              "O que exatamente o concorrente est\u00e1 a fazer \u2014 e qual \u00e9 a vantagem?",
+              "Quais s\u00e3o as nossas op\u00e7\u00f5es realistas \u2014 e qual \u00e9 a mais inteligente?",
+            ],
+            lvl3: [
+              "que grupos clientes, geografias ou linhas produto est\u00e3o mais expostos",
+              "receita em risco no segmento afetado, % do neg\u00f3cio total",
+              "margem no segmento afetado \u2014 segmentos alta margem doem mais",
+              "% esperada clientes/receita perdida, em que per\u00edodo",
+              "absorver impacto, focar recursos noutro s\u00edtio, deixar concorrente sobreextender-se",
+              "programas fidelidade, melhor servi\u00e7o, extens\u00e3o contratos, gest\u00e3o rela\u00e7\u00e3o",
+              "igualar produto concorrente, lan\u00e7ar vers\u00e3o pr\u00f3pria, estrat\u00e9gia fast-follow",
+              "parceria, joint venture, licenciamento, referral",
+              "igualar pre\u00e7o, descontos seletivos, bundles valor, ofertas promocionais",
+            ],
+            prompts: [
+              "Concorrente lan\u00e7ou produto que amea\u00e7a o nosso core. Como responder?",
+              "Novo player oferece produto similar a pre\u00e7o 30% menor. O que fazer?",
+              "Concorrente est\u00e1 a roubar clientes agressivamente. Como estruturar resposta?",
+            ],
+          },
+          "process-optimization": {
+            lvl2: [
+              "Como \u00e9 o processo hoje \u2014 onde est\u00e1 a restri\u00e7\u00e3o?",
+              "Para cada etapa: podemos cort\u00e1-la, aceler\u00e1-la ou redesenh\u00e1-la?",
+              "Qual \u00e9 o ganho potencial \u2014 em custo, qualidade ou velocidade?",
+            ],
+            lvl3: [
+              "throughput m\u00e1ximo (unidades/dia, casos/hora), capacidade te\u00f3rica vs pr\u00e1tica",
+              "real vs capacidade, tempo morto, varia\u00e7\u00e3o pico vs fora-de-pico, aloca\u00e7\u00e3o recursos",
+              "etapa mais lenta, fila mais longa, maior tempo espera, recurso limitante, SPOF",
+              "remover passos sem valor, cortar handoffs, eliminar aprova\u00e7\u00f5es redundantes, automatizar",
+              "pr\u00e9-processar, batch, agendar antecipadamente, triggers preditivos, processamento paralelo",
+              "custo por unidade processada, poupan\u00e7as m\u00e3o-de-obra, materiais, redu\u00e7\u00e3o overhead",
+              "taxa erro, taxa defeitos, retrabalho, satisfa\u00e7\u00e3o cliente, precis\u00e3o %",
+              "tempo ciclo, lead time, throughput time, tempo resposta, tempo at\u00e9 entrega",
+            ],
+            prompts: [
+              "Processo operacional chave \u00e9 lento e caro demais. Como otimizar?",
+              "Processo que levava 2 dias agora leva 2 semanas. Como corrigir?",
+              "Equipa opera\u00e7\u00f5es diz estar a 100% capacidade mas output n\u00e3o aumentou em 2 anos. Investigar.",
+            ],
+          },
+        };
+        Object.keys(GEN_PT).forEach(function (fw) {
+          if (typeof FW_EXAMPLES_PT !== "undefined" && FW_EXAMPLES_PT[fw]) {
+            FW_EXAMPLES_PT[fw].general = GEN_PT[fw];
+          }
+        });
+      })();
+
       // Map framework HTML ids to FW_EXAMPLES keys
       var FW_ID_MAP = {
         "fw-ex-1": "profitability",
@@ -19734,8 +21008,11 @@ Margin                       20.0%              6.6%          -13.4pp
           var prompts = fwLang === "pt" ? prompts_pt : prompts_en;
 
           // Rotate examples based on prompt index for connected cycling
-          lvl2 = fwRotateArray(lvl2, promptIdx);
-          lvl3 = fwRotateArray(lvl3, promptIdx * 2);
+          // For "general" (template), examples are fixed/MECE — no rotation
+          if (ind !== "general") {
+            lvl2 = fwRotateArray(lvl2, promptIdx);
+            lvl3 = fwRotateArray(lvl3, promptIdx * 2);
+          }
 
           // Inject inline examples next to tree-branch spans
           var branches = el.querySelectorAll(".tree-branch");
@@ -19800,7 +21077,9 @@ Margin                       20.0%              6.6%          -13.4pp
           var lvl4_en = indData.lvl4 || [];
           var lvl4_pt = fwGetText(key, ind, "lvl4") || lvl4_en;
           var lvl4 = fwLang === "pt" ? lvl4_pt : lvl4_en;
-          lvl4 = fwRotateArray(lvl4, promptIdx * 3);
+          if (ind !== "general") {
+            lvl4 = fwRotateArray(lvl4, promptIdx * 3);
+          }
           if (lvl4.length > 0) {
             var lvl4Idx = 0;
             // Find all 4th-level LIs (inside UL > LI > UL > LI > UL > LI)
@@ -19849,9 +21128,13 @@ Margin                       20.0%              6.6%          -13.4pp
           var promptDiv = el.querySelector(".fw-industry-prompt");
           if (promptDiv) {
             var indName =
-              typeof CG_DATA !== "undefined" && CG_DATA.industries[ind]
-                ? CG_DATA.industries[ind].name
-                : ind;
+              ind === "general"
+                ? fwLang === "pt"
+                  ? "Geral (Template)"
+                  : "General (Template)"
+                : typeof CG_DATA !== "undefined" && CG_DATA.industries[ind]
+                  ? CG_DATA.industries[ind].name
+                  : ind;
             promptDiv.innerHTML =
               '<div style="background:var(--bg-card);padding:14px;border-radius:8px;border:1px solid var(--border);margin-top:4px;">' +
               '<p style="color:var(--text-muted);font-size:0.85em;margin-bottom:6px;">📋 ' +
@@ -19926,6 +21209,259 @@ Margin                       20.0%              6.6%          -13.4pp
           fwReorderDOM();
           fwUpdateIndustryExamples();
         }, 100);
+      })();
+
+      // ═══════════════════════════════════════════════
+      // FRAMEWORK MAP — INTERACTIVE LOGIC (v2)
+      // ═══════════════════════════════════════════════
+      (function () {
+        var FWM_DATA = {
+          profitability: {
+            label: "💰 Profitability",
+            chain: ["Profitability"],
+            insight: "The ROOT framework. Profit = Revenue − Costs. When the prompt says 'profits declining' or 'margins shrinking', start here directly.",
+            tree: {
+              root: "How to improve profits?",
+              branches: [
+                { name: "Revenue / Receitas", children: ["Volume / Volume", "Price / Preço"] },
+                { name: "Costs / Custos", children: ["Fixed costs / Custos fixos", "Variable costs / Custos variáveis"] },
+              ],
+            },
+          },
+          revenue: {
+            label: "📈 Revenue Side",
+            chain: ["Profitability", "Revenue"],
+            insight: "The revenue branch. Ask: 'Is the problem on the revenue side?' — then decompose into Volume (how many units?) and Price (at what price?).",
+            tree: null,
+          },
+          costs: {
+            label: "📉 Costs Side",
+            chain: ["Profitability", "Costs"],
+            insight: "The cost branch. Ask: 'Is the problem on the cost side?' — then decompose into Fixed (don't change with output) and Variable (scale with output).",
+            tree: null,
+          },
+          volume: {
+            label: "📊 Volume",
+            chain: ["Profitability", "Revenue", "Volume"],
+            insight: "Volume = # of customers × frequency × units per transaction. If volume is the problem, you likely need the Growth framework next.",
+            tree: null,
+          },
+          price: {
+            label: "💲 Price",
+            chain: ["Profitability", "Revenue", "Price"],
+            insight: "Price = list price minus discounts/promotions. If price is the lever, use the Pricing framework. Also connects to New Product and Market Entry pricing.",
+            tree: null,
+          },
+          "fixed-costs": {
+            label: "🏢 Fixed Costs",
+            chain: ["Profitability", "Costs", "Fixed Costs"],
+            insight: "Fixed costs don't change with output: rent, salaries, insurance, depreciation, IT, licenses. To reduce them, use the Cost Reduction framework.",
+            tree: null,
+          },
+          "variable-costs": {
+            label: "📦 Variable Costs",
+            chain: ["Profitability", "Costs", "Variable Costs"],
+            insight: "Variable costs scale with output: raw materials, packaging, shipping, commissions, energy per unit. Cost Reduction and Process Optimization apply here.",
+            tree: null,
+          },
+          growth: {
+            label: "📈 2. Growth",
+            chain: ["Profitability", "Revenue", "Volume", "Growth"],
+            insight: "'How to grow?' sits inside 'How to increase revenue/volume?' — From here, branch into Market Entry, New Product, or M&A.",
+            tree: {
+              root: "How to grow a business?",
+              branches: [
+                { name: "Grow the core / Crescer no core", children: [
+                  "Grow across current segments / Crescer nos segmentos atuais → (Better products, Improved marketing, Competitive prices)",
+                  "Invest in fastest-growing segments / Investir nos segmentos de maior crescimento"
+                ]},
+                { name: "Grow outside of the core / Crescer fora do core", children: [
+                  "Sell new products to existing clients / Vender novos produtos a clientes atuais",
+                  "Use capabilities to enter new businesses / Usar capacidades para novos negócios"
+                ]},
+              ],
+            },
+          },
+          pricing: {
+            label: "🏷️ 6. Pricing",
+            chain: ["Profitability", "Revenue", "Price", "Pricing"],
+            insight: "'How to price?' is triggered from the Price lever. Also reached from Growth, New Product, or Market Entry. Cross-cutting framework.",
+            tree: {
+              root: "How to price a product?",
+              branches: [
+                { name: "Costs / Custos (floor)", children: ["Variable costs", "Fixed costs", "Investment costs", "Plus enough markup for margin"] },
+                { name: "Competitors or substitutes / Concorrentes (benchmark)", children: ["Should we price above or below?"] },
+                { name: "Clients' willingness to pay / Disposição a pagar (ceiling)", children: [] },
+              ],
+            },
+          },
+          "competitive-response": {
+            label: "⚔️ 9. Competitive Response",
+            chain: ["Profitability", "Revenue", "Competitive Response"],
+            insight: "Triggered when an external threat is eating into revenue. Sits on the revenue protection side of Profitability.",
+            tree: {
+              root: "How to respond to a competitive threat?",
+              branches: [
+                { name: "Potential impact / Impacto potencial", children: ["Segment affected", "Size", "Profitability", "Estimated loss"] },
+                { name: "Opportunity pursued by competitor / Oportunidade do concorrente", children: [] },
+                { name: "Possible responses / Respostas possíveis", children: ["Do nothing", "Mitigate (retain clients)", "Replicate (launch competing offer)", "Collaborate", "Align (lower prices)"] },
+              ],
+            },
+          },
+          "cost-reduction": {
+            label: "📉 3. Cost Reduction",
+            chain: ["Profitability", "Costs", "Cost Reduction"],
+            insight: "'How to cut costs?' sits inside the cost branch. From here, zoom into Process Optimization for specific operational issues.",
+            tree: {
+              root: "How to cut costs?",
+              branches: [
+                { name: "Reduce the need / Reduzir a necessidade", children: ["Eliminate the need entirely", "Reduce the service level"] },
+                { name: "Meet the need with less resource / Cumprir com menos recursos", children: ["Eliminate waste", "Improve productivity"] },
+                { name: "Reduce the cost of resources / Reduzir custo dos recursos", children: ["Find cheaper alternatives", "Renegotiate costs"] },
+              ],
+            },
+          },
+          investment: {
+            label: "💼 7. Investment",
+            chain: ["Profitability", "Costs / Revenue", "Investment"],
+            insight: "'Should we invest?' often sits on the cost side (invest to reduce costs) but can also be revenue-side (invest to grow). Cross-cutting.",
+            tree: {
+              root: "Whether to make an investment?",
+              branches: [
+                { name: "Impact on revenue / Impacto nas receitas", children: [] },
+                { name: "Impact on costs / Impacto nos custos", children: [] },
+                { name: "Break even? / Ponto de equilíbrio?", children: [] },
+                { name: "Implementation / Implementação", children: [] },
+              ],
+            },
+          },
+          "market-entry": {
+            label: "🚀 4. Market Entry",
+            chain: ["Profitability", "Revenue", "Growth", "Market Entry"],
+            insight: "Evaluating a new market is a specific growth mechanism. Someone already decided 'we need to grow' via Growth → Profitability.",
+            tree: {
+              root: "Whether to enter a new market?",
+              branches: [
+                { name: "Market opportunity / Oportunidade de mercado", children: ["Market size", "Market growth"] },
+                { name: "Potential share / Quota potencial", children: ["Customer needs", "Our offering", "Competitors"] },
+                { name: "Potential profit / Lucro potencial", children: ["Investment", "Running costs", "Revenue"] },
+                { name: "Capabilities & risks / Capacidades e riscos", children: [] },
+              ],
+            },
+          },
+          "new-product": {
+            label: "🆕 5. New Product",
+            chain: ["Profitability", "Revenue", "Growth", "New Product"],
+            insight: "Launching a new product is a growth lever. Chain: Profitability → Revenue → Growth → New Product. Pricing framework often follows.",
+            tree: {
+              root: "How to launch a new product?",
+              branches: [
+                { name: "Choose target segments / Escolher segmentos-alvo", children: ["Size & growth", "Competition", "Customer needs"] },
+                { name: "Define marketing strategy / Definir estratégia 4P", children: ["Product", "Price", "Distribution", "Promotion"] },
+                { name: "Implementation / Implementação", children: ["Product design", "Production", "Marketing & sales", "Logistics", "Aftercare"] },
+              ],
+            },
+          },
+          "m-and-a": {
+            label: "🤝 8. M&A",
+            chain: ["Profitability", "Revenue", "Growth", "M&A"],
+            insight: "The inorganic growth path. Combines standalone valuation + synergies analysis.",
+            tree: {
+              root: "Whether to acquire a business?",
+              branches: [
+                { name: "Standalone value / Valor autónomo", children: ["Future revenue", "Future cost", "Valuation multiples"] },
+                { name: "Synergies / Sinergias", children: ["Cost reduction", "Revenue growth"] },
+                { name: "Capabilities & risks / Capacidades e riscos", children: [] },
+              ],
+            },
+          },
+          "process-optimization": {
+            label: "⚙️ 10. Process Optimization",
+            chain: ["Profitability", "Costs", "Cost Reduction", "Process Optimization"],
+            insight: "'How to optimize a process?' lives inside Cost Reduction. You\'ve already identified a cost/efficiency problem; now you zoom into the operational HOW.",
+            tree: {
+              root: "How to optimize a process?",
+              branches: [
+                { name: "Map out current process / Mapear o processo atual", children: ["Capacity?", "Utilization?", "Bottleneck?"] },
+                { name: "Look into each step / Analisar cada etapa", children: ["Eliminate", "Anticipate"] },
+                { name: "Estimate gains / Estimar ganhos", children: ["Reduce cost", "Increase quality", "Increase speed"] },
+              ],
+            },
+          },
+        };
+
+        function fwmRenderTree(tree) {
+          if (!tree) return "";
+          var html = '<div style="font-weight:700;margin-bottom:8px;font-size:0.95em;">' + tree.root + '</div>';
+          tree.branches.forEach(function(br) {
+            html += '<div style="margin-bottom:6px;">';
+            html += '<span class="branch-name">├─ ' + br.name + '</span>';
+            if (br.children && br.children.length > 0) {
+              html += '<ul>';
+              br.children.forEach(function(child, i) {
+                var prefix = (i === br.children.length - 1) ? "└─" : "├─";
+                html += '<li class="leaf" style="margin-left:16px;">' + prefix + ' ' + child + '</li>';
+              });
+              html += '</ul>';
+            }
+            html += '</div>';
+          });
+          return html;
+        }
+
+        var currentFwmNode = null;
+        setTimeout(function() {
+          var pills = document.querySelectorAll(".fwm-pill[data-fwm]");
+          var panel = document.getElementById("fwm-expand-panel");
+          var chainEl = document.getElementById("fwm-chain-display");
+          var insightEl = document.getElementById("fwm-insight");
+          var treeEl = document.getElementById("fwm-fw-tree-display");
+
+          pills.forEach(function(pill) {
+            pill.addEventListener("click", function() {
+              var key = pill.getAttribute("data-fwm");
+              var data = FWM_DATA[key];
+              if (!data) return;
+
+              // Toggle: if clicking same node, close
+              if (currentFwmNode === key && panel.classList.contains("show")) {
+                panel.classList.remove("show");
+                pill.classList.remove("active");
+                currentFwmNode = null;
+                return;
+              }
+
+              // Remove active from all pills
+              pills.forEach(function(p) { p.classList.remove("active"); });
+              pill.classList.add("active");
+              currentFwmNode = key;
+
+              // Build chain
+              var chainHtml = "";
+              data.chain.forEach(function(step, i) {
+                if (i > 0) chainHtml += ' <span class="fwm-chain-arrow">→</span> ';
+                var isFinal = (i === data.chain.length - 1);
+                chainHtml += isFinal
+                  ? '<span class="fwm-chain-final">' + step + '</span>'
+                  : '<span class="fwm-chain-step">' + step + '</span>';
+              });
+              chainEl.innerHTML = chainHtml;
+              insightEl.textContent = data.insight;
+
+              // Build framework tree if available
+              if (data.tree) {
+                treeEl.innerHTML = fwmRenderTree(data.tree);
+                treeEl.style.display = "block";
+              } else {
+                treeEl.style.display = "none";
+              }
+
+              panel.classList.add("show");
+              // Scroll panel into view
+              setTimeout(function() { panel.scrollIntoView({behavior:"smooth",block:"nearest"}); }, 50);
+            });
+          });
+        }, 200);
       })();
 
       // ═══════════════════════════════════════════════

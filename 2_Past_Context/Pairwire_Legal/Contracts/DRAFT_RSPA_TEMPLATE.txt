@@ -1,0 +1,575 @@
+﻿PAIRWIRE, INC. 
+RESTRICTED STOCK PURCHASE AGREEMENT 
+
+This Restricted Stock Purchase Agreement (the "Agreement") is made as of October 1, 
+2025, by and between Pairwire, Inc., a Delaware corporation (the "Company"), and Tomás Maria 
+Burnay Batalha ("Purchaser"). 
+
+In consideration of the mutual covenants and representations set forth below, the Company 
+and Purchaser agree as follows: 
+
+1. Purchase and Sale of the Shares. Subject to the terms and conditions of this 
+Agreement, the Company agrees to sell to Purchaser, and Purchaser agrees to purchase from the 
+Company, 1,809,955 shares of the Company's Common Stock, par value $0.0001 per share (the 
+"Shares"), at a price of $0.0001 per share (the "Purchase Price Per Share"), for an aggregate 
+purchase price equal to the Purchase Price Per Share multiplied by the number of Shares (the 
+"Purchase Price"). The number of Shares has been calculated to result in Purchaser holding fifteen 
+percent (15.0%) of the Company's Fully Diluted Capitalization immediately following such 
+issuance, after giving effect to the Founder Institute warrant shown on the Company's cap table. If 
+at the Closing the Company does not have a sufficient number of authorized but unissued shares 
+of Common Stock to issue the Shares, the Company shall promptly take all corporate actions, 
+including obtaining Board and, if required, stockholder approval of an amendment to its Certificate 
+of Incorporation, to increase the authorized Common Stock so that the Shares may be validly 
+issued. Within thirty (30) days after the Closing, the Company shall confirm its Fully Diluted 
+Capitalization as of the Closing. If the share count used to calculate the Shares was inaccurate due 
+to outstanding securities or cap table errors existing as of the Closing, the Company shall issue to 
+Purchaser (or Purchaser shall surrender to the Company) such number of shares as is necessary so 
+that Purchaser holds exactly fifteen percent (15.0%) of the Fully Diluted Capitalization as of the 
+Closing, in each case excluding any increase to the equity plan reserve approved in connection 
+with or after Purchaser's grant. 
+
+2. Closing. The purchase and sale of the Shares shall occur at a closing (the "Closing") on 
+the date of such closing (the "Closing Date") to be held on the date first set forth above, or at any 
+other time mutually agreed upon by the Company and Purchaser; provided, that if, as of such date, 
+the Company does not have a sufficient number of authorized but unissued shares of Common 
+Stock to issue the Shares, then the Closing shall occur immediately following, and be conditioned 
+upon, the effectiveness of the necessary corporate approvals and any charter amendment increasing 
+the authorized shares (or, alternatively, a transfer of outstanding shares from existing holders in an 
+amount sufficient to deliver the Shares to Purchaser). The Closing will take place at the principal 
+office of the Company or at such other place as shall be designated by the Company. At the 
+Closing, Purchaser shall deliver the aggregate Purchase Price to the Company by wire transfer, 
+ACH, check or any other method of payment permissible under applicable law and approved by 
+the Company's Board of Directors (or any combination of such methods of payment), and the 
+Company will issue, as promptly thereafter as practicable, a stock certificate, registered in the 
+name of Purchaser, reflecting the Shares. 
+
+3. Repurchase Option. 
+
+3.1 In the event Purchaser ceases to be an employee, consultant, officer or director 
+of the Company (a "Service Provider") for any or no reason, including, without limitation, 
+by reason of Purchaser's death or disability (as defined in Section 22(e)(3) of the Internal 
+Revenue Code of 1986, as amended (the "Code"), "Disability"), resignation or involuntary 
+termination, the Company shall, from such time (as determined by the Company in its 
+
+
+
+discretion), have an irrevocable, exclusive option to repurchase (the "Repurchase Option") 
+any Shares which have not yet been released from the Repurchase Option (the "Unreleased 
+Shares"), at a price per share equal to the lesser of (x) the fair market value of the shares 
+at the time the Repurchase Option is exercised, as determined in good faith by the Board 
+and (y) the Purchase Price Per Share (the "Repurchase Price Per Share" and in the 
+aggregate, the "Repurchase Price"). The Company may exercise its Repurchase Option as 
+to any or all of the Unreleased Shares at any time after Purchaser ceases to be a Service 
+Provider; provided, however, that without requirement of further action on the part of either 
+party hereto, the Repurchase Option shall be deemed to have been automatically exercised 
+as to all Unreleased Shares at 5:00 p.m. (Pacific Time) as of the date that is 60 days 
+following the date Purchaser ceases to be a Service Provider, unless the Company declines 
+in writing to exercise its Repurchase Option prior to such time. 
+
+3.2 If the Company decides not to exercise its Repurchase Option, it shall notify 
+Purchaser in writing within 60 days of the date Purchaser ceases to be a Service Provider. 
+If the Repurchase Option is exercised or deemed exercised, the Company shall deliver 
+payment to Purchaser by any of the following methods, in the Company's sole discretion: 
+(i) delivering to Purchaser or Purchaser's executor a check, cash, wire transfer, ACH and/or 
+any other form of money transfer not requiring acceptance of funds in the amount of the 
+aggregate Repurchase Price, (ii) canceling an amount of Purchaser's indebtedness to the 
+Company equal to the aggregate Repurchase Price, or (iii) any combination of (i) and (ii) 
+such that the combined payment and cancellation of indebtedness equals the aggregate 
+Repurchase Price. 
+
+3.3 In the event that the Repurchase Option is exercised or deemed exercised, the 
+sole right and remedy of Purchaser thereafter shall be to receive the Repurchase Price, and 
+in no case shall Purchaser have any claim of ownership as to any of the Unreleased Shares. 
+
+3.4 The Company in its sole discretion may assign all or part of the Repurchase 
+Option to one or more employees, officers, directors or stockholders of the Company or 
+other persons or organizations. 
+
+4. Release of Shares from Repurchase Option; Vesting. 
+
+The vesting schedule applicable to the Shares, including the Initial 90-Day Activation 
+Period, time-based vesting, performance-based vesting, and upside award provisions, is set forth 
+in the Founder Onboarding and Performance Terms Letter dated as of the date hereof (the 
+"Performance Terms Letter"), which is incorporated into this Agreement by reference. All 
+capitalized terms used in the Performance Terms Letter shall have the meanings set forth in this 
+Agreement unless otherwise defined therein. 
+
+4.1 For purposes of this Agreement, a "Change of Control" means (i) the 
+acquisition of the Company by another entity by means of any transaction or series of 
+related transactions to which the Company is party (including, without limitation, any stock 
+acquisition, reorganization, merger or consolidation but excluding any sale of stock for 
+capital raising purposes), other than by means of a transaction or series of transactions in 
+which the holders of the voting securities of the Company outstanding immediately prior 
+to such transaction continue to retain (either by such voting securities remaining 
+outstanding or by such voting securities being converted into voting securities of the 
+surviving entity), as a result of shares in the Company held by such holders prior to such 
+
+
+
+transaction, at least a majority of the total voting power represented by the voting securities 
+of the surviving or acquiring corporation outstanding immediately after such transaction or 
+series of transactions; and (ii) a sale or other conveyance of all or substantially all of the 
+assets of the Company, by means of a transaction or series of transactions. 
+
+4.2 Subject to the provisions of Section 4, the Shares which have been released 
+from the Company's Repurchase Option shall be delivered to Purchaser at Purchaser's 
+request. 
+
+4.3 "Cause" shall mean: (i) Purchaser's material failure to perform his or her 
+assigned duties or responsibilities as a Service Provider (other than a failure resulting from 
+Purchaser's Disability) after written notice thereof from the Company describing 
+Purchaser's failure to perform such duties or responsibilities; (ii) Purchaser engaging in any 
+act of dishonesty, fraud or misrepresentation with respect to the Company; (iii) Purchaser's 
+violation of any federal or state law or regulation applicable to the business of the Company 
+or its affiliates; (iv) Purchaser's breach of any confidentiality agreement or invention 
+assignment agreement between Purchaser and the Company (or any affiliate of the 
+Company) or any other material written policies of the Company; or (v) Purchaser being 
+convicted of, or entering a plea of nolo contendere to, any crime or committing any act of 
+moral turpitude causing material harm to the standing and reputation of the Company. 
+
+4.4 "Good Reason" shall mean one or more of the following events: 
+
+(i) without Purchaser's express written consent, the assignment to Purchaser 
+of any duties or the reduction of Purchaser's duties, either of which results in a 
+significant diminution in Purchaser's position or responsibilities with the Company 
+in effect immediately prior to such assignment, or the removal of Purchaser from 
+such position and responsibilities except (provided no such reduction shall be 
+deemed to have occurred solely by Purchaser's change of position to any other 
+executive officer position of the Company, including by reason of the change in the 
+Company's status from that of an independent company to that of a subsidiary of a 
+buyer of the Company following a Change of Control); 
+
+(ii) without Purchaser's express written consent, a substantial reduction, 
+without good business reasons, of the salary, bonus opportunities or material 
+perquisites available to Purchaser (other than as part of Company-wide or 
+executive-wide reductions); 
+
+(iii) a material reduction by the Company (other than a Company-wide or 
+executive-wide reduction) in the kind or level of employee benefits to which 
+Purchaser is entitled immediately prior to such reduction with the result that 
+Purchaser's overall benefits package is significantly reduced; or 
+
+(iv) the relocation of Purchaser to a facility or a location more than 50 miles 
+from Purchaser's then present location, without Purchaser's express written consent. 
+
+5. Limitation on Payments. If any payment or benefit received or to be received by 
+Purchaser (including any payment or benefit received pursuant to this Agreement or otherwise) 
+would be (in whole or part) subject to the excise tax imposed by Code Section 4999, or any 
+successor provision thereto, or any similar tax imposed by state or local law, or any interest or 
+
+
+
+penalties with respect to such excise tax (such tax or taxes, together with any such interest and 
+penalties, are hereafter collectively referred to as the "Excise Tax"), then the payments or benefits 
+provided under this Agreement or any other agreement pursuant to which Purchaser receives 
+payments that give rise to the Excise Tax will be reduced to the extent necessary to make such 
+payments and benefits not subject to such Excise Tax. However, if the imposition of such Excise 
+Tax could be avoided by approval of stockholders as described in Code Section 280G(b)(5)(B) 
+and the Company in its discretion elects to solicit such approval, then Purchaser must cooperate in 
+such process and timely execute any such waivers of compensation as may be necessary to enable 
+the stockholder vote to comply with the Code Section 280G requirements as determined by the 
+Company. 
+
+Any calculations performed in connection with the prior paragraph will be made by the Company 
+or by an accountant or other adviser selected by Company. Purchaser will timely furnish to the 
+accountant or Company such information and documents as requested in order to perform the 
+requisite calculations and analysis. The Company may rely on such calculations and/or may utilize 
+its own judgment in determining whether Excise Taxes would be imposed and the magnitude of 
+any such Excise Taxes. 
+
+6. Restrictions on Transfer. 
+
+6.1 Purchaser hereby makes the investment representations listed on Exhibit B to 
+the Company as of the date of this Agreement and as of the date of the Closing, and agrees 
+that such representations are incorporated into this Agreement by this reference, such that 
+the Company may rely on them in issuing the Shares. Purchaser understands and agrees 
+that the Company shall cause the legends set forth below, or substantially equivalent 
+legends, to be placed upon any certificate(s) evidencing ownership of the Shares, together 
+with any other legends that may be required by the Company or by applicable state or 
+federal securities laws: 
+
+THE SECURITIES REPRESENTED HEREBY HAVE NOT BEEN 
+REGISTERED UNDER THE SECURITIES ACT OF 1933 
+(THE "ACT") AND MAY NOT BE OFFERED, SOLD OR 
+OTHERWISE TRANSFERRED, PLEDGED OR 
+HYPOTHECATED UNLESS AND UNTIL REGISTERED 
+UNDER THE ACT OR, IN THE OPINION OF COUNSEL 
+SATISFACTORY TO THE ISSUER OF THESE 
+SECURITIES, SUCH OFFER, SALE OR TRANSFER, 
+PLEDGE OR HYPOTHECATION OTHERWISE 
+COMPLIES WITH THE ACT. 
+
+THE SHARES REPRESENTED BY THIS CERTIFICATE ARE SUBJECT 
+TO CERTAIN RESTRICTIONS ON TRANSFER, A RIGHT 
+OF FIRST REFUSAL, A LOCK-UP PERIOD IN THE 
+EVENT OF A PUBLIC OFFERING AND A REPURCHASE 
+OPTION HELD BY THE ISSUER OR ITS ASSIGNEE(S) AS 
+SET FORTH IN THE RESTRICTED STOCK PURCHASE 
+AGREEMENT BETWEEN THE ISSUER AND THE 
+ORIGINAL HOLDER OF THESE SHARES, A COPY OF 
+WHICH MAY BE OBTAINED AT THE PRINCIPAL 
+OFFICE OF THE ISSUER. SUCH TRANSFER 
+
+
+
+RESTRICTIONS, RIGHT OF FIRST REFUSAL, LOCK-UP 
+PERIOD AND REPURCHASE OPTION ARE BINDING ON 
+TRANSFEREES OF THESE SHARES. 
+
+6.2 Stop-Transfer Notices. Purchaser agrees that to ensure compliance with the 
+restrictions referred to herein, the Company may issue appropriate "stop transfer" 
+instructions to its transfer agent, if any, and that, if the Company transfers its own 
+securities, it may make appropriate notations to the same effect in its own records. 
+
+6.3 Refusal to Transfer. The Company shall not be required (i) to transfer on its 
+books any Shares that have been sold or otherwise transferred in violation of any of the 
+provisions of this Agreement or (ii) to treat as owner of such Shares or to accord the right 
+to vote or pay dividends to any purchaser or other transferee to whom such Shares shall 
+have been so transferred. 
+
+6.4 Lock-Up Period. Purchaser hereby agrees that Purchaser shall not sell, offer, 
+pledge, contract to sell, grant any option or contract to purchase, purchase any option or 
+contract to sell, grant any right or warrant to purchase, lend or otherwise transfer or 
+encumber, directly or indirectly, any Shares or other securities of the Company, nor shall 
+Purchaser enter into any swap, hedging or other arrangement that transfers to another, in 
+whole or in part, any of the economic consequences of ownership of any Shares or other 
+securities of the Company, during the period from the filing of the first registration 
+statement of the Company filed under the Securities Act of 1933, as amended (the 
+"Securities Act"), that includes securities to be sold on behalf of the Company to the public 
+in an underwritten public offering under the Securities Act through the end of the 180-day 
+period following the effective date of such registration statement (or such other period as 
+may be requested by the Company or the underwriters to accommodate regulatory 
+restrictions on (i) the publication or other distribution of research reports and (ii) analyst 
+recommendations and opinions, including, but not limited to, the restrictions contained in 
+NASD Rule 2711(f)(4) or NYSE Rule 472(f)(4), or any successor provisions or 
+amendments thereto). Purchaser further agrees, if so requested by the Company or any 
+representative of its underwriters, to enter into such underwriter's standard form of 
+"lockup" or "market standoff" agreement in a form satisfactory to the Company and such 
+underwriter. The Company may impose stop-transfer instructions with respect to securities 
+subject to the foregoing restrictions until the end of any such restriction period. 
+
+6.5 Unreleased Shares. No Unreleased Shares subject to the Repurchase Option 
+contained in Section 3 of this Agreement, nor any beneficial interest in such Shares, shall 
+be sold, gifted, transferred, encumbered or otherwise disposed of in any way (whether by 
+operation of law or otherwise) by Purchaser, other than as expressly permitted or required 
+by Section 3. 
+
+6.6 Released Shares. No Shares purchased pursuant to this Agreement, nor any 
+beneficial interest in such Shares, shall be sold, transferred, encumbered or otherwise 
+disposed of in any way (whether by operation of law or otherwise) by Purchaser or any 
+subsequent transferee, other than in compliance with the Company's right of first refusal 
+provisions contained in Section 7 of this Agreement. 
+
+7. Company's Right of First Refusal. Before any Shares acquired by Purchaser pursuant to 
+this Agreement (or any beneficial interest in such Shares) may be sold, transferred, encumbered or 
+
+
+
+otherwise disposed of in any way (whether by operation of law or otherwise) by Purchaser or any 
+subsequent transferee (each a "Holder"), such Holder must first offer such Shares or beneficial 
+interest to the Company and/or its assignee(s) as follows: 
+
+7.1 Notice of Proposed Transfer. The Holder shall deliver to the Company a 
+written notice stating: (i) the Holder's bona fide intention to sell or otherwise transfer the 
+Shares; (ii) the name of each proposed transferee; (iii) the number of Shares to be 
+transferred to each proposed transferee; (iv) the bona fide cash price or other consideration 
+for which the Holder proposes to transfer the Shares; and (v) that by delivering the notice, 
+the Holder offers all such Shares to the Company and/or its assignee(s) pursuant to this 
+section and on the same terms described in the notice. 
+
+7.2 Exercise of Right of First Refusal. At any time within 30 days after receipt of 
+the Holder's notice, the Company and/or its assignee(s) may, by giving written notice to 
+the Holder, elect to purchase all, but not less than all, of the Shares proposed to be 
+transferred to any one or more of the proposed transferees, at the purchase price determined 
+in accordance with Section 7.3. 
+
+7.3 Purchase Price. The purchase price for the Shares purchased by the Company 
+and/or its assignee(s) under this section shall be the price listed in the Holder's notice. If 
+the price listed in the Holder's notice includes consideration other than cash, the cash 
+equivalent value of the non-cash consideration shall be determined by the Board of 
+Directors of the Company in its sole discretion. 
+
+7.4 Payment. Payment of the purchase price shall be made, at the option of the 
+Company and/or its assignee(s), in cash (by check), by cancellation of all or a portion of 
+any outstanding indebtedness of the Holder to the Company and/or its assignee(s), or by 
+any combination thereof within 30 days after receipt by the Company of the Holder's notice 
+(or at such later date as is called for by such notice). 
+
+7.5 Holder's Right to Transfer. If all of the Shares proposed in the notice to be 
+transferred to a given proposed transferee are not purchased by the Company and/or its 
+assignee(s) as provided in this section, then the Holder may sell or otherwise transfer such 
+Shares to that proposed transferee; provided that: (i) the transfer is made only on the terms 
+provided for in the notice, with the exception of the purchase price, which may be either 
+the price listed in the notice or any higher price; (ii) such transfer is consummated within 
+60 days after the date the notice is delivered to the Company; (iii) the transfer is effected 
+in accordance with any applicable securities laws, and if requested by the Company, the 
+Holder shall have delivered an opinion of counsel acceptable to the Company to that effect; 
+and (iv) the proposed transferee agrees in writing to receive and hold the Shares so 
+transferred subject to all of the provisions of this Agreement, including but not limited to 
+this section, and there shall be no further transfer of such Shares except in accordance with 
+the terms of this section. If any Shares described in a notice are not transferred to the 
+proposed transferee within the period provided above, then before any such Shares may be 
+transferred, a new notice shall be given to the Company, and the Company and/or its 
+assignees shall again be offered the right of first refusal described in this section. 
+
+7.6 Involuntary Transfers. Subject to the other provisions of this Section 7, in the 
+event, at any time after the date of this Agreement, of any transfer by operation of law or 
+
+
+
+other involuntary transfer (including, but not limited to, transfers by operation of law or 
+other involuntary transfers in connection with a divorce, dissolution, legal separation or 
+annulment) of all or a portion of the Shares by the record holder thereof that does not occur 
+in accordance with the other provisions of this Section 7, the Company shall have the right 
+to purchase all of the Shares transferred at the greater of the purchase price paid by 
+Purchaser pursuant to this Agreement or the fair market value of the Shares on the date of 
+transfer (as determined by the board of directors of the Company). Upon such a transfer, 
+the persons transferring or acquiring the Shares shall promptly notify the Secretary of the 
+Company in writing of such transfer. The right to purchase such Shares shall be provided 
+to the Company for a period of 30 days following receipt by the Company of written notice 
+of the transfer. 
+
+7.7 Exception for Certain Family Transfers. Notwithstanding anything to the 
+contrary contained elsewhere in this section, the transfer of any or all of the Shares during 
+the Holder's lifetime (except in connection with a divorce, dissolution, legal separation or 
+annulment) or on the Holder's death by will or intestacy to (i) the Holder's spouse or 
+domestic partner; (ii) the Holder's lineal descendants or antecedents, siblings, aunts, uncles, 
+cousins, nieces and nephews (including adoptive relationships and step relationships), and 
+their spouses or domestic partners; (iii) the lineal descendants or antecedents, siblings, 
+cousins, aunts, uncles, nieces and nephews of Holder's spouse or domestic partner 
+(including adoptive relationships and step relationships), and their spouses or domestic 
+partners; and (iv) a trust or other similar estate planning vehicle for the benefit of the Holder 
+or any such person, shall be exempt from the provisions of this section; provided that, in 
+each such case, the transferee agrees in writing to receive and hold the Shares so transferred 
+subject to all of the provisions of this Agreement, including but not limited to this section, 
+and there shall be no further transfer of such Shares except in accordance with the terms of 
+this section; and provided further, that without the prior written consent of the Company, 
+which may be withheld in the sole discretion of the Company, no more than three transfers 
+may be made pursuant to this section, including all transfers by the Holder and all transfers 
+by any transferee. For purposes of this Agreement, a person will be deemed to be a 
+"domestic partner" of another person if the two persons (1) reside in the same residence 
+and plan to do so indefinitely, (2) have resided together for at least one year, (3) are each 
+at least 18 years of age and mentally competent to consent to contract, (4) are not blood 
+relatives any closer than would prohibit legal marriage in the state in which they reside, (5) 
+are financially interdependent, as demonstrated to the reasonable satisfaction of the 
+Company and (6) have each been the sole spouse equivalent of the other for the year prior 
+to the transfer and plan to remain so indefinitely; provided that a person will not be 
+considered a domestic partner if he or she is married to another person or has any other 
+spouse equivalent. 
+
+7.8 Termination of Right of First Refusal. The right of first refusal contained in 
+this section shall terminate as to all Shares purchased hereunder upon the earlier of: (i) the 
+closing date of the first sale of Common Stock of the Company to the general public 
+pursuant to a registration statement filed with and declared effective by the Securities and 
+Exchange Commission under the Securities Act, and (ii) the closing date of a Change of 
+Control pursuant to which the holders of the outstanding voting securities of the Company 
+
+
+
+receive securities of a class registered pursuant to Section 12 of the Securities Exchange 
+Act of 1934, as amended. 
+
+8. Escrow. Upon issuance, the certificate(s) for Unreleased Shares shall be deposited in 
+escrow with the Company together with a stock assignment duly endorsed (with date and number 
+of shares blank) in the form attached hereto as Exhibit C to be held in accordance with the 
+provisions of this Agreement. Any new, substituted or additional securities or cash or other 
+consideration to which the Purchaser is entitled by reason of the Purchaser's ownership of the 
+Shares shall immediately be delivered to the Company to be held in escrow. All ordinary cash 
+dividends on Unreleased Shares (or on other securities held in escrow) shall be paid directly to the 
+Purchaser and shall not be held in escrow. Unreleased Shares, together with any other assets held 
+in escrow under this Agreement, shall be (i) surrendered to the Company for repurchase upon 
+exercise of the Right of Repurchase or the Right of First Refusal or (ii) released to the Purchaser 
+upon his or her request to the extent that the Shares have ceased to be Unreleased Shares (but not 
+more frequently than once every six months). In any event, all Purchased Shares that have ceased 
+to be Unreleased Shares, together with any other vested assets held in escrow under this 
+Agreement, shall be released within 90 days after the earlier of (i) the termination of the Purchaser's 
+Service or (ii) the lapse of the Right of Repurchase. 
+
+9. Tax Consequences. Purchaser has reviewed with Purchaser's own tax advisors the 
+federal, state, local and foreign tax consequences of this investment and the transactions 
+contemplated by this Agreement. Purchaser is relying solely on such advisors and not on any 
+statements or representations of the Company or any of its agents. Purchaser understands that 
+Purchaser (and not the Company) shall be responsible for any tax liability that may arise as a result 
+of the transactions contemplated by this Agreement. Purchaser understands that Section 83 of the 
+Code, taxes as ordinary income the difference between the purchase price for the Shares and the 
+fair market value of the Shares as of the date any restrictions on the Shares lapse. In this context, 
+"restriction" includes the right of the Company to buy back the Shares pursuant to the Repurchase 
+Option. Purchaser understands that Purchaser may elect to be taxed at the time the Shares are 
+purchased rather than when and as the Repurchase Option expires by filing an election under 
+Section 83(b) of the Code with the IRS within 30 days from the date of purchase. THE FORM 
+FOR MAKING THIS SECTION 83(B) ELECTION IS ATTACHED TO THIS AGREEMENT 
+AS EXHIBIT D AND PURCHASER (AND NOT THE COMPANY OR ANY OF ITS AGENTS) 
+SHALL BE SOLELY RESPONSIBLE FOR APPROPRIATELY FILING SUCH FORM, EVEN 
+IF PURCHASER REQUESTS THE COMPANY OR ITS AGENTS TO MAKE THIS FILING 
+ON PURCHASER'S BEHALF. 
+
+10. Intellectual Property. 
+
+10.1 Additional Intellectual Property. Purchaser shall deliver an executed copy 
+of the Technology Assignment Agreement attached hereto as Exhibit A at the time of 
+Purchaser's execution hereof, and represents and warrants that except for intellectual 
+property rights assigned pursuant to such agreement, Purchaser possesses no intellectual 
+property and has made no inventions related to the Company's business, as currently 
+conducted or as proposed to be conducted. Purchaser further agrees that to the extent it is 
+discovered that Purchaser has made inventions, patented or unpatented, or otherwise 
+possesses intellectual property rights related to the Company's business that were not 
+properly assigned to the Company pursuant to such agreement (the "Additional 
+
+
+
+Intellectual Property"), the Additional Intellectual Property is hereby assigned to the 
+Company. 
+
+10.2 Obligation to Assist. Purchaser agrees to assist the Company in every proper 
+way to obtain, and from time to time enforce, United States and foreign proprietary rights 
+relating to the Additional Intellectual Property in any and all countries. Purchaser agrees 
+to execute, verify and deliver such documents and perform such other acts (including 
+appearances as a witness) as the Company may reasonably request for use in applying for, 
+obtaining, perfecting, evidencing, sustaining and enforcing such Additional Intellectual 
+Property and the assignment of such Additional Intellectual Property. 
+
+10.3 Agent and Attorney in Fact. In the event the Company is unable for any 
+reason, after reasonable effort, to secure Purchaser's signature on any document needed in 
+connection with the actions specified in the preceding paragraph, Purchaser irrevocably 
+designates and appoints the Company and its duly authorized officers and agents as my 
+agent and attorney in fact, which appointment is coupled with an interest, to act for and on 
+behalf of Purchaser to execute, verify and file any such documents and to do all other 
+lawfully permitted acts to further the purposes of the preceding paragraph with the same 
+legal force and effect as if executed by Purchaser. 
+
+11. General Provisions. 
+
+11.1 Choice of Law. This Agreement shall be governed by, and construed in 
+accordance with, the laws of the State of Delaware, as such laws are applied to contracts 
+entered into and to be performed entirely within such State. 
+
+11.2 Integration. This Agreement, including all exhibits hereto and the 
+Performance Terms Letter, represents the entire agreement between the parties with respect 
+to the purchase of the Shares by Purchaser and supersedes and replaces any and all prior 
+written or oral agreements regarding the subject matter of this Agreement including, but 
+not limited to, any representations made during any interviews, relocation discussions or 
+negotiations whether written or oral. 
+
+(i) Any notice, demand, offer, request or other communication required or 
+permitted to be given by either the Company or Purchaser pursuant to the terms of 
+this Agreement shall be in writing and shall be deemed effectively given the earlier 
+of (1) when received, (2) when delivered personally, (3) if to Purchaser, when 
+delivered by electronic mail to the electronic mail address set forth below 
+Purchaser's signature or to such other electronic mail address as shall be designated 
+by Purchaser in a written notice sent to Pairwire, Inc., 72 Barrow St, Apt. 3M New 
+York, NY 10014, c/o Maria Leao, Attention: Secretary, and if to the Company, to 
+info@pairwire.co, (4) one business day after being deposited with an overnight 
+courier service or (5) four days after being deposited in the U.S. mail, First Class 
+with postage prepaid and return receipt requested, and addressed to the parties at 
+the addresses provided to the Company (which the Company agrees to disclose to 
+the other parties upon request) or such other address as a party may request by 
+notifying the other in writing. 
+
+
+
+11.4 Successors. Any successor to the Company (whether direct or indirect and 
+whether by purchase, merger, consolidation, liquidation or otherwise) to all or substantially 
+all of the Company's business and/or assets shall assume the obligations under this 
+Agreement and agree expressly to perform the obligations under this Agreement in the 
+same manner and to the same extent as the Company would be required to perform such 
+obligations in the absence of a succession. For all purposes under this Agreement, the term 
+"Company" shall include any successor to the Company's business and/or assets which 
+executes and delivers the assumption agreement described in this section or which becomes 
+bound by the terms of this Agreement by operation of law. Subject to the restrictions on 
+transfer set forth in this Agreement, this Agreement shall be binding upon Purchaser and 
+his or her heirs, executors, administrators, successors and assigns. 
+
+11.5 Waiver. Either party's failure to enforce any provision of this Agreement shall 
+not in any way be construed as a waiver of any such provision, nor prevent that party from 
+thereafter enforcing any other provision of this Agreement. The rights granted both parties 
+hereunder are cumulative and shall not constitute a waiver of either party's right to assert 
+any other legal remedy available to it. 
+
+11.6 Additional Representations and Further Documents. Purchaser agrees 
+upon request to execute any further documents or instruments necessary or reasonably 
+desirable in the view of the Company to carry out the purposes or intent of this Agreement, 
+including (but not limited to) the applicable exhibits and attachments to this Agreement. 
+
+11.7 Severability. Should any provision of this Agreement be found to be illegal 
+or unenforceable, the other provisions shall nevertheless remain effective and shall remain 
+enforceable to the greatest extent permitted by law. 
+
+11.8 Rights as Stockholder. Subject to the terms and conditions of this Agreement, 
+Purchaser shall have all of the rights of a stockholder of the Company with respect to the 
+Shares from and after the date that Purchaser delivers a fully executed copy of this 
+Agreement (including the applicable exhibits and attachments to this Agreement) and full 
+payment for the Shares to the Company, and until such time as Purchaser disposes of the 
+Shares in accordance with this Agreement. Upon such transfer, Purchaser shall have no 
+further rights as a holder of the Shares so purchased except (in the case of a transfer to the 
+Company) the right to receive payment for the Shares so purchased in accordance with the 
+provisions of this Agreement, and Purchaser shall forthwith cause the certificate(s) 
+evidencing the Shares so purchased to be surrendered to the Company for transfer or 
+cancellation. 
+
+11.9 Adjustment for Stock Split. All references to the number of Shares and the 
+purchase price of the Shares in this Agreement shall be adjusted to reflect any stock split, 
+stock dividend or other change in the Shares which may be made after the date of this 
+Agreement. 
+
+11.10 Employment at Will. PURCHASER ACKNOWLEDGES AND AGREES 
+THAT THE VESTING OF SHARES PURSUANT TO THIS AGREEMENT IS EARNED 
+ONLY BY CONTINUING SERVICE AS A SERVICE PROVIDER AT WILL (AND 
+NOT THROUGH THE ACT OF BEING HIRED OR PURCHASING SHARES 
+HEREUNDER). PURCHASER FURTHER ACKNOWLEDGES AND AGREES THAT 
+
+
+
+THIS AGREEMENT, THE TRANSACTIONS CONTEMPLATED HEREUNDER AND 
+THE VESTING SCHEDULE SET FORTH HEREIN DO NOT CONSTITUTE AN 
+EXPRESS OR IMPLIED PROMISE OF CONTINUED ENGAGEMENT AS A SERVICE 
+PROVIDER FOR THE VESTING PERIOD, OR FOR ANY PERIOD AT ALL, AND 
+SHALL NOT INTERFERE WITH PURCHASER'S RIGHT OR THE COMPANY'S 
+RIGHT TO TERMINATE PURCHASER'S RELATIONSHIP WITH THE COMPANY 
+AT ANY TIME, WITH OR WITHOUT CAUSE OR NOTICE. 
+
+11.11 Reliance on Counsel and Advisors. Purchaser acknowledges that Nelson 
+Mullins Riley & Scarborough LLP, is representing only the Company in this transaction. 
+Purchaser acknowledges that he or she has had the opportunity to review this Agreement, 
+including all attachments hereto, and the transactions contemplated by this Agreement with 
+his or her own legal counsel, tax advisors and other advisors. Purchaser is relying solely 
+on his or her own counsel and advisors and not on any statements or representations of the 
+Company or its agents for legal or other advice with respect to this investment or the 
+transactions contemplated by this Agreement. 
+
+11.12 Counterparts. This Agreement may be executed in one or more 
+counterparts, each of which will be deemed an original, but all of which together will 
+constitute one and the same agreement. Facsimile copies of signed signature pages shall be 
+binding originals. 
+
+11.13 Fully Diluted Capitalization. "Fully Diluted Capitalization" means, as of 
+the time of determination, (i) all shares of Company capital stock issued and outstanding, 
+plus (ii) all shares of Company capital stock issuable upon exercise or conversion of all 
+outstanding options, warrants and other convertible securities (whether or not then 
+exercisable), including the Founder Institute warrant shown on the Company's cap table, 
+plus (iii) all shares reserved and available for future grant under equity incentive plans, but 
+excluding any increase to such plan reserve approved in connection with Purchaser's grant. 
+
+[Signature page follows] 
+The parties represent that they have read this Agreement in its entirety, have had an opportunity to 
+obtain the advice of counsel prior to executing this Agreement and fully understand this 
+Agreement. Purchaser agrees to notify the Company of any change in his or her address below. 
+PURCHASER: 
+Signature: _______________________ 
+Tomás Maria Burnay Batalha 
+Address: Alameda Alto da Barra, nº 7 
+Email: tomas.b.batalha@gmail.com 
+PAIRWIRE, INC. 
+By: _____________________________ 
+Martim Villas-Boas 
+Chief Executive Officer 
+EXHIBIT A - Technology Assignment Agreement 
+
+EXHIBIT B - Investment Representation Statement 
+
+EXHIBIT C - Stock Power and Assignment 
+
+
+
+EXHIBIT D - Section 83(b) Election Form 
+
+[Exhibits A-D remain identical to original template - not repeated here for brevity]

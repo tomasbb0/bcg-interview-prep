@@ -1,0 +1,3700 @@
+<!doctype html>
+<html lang="pt">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BCG Interview Prep — Tomás Batalha</title>
+    <style>
+      :root {
+        --bcg-green: #00a651;
+        --bcg-dark: #1a1a2e;
+        --bcg-darker: #16213e;
+        --bcg-accent: #0f3460;
+        --text: #e0e0e0;
+        --text-muted: #a0a0a0;
+        --bg: #0d1117;
+        --card-bg: #161b22;
+        --card-border: #30363d;
+        --highlight: #ffd700;
+        --danger: #ff6b6b;
+        --success: #00e676;
+        --info: #64b5f6;
+        --sidebar-width: 280px;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family:
+          -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+          sans-serif;
+        background: var(--bg);
+        color: var(--text);
+        line-height: 1.7;
+        display: flex;
+        min-height: 100vh;
+      }
+
+      /* SIDEBAR */
+      .sidebar {
+        width: var(--sidebar-width);
+        background: var(--card-bg);
+        border-right: 1px solid var(--card-border);
+        position: fixed;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        overflow-y: auto;
+        z-index: 100;
+        transition: transform 0.3s ease;
+      }
+
+      .sidebar-header {
+        padding: 24px 20px;
+        border-bottom: 1px solid var(--card-border);
+        background: linear-gradient(135deg, var(--bcg-dark), var(--bcg-accent));
+      }
+
+      .sidebar-header h1 {
+        font-size: 18px;
+        color: var(--bcg-green);
+        font-weight: 700;
+        letter-spacing: 2px;
+      }
+
+      .sidebar-header p {
+        font-size: 12px;
+        color: var(--text-muted);
+        margin-top: 4px;
+      }
+
+      .sidebar-header .countdown {
+        margin-top: 12px;
+        padding: 8px 12px;
+        background: rgba(0, 166, 81, 0.15);
+        border: 1px solid rgba(0, 166, 81, 0.3);
+        border-radius: 8px;
+        font-size: 13px;
+        color: var(--bcg-green);
+        text-align: center;
+        font-weight: 600;
+      }
+
+      .sidebar nav {
+        padding: 12px 0;
+      }
+
+      .sidebar nav a {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 10px 20px;
+        color: var(--text-muted);
+        text-decoration: none;
+        font-size: 14px;
+        transition: all 0.2s;
+        border-left: 3px solid transparent;
+      }
+
+      .sidebar nav a:hover,
+      .sidebar nav a.active {
+        color: var(--text);
+        background: rgba(0, 166, 81, 0.08);
+        border-left-color: var(--bcg-green);
+      }
+
+      .sidebar nav a .icon {
+        font-size: 18px;
+        width: 24px;
+        text-align: center;
+      }
+
+      .sidebar nav .divider {
+        height: 1px;
+        background: var(--card-border);
+        margin: 8px 20px;
+      }
+
+      /* MOBILE MENU */
+      .menu-toggle {
+        display: none;
+        position: fixed;
+        top: 16px;
+        left: 16px;
+        z-index: 200;
+        background: var(--bcg-green);
+        color: white;
+        border: none;
+        border-radius: 8px;
+        width: 44px;
+        height: 44px;
+        font-size: 22px;
+        cursor: pointer;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+      }
+
+      /* MAIN */
+      .main {
+        margin-left: var(--sidebar-width);
+        flex: 1;
+        padding: 40px;
+        max-width: 900px;
+      }
+
+      /* SECTIONS */
+      .section {
+        display: none;
+        animation: fadeIn 0.3s ease;
+      }
+      .section.active {
+        display: block;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .section-title {
+        font-size: 32px;
+        font-weight: 700;
+        color: white;
+        margin-bottom: 8px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .section-subtitle {
+        font-size: 15px;
+        color: var(--text-muted);
+        margin-bottom: 32px;
+        padding-bottom: 20px;
+        border-bottom: 1px solid var(--card-border);
+      }
+
+      /* CARDS */
+      .card {
+        background: var(--card-bg);
+        border: 1px solid var(--card-border);
+        border-radius: 12px;
+        padding: 24px;
+        margin-bottom: 20px;
+      }
+
+      .card-accent {
+        border-left: 4px solid var(--bcg-green);
+      }
+
+      .card-warning {
+        border-left: 4px solid var(--highlight);
+        background: rgba(255, 215, 0, 0.05);
+      }
+
+      .card-danger {
+        border-left: 4px solid var(--danger);
+        background: rgba(255, 107, 107, 0.05);
+      }
+
+      .card-info {
+        border-left: 4px solid var(--info);
+        background: rgba(100, 181, 246, 0.05);
+      }
+
+      h2 {
+        font-size: 22px;
+        color: var(--bcg-green);
+        margin: 32px 0 16px 0;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      h3 {
+        font-size: 17px;
+        color: white;
+        margin: 20px 0 10px 0;
+      }
+
+      h4 {
+        font-size: 15px;
+        color: var(--info);
+        margin: 16px 0 8px 0;
+      }
+
+      /* TABLES */
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 12px 0 20px 0;
+        font-size: 14px;
+      }
+
+      th {
+        background: var(--bcg-accent);
+        color: white;
+        padding: 10px 14px;
+        text-align: left;
+        font-weight: 600;
+        font-size: 13px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+
+      td {
+        padding: 10px 14px;
+        border-bottom: 1px solid var(--card-border);
+      }
+
+      tr:hover td {
+        background: rgba(0, 166, 81, 0.05);
+      }
+
+      .time-col {
+        color: var(--bcg-green);
+        font-weight: 600;
+        white-space: nowrap;
+      }
+      .activity-col {
+        font-weight: 500;
+      }
+
+      /* FRAMEWORK TREES */
+      .tree {
+        background: var(--bg);
+        border: 1px solid var(--card-border);
+        border-radius: 8px;
+        padding: 16px 20px;
+        margin: 12px 0;
+        font-family: "SF Mono", "Fira Code", Consolas, monospace;
+        font-size: 13px;
+        line-height: 1.8;
+        overflow-x: auto;
+        white-space: pre;
+        color: var(--text-muted);
+      }
+
+      .tree .highlight {
+        color: var(--bcg-green);
+        font-weight: 600;
+      }
+
+      /* FORMULAS */
+      .formula {
+        background: rgba(0, 166, 81, 0.08);
+        border: 1px solid rgba(0, 166, 81, 0.2);
+        border-radius: 8px;
+        padding: 14px 18px;
+        margin: 12px 0;
+        font-family: "SF Mono", "Fira Code", Consolas, monospace;
+        font-size: 14px;
+        color: var(--bcg-green);
+      }
+
+      /* COLLAPSIBLES */
+      .collapsible {
+        cursor: pointer;
+        padding: 14px 18px;
+        background: var(--card-bg);
+        border: 1px solid var(--card-border);
+        border-radius: 8px;
+        margin: 8px 0;
+        font-size: 15px;
+        font-weight: 600;
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        transition: all 0.2s;
+      }
+
+      .collapsible:hover {
+        background: rgba(0, 166, 81, 0.08);
+        border-color: var(--bcg-green);
+      }
+
+      .collapsible::after {
+        content: "▸";
+        font-size: 14px;
+        color: var(--bcg-green);
+        transition: transform 0.2s;
+      }
+
+      .collapsible.open::after {
+        transform: rotate(90deg);
+      }
+
+      .collapsible-content {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.4s ease;
+        padding: 0 18px;
+      }
+
+      .collapsible-content.open {
+        max-height: 5000px;
+        padding: 16px 18px;
+        border: 1px solid var(--card-border);
+        border-top: none;
+        border-radius: 0 0 8px 8px;
+        background: var(--card-bg);
+      }
+
+      /* LISTS */
+      ul,
+      ol {
+        padding-left: 24px;
+        margin: 8px 0;
+      }
+      li {
+        margin: 4px 0;
+        font-size: 14px;
+      }
+
+      /* QUOTES */
+      blockquote {
+        border-left: 3px solid var(--bcg-green);
+        padding: 12px 18px;
+        margin: 12px 0;
+        background: rgba(0, 166, 81, 0.05);
+        border-radius: 0 8px 8px 0;
+        font-style: italic;
+        color: var(--text);
+      }
+
+      /* BADGES */
+      .badge {
+        display: inline-block;
+        padding: 2px 10px;
+        border-radius: 12px;
+        font-size: 12px;
+        font-weight: 600;
+      }
+
+      .badge-green {
+        background: rgba(0, 230, 118, 0.15);
+        color: var(--success);
+      }
+      .badge-yellow {
+        background: rgba(255, 215, 0, 0.15);
+        color: var(--highlight);
+      }
+      .badge-red {
+        background: rgba(255, 107, 107, 0.15);
+        color: var(--danger);
+      }
+      .badge-blue {
+        background: rgba(100, 181, 246, 0.15);
+        color: var(--info);
+      }
+
+      /* MATH DRILL BUTTONS */
+      .drill-answer {
+        display: none;
+        margin-top: 8px;
+        padding: 8px 14px;
+        background: rgba(0, 166, 81, 0.1);
+        border-radius: 6px;
+        font-weight: 600;
+        color: var(--bcg-green);
+      }
+
+      .drill-btn {
+        display: inline-block;
+        padding: 4px 12px;
+        background: var(--bcg-accent);
+        border: 1px solid var(--card-border);
+        border-radius: 6px;
+        color: var(--text);
+        cursor: pointer;
+        font-size: 12px;
+        margin-top: 4px;
+        transition: all 0.2s;
+      }
+
+      .drill-btn:hover {
+        background: var(--bcg-green);
+        color: white;
+      }
+
+      /* STAR TEMPLATE */
+      .star-box {
+        background: var(--bg);
+        border: 1px dashed var(--card-border);
+        border-radius: 8px;
+        padding: 16px;
+        margin: 12px 0;
+      }
+
+      .star-label {
+        display: inline-block;
+        width: 28px;
+        height: 28px;
+        background: var(--bcg-green);
+        color: white;
+        border-radius: 50%;
+        text-align: center;
+        line-height: 28px;
+        font-size: 13px;
+        font-weight: 700;
+        margin-right: 10px;
+      }
+
+      /* CHECKLIST */
+      .checklist {
+        list-style: none;
+        padding: 0;
+      }
+      .checklist li {
+        padding: 8px 0;
+        border-bottom: 1px solid var(--card-border);
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .checklist li::before {
+        content: "☐";
+        font-size: 18px;
+        color: var(--bcg-green);
+        cursor: pointer;
+      }
+      .checklist li.checked::before {
+        content: "☑";
+      }
+
+      /* DO / DON'T TABLE */
+      .do-dont {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+        margin: 16px 0;
+      }
+      .do-col,
+      .dont-col {
+        padding: 16px;
+        border-radius: 8px;
+      }
+      .do-col {
+        background: rgba(0, 230, 118, 0.08);
+        border: 1px solid rgba(0, 230, 118, 0.2);
+      }
+      .dont-col {
+        background: rgba(255, 107, 107, 0.08);
+        border: 1px solid rgba(255, 107, 107, 0.2);
+      }
+      .do-col h4 {
+        color: var(--success);
+      }
+      .dont-col h4 {
+        color: var(--danger);
+      }
+
+      /* PROGRESS BAR */
+      .progress-bar {
+        height: 6px;
+        background: var(--card-border);
+        border-radius: 3px;
+        margin: 8px 0 20px;
+        overflow: hidden;
+      }
+      .progress-fill {
+        height: 100%;
+        background: linear-gradient(90deg, var(--bcg-green), #00e676);
+        border-radius: 3px;
+        transition: width 0.5s ease;
+      }
+
+      /* COMMANDMENT */
+      .commandment {
+        background: var(--card-bg);
+        border: 1px solid var(--card-border);
+        border-radius: 12px;
+        padding: 20px;
+        margin: 12px 0;
+      }
+      .commandment-number {
+        display: inline-block;
+        width: 32px;
+        height: 32px;
+        background: var(--bcg-green);
+        color: white;
+        border-radius: 50%;
+        text-align: center;
+        line-height: 32px;
+        font-weight: 700;
+        margin-right: 10px;
+      }
+      .commandment h3 {
+        display: inline;
+      }
+      .commandment blockquote {
+        margin-top: 10px;
+      }
+
+      /* SCROLLBAR */
+      ::-webkit-scrollbar {
+        width: 8px;
+      }
+      ::-webkit-scrollbar-track {
+        background: var(--bg);
+      }
+      ::-webkit-scrollbar-thumb {
+        background: var(--card-border);
+        border-radius: 4px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: var(--bcg-green);
+      }
+
+      /* RESPONSIVE */
+      @media (max-width: 768px) {
+        .sidebar {
+          transform: translateX(-100%);
+        }
+        .sidebar.open {
+          transform: translateX(0);
+        }
+        .menu-toggle {
+          display: block;
+        }
+        .main {
+          margin-left: 0;
+          padding: 20px;
+          padding-top: 72px;
+        }
+        .section-title {
+          font-size: 24px;
+        }
+        .do-dont {
+          grid-template-columns: 1fr;
+        }
+        table {
+          font-size: 12px;
+        }
+        th,
+        td {
+          padding: 6px 8px;
+        }
+      }
+
+      /* PRINT */
+      @media print {
+        .sidebar,
+        .menu-toggle {
+          display: none !important;
+        }
+        .main {
+          margin-left: 0;
+          max-width: 100%;
+        }
+        .section {
+          display: block !important;
+          page-break-before: always;
+        }
+        body {
+          background: white;
+          color: black;
+        }
+        .card {
+          border-color: #ddd;
+        }
+      }
+
+      .back-to-top {
+        position: fixed;
+        bottom: 24px;
+        right: 24px;
+        width: 44px;
+        height: 44px;
+        background: var(--bcg-green);
+        color: white;
+        border: none;
+        border-radius: 50%;
+        font-size: 20px;
+        cursor: pointer;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+        z-index: 50;
+        opacity: 0;
+        transition: opacity 0.3s;
+      }
+      .back-to-top.visible {
+        opacity: 1;
+      }
+
+      .day-tab {
+        display: inline-block;
+        padding: 8px 16px;
+        margin: 4px;
+        background: var(--card-bg);
+        border: 1px solid var(--card-border);
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--text-muted);
+        transition: all 0.2s;
+      }
+      .day-tab:hover,
+      .day-tab.active {
+        background: rgba(0, 166, 81, 0.15);
+        border-color: var(--bcg-green);
+        color: var(--bcg-green);
+      }
+      .day-content {
+        display: none;
+      }
+      .day-content.active {
+        display: block;
+      }
+
+      .kbd {
+        display: inline-block;
+        padding: 2px 8px;
+        background: var(--bg);
+        border: 1px solid var(--card-border);
+        border-radius: 4px;
+        font-family: monospace;
+        font-size: 13px;
+      }
+
+      .term-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 2px;
+        font-size: 13px;
+      }
+      .term-grid .term-pt {
+        color: var(--bcg-green);
+        font-weight: 600;
+      }
+      .term-grid .term-en {
+        color: var(--text-muted);
+      }
+      .term-grid .term-note {
+        color: var(--info);
+        font-style: italic;
+        font-size: 12px;
+      }
+
+      @media (max-width: 768px) {
+        .term-grid {
+          grid-template-columns: 1fr 1fr;
+        }
+        .term-grid .term-note {
+          display: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- MOBILE MENU TOGGLE -->
+    <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <h1>BCG PREP</h1>
+        <p>Tomás Batalha — 1ª Ronda</p>
+        <div class="countdown" id="countdown"></div>
+      </div>
+      <nav>
+        <a
+          href="#"
+          onclick="showSection('master-plan')"
+          class="active"
+          data-section="master-plan"
+        >
+          <span class="icon">📋</span> Master Plan
+        </a>
+        <a
+          href="#"
+          onclick="showSection('frameworks')"
+          data-section="frameworks"
+        >
+          <span class="icon">📐</span> Frameworks
+        </a>
+        <a href="#" onclick="showSection('math')" data-section="math">
+          <span class="icon">🔢</span> Math & Formulas
+        </a>
+        <a href="#" onclick="showSection('drills')" data-section="drills">
+          <span class="icon">🧮</span> Math Drills
+        </a>
+        <div class="divider"></div>
+        <a
+          href="#"
+          onclick="showSection('portuguese')"
+          data-section="portuguese"
+        >
+          <span class="icon">🇵🇹</span> Termos PT
+        </a>
+        <a
+          href="#"
+          onclick="showSection('creativity')"
+          data-section="creativity"
+        >
+          <span class="icon">🧠</span> Criatividade
+        </a>
+        <a
+          href="#"
+          onclick="showSection('bcg-patterns')"
+          data-section="bcg-patterns"
+        >
+          <span class="icon">🏢</span> BCG Patterns
+        </a>
+        <div class="divider"></div>
+        <a href="#" onclick="showSection('fit')" data-section="fit">
+          <span class="icon">📝</span> Fit / PEI
+        </a>
+        <a href="#" onclick="showSection('game-day')" data-section="game-day">
+          <span class="icon">🏆</span> Game Day
+        </a>
+      </nav>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="main">
+      <!-- ═══════════════════════════════════════════════════════ -->
+      <!-- SECTION: MASTER PLAN -->
+      <!-- ═══════════════════════════════════════════════════════ -->
+      <div class="section active" id="master-plan">
+        <div class="section-title">📋 Master Plan</div>
+        <div class="section-subtitle">
+          Plano hora-a-hora — Domingo 23 Feb → Sexta 28 Feb
+        </div>
+
+        <div class="card card-accent">
+          <h3>Situation Assessment</h3>
+          <table>
+            <tr>
+              <td style="width: 200px; font-weight: 600">Formato</td>
+              <td>
+                1ª Ronda, presencial, em Português. Passou BCG Casey online.
+              </td>
+            </tr>
+            <tr>
+              <td class="activity-col">Nº Entrevistas</td>
+              <td>2 back-to-back (cada = caso + fit)</td>
+            </tr>
+            <tr>
+              <td class="activity-col">Casos feitos</td>
+              <td>10+ (dispersos, ~1/mês), 3 na última semana</td>
+            </tr>
+            <tr>
+              <td class="activity-col">CaseCoach</td>
+              <td>Subscrição ativa, parceiros estrangeiros ilimitados</td>
+            </tr>
+            <tr>
+              <td class="activity-col">Parceira PT</td>
+              <td>
+                1 amiga (também a preparar, disponível Qui na uni ou remoto)
+              </td>
+            </tr>
+            <tr>
+              <td class="activity-col">Áreas fracas</td>
+              <td>
+                <span class="badge badge-red">Estruturação</span>
+                <span class="badge badge-red">Math mental</span>
+                <span class="badge badge-yellow">Criatividade</span>
+              </td>
+            </tr>
+            <tr>
+              <td class="activity-col">Histórias Fit</td>
+              <td>Existem mas desatualizadas — precisam refresh</td>
+            </tr>
+            <tr>
+              <td class="activity-col">ADHD Meds</td>
+              <td>34mg SR + 10mg IR (não a tomar atualmente)</td>
+            </tr>
+          </table>
+        </div>
+
+        <!-- MEDICATION -->
+        <h2>💊 Medication & Wellness</h2>
+        <div class="card card-warning">
+          <h3>Protocolo Metilfenidato</h3>
+          <ul>
+            <li>
+              <strong>34mg SR:</strong> Começar AMANHÃ (Segunda). Tomar com
+              pequeno-almoço, mesma hora todos os dias. 3 dias para estabilizar
+              antes de Sexta.
+            </li>
+            <li>
+              <strong>10mg IR:</strong> Reservar para Sexta. Tomar ~1h antes da
+              entrevista (~14:30). Boost de "game day".
+            </li>
+            <li>
+              <strong>Porquê amanhã e não hoje:</strong> Precisa de se
+              reacostumar. Começar hoje podia afetar o sono. Seg-Ter-Qua-Qui
+              para estabilizar.
+            </li>
+          </ul>
+        </div>
+
+        <div class="card card-info">
+          <h3>Perguntas para o médico (hoje 20:30-21:30)</h3>
+          <ol>
+            <li>
+              "Não tomo metilfenidato há algum tempo. Posso recomeçar amanhã com
+              o 34mg SR e usar o 10mg IR na sexta para uma entrevista importante
+              às 15:30?"
+            </li>
+            <li>
+              "Há algum ansiolítico leve que possa tomar na sexta para reduzir
+              ansiedade sem afetar a performance cognitiva?" (e.g., propranolol)
+            </li>
+            <li>
+              "O metilfenidato pode aumentar a ansiedade? Devo ajustar a dose se
+              me sentir ansioso?"
+            </li>
+            <li>
+              "Posso combinar um ansiolítico com o metilfenidato no dia da
+              entrevista?"
+            </li>
+            <li>
+              "Recomenda algum suplemento natural para relaxamento (L-theanine,
+              magnésio) nos próximos dias?"
+            </li>
+          </ol>
+        </div>
+
+        <div class="card">
+          <h3>Sono & Energia</h3>
+          <ul>
+            <li>
+              <strong>Sleep target:</strong> 7-8 horas mín. Cama às 1:00,
+              acordar 9-10.
+            </li>
+            <li>
+              <strong>Sexta:</strong> Acordar às 9:00, pequeno-almoço leve, 34mg
+              SR às 9:30, review 10-12, almoço leve, 10mg IR às 14:30, chegar 15
+              min antes.
+            </li>
+            <li>
+              <strong>Cafeína:</strong> Moderada. Máx 2 cafés/dia. Nada depois
+              das 16h.
+            </li>
+            <li>
+              <strong>Exercício:</strong> 20-30 min caminhada diária — reduz
+              ansiedade, melhora foco.
+            </li>
+          </ul>
+        </div>
+
+        <!-- SCHEDULE TABS -->
+        <h2>📅 Schedule</h2>
+        <div style="margin-bottom: 16px">
+          <span class="day-tab active" onclick="showDay('sun')">Dom 23</span>
+          <span class="day-tab" onclick="showDay('mon')">Seg 24</span>
+          <span class="day-tab" onclick="showDay('tue')">Ter 25</span>
+          <span class="day-tab" onclick="showDay('wed')">Qua 26</span>
+          <span class="day-tab" onclick="showDay('thu')">Qui 27</span>
+          <span class="day-tab" onclick="showDay('fri')">Sex 28 🏆</span>
+        </div>
+
+        <!-- SUNDAY -->
+        <div class="day-content active" id="day-sun">
+          <div class="card">
+            <h3>Domingo 23 Feb <span class="badge badge-blue">Hoje</span></h3>
+            <p style="color: var(--text-muted); margin-bottom: 12px">
+              Disponível: 15:45-17:00, depois 21:00+
+            </p>
+            <table>
+              <thead>
+                <tr>
+                  <th>Hora</th>
+                  <th>Atividade</th>
+                  <th>Detalhes</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="time-col">15:45-16:00</td>
+                  <td class="activity-col">📋 Ler o plano</td>
+                  <td>Absorver, configurar CaseCoach</td>
+                </tr>
+                <tr>
+                  <td class="time-col">16:00-17:00</td>
+                  <td class="activity-col">📖 TEORIA: Frameworks</td>
+                  <td>
+                    Profitability deep dive, Revenue/Cost trees, Market Entry,
+                    M&A, Pricing
+                  </td>
+                </tr>
+                <tr>
+                  <td class="time-col" style="color: var(--danger)">
+                    17:00-20:30
+                  </td>
+                  <td>❌ Indisponível</td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td class="time-col">20:30-21:30</td>
+                  <td class="activity-col">🏥 Médico</td>
+                  <td>Fazer as 5 perguntas sobre medicação</td>
+                </tr>
+                <tr>
+                  <td class="time-col">21:30-22:30</td>
+                  <td class="activity-col">📖 TEORIA: Math & Formulas</td>
+                  <td>Payback, breakeven, margens, CAGR, NPV</td>
+                </tr>
+                <tr>
+                  <td class="time-col">22:30-23:00</td>
+                  <td class="activity-col">📖 Termos portugueses</td>
+                  <td>Vocabulário de negócios PT-PT</td>
+                </tr>
+                <tr>
+                  <td class="time-col">23:00-00:00</td>
+                  <td class="activity-col">🎯 CASO: Solo CaseCoach</td>
+                  <td>
+                    1 caso completo (profitability ou market entry). Foco:
+                    ESTRUTURAR (máx 2 min)
+                  </td>
+                </tr>
+                <tr>
+                  <td class="time-col">00:00-00:30</td>
+                  <td class="activity-col">📝 Brainstorm Fit/PEI</td>
+                  <td>Listar melhores histórias</td>
+                </tr>
+                <tr>
+                  <td class="time-col">00:30</td>
+                  <td class="activity-col">🛌 Wind down</td>
+                  <td>Cama às 1:00</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- MONDAY -->
+        <div class="day-content" id="day-mon">
+          <div class="card">
+            <h3>
+              Segunda 24 Feb <span class="badge badge-green">💊 1º dia SR</span>
+            </h3>
+            <p style="color: var(--text-muted); margin-bottom: 12px">
+              Target: 4 casos, frameworks + math theory, fit stories
+            </p>
+            <table>
+              <thead>
+                <tr>
+                  <th>Hora</th>
+                  <th>Atividade</th>
+                  <th>Detalhes</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="time-col">10:00-10:15</td>
+                  <td>☀️ Acordar</td>
+                  <td>Pequeno-almoço + 34mg SR</td>
+                </tr>
+                <tr>
+                  <td class="time-col">10:15-11:15</td>
+                  <td class="activity-col">📖 Deep dive frameworks</td>
+                  <td>
+                    Testar: para cada tipo, escrever estrutura de memória em 2
+                    min. Em PT.
+                  </td>
+                </tr>
+                <tr>
+                  <td class="time-col">11:15-12:15</td>
+                  <td class="activity-col">🎯 CASO #1: Solo</td>
+                  <td>
+                    Market sizing. Foco: abordagem estruturada, números
+                    redondos, sanity check
+                  </td>
+                </tr>
+                <tr>
+                  <td class="time-col">12:30-13:30</td>
+                  <td class="activity-col">📖 Criatividade</td>
+                  <td>Técnica MECE brainstorming, "buckets"</td>
+                </tr>
+                <tr>
+                  <td class="time-col">14:00-15:00</td>
+                  <td class="activity-col">🎯 CASO #2: Com parceiro</td>
+                  <td>TU lideras. Foco: estrutura + math. Pedir feedback.</td>
+                </tr>
+                <tr>
+                  <td class="time-col">15:30-16:30</td>
+                  <td class="activity-col">📖 Math drills</td>
+                  <td>
+                    20 cálculos rápidos. Percentagens, crescimento, market
+                    sizing.
+                  </td>
+                </tr>
+                <tr>
+                  <td class="time-col">17:00-18:00</td>
+                  <td class="activity-col">📝 FIT: 4 histórias PEI</td>
+                  <td>Completar em STAR, EM PORTUGUÊS</td>
+                </tr>
+                <tr>
+                  <td class="time-col">18:00-19:00</td>
+                  <td class="activity-col">🎯 CASO #3: Com parceiro</td>
+                  <td>Tipo diferente (cost reduction, growth)</td>
+                </tr>
+                <tr>
+                  <td class="time-col">20:30-21:30</td>
+                  <td class="activity-col">📖 Termos PT revisão</td>
+                  <td>Quiz: tapar colunas e testar</td>
+                </tr>
+                <tr>
+                  <td class="time-col">21:30-22:30</td>
+                  <td class="activity-col">🎯 CASO #4: Solo</td>
+                  <td>Foco: síntese/recomendação final</td>
+                </tr>
+                <tr>
+                  <td class="time-col">22:30-23:00</td>
+                  <td class="activity-col">📝 Review</td>
+                  <td>5 key takeaways do dia</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- TUESDAY -->
+        <div class="day-content" id="day-tue">
+          <div class="card">
+            <h3>
+              Terça 25 Feb
+              <span class="badge badge-yellow">⚡ 1º caso em PT</span>
+            </h3>
+            <p style="color: var(--text-muted); margin-bottom: 12px">
+              Target: 4 casos (1 em PT com amiga), fit stories polished. Busy
+              16-17h e 22-00h.
+            </p>
+            <table>
+              <thead>
+                <tr>
+                  <th>Hora</th>
+                  <th>Atividade</th>
+                  <th>Detalhes</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="time-col">10:00-10:15</td>
+                  <td>☀️ Acordar + meds</td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td class="time-col">10:15-11:00</td>
+                  <td class="activity-col">📖 Review frameworks + math</td>
+                  <td>Testar: explicar cada framework em PT em 2 min?</td>
+                </tr>
+                <tr>
+                  <td class="time-col">11:00-12:00</td>
+                  <td class="activity-col">🎯 CASO #5: Com parceiro</td>
+                  <td>
+                    Profitability. Full flow: estrutura → análise → math →
+                    criatividade → síntese
+                  </td>
+                </tr>
+                <tr>
+                  <td class="time-col">12:30-13:30</td>
+                  <td class="activity-col">📖 BCG Case Patterns</td>
+                  <td>
+                    BCG adora: operações, pricing, digital/tech,
+                    sustentabilidade
+                  </td>
+                </tr>
+                <tr>
+                  <td class="time-col">14:00-15:00</td>
+                  <td class="activity-col">🎯 CASO #6: Com parceiro</td>
+                  <td>Operations ou pricing (favoritos BCG)</td>
+                </tr>
+                <tr>
+                  <td class="time-col">15:30-16:00</td>
+                  <td class="activity-col">📝 FIT: Praticar em voz alta</td>
+                  <td>Gravar. Ouvir. Corrigir.</td>
+                </tr>
+                <tr>
+                  <td class="time-col" style="color: var(--danger)">
+                    16:00-17:00
+                  </td>
+                  <td>❌ Indisponível</td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td class="time-col">17:00-18:00</td>
+                  <td class="activity-col">📖 Math + termos PT</td>
+                  <td>30 min drills, 30 min vocab</td>
+                </tr>
+                <tr>
+                  <td class="time-col" style="color: var(--highlight)">
+                    18:00-19:00
+                  </td>
+                  <td class="activity-col">
+                    <strong>🎯 CASO #7: AMIGA PT (video)</strong>
+                  </td>
+                  <td>
+                    Caso completo EM PORTUGUÊS. Pedir feedback sobre
+                    comunicação.
+                  </td>
+                </tr>
+                <tr>
+                  <td class="time-col">19:00-19:30</td>
+                  <td class="activity-col">📝 Debrief com amiga</td>
+                  <td>"A estrutura foi clara? O meu PT soou natural?"</td>
+                </tr>
+                <tr>
+                  <td class="time-col">20:30-21:30</td>
+                  <td class="activity-col">🎯 CASO #8: Solo (market entry)</td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td class="time-col">21:30-22:00</td>
+                  <td class="activity-col">📝 FIT: Histórias em voz alta PT</td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td class="time-col" style="color: var(--danger)">
+                    22:00-00:00
+                  </td>
+                  <td>❌ Indisponível</td>
+                  <td></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- WEDNESDAY -->
+        <div class="day-content" id="day-wed">
+          <div class="card">
+            <h3>
+              Quarta 26 Feb
+              <span class="badge badge-red">⚡ HIGH INTENSITY</span>
+            </h3>
+            <p style="color: var(--text-muted); margin-bottom: 12px">
+              Target: 5 casos. Peak prep day. Todas as áreas fracas atacadas.
+            </p>
+            <table>
+              <thead>
+                <tr>
+                  <th>Hora</th>
+                  <th>Atividade</th>
+                  <th>Detalhes</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="time-col">10:00-10:15</td>
+                  <td>☀️ Acordar + meds</td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td class="time-col">10:15-10:45</td>
+                  <td class="activity-col">📖 Framework speed drill</td>
+                  <td>Escrever 5 frameworks de memória, 2 min cada. Em PT.</td>
+                </tr>
+                <tr>
+                  <td class="time-col">10:45-12:00</td>
+                  <td class="activity-col">🎯 CASO #9: Com parceiro</td>
+                  <td>BCG-style. Full simulation. Feedback tough.</td>
+                </tr>
+                <tr>
+                  <td class="time-col">12:15-13:15</td>
+                  <td class="activity-col">🎯 CASO #10: Com parceiro</td>
+                  <td>Tipo diferente. Foco em CRIATIVIDADE (brainstorming)</td>
+                </tr>
+                <tr>
+                  <td class="time-col">14:00-15:00</td>
+                  <td class="activity-col">📖 Weak area blitz</td>
+                  <td>Drill o que foi mais fraco nos casos #9-10</td>
+                </tr>
+                <tr>
+                  <td class="time-col" style="color: var(--highlight)">
+                    15:00-16:00
+                  </td>
+                  <td class="activity-col">
+                    <strong>🎯 CASO #11: AMIGA PT</strong>
+                  </td>
+                  <td>
+                    Mock completo em PT. Pedir para ser entrevistadora dura.
+                  </td>
+                </tr>
+                <tr>
+                  <td class="time-col">17:00-18:00</td>
+                  <td class="activity-col">📝 FIT: Mock completo</td>
+                  <td>4 histórias com timer, 2-3 min cada. Em PT.</td>
+                </tr>
+                <tr>
+                  <td class="time-col">18:00-19:00</td>
+                  <td class="activity-col">🎯 CASO #12: Solo speed run</td>
+                  <td>Caso completo em 25 min</td>
+                </tr>
+                <tr>
+                  <td class="time-col">20:00-21:00</td>
+                  <td class="activity-col">📖 Revisão total</td>
+                  <td>Fórmulas, termos, frameworks — tudo</td>
+                </tr>
+                <tr>
+                  <td class="time-col">21:00-22:00</td>
+                  <td class="activity-col">🎯 CASO #13: Com parceiro</td>
+                  <td>Último caso hard do dia</td>
+                </tr>
+                <tr>
+                  <td class="time-col">22:00-22:30</td>
+                  <td class="activity-col">📝 Confidence check</td>
+                  <td>Escrever avaliação do dia</td>
+                </tr>
+                <tr>
+                  <td class="time-col">22:30</td>
+                  <td>🛌 Cama cedo</td>
+                  <td>Descanso é crítico!</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- THURSDAY -->
+        <div class="day-content" id="day-thu">
+          <div class="card">
+            <h3>
+              Quinta 27 Feb
+              <span class="badge badge-green">🇵🇹 Full PT Day</span>
+            </h3>
+            <p style="color: var(--text-muted); margin-bottom: 12px">
+              Target: 3 casos em PT. Consolidar tudo. Noite cedo. Plan A: remoto
+              | Plan B: uni
+            </p>
+            <table>
+              <thead>
+                <tr>
+                  <th>Hora</th>
+                  <th>Atividade</th>
+                  <th>Detalhes</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="time-col">10:00-10:15</td>
+                  <td>☀️ Acordar + meds</td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td class="time-col">10:15-11:00</td>
+                  <td class="activity-col">📖 Light revision</td>
+                  <td>
+                    Skim frameworks, fórmulas, termos. Consolidar, não crammed.
+                  </td>
+                </tr>
+                <tr>
+                  <td class="time-col" style="color: var(--highlight)">
+                    11:00-12:00
+                  </td>
+                  <td class="activity-col">
+                    <strong>🎯 CASO #14: Mock PT com amiga</strong>
+                  </td>
+                  <td>
+                    CRITICAL SESSION. Simular condições reais: timer, sem notas,
+                    formal.
+                  </td>
+                </tr>
+                <tr>
+                  <td class="time-col">12:00-12:30</td>
+                  <td class="activity-col">📝 Debrief detalhado</td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td class="time-col">12:30-13:00</td>
+                  <td>🔄 Ajudar amiga (Google prep)</td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td class="time-col" style="color: var(--highlight)">
+                    13:30-14:30
+                  </td>
+                  <td class="activity-col">
+                    <strong>🎯 CASO #15: 2º mock PT</strong>
+                  </td>
+                  <td>Tipo diferente. Entrevistadora tough.</td>
+                </tr>
+                <tr>
+                  <td class="time-col">15:00-15:30</td>
+                  <td>🔄 Ajudar amiga</td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td class="time-col">16:00-17:00</td>
+                  <td class="activity-col">📝 FIT: Final practice</td>
+                  <td>Dizer cada história 1x em voz alta em PT. Gravar.</td>
+                </tr>
+                <tr>
+                  <td class="time-col">17:00-18:00</td>
+                  <td class="activity-col">📖 Final revision</td>
+                  <td>Todas as notas. Highlight top 3 a lembrar.</td>
+                </tr>
+                <tr>
+                  <td class="time-col">18:00-18:30</td>
+                  <td class="activity-col">🎯 CASO #16: Solo confidence</td>
+                  <td>Caso fácil/médio. Acabar com VITÓRIA.</td>
+                </tr>
+                <tr>
+                  <td class="time-col" style="color: var(--success)">18:30+</td>
+                  <td><strong>🛌 PARAR DE ESTUDAR</strong></td>
+                  <td>
+                    Relaxar. Ver algo. Walk. Comer bem. Cama antes da
+                    meia-noite.
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- FRIDAY -->
+        <div class="day-content" id="day-fri">
+          <div class="card" style="border: 2px solid var(--bcg-green)">
+            <h3>
+              Sexta 28 Feb 🏆 <span class="badge badge-green">GAME DAY</span>
+            </h3>
+            <p style="color: var(--text-muted); margin-bottom: 12px">
+              💊 34mg SR às 9:30 | 💊 10mg IR às 14:30
+            </p>
+            <table>
+              <thead>
+                <tr>
+                  <th>Hora</th>
+                  <th>Atividade</th>
+                  <th>Detalhes</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="time-col">09:00-09:30</td>
+                  <td>☀️ Acordar, duche, pequeno-almoço leve</td>
+                  <td>Proteína + carbos complexos</td>
+                </tr>
+                <tr>
+                  <td class="time-col" style="color: var(--bcg-green)">
+                    09:30
+                  </td>
+                  <td><strong>💊 Tomar 34mg SR</strong></td>
+                  <td>Com pequeno-almoço</td>
+                </tr>
+                <tr>
+                  <td class="time-col">10:00-10:30</td>
+                  <td class="activity-col">📖 Light review</td>
+                  <td>Skim frameworks. NÃO deep study.</td>
+                </tr>
+                <tr>
+                  <td class="time-col">10:30-11:00</td>
+                  <td class="activity-col">📝 Ler fit stories</td>
+                  <td>Ler, não memorizar. Sentir as histórias.</td>
+                </tr>
+                <tr>
+                  <td class="time-col">11:00-11:30</td>
+                  <td class="activity-col">🎯 Quick warm-up</td>
+                  <td>5 math problems + estruturar 1 prompt simples (2 min)</td>
+                </tr>
+                <tr>
+                  <td class="time-col">11:30-12:30</td>
+                  <td>🍽️ Almoço LEVE</td>
+                  <td>Evitar carbs pesados. Frango grelhado + salada.</td>
+                </tr>
+                <tr>
+                  <td class="time-col">12:30-13:30</td>
+                  <td>😌 REST</td>
+                  <td>Nap 20 min if possible. Música. Walk.</td>
+                </tr>
+                <tr>
+                  <td class="time-col">13:30-14:00</td>
+                  <td>👔 Preparar-se</td>
+                  <td>Business formal. Look sharp.</td>
+                </tr>
+                <tr>
+                  <td class="time-col">14:00-14:15</td>
+                  <td class="activity-col">📋 Final checklist</td>
+                  <td>→ Game Day tab neste site</td>
+                </tr>
+                <tr>
+                  <td class="time-col" style="color: var(--bcg-green)">
+                    14:30
+                  </td>
+                  <td><strong>💊 Tomar 10mg IR</strong></td>
+                  <td>Peak em ~30-45 min = quando a entrevista começa</td>
+                </tr>
+                <tr>
+                  <td class="time-col">14:45</td>
+                  <td>🚗 Sair</td>
+                  <td>Chegar 15 min antes</td>
+                </tr>
+                <tr>
+                  <td class="time-col">15:15</td>
+                  <td>🏢 Chegar</td>
+                  <td>Respirar fundo. Sorrir. You've got this.</td>
+                </tr>
+                <tr>
+                  <td
+                    class="time-col"
+                    style="color: var(--bcg-green); font-size: 16px"
+                  >
+                    15:30
+                  </td>
+                  <td style="font-size: 16px; font-weight: 700">
+                    🎯 ENTREVISTA
+                  </td>
+                  <td></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- CASE TARGETS -->
+        <h2>📊 Case Count Target</h2>
+        <div class="card">
+          <table>
+            <thead>
+              <tr>
+                <th>Dia</th>
+                <th>Casos</th>
+                <th>Tipo</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Domingo</td>
+                <td>1</td>
+                <td>Solo CaseCoach</td>
+              </tr>
+              <tr>
+                <td>Segunda</td>
+                <td>4</td>
+                <td>2 solo + 2 com parceiros CaseCoach</td>
+              </tr>
+              <tr>
+                <td>Terça</td>
+                <td>4</td>
+                <td>1 amiga PT + 2 CaseCoach + 1 solo</td>
+              </tr>
+              <tr>
+                <td>Quarta</td>
+                <td>5</td>
+                <td>1 amiga PT + 3 CaseCoach + 1 solo</td>
+              </tr>
+              <tr>
+                <td>Quinta</td>
+                <td>3</td>
+                <td>2 amiga PT + 1 solo confidence</td>
+              </tr>
+              <tr>
+                <td style="font-weight: 700; color: var(--bcg-green)">TOTAL</td>
+                <td style="font-weight: 700; color: var(--bcg-green)">17</td>
+                <td>~6 com parceiros, 5 solo, 4-6 em PT</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ═══════════════════════════════════════════════════════ -->
+      <!-- SECTION: FRAMEWORKS -->
+      <!-- ═══════════════════════════════════════════════════════ -->
+      <div class="section" id="frameworks">
+        <div class="section-title">📐 Frameworks</div>
+        <div class="section-subtitle">
+          7 frameworks de caso com traduções em Português
+        </div>
+
+        <!-- 1. PROFITABILITY -->
+        <div class="collapsible" onclick="toggleCollapsible(this)">
+          💰 1. Rentabilidade (Profitability)
+        </div>
+        <div class="collapsible-content">
+          <p>
+            <strong>Quando usar:</strong> "Os lucros caíram", "A empresa está a
+            perder dinheiro", "Analise a rentabilidade"
+          </p>
+          <div class="tree">
+            Lucro = Receitas - Custos RECEITAS CUSTOS ├── Preço (Preço
+            médio/unid.) ├── Custos Fixos │ ├── Por produto │ ├──
+            Rendas/Alugueres │ ├── Por segmento │ ├── Salários fixos │ └── Por
+            canal │ ├── Depreciação │ │ ├── Seguros ├── Volume (Quantidade
+            vendida) │ └── Administrativos │ ├── # Clientes │ │ ├── #
+            Transações/cliente └── Custos Variáveis │ └── Unidades/transação ├──
+            Matéria-prima │ ├── Mão-de-obra direta └── Mix de produtos ├──
+            Comissões (% de cada produto nas vendas) ├── Distribuição/Logística
+            └── Embalagem
+          </div>
+          <blockquote>
+            "Para analisar a rentabilidade, vou dividir em duas componentes:
+            receitas e custos. Nas receitas, vou olhar para preço e volume. Nos
+            custos, vou separar custos fixos e variáveis. Posso começar pelas
+            receitas?"
+          </blockquote>
+        </div>
+
+        <!-- 2. MARKET ENTRY -->
+        <div class="collapsible" onclick="toggleCollapsible(this)">
+          🚀 2. Entrada no Mercado (Market Entry)
+        </div>
+        <div class="collapsible-content">
+          <p>
+            <strong>Quando usar:</strong> "Devemos entrar neste mercado?",
+            "Avalie a oportunidade de expansão"
+          </p>
+          <div class="tree">
+            ENTRADA NO MERCADO ├── 1. MERCADO (Atratividade) │ ├── Dimensão do
+            mercado (TAM/SAM/SOM) │ ├── Taxa de crescimento │ ├── Tendências e
+            dinâmicas │ └── Regulamentação/Barreiras legais │ ├── 2.
+            CONCORRÊNCIA │ ├── Número e dimensão dos concorrentes │ ├── Quota de
+            mercado dos principais │ ├── Diferenciação/Proposta de valor │ └──
+            Barreiras à entrada │ ├── 3. CAPACIDADES DA EMPRESA │ ├──
+            Competências atuais transferíveis │ ├── Recursos financeiros
+            disponíveis │ ├── Sinergias com negócio existente │ └── Gaps a
+            colmatar │ └── 4. MODO DE ENTRADA ├── Crescimento orgânico
+            (construir do zero) ├── Aquisição (comprar empresa existente) ├──
+            Parceria/Joint Venture └── Licenciamento/Franchising
+          </div>
+          <blockquote>
+            "Para avaliar se devemos entrar neste mercado, proponho analisar
+            quatro dimensões: primeiro, a atratividade do mercado em si;
+            segundo, o panorama competitivo; terceiro, as capacidades internas
+            da empresa; e quarto, o modo de entrada mais adequado. Faz sentido
+            esta abordagem?"
+          </blockquote>
+        </div>
+
+        <!-- 3. PRICING -->
+        <div class="collapsible" onclick="toggleCollapsible(this)">
+          🏷️ 3. Estratégia de Preço (Pricing)
+        </div>
+        <div class="collapsible-content">
+          <p>
+            <strong>Quando usar:</strong> "Como devemos definir o preço?",
+            "Devemos aumentar/baixar preços?"
+          </p>
+          <div class="tree">
+            ESTRATÉGIA DE PREÇO ├── 1. CUSTO (Cost-plus) │ ├── Custo unitário
+            total (fixo + variável) │ ├── Margem desejada │ └── Preço = Custo +
+            Margem │ ├── 2. VALOR PARA O CLIENTE (Value-based) │ ├── Disposição
+            a pagar (willingness to pay) │ ├── Valor percebido vs. alternativas
+            │ ├── Custos de mudança (switching costs) │ └── ROI para o cliente │
+            ├── 3. CONCORRÊNCIA │ ├── Preços dos concorrentes │ ├──
+            Posicionamento relativo │ └── Elasticidade-preço do mercado │ └── 4.
+            IMPLEMENTAÇÃO ├── Segmentação de preços (por cliente/canal) ├──
+            Descontos e promoções ├── Timing (quando alterar) └── Comunicação ao
+            mercado
+          </div>
+        </div>
+
+        <!-- 4. M&A -->
+        <div class="collapsible" onclick="toggleCollapsible(this)">
+          🤝 4. Fusões e Aquisições (M&A)
+        </div>
+        <div class="collapsible-content">
+          <div class="tree">
+            AVALIAÇÃO DE M&A ├── 1. RACIONAL ESTRATÉGICO (Porquê?) │ ├──
+            Crescimento (novos mercados/produtos) │ ├── Sinergias (receita e
+            custo) │ ├── Aquisição de capacidades │ └── Eliminação de
+            concorrência │ ├── 2. AVALIAÇÃO DO ALVO │ ├── Performance financeira
+            (receitas, margens, crescimento) │ ├── Posição de mercado │ ├──
+            Qualidade dos ativos/equipa │ └── Riscos e contingências │ ├── 3.
+            SINERGIAS E VALOR │ ├── Sinergias de receita (cross-selling, novos
+            canais) │ ├── Sinergias de custo (economias de escala, redundâncias)
+            │ ├── Valor standalone vs. valor combinado │ └── Tempo de captura
+            das sinergias │ ├── 4. ASPETOS FINANCEIROS │ ├── Preço justo /
+            múltiplos de avaliação │ ├── Capacidade de financiamento │ ├──
+            Retorno esperado (ROI/payback) │ └── Impacto no balanço │ └── 5.
+            INTEGRAÇÃO E RISCOS ├── Plano de integração ├── Riscos
+            culturais/pessoas ├── Riscos regulatórios (aprovação concorrência)
+            └── Complexidade da integração
+          </div>
+        </div>
+
+        <!-- 5. GROWTH -->
+        <div class="collapsible" onclick="toggleCollapsible(this)">
+          📈 5. Estratégia de Crescimento (Growth)
+        </div>
+        <div class="collapsible-content">
+          <div class="tree">
+            ESTRATÉGIA DE CRESCIMENTO (Matriz Ansoff adaptada) ├── 1. CRESCER NO
+            CORE │ ├── Aumentar quota de mercado │ ├── Aumentar
+            frequência/ticket médio │ ├── Melhorar retenção (reduzir churn) │
+            └── Otimizar pricing │ ├── 2. EXPANDIR PARA ADJACÊNCIAS │ ├── Novos
+            produtos/serviços para clientes atuais │ ├── Novos segmentos de
+            cliente │ ├── Novos canais de distribuição │ └── Expansão geográfica
+            │ └── 3. MOVIMENTOS TRANSFORMACIONAIS ├── Novos modelos de negócio
+            ├── Aquisições (M&A) ├── Parcerias estratégicas └── Diversificação
+            para novas indústrias
+          </div>
+        </div>
+
+        <!-- 6. COST REDUCTION -->
+        <div class="collapsible" onclick="toggleCollapsible(this)">
+          📉 6. Redução de Custos
+        </div>
+        <div class="collapsible-content">
+          <div class="tree">
+            REDUÇÃO DE CUSTOS ├── 1. IDENTIFICAR (Onde estão os custos?) │ ├──
+            Decomposição: Fixos vs. Variáveis │ ├── Por departamento/função │
+            ├── Por atividade na cadeia de valor │ └── Benchmark vs.
+            concorrência/indústria │ ├── 2. PRIORIZAR (Quais atacar?) │ ├──
+            Dimensão (quanto se poupa?) │ ├── Facilidade de implementação │ ├──
+            Impacto no negócio (risco) │ └── Quick wins vs. estruturais │ └── 3.
+            ALAVANCAS DE REDUÇÃO ├── Renegociação com fornecedores ├──
+            Otimização de processos (lean/automação) ├── Consolidação (centros
+            de serviço partilhados) ├── Outsourcing/offshoring ├── Redução de
+            desperdício └── Revisão do mix de produtos
+          </div>
+        </div>
+
+        <!-- 7. MARKET SIZING -->
+        <div class="collapsible" onclick="toggleCollapsible(this)">
+          📊 7. Market Sizing
+        </div>
+        <div class="collapsible-content">
+          <h4>Top-Down:</h4>
+          <div class="formula">
+            População total → Segmento relevante → Taxa de adoção → Frequência →
+            Preço<br />Ex: 11M hab → 60% adultos (6.6M) → 5% compram (330K) →
+            €400 = <strong>€132M</strong>
+          </div>
+          <h4>Bottom-Up:</h4>
+          <div class="formula">
+            # Pontos de venda → Volume por loja → Preço médio<br />Ex: 1000
+            lojas × 50 bicis/ano × €400 = <strong>€20M</strong> (+
+            especializadas + online...)
+          </div>
+          <ul>
+            <li>Arredondar SEMPRE</li>
+            <li>Sanity check sempre</li>
+            <li>Comparar top-down vs. bottom-up</li>
+            <li>Segmentar sempre que possível</li>
+          </ul>
+        </div>
+
+        <!-- SELECTION GUIDE -->
+        <h2>🔑 Regra de Ouro: Como Escolher</h2>
+        <div class="card">
+          <table>
+            <thead>
+              <tr>
+                <th>Se o prompt menciona...</th>
+                <th>Framework a usar</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Lucros a cair, perder dinheiro</td>
+                <td>Rentabilidade</td>
+              </tr>
+              <tr>
+                <td>Entrar num novo mercado/país</td>
+                <td>Entrada no Mercado</td>
+              </tr>
+              <tr>
+                <td>Definir/alterar preço</td>
+                <td>Pricing</td>
+              </tr>
+              <tr>
+                <td>Comprar/fundir com empresa</td>
+                <td>M&A</td>
+              </tr>
+              <tr>
+                <td>Crescer, aumentar receitas</td>
+                <td>Crescimento</td>
+              </tr>
+              <tr>
+                <td>Reduzir custos, eficiência</td>
+                <td>Redução de Custos</td>
+              </tr>
+              <tr>
+                <td>Quantos/quanto custa</td>
+                <td>Market Sizing</td>
+              </tr>
+              <tr>
+                <td>Lançar novo produto</td>
+                <td>Market Entry + Pricing + Growth</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="card card-danger">
+          <strong>⚠️ NUNCA digas o nome do framework!</strong> Não: "Vou usar o
+          framework de profitability." Sim: "Para analisar esta questão,
+          proponho olhar para duas dimensões principais: as receitas e os
+          custos."
+        </div>
+      </div>
+
+      <!-- ═══════════════════════════════════════════════════════ -->
+      <!-- SECTION: MATH -->
+      <!-- ═══════════════════════════════════════════════════════ -->
+      <div class="section" id="math">
+        <div class="section-title">🔢 Math & Formulas</div>
+        <div class="section-subtitle">
+          Todas as fórmulas com nomes em Português
+        </div>
+
+        <div class="collapsible" onclick="toggleCollapsible(this)">
+          1. Ponto de Equilíbrio (Breakeven Point)
+        </div>
+        <div class="collapsible-content">
+          <div class="formula">
+            BE (unidades) = Custos Fixos / (Preço - Custo Variável por
+            Unidade)<br />BE (€) = Custos Fixos / Margem de Contribuição (%)
+          </div>
+          <p>
+            <strong>Margem de Contribuição</strong> = Preço - Custo Variável por
+            Unidade
+          </p>
+          <div class="card card-accent">
+            <strong>Exemplo:</strong> CF=€100K, Preço=€50, CV=€30 → BE =
+            100.000/(50-30) = <strong>5.000 unidades</strong>
+          </div>
+        </div>
+
+        <div class="collapsible" onclick="toggleCollapsible(this)">
+          2. Período de Retorno (Payback Period)
+        </div>
+        <div class="collapsible-content">
+          <div class="formula">
+            Payback = Investimento Inicial / Fluxo de Caixa Anual
+          </div>
+          <div class="card card-accent">
+            <strong>Exemplo:</strong> Investimento=€500K, CF anual=€125K →
+            Payback = <strong>4 anos</strong>
+          </div>
+        </div>
+
+        <div class="collapsible" onclick="toggleCollapsible(this)">
+          3. ROI (Return on Investment)
+        </div>
+        <div class="collapsible-content">
+          <div class="formula">
+            ROI = (Ganho - Investimento) / Investimento × 100%
+          </div>
+          <div class="card card-accent">
+            <strong>Exemplo:</strong> Investi €200K, ganhei €280K → ROI =
+            (280-200)/200 = <strong>40%</strong>
+          </div>
+        </div>
+
+        <div class="collapsible" onclick="toggleCollapsible(this)">
+          4. Margens
+        </div>
+        <div class="collapsible-content">
+          <div class="formula">
+            Margem Bruta = (Receita - COGS) / Receita × 100% Margem Operacional
+            = EBIT / Receita × 100% Margem Líquida = Lucro Líquido / Receita ×
+            100% Margem de Contribuição = (Preço - Custo Variável) / Preço ×
+            100%
+          </div>
+          <table>
+            <thead>
+              <tr>
+                <th>Rácio</th>
+                <th>Benchmark</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Margem Bruta</td>
+                <td>Retalho 30-40%, Tech 60-80%, Serviços 40-60%</td>
+              </tr>
+              <tr>
+                <td>Margem EBITDA</td>
+                <td>15-25% (bom)</td>
+              </tr>
+              <tr>
+                <td>Margem Líquida</td>
+                <td>10-20% (bom)</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="collapsible" onclick="toggleCollapsible(this)">
+          5. Crescimento & CAGR
+        </div>
+        <div class="collapsible-content">
+          <div class="formula">
+            Crescimento (%) = (Final - Inicial) / Inicial × 100% CAGR = (Final /
+            Inicial)^(1/n) - 1
+          </div>
+          <h4>Regra dos 72:</h4>
+          <p>72 / taxa de crescimento = anos para duplicar</p>
+          <table>
+            <tbody>
+              <tr>
+                <td>7% crescimento</td>
+                <td>→ duplica em ~10 anos</td>
+              </tr>
+              <tr>
+                <td>10% crescimento</td>
+                <td>→ duplica em ~7 anos</td>
+              </tr>
+              <tr>
+                <td>15% crescimento</td>
+                <td>→ duplica em ~5 anos</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="collapsible" onclick="toggleCollapsible(this)">
+          6. VAL / NPV
+        </div>
+        <div class="collapsible-content">
+          <div class="formula">
+            VAL = Σ [CF_t / (1 + r)^t] - Investimento Inicial
+          </div>
+          <p>"Um euro hoje vale mais do que um euro amanhã."</p>
+          <table>
+            <thead>
+              <tr>
+                <th>Taxa</th>
+                <th>1 ano</th>
+                <th>2 anos</th>
+                <th>3 anos</th>
+                <th>5 anos</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>5%</td>
+                <td>0.95</td>
+                <td>0.91</td>
+                <td>0.86</td>
+                <td>0.78</td>
+              </tr>
+              <tr>
+                <td>10%</td>
+                <td>0.91</td>
+                <td>0.83</td>
+                <td>0.75</td>
+                <td>0.62</td>
+              </tr>
+              <tr>
+                <td>15%</td>
+                <td>0.87</td>
+                <td>0.76</td>
+                <td>0.66</td>
+                <td>0.50</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="collapsible" onclick="toggleCollapsible(this)">
+          7-10. CLV, CAC, Market Share, Elasticidade
+        </div>
+        <div class="collapsible-content">
+          <div class="formula">
+            Market Share = Vendas Empresa / Vendas Mercado × 100% CLV = Receita
+            Média × Margem × Tempo Retenção ou: CLV = ARPU × Margem / Churn Rate
+            CAC = Custo Total Marketing+Vendas / Nº Novos Clientes Rácio
+            saudável: CLV/CAC > 3 Elasticidade = % Variação Quantidade / %
+            Variação Preço |E| > 1: Elástico (sensível ao preço) |E| < 1:
+            Inelástico
+          </div>
+        </div>
+
+        <h2>🧮 Atalhos de Math Mental</h2>
+        <div class="card">
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px">
+            <div>
+              <h4>Percentagens</h4>
+              <div class="formula" style="font-size: 13px">
+                10% = ÷10 5% = ÷20 1% = ÷100 15% = 10%+5% 20% = ÷5 25% = ÷4 33%
+                = ÷3 50% = ÷2 75% = X - 25%
+              </div>
+            </div>
+            <div>
+              <h4>Multiplicação</h4>
+              <div class="formula" style="font-size: 13px">
+                ×5 = ×10 ÷ 2 ×15 = ×10 + ×5 ×25 = ×100 ÷ 4 ×50 = ×100 ÷ 2 ×1.1 =
+                ×1 + 10%
+              </div>
+            </div>
+          </div>
+          <h4>Arredondamento Estratégico</h4>
+          <p>
+            REGRA: Arredonda SEMPRE para facilitar. Ajustar depois se
+            necessário.
+          </p>
+          <p>
+            <span class="kbd">397 → 400</span> &nbsp;
+            <span class="kbd">1,243 → 1,250</span> &nbsp;
+            <span class="kbd">€4.7M → €5M</span>
+          </p>
+        </div>
+      </div>
+
+      <!-- ═══════════════════════════════════════════════════════ -->
+      <!-- SECTION: MATH DRILLS -->
+      <!-- ═══════════════════════════════════════════════════════ -->
+      <div class="section" id="drills">
+        <div class="section-title">🧮 Math Drills</div>
+        <div class="section-subtitle">
+          50 exercícios — 10-15 por sessão. Target: 15-30 seg cada.
+        </div>
+
+        <div class="collapsible" onclick="toggleCollapsible(this)">
+          Nível 1: Aquecimento (10 exercícios)
+        </div>
+        <div class="collapsible-content" id="drill-1">
+          <ol>
+            <li>
+              10% de €4.500 = ?
+              <span
+                class="drill-btn"
+                onclick="this.nextElementSibling.style.display = 'block'"
+                >Ver</span
+              ><span class="drill-answer">€450</span>
+            </li>
+            <li>
+              25% de 1.200 = ?
+              <span
+                class="drill-btn"
+                onclick="this.nextElementSibling.style.display = 'block'"
+                >Ver</span
+              ><span class="drill-answer">300</span>
+            </li>
+            <li>
+              €800 × 12 meses = ?
+              <span
+                class="drill-btn"
+                onclick="this.nextElementSibling.style.display = 'block'"
+                >Ver</span
+              ><span class="drill-answer">€9.600</span>
+            </li>
+            <li>
+              €15.000 / 3 = ?
+              <span
+                class="drill-btn"
+                onclick="this.nextElementSibling.style.display = 'block'"
+                >Ver</span
+              ><span class="drill-answer">€5.000</span>
+            </li>
+            <li>
+              Aumento de 20% sobre €500 = ?
+              <span
+                class="drill-btn"
+                onclick="this.nextElementSibling.style.display = 'block'"
+                >Ver</span
+              ><span class="drill-answer">€600</span>
+            </li>
+            <li>
+              €2.400 / 8 = ?
+              <span
+                class="drill-btn"
+                onclick="this.nextElementSibling.style.display = 'block'"
+                >Ver</span
+              ><span class="drill-answer">€300</span>
+            </li>
+            <li>
+              15% de €6.000 = ?
+              <span
+                class="drill-btn"
+                onclick="this.nextElementSibling.style.display = 'block'"
+                >Ver</span
+              ><span class="drill-answer">€900</span>
+            </li>
+            <li>
+              €350 × 52 semanas = ?
+              <span
+                class="drill-btn"
+                onclick="this.nextElementSibling.style.display = 'block'"
+                >Ver</span
+              ><span class="drill-answer">€18.200</span>
+            </li>
+            <li>
+              €80.000 / 12 meses = ?
+              <span
+                class="drill-btn"
+                onclick="this.nextElementSibling.style.display = 'block'"
+                >Ver</span
+              ><span class="drill-answer">≈ €6.667</span>
+            </li>
+            <li>
+              Desconto de 30% sobre €1.500 = ?
+              <span
+                class="drill-btn"
+                onclick="this.nextElementSibling.style.display = 'block'"
+                >Ver</span
+              ><span class="drill-answer">€1.050</span>
+            </li>
+          </ol>
+        </div>
+
+        <div class="collapsible" onclick="toggleCollapsible(this)">
+          Nível 2: Case Math (15 exercícios)
+        </div>
+        <div class="collapsible-content">
+          <ol start="11">
+            <li>
+              Empresa fatura €2M com margem de 15%. Lucro?
+              <span
+                class="drill-btn"
+                onclick="this.nextElementSibling.style.display = 'block'"
+                >Ver</span
+              ><span class="drill-answer">€300K (€2M × 0.15)</span>
+            </li>
+            <li>
+              CF: €500K. CV: €20/unid. Preço: €50/unid. Breakeven?
+              <span
+                class="drill-btn"
+                onclick="this.nextElementSibling.style.display = 'block'"
+                >Ver</span
+              ><span class="drill-answer">16.667 unid (€500K / €30)</span>
+            </li>
+            <li>
+              Investimento: €300K. CF anual: €75K. Payback?
+              <span
+                class="drill-btn"
+                onclick="this.nextElementSibling.style.display = 'block'"
+                >Ver</span
+              ><span class="drill-answer">4 anos</span>
+            </li>
+            <li>
+              300K clientes × churn 8%/ano. Quantos se perdem?
+              <span
+                class="drill-btn"
+                onclick="this.nextElementSibling.style.display = 'block'"
+                >Ver</span
+              ><span class="drill-answer">24.000</span>
+            </li>
+            <li>
+              Receita: €5M → €8M em 3 anos. Crescimento total? Anual?
+              <span
+                class="drill-btn"
+                onclick="this.nextElementSibling.style.display = 'block'"
+                >Ver</span
+              ><span class="drill-answer">60% total. Anual ≈ 17%</span>
+            </li>
+            <li>
+              Custo produção €40. Margem desejada 60%. Preço venda?
+              <span
+                class="drill-btn"
+                onclick="this.nextElementSibling.style.display = 'block'"
+                >Ver</span
+              ><span class="drill-answer"
+                >€100 (€40/0.4). Atenção: 60% MARGEM ≠ 60% markup!</span
+              >
+            </li>
+            <li>
+              Market share 15% de €200M. Receita?
+              <span
+                class="drill-btn"
+                onclick="this.nextElementSibling.style.display = 'block'"
+                >Ver</span
+              ><span class="drill-answer">€30M</span>
+            </li>
+            <li>
+              ROI: Investiu €400K, gerou €560K. ROI?
+              <span
+                class="drill-btn"
+                onclick="this.nextElementSibling.style.display = 'block'"
+                >Ver</span
+              ><span class="drill-answer">40%</span>
+            </li>
+            <li>
+              5.000 funcionários × €45K/ano. Custo total?
+              <span
+                class="drill-btn"
+                onclick="this.nextElementSibling.style.display = 'block'"
+                >Ver</span
+              ><span class="drill-answer">€225M</span>
+            </li>
+            <li>
+              Redução 12% sobre base de €8M. Poupança?
+              <span
+                class="drill-btn"
+                onclick="this.nextElementSibling.style.display = 'block'"
+                >Ver</span
+              ><span class="drill-answer">€960K</span>
+            </li>
+            <li>
+              CLV: €500/ano receita, 40% margem, 4 anos retenção. CLV?
+              <span
+                class="drill-btn"
+                onclick="this.nextElementSibling.style.display = 'block'"
+                >Ver</span
+              ><span class="drill-answer">€800</span>
+            </li>
+            <li>
+              CAC: €2M marketing, 10K clientes. CAC? CLV/CAC se CLV=€800?
+              <span
+                class="drill-btn"
+                onclick="this.nextElementSibling.style.display = 'block'"
+                >Ver</span
+              ><span class="drill-answer"
+                >CAC=€200. CLV/CAC=4.0 (saudável)</span
+              >
+            </li>
+            <li>
+              2.311 potenciais, conversão 5%. Clientes ganhos?
+              <span
+                class="drill-btn"
+                onclick="this.nextElementSibling.style.display = 'block'"
+                >Ver</span
+              ><span class="drill-answer">≈ 116</span>
+            </li>
+            <li>
+              Fábrica: 1.000/dia, 250 dias/ano. Produção anual?
+              <span
+                class="drill-btn"
+                onclick="this.nextElementSibling.style.display = 'block'"
+                >Ver</span
+              ><span class="drill-answer">250.000 unidades</span>
+            </li>
+            <li>
+              Preço +10%, volume -15%. Receita base €10M. Resultado?
+              <span
+                class="drill-btn"
+                onclick="this.nextElementSibling.style.display = 'block'"
+                >Ver</span
+              ><span class="drill-answer">€9.35M (CAI 6.5%)</span>
+            </li>
+          </ol>
+        </div>
+
+        <div class="collapsible" onclick="toggleCollapsible(this)">
+          Nível 3: Avançado / BCG-style (15 exercícios)
+        </div>
+        <div class="collapsible-content">
+          <ol start="26">
+            <li>
+              Mercado €500M, cresce 5%/ano. Valor em 3 anos?
+              <span
+                class="drill-btn"
+                onclick="this.nextElementSibling.style.display = 'block'"
+                >Ver</span
+              ><span class="drill-answer">≈ €579M (×1.157)</span>
+            </li>
+            <li>
+              A: €100M receita, 8% margem. B: €60M, 15% margem. Qual gera mais
+              lucro?
+              <span
+                class="drill-btn"
+                onclick="this.nextElementSibling.style.display = 'block'"
+                >Ver</span
+              ><span class="drill-answer">A: €8M. B: €9M. B gera mais!</span>
+            </li>
+            <li>
+              Cliente compra 3x/ano, €120 ticket, 35% margem. Se frequência →
+              4x, ganho incremental?
+              <span
+                class="drill-btn"
+                onclick="this.nextElementSibling.style.display = 'block'"
+                >Ver</span
+              ><span class="drill-answer">+€42/cliente</span>
+            </li>
+            <li>
+              PT: 10M pessoas, 4M famílias, 70% têm carro, 30% têm 2+. Total
+              carros?
+              <span
+                class="drill-btn"
+                onclick="this.nextElementSibling.style.display = 'block'"
+                >Ver</span
+              ><span class="drill-answer">5.2M carros (2.8M+2.4M)</span>
+            </li>
+            <li>
+              Armazém: 500 encomendas/dia, 5% devoluções (€15/cada). Custo
+              anual? (250 dias)
+              <span
+                class="drill-btn"
+                onclick="this.nextElementSibling.style.display = 'block'"
+                >Ver</span
+              ><span class="drill-answer">€93.750/ano</span>
+            </li>
+            <li>
+              Subscrição €10/mês, churn 3%/mês. Vida média? CLV bruto?
+              <span
+                class="drill-btn"
+                onclick="this.nextElementSibling.style.display = 'block'"
+                >Ver</span
+              ><span class="drill-answer">≈ 33 meses. CLV = €330</span>
+            </li>
+            <li>
+              Receita €50M. COGS 55%, OPEX 30%. EBIT? Margem?
+              <span
+                class="drill-btn"
+                onclick="this.nextElementSibling.style.display = 'block'"
+                >Ver</span
+              ><span class="drill-answer">€7.5M. 15%</span>
+            </li>
+            <li>
+              Aquisição €40M. EBITDA alvo €5M. Múltiplo? Sinergias +€2M/ano →
+              múltiplo efetivo?
+              <span
+                class="drill-btn"
+                onclick="this.nextElementSibling.style.display = 'block'"
+                >Ver</span
+              ><span class="drill-answer">8x. Com sinergias: 5.7x</span>
+            </li>
+            <li>
+              10K clientes. 40% compram A (€100), 35% B (€200), 25% ambos
+              (€280). Receita?
+              <span
+                class="drill-btn"
+                onclick="this.nextElementSibling.style.display = 'block'"
+                >Ver</span
+              ><span class="drill-answer">€1.8M</span>
+            </li>
+            <li>
+              Desconto 15% ↑ volume 25%. Preço €80, volume 100K, CV €30. Vale a
+              pena?
+              <span
+                class="drill-btn"
+                onclick="this.nextElementSibling.style.display = 'block'"
+                >Ver</span
+              ><span class="drill-answer"
+                >NÃO. Contribuição cai €5M→€4.75M</span
+              >
+            </li>
+          </ol>
+        </div>
+
+        <div class="collapsible" onclick="toggleCollapsible(this)">
+          Nível 4: Speed Round (10 exercícios, 10 seg cada)
+        </div>
+        <div class="collapsible-content">
+          <ol start="41">
+            <li>
+              €3M ÷ 6
+              <span
+                class="drill-btn"
+                onclick="this.nextElementSibling.style.display = 'block'"
+                >Ver</span
+              ><span class="drill-answer">€500K</span>
+            </li>
+            <li>
+              17% de €400K ≈
+              <span
+                class="drill-btn"
+                onclick="this.nextElementSibling.style.display = 'block'"
+                >Ver</span
+              ><span class="drill-answer">≈ €68K</span>
+            </li>
+            <li>
+              €85 × 200
+              <span
+                class="drill-btn"
+                onclick="this.nextElementSibling.style.display = 'block'"
+                >Ver</span
+              ><span class="drill-answer">€17.000</span>
+            </li>
+            <li>
+              €1.2M × 0.35
+              <span
+                class="drill-btn"
+                onclick="this.nextElementSibling.style.display = 'block'"
+                >Ver</span
+              ><span class="drill-answer">€420K</span>
+            </li>
+            <li>
+              €750K ÷ 25K
+              <span
+                class="drill-btn"
+                onclick="this.nextElementSibling.style.display = 'block'"
+                >Ver</span
+              ><span class="drill-answer">€30</span>
+            </li>
+            <li>
+              €450 × 365 ≈
+              <span
+                class="drill-btn"
+                onclick="this.nextElementSibling.style.display = 'block'"
+                >Ver</span
+              ><span class="drill-answer">≈ €164K</span>
+            </li>
+            <li>
+              12% de €55M ≈
+              <span
+                class="drill-btn"
+                onclick="this.nextElementSibling.style.display = 'block'"
+                >Ver</span
+              ><span class="drill-answer">≈ €6.6M</span>
+            </li>
+            <li>
+              €2.8M - 23% ≈
+              <span
+                class="drill-btn"
+                onclick="this.nextElementSibling.style.display = 'block'"
+                >Ver</span
+              ><span class="drill-answer">≈ €2.16M</span>
+            </li>
+            <li>
+              45.000 ÷ 150
+              <span
+                class="drill-btn"
+                onclick="this.nextElementSibling.style.display = 'block'"
+                >Ver</span
+              ><span class="drill-answer">300</span>
+            </li>
+            <li>
+              €180K × 4.5
+              <span
+                class="drill-btn"
+                onclick="this.nextElementSibling.style.display = 'block'"
+                >Ver</span
+              ><span class="drill-answer">€810K</span>
+            </li>
+          </ol>
+        </div>
+
+        <div class="card card-accent" style="margin-top: 24px">
+          <h3>💡 Dicas de Math durante o Caso</h3>
+          <ol>
+            <li>
+              <strong>Arredonda primeiro, ajusta depois:</strong> "Vou
+              arredondar para facilitar... 397 ≈ 400"
+            </li>
+            <li>
+              <strong>Fala em voz alta:</strong> "5M dividido por 200K unidades
+              dá-nos 25€ por unidade"
+            </li>
+            <li>
+              <strong>Sanity check:</strong> "€25/unidade para um premium parece
+              razoável"
+            </li>
+            <li><strong>Simplifica frações:</strong> 3/8 → ≈ 37.5% → ≈ 40%</li>
+            <li>
+              <strong>Usa benchmarks:</strong> "€1B mercado × 15% share → €150M"
+            </li>
+          </ol>
+        </div>
+      </div>
+
+      <!-- ═══════════════════════════════════════════════════════ -->
+      <!-- SECTION: PORTUGUESE TERMS -->
+      <!-- ═══════════════════════════════════════════════════════ -->
+      <div class="section" id="portuguese">
+        <div class="section-title">🇵🇹 Termos PT</div>
+        <div class="section-subtitle">
+          Vocabulário de negócios PT-PT para a entrevista
+        </div>
+
+        <div class="collapsible" onclick="toggleCollapsible(this)">
+          🏢 Termos Gerais de Negócio
+        </div>
+        <div class="collapsible-content">
+          <table>
+            <thead>
+              <tr>
+                <th>Português</th>
+                <th>English</th>
+                <th>Notas</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Empresa / Companhia</td>
+                <td>Company</td>
+                <td>"Empresa" mais comum</td>
+              </tr>
+              <tr>
+                <td>Quota de mercado</td>
+                <td>Market share</td>
+                <td>NUNCA "share de mercado"</td>
+              </tr>
+              <tr>
+                <td>Cadeia de valor</td>
+                <td>Value chain</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>Vantagem competitiva</td>
+                <td>Competitive advantage</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>Proposta de valor</td>
+                <td>Value proposition</td>
+                <td>OK dizer em EN</td>
+              </tr>
+              <tr>
+                <td>Concorrente</td>
+                <td>Competitor</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>Fornecedor</td>
+                <td>Supplier</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>Retalho</td>
+                <td>Retail</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>Grossista</td>
+                <td>Wholesale</td>
+                <td>"Grossista" é PT-PT</td>
+              </tr>
+              <tr>
+                <td>Canal de distribuição</td>
+                <td>Distribution channel</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>Modelo de negócio</td>
+                <td>Business model</td>
+                <td></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="collapsible" onclick="toggleCollapsible(this)">
+          💰 Termos Financeiros
+        </div>
+        <div class="collapsible-content">
+          <table>
+            <thead>
+              <tr>
+                <th>Português</th>
+                <th>English</th>
+                <th>Notas</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Receitas / Faturação</td>
+                <td>Revenue</td>
+                <td>"Faturação" muito PT-PT ✅</td>
+              </tr>
+              <tr>
+                <td>Lucro / Resultado</td>
+                <td>Profit</td>
+                <td>"Resultado líquido" = net profit</td>
+              </tr>
+              <tr>
+                <td>Prejuízo</td>
+                <td>Loss</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>Custos fixos / variáveis</td>
+                <td>Fixed / Variable costs</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>Margem bruta / operacional</td>
+                <td>Gross / Operating margin</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>Margem de contribuição</td>
+                <td>Contribution margin</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>Ponto de equilíbrio</td>
+                <td>Breakeven</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>Fluxo de caixa</td>
+                <td>Cash flow</td>
+                <td>OK usar "cash flow"</td>
+              </tr>
+              <tr>
+                <td>Período de retorno</td>
+                <td>Payback period</td>
+                <td>OK usar "payback"</td>
+              </tr>
+              <tr>
+                <td>Valor atual líquido (VAL)</td>
+                <td>NPV</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>Balanço</td>
+                <td>Balance sheet</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>Demonstração de resultados</td>
+                <td>P&L</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>Ativo / Passivo</td>
+                <td>Assets / Liabilities</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>Capital próprio</td>
+                <td>Equity</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>Alavancagem</td>
+                <td>Leverage</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>CAPEX / OPEX</td>
+                <td>Capital / Operating expenditure</td>
+                <td>OK em inglês</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="collapsible" onclick="toggleCollapsible(this)">
+          📊 Termos de Análise e Estratégia
+        </div>
+        <div class="collapsible-content">
+          <table>
+            <thead>
+              <tr>
+                <th>Português</th>
+                <th>English</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Dimensionamento de mercado</td>
+                <td>Market sizing</td>
+              </tr>
+              <tr>
+                <td>
+                  Taxa de crescimento / penetração / retenção / cancelamento
+                </td>
+                <td>Growth / Penetration / Retention / Churn rate</td>
+              </tr>
+              <tr>
+                <td>Custo de aquisição de cliente</td>
+                <td>CAC</td>
+              </tr>
+              <tr>
+                <td>Valor do ciclo de vida do cliente</td>
+                <td>CLV</td>
+              </tr>
+              <tr>
+                <td>Economias de escala</td>
+                <td>Economies of scale</td>
+              </tr>
+              <tr>
+                <td>Sinergias</td>
+                <td>Synergies</td>
+              </tr>
+              <tr>
+                <td>Barreiras à entrada</td>
+                <td>Barriers to entry</td>
+              </tr>
+              <tr>
+                <td>Poder negocial</td>
+                <td>Bargaining power</td>
+              </tr>
+              <tr>
+                <td>Disrupção</td>
+                <td>Disruption</td>
+              </tr>
+              <tr>
+                <td>Sustentabilidade</td>
+                <td>Sustainability</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2>🗣️ Expressões durante o Caso</h2>
+
+        <div class="card">
+          <h4>Estruturar:</h4>
+          <ul>
+            <li>
+              "Para responder a esta questão, proponho analisar
+              <strong>três dimensões</strong>..."
+            </li>
+            <li>
+              "Vou dividir a minha análise em
+              <strong>dois grandes blocos</strong>..."
+            </li>
+            <li>"A minha abordagem seria a seguinte..."</li>
+            <li>"Faz sentido esta estrutura? Posso começar por...?"</li>
+          </ul>
+
+          <h4>Fazer hipóteses:</h4>
+          <ul>
+            <li>"A minha hipótese inicial é que..."</li>
+            <li>"Vou assumir que... Parece-lhe razoável?"</li>
+          </ul>
+
+          <h4>Sintetizar:</h4>
+          <ul>
+            <li>"Então, resumindo o que vimos até agora..."</li>
+            <li>"Portanto, a principal conclusão é que..."</li>
+            <li>"Ou seja, o driver principal aqui é..."</li>
+          </ul>
+
+          <h4>Recomendar:</h4>
+          <ul>
+            <li>"A minha recomendação seria..."</li>
+            <li>"Eu recomendaria <strong>três ações principais</strong>..."</li>
+            <li>"Há, no entanto, <strong>riscos a considerar</strong>..."</li>
+          </ul>
+
+          <h4>Quando ficas preso:</h4>
+          <ul>
+            <li>"Deixe-me recuar um passo e reformular..."</li>
+            <li>"Posso pensar um momento para organizar a minha abordagem?"</li>
+            <li>"Vou fazer uma aproximação e depois refinamos."</li>
+          </ul>
+        </div>
+
+        <h2>⚠️ Erros Comuns</h2>
+        <div class="do-dont">
+          <div class="dont-col">
+            <h4>❌ Não digas</h4>
+            <ul>
+              <li>"Vou usar profitability"</li>
+              <li>"Revenue" (sozinho)</li>
+              <li>"O market share"</li>
+              <li>"Não sei"</li>
+              <li>"Isso é difícil"</li>
+            </ul>
+          </div>
+          <div class="do-col">
+            <h4>✅ Diz antes</h4>
+            <ul>
+              <li>"Vou analisar receitas e custos separadamente"</li>
+              <li>"Receitas" ou "Faturação"</li>
+              <li>"A quota de mercado"</li>
+              <li>"Vou fazer uma estimativa baseada em..."</li>
+              <li>"Interessante. Deixe-me pensar numa abordagem"</li>
+            </ul>
+          </div>
+        </div>
+
+        <h2>📏 Números de Referência Portugal</h2>
+        <div class="card">
+          <table>
+            <thead>
+              <tr>
+                <th>Indicador</th>
+                <th>Valor</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>População</td>
+                <td>~10.3 milhões</td>
+              </tr>
+              <tr>
+                <td>PIB</td>
+                <td>~€260 mil milhões</td>
+              </tr>
+              <tr>
+                <td>PIB per capita</td>
+                <td>~€25.000</td>
+              </tr>
+              <tr>
+                <td>Salário médio mensal</td>
+                <td>~€1.400 bruto</td>
+              </tr>
+              <tr>
+                <td>Salário mínimo</td>
+                <td>~€870 (2026)</td>
+              </tr>
+              <tr>
+                <td>Nº famílias</td>
+                <td>~4 milhões</td>
+              </tr>
+              <tr>
+                <td>Lisboa metro</td>
+                <td>~3 milhões</td>
+              </tr>
+              <tr>
+                <td>Porto metro</td>
+                <td>~1.7 milhões</td>
+              </tr>
+              <tr>
+                <td>Restaurantes</td>
+                <td>~40.000</td>
+              </tr>
+              <tr>
+                <td>Supermercados</td>
+                <td>~3.500-4.000</td>
+              </tr>
+              <tr>
+                <td>Farmácias</td>
+                <td>~3.000</td>
+              </tr>
+              <tr>
+                <td>Turistas/ano</td>
+                <td>~25-30 milhões</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ═══════════════════════════════════════════════════════ -->
+      <!-- SECTION: CREATIVITY -->
+      <!-- ═══════════════════════════════════════════════════════ -->
+      <div class="section" id="creativity">
+        <div class="section-title">🧠 Criatividade</div>
+        <div class="section-subtitle">
+          Como brilhar nas perguntas de brainstorming
+        </div>
+
+        <div class="card card-accent">
+          <h3>O que a BCG avalia:</h3>
+          <ol>
+            <li>
+              <strong>Estrutura</strong> — Organizas ideias em categorias MECE?
+            </li>
+            <li><strong>Amplitude</strong> — Pensas em múltiplas dimensões?</li>
+            <li>
+              <strong>Qualidade</strong> — As ideias fazem sentido e são
+              acionáveis?
+            </li>
+            <li><strong>Comunicação</strong> — Apresentas de forma clara?</li>
+          </ol>
+          <div class="card card-danger" style="margin-top: 12px">
+            <strong>NUNCA</strong> respondas com lista desestruturada.
+            <strong>SEMPRE</strong> agrupa em 3-4 categorias.
+          </div>
+        </div>
+
+        <h2>📐 Método: "Buckets" Estruturados</h2>
+        <div class="card">
+          <ol>
+            <li>
+              <strong>Pede 30 segundos:</strong> "Boa pergunta. Posso pensar um
+              momento?"
+            </li>
+            <li>
+              <strong>Define 3-4 categorias:</strong> "Vou organizar em [3/4]
+              categorias..."
+            </li>
+            <li>
+              <strong>Dá 2-3 ideias por categoria:</strong> Apresentar
+              estruturadamente
+            </li>
+            <li>
+              <strong>Prioriza:</strong> "Destacaria [X] e [Y] como as de maior
+              impacto porque..."
+            </li>
+          </ol>
+        </div>
+
+        <h2>🔧 Frameworks de Brainstorming</h2>
+
+        <div class="collapsible" onclick="toggleCollapsible(this)">
+          Quem / O quê / Como
+        </div>
+        <div class="collapsible-content">
+          <div class="tree">
+            QUEM (stakeholders) O QUÊ (o que mudar) ├── Clientes atuais ├──
+            Produto/Serviço ├── Novos clientes ├── Preço ├── Parceiros/Canais
+            ├── Experiência └── Equipa interna └── Canal/Distribuição COMO
+            (mecanismos) ├── Tecnologia/Digital ├── Marketing/Comunicação ├──
+            Operacional └── Parcerias
+          </div>
+        </div>
+
+        <div class="collapsible" onclick="toggleCollapsible(this)">
+          Impacto × Facilidade (para priorizar)
+        </div>
+        <div class="collapsible-content">
+          <table>
+            <thead>
+              <tr>
+                <th></th>
+                <th>Alto Impacto</th>
+                <th>Baixo Impacto</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td style="font-weight: 600">Fácil</td>
+                <td style="color: var(--success)">⭐ QUICK WINS</td>
+                <td>Nice-to-have</td>
+              </tr>
+              <tr>
+                <td style="font-weight: 600">Difícil</td>
+                <td>Projetos grandes</td>
+                <td style="color: var(--danger)">❌ Ignorar</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="collapsible" onclick="toggleCollapsible(this)">
+          Interno vs. Externo
+        </div>
+        <div class="collapsible-content">
+          <div class="tree">
+            INTERNO (controlamos) EXTERNO (influenciamos) ├── Produto/Serviço
+            ├── Clientes ├── Processos ├── Mercado/Concorrência ├──
+            Pessoas/Equipa ├── Regulamentação └── Tecnologia └── Parcerias
+          </div>
+        </div>
+
+        <div class="collapsible" onclick="toggleCollapsible(this)">
+          Curto / Médio / Longo Prazo
+        </div>
+        <div class="collapsible-content">
+          <div class="tree">
+            CURTO (0-3 meses): Quick wins, low-hanging fruit, otimizações
+            rápidas MÉDIO (3-12 meses): Novos processos, canais, mudanças
+            operacionais LONGO (1-3+ anos): Novos produtos/mercados,
+            transformação digital, M&A
+          </div>
+        </div>
+
+        <h2>💡 Exemplo Completo</h2>
+        <div class="card card-accent">
+          <h4>Pergunta: "Como pode um banco aumentar a receita?"</h4>
+          <blockquote>
+            "Vou organizar as minhas ideias em três dimensões:
+            <strong>clientes, produtos e canais</strong>. <br /><br />
+            <strong>1. Clientes:</strong> Adquirir novos (campanhas segmentadas,
+            referral), aumentar utilização dos atuais (cross-selling crédito →
+            seguros), reduzir churn (fidelização). <br /><br />
+            <strong>2. Produtos:</strong> Lançar novos (robô-advisor, conta
+            digital jovens), repricing (comissões, spreads), serviços de valor
+            acrescentado (consultoria financeira). <br /><br />
+            <strong>3. Canais:</strong> Expandir digital (app, onboarding
+            online), parcerias (fintechs, embedded finance), expandir rede em
+            zonas subservidas. <br /><br />
+            <strong>Priorizaria</strong> cross-selling a existentes e expansão
+            digital, por melhor rácio impacto vs. investimento."
+          </blockquote>
+        </div>
+
+        <h2>🎯 Pratica (2 min cada)</h2>
+        <div class="card">
+          <ol>
+            <li>Como reduzir desperdício alimentar num supermercado?</li>
+            <li>Como pode uma companhia aérea reter mais clientes?</li>
+            <li>Que formas tem um hospital de reduzir tempos de espera?</li>
+            <li>Como pode uma marca de moda tornar-se mais sustentável?</li>
+            <li>De que formas pode um município atrair mais turistas?</li>
+          </ol>
+        </div>
+      </div>
+
+      <!-- ═══════════════════════════════════════════════════════ -->
+      <!-- SECTION: BCG PATTERNS -->
+      <!-- ═══════════════════════════════════════════════════════ -->
+      <div class="section" id="bcg-patterns">
+        <div class="section-title">🏢 BCG Patterns</div>
+        <div class="section-subtitle">O que a BCG testa especificamente</div>
+
+        <h2>🎯 Formato (1ª Ronda)</h2>
+        <div class="card">
+          <div class="tree">
+            ENTREVISTA 1 (45 min) ENTREVISTA 2 (45 min) ├── Fit/PEI: 10-15 min
+            ├── Fit/PEI: 10-15 min │ └── 1-2 perguntas │ └── 1-2 perguntas
+            (diferentes) └── Caso: 25-30 min └── Caso: 25-30 min └── Caso
+            completo └── Tipo diferente
+          </div>
+          <p>
+            Cada entrevistador avalia independentemente e depois comparam notas.
+          </p>
+        </div>
+
+        <h2>📊 Tipos de Caso Favoritos BCG</h2>
+        <div class="card">
+          <strong>💰 1. Rentabilidade e Margem</strong> (mais comum) —
+          Decomposição receita/custo, análise de drivers, quantificação
+        </div>
+        <div class="card">
+          <strong>⚙️ 2. Operações / Eficiência</strong> — Cadeia de valor,
+          processos, lean thinking.
+          <span class="badge badge-green">BCG forte aqui</span>
+        </div>
+        <div class="card">
+          <strong>🏷️ 3. Pricing</strong> — Value-based vs. cost-plus,
+          segmentação, elasticidade
+        </div>
+        <div class="card">
+          <strong>🌍 4. Entrada no Mercado</strong> — Atratividade, modo de
+          entrada, riscos
+        </div>
+        <div class="card">
+          <strong>📱 5. Digital / Tech</strong> — Disrupção, digital strategy.
+          <span class="badge badge-blue">BCG X, BCG Platinion</span>
+        </div>
+        <div class="card">
+          <strong>🌿 6. Sustentabilidade / ESG</strong> — BCG coloca crescente
+          ênfase em ESG
+        </div>
+
+        <h2>🔑 Pesos de Avaliação</h2>
+        <div class="card">
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px">
+            <div>
+              <h4>Pensamento Estruturado — 45%</h4>
+              <div class="progress-bar">
+                <div class="progress-fill" style="width: 45%"></div>
+              </div>
+              <p style="font-size: 13px">
+                Framework MECE personalizado. Claro e conciso. Máx 2 min.
+              </p>
+            </div>
+            <div>
+              <h4>Análise Quantitativa — 25%</h4>
+              <div class="progress-bar">
+                <div class="progress-fill" style="width: 25%"></div>
+              </div>
+              <p style="font-size: 13px">
+                Cálculos rápidos e corretos. Interpretar os números. Sanity
+                check.
+              </p>
+            </div>
+            <div>
+              <h4>Business Judgment — 15%</h4>
+              <div class="progress-bar">
+                <div class="progress-fill" style="width: 15%"></div>
+              </div>
+              <p style="font-size: 13px">
+                Hipóteses sensatas. Priorização. Recomendações fundamentadas.
+              </p>
+            </div>
+            <div>
+              <h4>Comunicação — 15%</h4>
+              <div class="progress-bar">
+                <div class="progress-fill" style="width: 15%"></div>
+              </div>
+              <p style="font-size: 13px">
+                Síntese frequente. Top-down storytelling. Confiança.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <h2>📋 Flow de Caso Perfeito</h2>
+        <div class="commandment">
+          <span class="commandment-number">1</span>
+          <h3>Ouvir (1 min)</h3>
+          <p style="margin-top: 8px">
+            Escutar, tomar notas. Repetir problema. Clarificar: objetivo,
+            definição, âmbito.
+          </p>
+        </div>
+        <div class="commandment">
+          <span class="commandment-number">2</span>
+          <h3>Estruturar (2 min)</h3>
+          <p style="margin-top: 8px">
+            Pedir momento. Framework PERSONALIZADO. Hipótese inicial. "Proponho
+            analisar em 3-4 dimensões..."
+          </p>
+        </div>
+        <div class="commandment">
+          <span class="commandment-number">3</span>
+          <h3>Analisar (15-20 min)</h3>
+          <p style="margin-top: 8px">
+            Hypothesis-driven. Pedir dados. Math em voz alta. Sintetizar após
+            cada bloco. Brainstorming quando apropriado.
+          </p>
+        </div>
+        <div class="commandment">
+          <span class="commandment-number">4</span>
+          <h3>Recomendar (2-3 min)</h3>
+          <p style="margin-top: 8px">
+            Top-down: Recomendação → 3 razões → Próximos passos → Riscos.
+          </p>
+        </div>
+
+        <h2>⚠️ Red Flags</h2>
+        <div class="do-dont">
+          <div class="dont-col">
+            <h4>❌ EVITAR</h4>
+            <ul>
+              <li>Analisar sem estruturar</li>
+              <li>Framework genérico</li>
+              <li>Contas em silêncio</li>
+              <li>Só uma recomendação</li>
+              <li>Ser passivo</li>
+              <li>Ignorar dados novos</li>
+            </ul>
+          </div>
+          <div class="do-col">
+            <h4>✅ FAZER</h4>
+            <ul>
+              <li>Sempre estruturar primeiro</li>
+              <li>Framework personalizado</li>
+              <li>Raciocínio em voz alta</li>
+              <li>3 pontos + steps + riscos</li>
+              <li>"Proponho olhar para X"</li>
+              <li>Adaptar hipótese</li>
+            </ul>
+          </div>
+        </div>
+
+        <h2>🇵🇹 Tópicos Quentes Portugal</h2>
+        <div class="card">
+          <ul>
+            <li>
+              <strong>Turismo:</strong> recuperação pós-COVID, overtourism
+              Lisboa/Porto
+            </li>
+            <li>
+              <strong>Energia:</strong> transição energética, renováveis (PT
+              líder em eólica)
+            </li>
+            <li>
+              <strong>Imobiliário:</strong> crise habitação, golden visa,
+              arrendamento
+            </li>
+            <li>
+              <strong>Tech:</strong> Web Summit, ecossistema startup Lisboa
+            </li>
+            <li>
+              <strong>Saúde:</strong> SNS sob pressão, oportunidades no privado
+            </li>
+            <li><strong>Distribuição:</strong> Jerónimo Martins vs. Sonae</li>
+            <li>
+              <strong>Banca:</strong> digitalização, neobancos, consolidação
+            </li>
+            <li>
+              <strong>Indústria:</strong> reshoring, automação, papel/cortiça
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- ═══════════════════════════════════════════════════════ -->
+      <!-- SECTION: FIT / PEI -->
+      <!-- ═══════════════════════════════════════════════════════ -->
+      <div class="section" id="fit">
+        <div class="section-title">📝 Fit / PEI</div>
+        <div class="section-subtitle">
+          Personal Experience Interview — Histórias Comportamentais
+        </div>
+
+        <div class="card card-accent">
+          <h3>O que a BCG avalia no PEI:</h3>
+          <ol>
+            <li>
+              <strong>Impacto pessoal</strong> — foste TU que fizeste a
+              diferença
+            </li>
+            <li>
+              <strong>Complexidade</strong> — situação genuinamente difícil
+            </li>
+            <li>
+              <strong>Profundidade</strong> — detalhes concretos, não
+              generalidades
+            </li>
+            <li><strong>Autenticidade</strong> — parece real, não ensaiado</li>
+          </ol>
+        </div>
+
+        <!-- STORY 1 -->
+        <h2>História 1: Liderança / Influência</h2>
+        <div class="card">
+          <p>
+            <em
+              >"Conte-me uma situação em que liderou uma equipa ou influenciou
+              outros a seguir a sua visão."</em
+            >
+          </p>
+          <div class="star-box">
+            <p>
+              <span class="star-label">S</span> <strong>Situação:</strong> [Onde
+              e quando — contexto em 2-3 frases]
+            </p>
+            <p>
+              <span class="star-label">T</span> <strong>Tarefa:</strong> [O
+              desafio específico]
+            </p>
+            <p>
+              <span class="star-label">A</span> <strong>Ação:</strong> [O que TU
+              fizeste — 3-5 ações específicas]
+            </p>
+            <p>
+              <span class="star-label">R</span>
+              <strong>Resultado:</strong> [Resultado quantificável — NÚMEROS!]
+            </p>
+          </div>
+          <p style="color: var(--text-muted); font-size: 13px; margin-top: 8px">
+            <strong>Possíveis:</strong> Pairwire (equipa de vendas), Google
+            (keynote 237+ execs), NOVA Social Consulting (23 voluntários)
+          </p>
+        </div>
+
+        <!-- STORY 2 -->
+        <h2>História 2: Superar Desafio</h2>
+        <div class="card">
+          <p>
+            <em
+              >"Conte-me sobre um desafio significativo que enfrentou e como o
+              ultrapassou."</em
+            >
+          </p>
+          <div class="star-box">
+            <p>
+              <span class="star-label">S</span> <strong>Situação:</strong> [O
+              que correu mal ou era difícil]
+            </p>
+            <p>
+              <span class="star-label">T</span> <strong>Tarefa:</strong> [O que
+              tinhas de resolver]
+            </p>
+            <p>
+              <span class="star-label">A</span> <strong>Ação:</strong> [Como
+              pensaste no problema e resolveste]
+            </p>
+            <p>
+              <span class="star-label">R</span>
+              <strong>Resultado:</strong> [Resultado + o que aprendeste]
+            </p>
+          </div>
+          <p style="color: var(--text-muted); font-size: 13px; margin-top: 8px">
+            <strong>Possíveis:</strong> Pairwire (sair como co-fundador), Amazon
+            (21x acima do benchmark)
+          </p>
+        </div>
+
+        <!-- STORY 3 -->
+        <h2>História 3: Trabalho em Equipa / Conflito</h2>
+        <div class="card">
+          <p>
+            <em
+              >"Descreva uma situação em que teve de trabalhar com alguém
+              difícil ou gerir um desconforto dentro da equipa."</em
+            >
+          </p>
+          <div class="star-box">
+            <p>
+              <span class="star-label">S</span>
+              <strong>Situação:</strong> [Contexto da equipa e tensão]
+            </p>
+            <p>
+              <span class="star-label">T</span> <strong>Tarefa:</strong> [O que
+              precisava de ser resolvido]
+            </p>
+            <p>
+              <span class="star-label">A</span> <strong>Ação:</strong> [Como
+              mediaste, comunicaste, resolveste]
+            </p>
+            <p>
+              <span class="star-label">R</span>
+              <strong>Resultado:</strong> [Impacto na equipa/projeto]
+            </p>
+          </div>
+          <p style="color: var(--text-muted); font-size: 13px; margin-top: 8px">
+            <strong>Possíveis:</strong> Pairwire (gestão co-fundador), EY
+            (equipa auditoria), Universidade
+          </p>
+        </div>
+
+        <!-- STORY 4 -->
+        <h2>História 4: Conquista Excepcional</h2>
+        <div class="card">
+          <p><em>"Qual é a conquista de que mais se orgulha?"</em></p>
+          <div class="star-box">
+            <p>
+              <span class="star-label">S</span>
+              <strong>Situação:</strong> [Contexto de partida]
+            </p>
+            <p>
+              <span class="star-label">T</span>
+              <strong>Tarefa:</strong> [Objetivo ambicioso]
+            </p>
+            <p>
+              <span class="star-label">A</span> <strong>Ação:</strong> [O que
+              fizeste de diferente/especial]
+            </p>
+            <p>
+              <span class="star-label">R</span>
+              <strong>Resultado:</strong> [Resultado com NÚMEROS]
+            </p>
+          </div>
+          <p style="color: var(--text-muted); font-size: 13px; margin-top: 8px">
+            <strong>Possíveis:</strong> Amazon (de -56% para +25%), Pairwire
+            (€41.2K revenue, 11 meses), Google ($1.41M savings)
+          </p>
+        </div>
+
+        <h2>🔑 Regras</h2>
+        <div class="card">
+          <table>
+            <tbody>
+              <tr>
+                <td style="font-weight: 600">Tempo</td>
+                <td>2-3 min por história. S+T=30s, A=90s, R=30s</td>
+              </tr>
+              <tr>
+                <td style="font-weight: 600">Pessoa</td>
+                <td>
+                  Sempre 1ª pessoa. "Eu identifiquei..." nunca "Nós
+                  decidimos..."
+                </td>
+              </tr>
+              <tr>
+                <td style="font-weight: 600">Detalhes</td>
+                <td>
+                  "Aumentei de 12% para 31% em 3 meses" não "Melhorei os
+                  resultados"
+                </td>
+              </tr>
+              <tr>
+                <td style="font-weight: 600">Raciocínio</td>
+                <td>"Analisei a situação e percebi que o problema era X"</td>
+              </tr>
+              <tr>
+                <td style="font-weight: 600">Final</td>
+                <td>Resultado quantificável + 1 frase de aprendizagem</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2>Porquê BCG? — Script</h2>
+        <div class="card card-accent">
+          <blockquote>
+            "A BCG atrai-me por três razões. Primeiro, pela
+            <strong>cultura de inovação</strong> — a BCG tem sido pioneira em
+            áreas como digital e analytics com a BCG X, que é algo que me
+            entusiasma dado o meu background em tecnologia. Segundo, pelo
+            <strong>impacto real</strong> — os projetos da BCG não ficam na
+            gaveta, têm implementação concreta. E terceiro, pelas
+            <strong>pessoas</strong> — nas conversas que tive com consultores da
+            BCG, senti uma energia e curiosidade intelectual que me identifico
+            muito."
+          </blockquote>
+        </div>
+
+        <h2>❓ Outras Perguntas</h2>
+        <div class="card">
+          <table>
+            <tbody>
+              <tr>
+                <td style="font-weight: 600; width: 180px">
+                  Porquê consultoria?
+                </td>
+                <td>
+                  Paixão por resolver problemas complexos, impacto, aprendizagem
+                  acelerada
+                </td>
+              </tr>
+              <tr>
+                <td style="font-weight: 600">Porquê agora?</td>
+                <td>
+                  Experiência em startup + tech deu visão prática, quero
+                  combinar com rigor analítico
+                </td>
+              </tr>
+              <tr>
+                <td style="font-weight: 600">O que trazes?</td>
+                <td>
+                  Experiência real de vendas B2B, startup, Google/Amazon, perfil
+                  híbrido tech + estratégia
+                </td>
+              </tr>
+              <tr>
+                <td style="font-weight: 600">5 anos?</td>
+                <td>
+                  Crescer na consultoria, liderar projetos, especialização em
+                  tech/digital
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ═══════════════════════════════════════════════════════ -->
+      <!-- SECTION: GAME DAY -->
+      <!-- ═══════════════════════════════════════════════════════ -->
+      <div class="section" id="game-day">
+        <div class="section-title">🏆 Game Day</div>
+        <div class="section-subtitle">
+          Sexta-feira 28 Feb — Lê isto na manhã do dia. Nada mais.
+        </div>
+
+        <h2>⏰ Timeline</h2>
+        <div class="card" style="border: 2px solid var(--bcg-green)">
+          <table>
+            <tbody>
+              <tr>
+                <td class="time-col">10:00</td>
+                <td>Acordar. Duche. Pequeno-almoço calmo.</td>
+              </tr>
+              <tr>
+                <td class="time-col">10:30</td>
+                <td>Ler APENAS esta folha + frameworks rápido</td>
+              </tr>
+              <tr>
+                <td class="time-col">11:00</td>
+                <td>Andar/exercício leve (20-30 min)</td>
+              </tr>
+              <tr>
+                <td class="time-col">11:30-13:00</td>
+                <td>Tempo livre. NÃO estudar. Relaxar.</td>
+              </tr>
+              <tr>
+                <td class="time-col">13:00</td>
+                <td>Almoço leve (proteína + carbos complexos)</td>
+              </tr>
+              <tr>
+                <td class="time-col">14:00</td>
+                <td>Vestir. Preparar materiais.</td>
+              </tr>
+              <tr>
+                <td
+                  class="time-col"
+                  style="font-size: 16px; color: var(--highlight)"
+                >
+                  14:30
+                </td>
+                <td style="font-weight: 700; color: var(--highlight)">
+                  💊 TOMAR 10mg IR
+                </td>
+              </tr>
+              <tr>
+                <td class="time-col">14:45</td>
+                <td>Sair de casa</td>
+              </tr>
+              <tr>
+                <td class="time-col">15:00</td>
+                <td>Chegar ao local (15 min antes)</td>
+              </tr>
+              <tr>
+                <td
+                  class="time-col"
+                  style="font-size: 18px; color: var(--bcg-green)"
+                >
+                  15:30
+                </td>
+                <td
+                  style="
+                    font-size: 18px;
+                    font-weight: 700;
+                    color: var(--bcg-green);
+                  "
+                >
+                  🎯 ENTREVISTA
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2>📋 Checklist</h2>
+        <div class="card">
+          <ul class="checklist" id="gameday-checklist">
+            <li onclick="this.classList.toggle('checked')">
+              Caneta preta + caneta azul de reserva
+            </li>
+            <li onclick="this.classList.toggle('checked')">
+              Bloco de notas A4 (liso, não pautado)
+            </li>
+            <li onclick="this.classList.toggle('checked')">
+              Cópia do CV impressa (2 cópias)
+            </li>
+            <li onclick="this.classList.toggle('checked')">Garrafa de água</li>
+            <li onclick="this.classList.toggle('checked')">
+              ID / Cartão de Cidadão
+            </li>
+            <li onclick="this.classList.toggle('checked')">
+              Telemóvel em silêncio (não vibrar)
+            </li>
+          </ul>
+        </div>
+
+        <h2>🧠 Os 5 Mandamentos</h2>
+
+        <div class="commandment">
+          <span class="commandment-number">1</span>
+          <h3>ESTRUTURA PRIMEIRO</h3>
+          <blockquote>
+            "Obrigado pelo caso. Deixe-me tomar um momento para organizar os
+            meus pensamentos..."<br />Sempre pedir 30-60 seg. Sempre apresentar
+            framework ANTES de mergulhar.
+          </blockquote>
+        </div>
+
+        <div class="commandment">
+          <span class="commandment-number">2</span>
+          <h3>HIPÓTESE SEMPRE</h3>
+          <blockquote>
+            "A minha hipótese inicial é que... vamos testar isto."<br />BCG
+            ADORA hipóteses. Formula uma. Ajusta com dados novos.
+          </blockquote>
+        </div>
+
+        <div class="commandment">
+          <span class="commandment-number">3</span>
+          <h3>MATH EM VOZ ALTA</h3>
+          <blockquote>
+            "Então, 5 milhões dividido por 200 mil unidades dá-nos 25€ por
+            unidade."<br />Nunca calcular em silêncio. Sanity check no final.
+          </blockquote>
+        </div>
+
+        <div class="commandment">
+          <span class="commandment-number">4</span>
+          <h3>SO WHAT?</h3>
+          <blockquote>
+            "Isto sugere que... e a implicação é..."<br />Depois de cada
+            dado/cálculo, dizer o que significa. Nunca só dizer o número.
+          </blockquote>
+        </div>
+
+        <div class="commandment">
+          <span class="commandment-number">5</span>
+          <h3>SÍNTESE NO FINAL</h3>
+          <blockquote>
+            "Em resumo, recomendo X por três razões: primeiro... segundo...
+            terceiro..."<br />Top-down. Recomendação primeiro. Depois razões.
+            Próximos passos.
+          </blockquote>
+        </div>
+
+        <h2>🗣️ Frases Chave</h2>
+        <div class="card">
+          <h4>Início do Caso</h4>
+          <ul>
+            <li>"Posso tomar um momento para estruturar?"</li>
+            <li>"Para confirmar, o objetivo é [X], correto?"</li>
+            <li>"Gostaria de explorar esta questão em três dimensões..."</li>
+          </ul>
+          <h4>Durante o Caso</h4>
+          <ul>
+            <li>
+              "Antes de continuar, gostaria de verificar se estou no caminho
+              certo"
+            </li>
+            <li>"Isto é interessante porque sugere que..."</li>
+            <li>"Poderia fornecer-me dados sobre [X]?"</li>
+            <li>"Deixe-me resumir o que sabemos até agora..."</li>
+          </ul>
+          <h4>Quando Estás Stuck</h4>
+          <ul>
+            <li>"Vou recuar um passo e pensar nisto de outra forma..."</li>
+            <li>
+              "Com a informação disponível, a minha melhor estimativa seria..."
+            </li>
+            <li>"Que perspetiva adicional me poderia ajudar aqui?"</li>
+          </ul>
+          <h4>Final</h4>
+          <ul>
+            <li>"Em síntese, recomendaria [X]..."</li>
+            <li>
+              "As principais razões são: primeiro..., segundo..., terceiro..."
+            </li>
+            <li>"Como próximos passos, sugeriria..."</li>
+            <li>"Há riscos a considerar, nomeadamente..."</li>
+          </ul>
+        </div>
+
+        <h2>💪 Mindset</h2>
+        <div class="card card-accent">
+          <h3>Não és um candidato. És um futuro colega.</h3>
+          <ul>
+            <li>Conversa de negócios, não exame</li>
+            <li>Mostra como PENSAS, não o que memorizaste</li>
+            <li>Se errares math, corrige com confiança</li>
+          </ul>
+        </div>
+        <div class="card card-info">
+          <h3>A tua vantagem:</h3>
+          <ul>
+            <li>
+              <strong>Fundaste uma empresa</strong> (Pairwire) — experiência
+              real de negócio
+            </li>
+            <li><strong>Google + Amazon</strong> — tech de ponta</li>
+            <li>
+              <strong>Bilingue PT/EN</strong> — mercado ibérico, África, Brasil
+            </li>
+            <li>
+              <strong>MSc Strategy Economics</strong> — Rotterdam, formação
+              analítica
+            </li>
+          </ul>
+        </div>
+        <div class="card card-warning">
+          <h3>Se sentires ansiedade:</h3>
+          <ol>
+            <li>Respira fundo (4 seg inspira, 7 seg segura, 8 seg expira)</li>
+            <li>Olha para o entrevistador, não para baixo</li>
+            <li>Fala mais devagar, não mais rápido</li>
+            <li>
+              Lembra-te: és bom o suficiente para estar aqui.
+              <strong>Passaste o Casey.</strong>
+            </li>
+          </ol>
+        </div>
+
+        <div
+          class="card"
+          style="
+            text-align: center;
+            padding: 40px;
+            border: 2px solid var(--bcg-green);
+            margin-top: 32px;
+          "
+        >
+          <p style="font-size: 20px; color: white; font-weight: 600">
+            O que o BCG quer ver:
+          </p>
+          <p style="font-size: 16px; color: var(--bcg-green); margin-top: 8px">
+            Estrutura clara. Pensamento analítico. Pragmatismo. Comunicação
+            confiante. Curiosidade genuína.
+          </p>
+          <br />
+          <p style="font-size: 20px; color: white; font-weight: 600">
+            A coisa mais importante:
+          </p>
+          <p
+            style="
+              font-size: 24px;
+              color: var(--highlight);
+              margin-top: 8px;
+              font-weight: 700;
+            "
+          >
+            Diverte-te.
+          </p>
+          <p style="font-size: 15px; color: var(--text-muted); margin-top: 4px">
+            Se gostares da conversa, isso nota-se. E é contagioso.
+          </p>
+          <br />
+          <p style="font-size: 28px; margin-top: 16px">🍀</p>
+          <p
+            style="
+              font-size: 16px;
+              color: var(--text-muted);
+              font-style: italic;
+              margin-top: 8px;
+            "
+          >
+            Tu vais conseguir. Boa sorte, Tomás.
+          </p>
+        </div>
+      </div>
+    </main>
+
+    <!-- BACK TO TOP -->
+    <button
+      class="back-to-top"
+      id="backToTop"
+      onclick="window.scrollTo({ top: 0, behavior: 'smooth' })"
+    >
+      ↑
+    </button>
+
+    <script>
+      // Navigation
+      function showSection(id) {
+        document
+          .querySelectorAll(".section")
+          .forEach((s) => s.classList.remove("active"));
+        document
+          .querySelectorAll(".sidebar nav a")
+          .forEach((a) => a.classList.remove("active"));
+        document.getElementById(id).classList.add("active");
+        document
+          .querySelector(`[data-section="${id}"]`)
+          .classList.add("active");
+        window.scrollTo({ top: 0, behavior: "smooth" });
+        // Close mobile sidebar
+        document.getElementById("sidebar").classList.remove("open");
+      }
+
+      // Day tabs
+      function showDay(day) {
+        document
+          .querySelectorAll(".day-content")
+          .forEach((d) => d.classList.remove("active"));
+        document
+          .querySelectorAll(".day-tab")
+          .forEach((t) => t.classList.remove("active"));
+        document.getElementById("day-" + day).classList.add("active");
+        event.target.classList.add("active");
+      }
+
+      // Collapsibles
+      function toggleCollapsible(el) {
+        el.classList.toggle("open");
+        const content = el.nextElementSibling;
+        content.classList.toggle("open");
+      }
+
+      // Mobile sidebar
+      function toggleSidebar() {
+        document.getElementById("sidebar").classList.toggle("open");
+      }
+
+      // Close sidebar on click outside (mobile)
+      document.addEventListener("click", function (e) {
+        const sidebar = document.getElementById("sidebar");
+        const toggle = document.querySelector(".menu-toggle");
+        if (
+          window.innerWidth <= 768 &&
+          !sidebar.contains(e.target) &&
+          !toggle.contains(e.target)
+        ) {
+          sidebar.classList.remove("open");
+        }
+      });
+
+      // Back to top button
+      window.addEventListener("scroll", function () {
+        const btn = document.getElementById("backToTop");
+        btn.classList.toggle("visible", window.scrollY > 300);
+      });
+
+      // Countdown
+      function updateCountdown() {
+        const interview = new Date("2025-02-28T15:30:00");
+        const now = new Date();
+        const diff = interview - now;
+        if (diff <= 0) {
+          document.getElementById("countdown").textContent = "🎯 GAME TIME!";
+          return;
+        }
+        const days = Math.floor(diff / 86400000);
+        const hours = Math.floor((diff % 86400000) / 3600000);
+        const mins = Math.floor((diff % 3600000) / 60000);
+        document.getElementById("countdown").textContent =
+          `⏱ ${days}d ${hours}h ${mins}m até à entrevista`;
+      }
+      updateCountdown();
+      setInterval(updateCountdown, 60000);
+
+      // Keyboard navigation
+      document.addEventListener("keydown", function (e) {
+        const sections = [
+          "master-plan",
+          "frameworks",
+          "math",
+          "drills",
+          "portuguese",
+          "creativity",
+          "bcg-patterns",
+          "fit",
+          "game-day",
+        ];
+        const current = sections.findIndex((s) =>
+          document.getElementById(s).classList.contains("active"),
+        );
+        if (e.key === "ArrowRight" && current < sections.length - 1) {
+          showSection(sections[current + 1]);
+        } else if (e.key === "ArrowLeft" && current > 0) {
+          showSection(sections[current - 1]);
+        }
+      });
+    </script>
+  </body>
+</html>

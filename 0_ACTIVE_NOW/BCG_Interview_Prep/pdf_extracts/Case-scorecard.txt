@@ -1,0 +1,45 @@
+--- PAGE 1 ---
+Interviewer
+Case
+Candidate
+Date
+Problem-solving
+Structuring
+Rating
+Comments
+Math
+Rating
+Comments
+Judgement and insights
+Rating
+Comments
+Creativity
+Rating
+Comments
+Synthesis
+Rating
+Comments
+Case leadership
+Rating
+Comments
+General impression
+Presence
+Rating
+Comments
+Communication
+Rating
+Comments
+Summary
+1 = Was not professional; 3 = Was professional, engaging, energetic and confident; 5 = Built genuine rapport; showed positive personality; displayed expert-like credibility 
+1 = Was unclear and scattered; 3 = Listened well; spoke precisely and concisely; 5 = Was particularly organised; shared main idea before details; communicated visually 
+Rating:  1 = Below the standard required to receive an offer. 3 = Meets the required standard.. 5 = Stands out in this dimension (top 10%). A score of 5 should only be given when the standard 
+required for a score of 3 has also been attained.
+1 = Did not offer a clear structure; 3 = Clarified ambiguity and identified objectives; proposed approach composed of an exhaustive set of independent drivers (e.g. MECE); 5 = Laid out prioritized 
+steps to solve the case; shared helpful insights
+1 = Made mistakes and needed help; 3 = Calculated correctly and confidently; stated implications; 5 = Laid out a clear and efficient approach; calculated particularly quickly
+1 = Missed key insights; 3 = Connected findings to develop sound recommendations; 5 = Processed new information quickly, prioritizing what was important; shared deep insights and far-reaching 
+implications
+1 = Struggled to generate new ideas; 3 = Shared numerous, varied and sound ideas; 5 = Displayed exceptional creativity in a structured way 
+1 = Did not make a clear and sound recommendation; 3 = Supported recommendation with key points, followed by specific next steps; 5 = Was particularly convincing 
+1 = Appeared passive or lost; 3 = Built on new findings to develop recommendation and suggest next steps; stayed focused on case objectives; made reasonable assumptions; requested missing 
+information when needed; 5 = Progressed quickly and confidently; asked probing questions; adapted approach to new findings 
