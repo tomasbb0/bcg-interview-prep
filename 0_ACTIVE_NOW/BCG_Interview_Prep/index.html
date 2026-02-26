@@ -22822,36 +22822,59 @@ Margin                       20.0%              6.6%          -13.4pp
           var subs = node.subs || [];
 
           if (depth === 0 && node.label) {
-            var rootId = "fwm-it-" + (window._fwmTreeNodeId++);
+            var rootId = "fwm-it-" + window._fwmTreeNodeId++;
             html +=
-              '<div class="fwm-it-node" data-fwm-it="' + rootId + '" onclick="window.fwmItClick(this,event)" ' +
+              '<div class="fwm-it-node" data-fwm-it="' +
+              rootId +
+              '" onclick="window.fwmItClick(this,event)" ' +
               'style="font-weight:700;font-size:0.95em;margin-bottom:8px;color:#2e7d32;cursor:pointer;padding:2px 6px;border-radius:6px;transition:background 0.15s;">' +
               fwmLangLabel(node.label) +
               "</div>";
             if (node.hint) {
               html +=
                 '<div style="font-size:0.82em;color:#666;margin-bottom:10px;">' +
-                String.fromCodePoint(0x1f4a1) + " " + node.hint + "</div>";
+                String.fromCodePoint(0x1f4a1) +
+                " " +
+                node.hint +
+                "</div>";
             }
           }
 
           if (subs.length > 0) {
-            html += '<ul class="fwm-it-ul" style="list-style:none;margin:0 0 0 8px;padding:0;border-left:2px solid #c5e1a5;">';
+            html +=
+              '<ul class="fwm-it-ul" style="list-style:none;margin:0 0 0 8px;padding:0;">';
             subs.forEach(function (sub, idx) {
               var isLast = idx === subs.length - 1;
-              var nid = "fwm-it-" + (window._fwmTreeNodeId++);
-              html += '<li class="fwm-it-li" data-fwm-it="' + nid + '" style="position:relative;padding:4px 0 4px 16px;margin:0;">';
-              html += '<span class="fwm-it-h" style="position:absolute;left:-2px;top:12px;width:14px;height:0;border-top:2px solid #a5d6a7;"></span>';
-              if (isLast) {
-                html += '<span style="position:absolute;left:-2px;top:12px;bottom:0;width:4px;background:#f1f8e9;"></span>';
-                html += '<span class="fwm-it-vl" style="position:absolute;left:-2px;top:0;height:12px;width:0;border-left:2px solid #a5d6a7;"></span>';
+              var nid = "fwm-it-" + window._fwmTreeNodeId++;
+              html +=
+                '<li class="fwm-it-li" data-fwm-it="' +
+                nid +
+                '" style="position:relative;padding:4px 0 4px 16px;margin:0;">';
+              /* Vertical line segment for this item (full height, hidden for last) */
+              if (!isLast) {
+                html +=
+                  '<span class="fwm-it-v" style="position:absolute;left:0;top:0;bottom:0;width:0;border-left:2px solid #c5e1a5;"></span>';
+              } else {
+                html +=
+                  '<span class="fwm-it-v" style="position:absolute;left:0;top:0;height:14px;width:0;border-left:2px solid #c5e1a5;"></span>';
               }
-              html += '<span class="fwm-it-node" data-fwm-it="' + nid + '" onclick="window.fwmItClick(this,event)" ' +
+              /* Horizontal connector */
+              html +=
+                '<span class="fwm-it-h" style="position:absolute;left:0;top:12px;width:14px;height:0;border-top:2px solid #a5d6a7;"></span>';
+              html +=
+                '<span class="fwm-it-node" data-fwm-it="' +
+                nid +
+                '" onclick="window.fwmItClick(this,event)" ' +
                 'style="font-weight:600;font-size:0.88em;color:#333;cursor:pointer;padding:1px 6px;border-radius:4px;transition:background 0.15s;">' +
-                fwmLangLabel(sub.label) + "</span>";
+                fwmLangLabel(sub.label) +
+                "</span>";
               if (sub.hint) {
-                html += '<br><span style="font-size:0.79em;color:#777;margin-left:2px;">' +
-                  String.fromCodePoint(0x1f4a1) + " " + sub.hint + "</span>";
+                html +=
+                  '<br><span style="font-size:0.79em;color:#777;margin-left:2px;">' +
+                  String.fromCodePoint(0x1f4a1) +
+                  " " +
+                  sub.hint +
+                  "</span>";
               }
               if (sub.subs && sub.subs.length > 0) {
                 html += window.fwmRenderInlineTree(sub, depth + 1);
@@ -22863,46 +22886,78 @@ Margin                       20.0%              6.6%          -13.4pp
           return html;
         };
 
-        /* Click handler for inline tree nodes — highlights path UP + DOWN */
+        /* Click handler for inline tree nodes — highlights ONLY the selected path */
         window.fwmItClick = function (el, e) {
           e.stopPropagation();
-          /* Find the green box container */
-          var box = el.closest('[style*="border-left:3px solid"]') || el.closest('[style*="border-radius:8px"]');
+          var box =
+            el.closest('[style*="border-left:3px solid"]') ||
+            el.closest('[style*="border-radius:8px"]');
           if (!box) return;
 
-          /* Reset all highlights */
-          box.querySelectorAll('.fwm-it-node').forEach(function(n) { n.style.background = ''; n.style.color = ''; });
-          box.querySelectorAll('.fwm-it-h').forEach(function(l) { l.style.borderTopColor = '#a5d6a7'; l.style.borderTopWidth = '2px'; });
-          box.querySelectorAll('.fwm-it-ul').forEach(function(u) { u.style.borderLeftColor = '#c5e1a5'; u.style.borderLeftWidth = '2px'; });
-          box.querySelectorAll('.fwm-it-vl').forEach(function(v) { v.style.borderLeftColor = '#a5d6a7'; v.style.borderLeftWidth = '2px'; });
+          /* Reset ALL highlights */
+          box.querySelectorAll(".fwm-it-node").forEach(function (n) {
+            n.style.background = "";
+            n.style.color = "";
+          });
+          box.querySelectorAll(".fwm-it-h").forEach(function (l) {
+            l.style.borderTopColor = "#a5d6a7";
+            l.style.borderTopWidth = "2px";
+          });
+          box.querySelectorAll(".fwm-it-v").forEach(function (v) {
+            v.style.borderLeftColor = "#c5e1a5";
+            v.style.borderLeftWidth = "2px";
+          });
 
           /* Highlight the clicked node */
-          el.style.background = '#00a651';
-          el.style.color = '#fff';
+          el.style.background = "#00a651";
+          el.style.color = "#fff";
 
-          /* Walk UP — highlight ancestor connectors */
-          var cur = el.closest('.fwm-it-li') || el;
-          while (cur) {
-            var h = cur.querySelector && cur.querySelector(':scope > .fwm-it-h');
-            if (h) { h.style.borderTopColor = '#00a651'; h.style.borderTopWidth = '3px'; }
-            var vl = cur.querySelector && cur.querySelector(':scope > .fwm-it-vl');
-            if (vl) { vl.style.borderLeftColor = '#00a651'; vl.style.borderLeftWidth = '3px'; }
-            var pul = cur.closest('.fwm-it-ul');
-            if (pul) {
-              pul.style.borderLeftColor = '#00a651';
-              pul.style.borderLeftWidth = '3px';
-              cur = pul.closest('.fwm-it-li');
-            } else { break; }
+          /* Walk UP — highlight ONLY the specific path connectors */
+          var curLi = el.closest(".fwm-it-li");
+          while (curLi) {
+            /* Color this item's horizontal connector */
+            var h = curLi.querySelector(":scope > .fwm-it-h");
+            if (h) {
+              h.style.borderTopColor = "#00a651";
+              h.style.borderTopWidth = "3px";
+            }
+            /* Color this item's vertical segment */
+            var v = curLi.querySelector(":scope > .fwm-it-v");
+            if (v) {
+              v.style.borderLeftColor = "#00a651";
+              v.style.borderLeftWidth = "3px";
+            }
+            /* Color vertical segments of preceding siblings (they form the continuous path) */
+            var prev = curLi.previousElementSibling;
+            while (prev) {
+              var pv = prev.querySelector(":scope > .fwm-it-v");
+              if (pv) {
+                pv.style.borderLeftColor = "#00a651";
+                pv.style.borderLeftWidth = "3px";
+              }
+              prev = prev.previousElementSibling;
+            }
+            /* Go up to parent list's parent item */
+            var pul = curLi.closest(".fwm-it-ul");
+            curLi = pul ? pul.closest(".fwm-it-li") : null;
           }
 
           /* Walk DOWN — highlight all descendant connectors + nodes */
-          var item = el.closest('.fwm-it-li') || el.parentElement;
+          var item = el.closest(".fwm-it-li") || el.parentElement;
           if (item) {
-            item.querySelectorAll('.fwm-it-ul').forEach(function(u) { u.style.borderLeftColor = '#00a651'; u.style.borderLeftWidth = '3px'; });
-            item.querySelectorAll('.fwm-it-h').forEach(function(h) { h.style.borderTopColor = '#00a651'; h.style.borderTopWidth = '3px'; });
-            item.querySelectorAll('.fwm-it-vl').forEach(function(v) { v.style.borderLeftColor = '#00a651'; v.style.borderLeftWidth = '3px'; });
-            item.querySelectorAll('.fwm-it-node').forEach(function(n) {
-              if (n !== el) { n.style.background = '#e8f5e9'; n.style.color = '#2e7d32'; }
+            item.querySelectorAll(".fwm-it-v").forEach(function (v) {
+              v.style.borderLeftColor = "#00a651";
+              v.style.borderLeftWidth = "3px";
+            });
+            item.querySelectorAll(".fwm-it-h").forEach(function (h) {
+              h.style.borderTopColor = "#00a651";
+              h.style.borderTopWidth = "3px";
+            });
+            item.querySelectorAll(".fwm-it-node").forEach(function (n) {
+              if (n !== el) {
+                n.style.background = "#e8f5e9";
+                n.style.color = "#2e7d32";
+              }
             });
           }
         };
