@@ -10606,6 +10606,13 @@
               />
               🔀 Interactive Mode
             </label>
+            <span style="display:flex;align-items:center;gap:6px;font-size:0.85em;color:var(--text-muted);white-space:nowrap;">
+              <span id="fwm-lang-en" onclick="window.fwmSetLang('en')"
+                style="cursor:pointer;padding:3px 8px;border-radius:12px;background:var(--bcg-green);color:#fff;font-weight:600;transition:all 0.2s;">🇬🇧 EN</span>
+              <span style="color:#ccc;">/</span>
+              <span id="fwm-lang-pt" onclick="window.fwmSetLang('pt')"
+                style="cursor:pointer;padding:3px 8px;border-radius:12px;background:transparent;color:var(--text-muted);font-weight:600;transition:all 0.2s;">🇵🇹 PT</span>
+            </span>
           </div>
         </div>
 
@@ -10834,6 +10841,8 @@
             <div
               class="fwm-pill"
               id="fwm-n-profitability"
+              data-en="💰 PROFITABILITY"
+              data-pt="💰 RENTABILIDADE"
               data-fwm="profitability"
               style="
                 background: #00a651;
@@ -10854,6 +10863,8 @@
             <div
               class="fwm-pill"
               id="fwm-n-revenue"
+              data-en="📈 Revenue"
+              data-pt="📈 Receitas"
               data-fwm="revenue"
               style="background: #fff; color: #2e7d32; border-color: #00a651"
             >
@@ -10862,6 +10873,8 @@
             <div
               class="fwm-pill"
               id="fwm-n-costs"
+              data-en="📉 Costs"
+              data-pt="📉 Custos"
               data-fwm="costs"
               style="background: #fff; color: #2e7d32; border-color: #00a651"
             >
@@ -10876,6 +10889,8 @@
             <div
               class="fwm-pill"
               id="fwm-n-volume"
+              data-en="📊 Volume"
+              data-pt="📊 Volume"
               data-fwm="volume"
               style="
                 background: #fff;
@@ -10889,6 +10904,8 @@
             <div
               class="fwm-pill"
               id="fwm-n-price"
+              data-en="💲 Price"
+              data-pt="💲 Preço"
               data-fwm="price"
               style="
                 background: #fff;
@@ -10903,6 +10920,8 @@
             <div
               class="fwm-pill"
               id="fwm-n-fc"
+              data-en="🏢 Fixed Costs"
+              data-pt="🏢 Custos Fixos"
               data-fwm="fixed-costs"
               style="
                 background: #fff;
@@ -10916,6 +10935,8 @@
             <div
               class="fwm-pill"
               id="fwm-n-vc"
+              data-en="📦 Variable Costs"
+              data-pt="📦 Custos Variáveis"
               data-fwm="variable-costs"
               style="
                 background: #fff;
@@ -10935,6 +10956,8 @@
             <div
               class="fwm-pill"
               id="fwm-n-growth"
+              data-en="📈 2. GROWTH"
+              data-pt="📈 2. CRESCIMENTO"
               data-fwm="growth"
               style="
                 background: #e8f5e9;
@@ -10948,6 +10971,8 @@
             <div
               class="fwm-pill"
               id="fwm-n-pricing"
+              data-en="🏷️ 6. PRICING"
+              data-pt="🏷️ 6. PREÇO"
               data-fwm="pricing"
               style="
                 background: #fffde7;
@@ -10961,6 +10986,8 @@
             <div
               class="fwm-pill"
               id="fwm-n-comp-resp"
+              data-en="⚔️ 9. COMP. RESPONSE"
+              data-pt="⚔️ 9. RESP. COMPET."
               data-fwm="competitive-response"
               style="
                 background: #fff3e0;
@@ -10974,6 +11001,8 @@
             <div
               class="fwm-pill"
               id="fwm-n-cost-red"
+              data-en="📉 3. COST REDUCTION"
+              data-pt="📉 3. REDUÇÃO CUSTOS"
               data-fwm="cost-reduction"
               style="
                 background: #ffebee;
@@ -10987,6 +11016,8 @@
             <div
               class="fwm-pill"
               id="fwm-n-investment"
+              data-en="💼 7. INVESTMENT"
+              data-pt="💼 7. INVESTIMENTO"
               data-fwm="investment"
               style="
                 background: #ede7f6;
@@ -11006,6 +11037,8 @@
             <div
               class="fwm-pill"
               id="fwm-n-market-entry"
+              data-en="🚀 4. MARKET ENTRY"
+              data-pt="🚀 4. ENTRADA MERCADO"
               data-fwm="market-entry"
               style="
                 background: #e0f7fa;
@@ -11019,6 +11052,8 @@
             <div
               class="fwm-pill"
               id="fwm-n-new-product"
+              data-en="🆕 5. NEW PRODUCT"
+              data-pt="🆕 5. NOVO PRODUTO"
               data-fwm="new-product"
               style="
                 background: #f3e5f5;
@@ -11032,6 +11067,8 @@
             <div
               class="fwm-pill"
               id="fwm-n-m-and-a"
+              data-en="🤝 8. M&A"
+              data-pt="🤝 8. M&A"
               data-fwm="m-and-a"
               style="
                 background: #e8eaf6;
@@ -11046,6 +11083,8 @@
             <div
               class="fwm-pill"
               id="fwm-n-process-opt"
+              data-en="⚙️ 10. PROCESS OPT."
+              data-pt="⚙️ 10. OTIM. PROCESSO"
               data-fwm="process-optimization"
               style="
                 background: #efebe9;
@@ -22208,6 +22247,166 @@ Margin                       20.0%              6.6%          -13.4pp
       })();
 
       // ═══════════════════════════════════════════════
+      // FRAMEWORK MAP — PT/EN LANGUAGE TOGGLE
+      // ═══════════════════════════════════════════════
+      (function () {
+        window.fwmLang = "en";
+
+        /* Translation map for DYNAMIC pills (created by makePill).
+           Static pills use data-en / data-pt attributes set in HTML. */
+        window.FWM_PT = {
+          /* ── Growth subs ── */
+          "fwm-x-grow-core":    "\ud83d\udcc8 Crescer no Core",
+          "fwm-x-grow-outside": "\ud83c\udf10 Crescer fora do Core",
+          "fwm-x-gc-current":   "\ud83d\udcca Crescer Segmentos Atuais",
+          "fwm-x-gc-fastest":   "\ud83d\ude80 Investir nos de Maior Crescimento",
+          "fwm-x-go-newprod":   "\ud83c\udd95 Novos Produtos \u2192 Atuais",
+          "fwm-x-go-newbiz":    "\ud83c\udfe2 Capacidades \u2192 Novos Neg\u00f3cios",
+
+          /* ── Cost Reduction subs ── */
+          "fwm-x-costr-need":   "\ud83d\udeab Reduzir a Necessidade",
+          "fwm-x-costr-less":   "\u26a1 Cumprir com Menos",
+          "fwm-x-costr-cheaper":"\ud83d\udcb0 Recursos mais Baratos",
+          "fwm-x-cn-elim":      "\u274c Eliminar Totalmente",
+          "fwm-x-cn-reduce":    "\ud83d\udcc9 Reduzir N\u00edvel de Servi\u00e7o",
+          "fwm-x-cl-waste":     "\ud83d\uddd1\ufe0f Eliminar Desperd\u00edcio",
+          "fwm-x-cl-prod":      "\ud83d\udcc8 Melhorar Produtividade",
+          "fwm-x-cc-alt":       "\ud83d\udd04 Encontrar Alternativas",
+          "fwm-x-cc-renego":    "\ud83e\udd1d Renegociar Custos",
+
+          /* ── Pricing subs ── */
+          "fwm-x-price-floor":  "\ud83d\udcca Custos (Piso)",
+          "fwm-x-price-bench":  "\u2696\ufe0f Concorrentes (Refer\u00eancia)",
+          "fwm-x-price-ceil":   "\ud83c\udfaf DaP (Teto)",
+          "fwm-x-pf-var":       "\ud83d\udce6 Custos Vari\u00e1veis",
+          "fwm-x-pf-fix":       "\ud83c\udfe2 Custos Fixos",
+          "fwm-x-pf-inv":       "\ud83d\udcb0 Custos de Investimento",
+          "fwm-x-pf-markup":    "\ud83d\udcc8 Margem",
+
+          /* ── Competitive Response subs ── */
+          "fwm-x-cr-impact":    "\ud83d\udcc9 Impacto Potencial",
+          "fwm-x-cr-opp":       "\ud83d\udd0d Oportunidade do Concorrente",
+          "fwm-x-cr-resp":      "\ud83d\udee1\ufe0f Respostas Poss\u00edveis",
+          "fwm-x-cri-seg":      "\ud83c\udfaf Segmento Afetado",
+          "fwm-x-cri-size":     "\ud83d\udcca Dimens\u00e3o do Impacto",
+          "fwm-x-cri-profit":   "\ud83d\udcb0 Rentabilidade em Risco",
+          "fwm-x-cri-loss":     "\ud83d\udcc9 Perda Estimada",
+          "fwm-x-crr-nothing":  "\u23f8\ufe0f N\u00e3o Fazer Nada",
+          "fwm-x-crr-mitigate": "\ud83d\udee1\ufe0f Mitigar",
+          "fwm-x-crr-replicate":"\ud83d\udccb Replicar",
+          "fwm-x-crr-collab":   "\ud83e\udd1d Colaborar",
+          "fwm-x-crr-align":    "\ud83d\udd04 Alinhar / Pivotar",
+
+          /* ── Investment subs ── */
+          "fwm-x-inv-rev":      "\ud83d\udcc8 Impacto nas Receitas",
+          "fwm-x-inv-cost":     "\ud83d\udcc9 Impacto nos Custos",
+          "fwm-x-inv-be":       "\u2696\ufe0f Ponto de Equil\u00edbrio",
+          "fwm-x-inv-impl":     "\ud83d\udd27 Implementa\u00e7\u00e3o",
+          "fwm-x-invi-cap":     "\ud83c\udfaf Capacidades Necess\u00e1rias",
+          "fwm-x-invi-time":    "\u23f1\ufe0f Cronograma",
+          "fwm-x-invi-risk":    "\u26a0\ufe0f Riscos",
+
+          /* ── Market Entry subs ── */
+          "fwm-x-me-opp":       "\ud83d\udcca Oportunidade de Mercado",
+          "fwm-x-me-share":     "\ud83c\udfaf Quota Potencial",
+          "fwm-x-me-profit":    "\ud83d\udcb0 Lucro Potencial",
+          "fwm-x-me-cap":       "\ud83d\udd27 Capacidades e Riscos",
+          "fwm-x-meo-size":     "\ud83d\udccf Dimens\u00e3o do Mercado",
+          "fwm-x-meo-growth":   "\ud83d\udcc8 Taxa de Crescimento",
+          "fwm-x-mes-needs":    "\ud83d\udca1 Necessidades dos Clientes",
+          "fwm-x-mes-offer":    "\ud83c\udff7\ufe0f A Nossa Oferta",
+          "fwm-x-mes-comp":     "\u2694\ufe0f Concorrentes",
+          "fwm-x-mep-inv":      "\ud83d\udcb8 Investimento Necess\u00e1rio",
+          "fwm-x-mep-run":      "\ud83d\udd04 Custos Operacionais",
+          "fwm-x-mep-rev":      "\ud83d\udcc8 Receitas Esperadas",
+          "fwm-x-mec-cap":      "\ud83c\udfaf Temos Capacidades?",
+          "fwm-x-mec-risk":     "\u26a0\ufe0f Riscos-Chave",
+
+          /* ── New Product subs ── */
+          "fwm-x-np-seg":       "\ud83c\udfaf Segmentos-Alvo",
+          "fwm-x-np-mkt":       "\ud83d\udce3 Estrat\u00e9gia de Marketing",
+          "fwm-x-np-impl":      "\ud83d\udd27 Implementa\u00e7\u00e3o",
+          "fwm-x-nps-size":     "\ud83d\udccf Dimens\u00e3o e Crescimento",
+          "fwm-x-nps-comp":     "\u2694\ufe0f Concorr\u00eancia",
+          "fwm-x-nps-needs":    "\ud83d\udca1 Necessidades dos Clientes",
+          "fwm-x-npm-prod":     "\ud83d\udce6 Produto",
+          "fwm-x-npm-price":    "\ud83d\udcb2 Pre\u00e7o",
+          "fwm-x-npm-dist":     "\ud83d\ude9a Distribui\u00e7\u00e3o",
+          "fwm-x-npm-promo":    "\ud83d\udce2 Promo\u00e7\u00e3o",
+          "fwm-x-npi-design":   "\ud83c\udfa8 Design do Produto",
+          "fwm-x-npi-prod":     "\ud83c\udfed Produ\u00e7\u00e3o",
+          "fwm-x-npi-mkt":      "\ud83d\udce3 Marketing e Vendas",
+          "fwm-x-npi-log":      "\ud83d\ude9a Log\u00edstica",
+          "fwm-x-npi-after":    "\ud83d\udd27 P\u00f3s-Venda",
+
+          /* ── M&A subs ── */
+          "fwm-x-ma-stand":     "\ud83d\udcca Valor Aut\u00f3nomo",
+          "fwm-x-ma-syn":       "\ud83e\udd1d Sinergias",
+          "fwm-x-ma-cap":       "\ud83d\udd27 Capacidades e Riscos",
+          "fwm-x-mav-rev":      "\ud83d\udcc8 Receitas Futuras",
+          "fwm-x-mav-cost":     "\ud83d\udcc9 Custos Futuros",
+          "fwm-x-mav-mult":     "\ud83d\udcca M\u00faltiplos",
+          "fwm-x-may-cost":     "\ud83d\udcc9 Sinergias de Custo",
+          "fwm-x-may-rev":      "\ud83d\udcc8 Sinergias de Receita",
+          "fwm-x-mac-int":      "\ud83d\udd04 Plano de Integra\u00e7\u00e3o",
+          "fwm-x-mac-cult":     "\ud83d\udc65 Encaixe Cultural",
+          "fwm-x-mac-reg":      "\u2696\ufe0f Regulat\u00f3rio",
+
+          /* ── Process Optimization subs ── */
+          "fwm-x-po-map":       "\ud83d\uddfa\ufe0f Mapear Processo",
+          "fwm-x-po-step":      "\ud83d\udd0d Otimizar Etapas",
+          "fwm-x-po-gain":      "\ud83d\udcc8 Estimar Ganhos",
+          "fwm-x-pom-cap":      "\ud83d\udcca Capacidade Total",
+          "fwm-x-pom-util":     "\ud83d\udcc8 Utiliza\u00e7\u00e3o",
+          "fwm-x-pom-bottle":   "\ud83d\udd34 Gargalo",
+          "fwm-x-pos-elim":     "\u274c Eliminar Baixo Valor",
+          "fwm-x-pos-antic":    "\ud83d\udd2e Antecipar e Prevenir",
+          "fwm-x-pog-cost":     "\ud83d\udcb0 Redu\u00e7\u00e3o de Custo",
+          "fwm-x-pog-qual":     "\u2b50 Melhoria de Qualidade",
+          "fwm-x-pog-speed":    "\u26a1 Aumento de Velocidade"
+        };
+
+        window.fwmSetLang = function (lang) {
+          window.fwmLang = lang;
+          /* Update toggle buttons appearance */
+          var enBtn = document.getElementById("fwm-lang-en");
+          var ptBtn = document.getElementById("fwm-lang-pt");
+          if (enBtn && ptBtn) {
+            if (lang === "en") {
+              enBtn.style.background = "var(--bcg-green)";
+              enBtn.style.color = "#fff";
+              ptBtn.style.background = "transparent";
+              ptBtn.style.color = "var(--text-muted)";
+            } else {
+              ptBtn.style.background = "var(--bcg-green)";
+              ptBtn.style.color = "#fff";
+              enBtn.style.background = "transparent";
+              enBtn.style.color = "var(--text-muted)";
+            }
+          }
+          /* Update ALL .fwm-pill elements */
+          document.querySelectorAll(".fwm-pill").forEach(function (pill) {
+            /* Static pills have data-en / data-pt */
+            var label = pill.getAttribute("data-" + lang);
+            if (label) {
+              pill.textContent = label;
+              return;
+            }
+            /* Dynamic pills: look up in FWM_PT map */
+            if (lang === "pt" && window.FWM_PT[pill.id]) {
+              /* Store EN label if not already stored */
+              if (!pill.getAttribute("data-en")) {
+                pill.setAttribute("data-en", pill.textContent);
+              }
+              pill.textContent = window.FWM_PT[pill.id];
+            } else if (lang === "en" && pill.getAttribute("data-en")) {
+              pill.textContent = pill.getAttribute("data-en");
+            }
+          });
+        };
+      })();
+
+      // ═══════════════════════════════════════════════
       // FRAMEWORK MAP — INTERACTIVE EXPAND/COLLAPSE
       // ═══════════════════════════════════════════════
       (function () {
@@ -22798,7 +22997,13 @@ Margin                       20.0%              6.6%          -13.4pp
             (clickable
               ? "cursor:pointer;"
               : "cursor:default;");
-          div.textContent = sub.label;
+          /* Store EN label and apply current language */
+          div.setAttribute("data-en", sub.label);
+          if (window.fwmLang === "pt" && window.FWM_PT[sub.id]) {
+            div.textContent = window.FWM_PT[sub.id];
+          } else {
+            div.textContent = sub.label;
+          }
           return div;
         }
 
