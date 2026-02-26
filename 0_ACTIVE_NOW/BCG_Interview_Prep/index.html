@@ -451,14 +451,14 @@
         justify-content: center;
         font-size: 14px;
         color: #888;
-        box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
         z-index: 201;
         transition: all 0.3s ease;
       }
       .sidebar-collapse-btn:hover {
         color: #333;
         background: #f5f5f5;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
       }
       body.sidebar-collapsed .sidebar {
         transform: translateX(-100%);
@@ -1403,7 +1403,14 @@
     <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
 
     <!-- SIDEBAR -->
-    <button class="sidebar-collapse-btn" id="sidebar-collapse-toggle" onclick="toggleSidebarCollapse()" title="Collapse sidebar">&#x276E;</button>
+    <button
+      class="sidebar-collapse-btn"
+      id="sidebar-collapse-toggle"
+      onclick="toggleSidebarCollapse()"
+      title="Collapse sidebar"
+    >
+      &#x276E;
+    </button>
     <aside class="sidebar" id="bcg-nav">
       <div class="sidebar-header">
         <h1>BCG PREP</h1>
@@ -22822,30 +22829,40 @@ Margin                       20.0%              6.6%          -13.4pp
           }
 
           if (subs.length > 0) {
-            html += '<ul style="list-style:none;margin:0 0 0 ' + (depth > 0 ? '8' : '0') + 'px;padding:0;border-left:' + (depth > 0 ? '2px solid #c5e1a5' : 'none') + ';">';
+            html +=
+              '<ul style="list-style:none;margin:0 0 0 8px;padding:0;border-left:2px solid #c5e1a5;">';
             subs.forEach(function (sub, idx) {
               var isLast = idx === subs.length - 1;
-              html += '<li style="position:relative;padding:4px 0 4px ' + (depth > 0 ? '16' : '4') + 'px;margin:0;">';
+              html +=
+                '<li style="position:relative;padding:4px 0 4px 16px;margin:0;">';
               /* Tree connector: horizontal tee line */
-              if (depth > 0) {
-                html += '<span style="position:absolute;left:-2px;top:12px;width:14px;height:0;border-top:2px solid #a5d6a7;"></span>';
-                /* Vertical line cutoff for last item */
-                if (isLast) {
-                  html += '<span style="position:absolute;left:-2px;top:12px;bottom:0;width:4px;background:#f1f8e9;"></span>';
-                  html += '<span style="position:absolute;left:-2px;top:0;height:12px;width:0;border-left:2px solid #a5d6a7;"></span>';
-                }
+              html +=
+                '<span style="position:absolute;left:-2px;top:12px;width:14px;height:0;border-top:2px solid #a5d6a7;"></span>';
+              /* Vertical line cutoff for last item */
+              if (isLast) {
+                html +=
+                  '<span style="position:absolute;left:-2px;top:12px;bottom:0;width:4px;background:#f1f8e9;"></span>';
+                html +=
+                  '<span style="position:absolute;left:-2px;top:0;height:12px;width:0;border-left:2px solid #a5d6a7;"></span>';
               }
-              html += '<span style="font-weight:600;font-size:0.88em;color:#333;">' + fwmLangLabel(sub.label) + '</span>';
+              html +=
+                '<span style="font-weight:600;font-size:0.88em;color:#333;">' +
+                fwmLangLabel(sub.label) +
+                "</span>";
               if (sub.hint) {
-                html += '<br><span style="font-size:0.79em;color:#777;margin-left:2px;">' +
-                  String.fromCodePoint(0x1f4a1) + ' ' + sub.hint + '</span>';
+                html +=
+                  '<br><span style="font-size:0.79em;color:#777;margin-left:2px;">' +
+                  String.fromCodePoint(0x1f4a1) +
+                  " " +
+                  sub.hint +
+                  "</span>";
               }
               if (sub.subs && sub.subs.length > 0) {
                 html += window.fwmRenderInlineTree(sub, depth + 1);
               }
-              html += '</li>';
+              html += "</li>";
             });
-            html += '</ul>';
+            html += "</ul>";
           }
           return html;
         };
@@ -25276,17 +25293,19 @@ Margin                       20.0%              6.6%          -13.4pp
       // Mobile sidebar
       function toggleSidebarCollapse() {
         var body = document.body;
-        body.classList.toggle('sidebar-collapsed');
-        var btn = document.getElementById('sidebar-collapse-toggle');
-        if (body.classList.contains('sidebar-collapsed')) {
-          btn.innerHTML = '&#x276F;'; // right arrow
-          btn.title = 'Expand sidebar';
+        body.classList.toggle("sidebar-collapsed");
+        var btn = document.getElementById("sidebar-collapse-toggle");
+        if (body.classList.contains("sidebar-collapsed")) {
+          btn.innerHTML = "&#x276F;"; // right arrow
+          btn.title = "Expand sidebar";
         } else {
-          btn.innerHTML = '&#x276E;'; // left arrow
-          btn.title = 'Collapse sidebar';
+          btn.innerHTML = "&#x276E;"; // left arrow
+          btn.title = "Collapse sidebar";
         }
         // Redraw framework map lines after animation
-        setTimeout(function() { if (window.drawFwmLines) window.drawFwmLines(); }, 350);
+        setTimeout(function () {
+          if (window.drawFwmLines) window.drawFwmLines();
+        }, 350);
       }
 
       function toggleSidebar() {
