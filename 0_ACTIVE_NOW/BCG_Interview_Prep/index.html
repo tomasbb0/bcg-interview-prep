@@ -24923,16 +24923,32 @@ Margin                       20.0%              6.6%          -13.4pp
 
           data.subs.forEach(function (sub) {
             var hasChildren = sub.subs && sub.subs.length > 0;
-            var pill = makePill(sub, hasChildren);
+            var pill = makePill(
+              sub,
+              true,
+            ); /* ALL pills clickable for highlighting */
 
             if (hasChildren) {
               pill.addEventListener("click", function () {
                 if (!fwmInteractive) return;
                 if (lvl2.subId === sub.id) {
                   collapseLevel2();
+                  /* Restore highlight to parent pill */
+                  window.fwmHighlightPill = lvl1.pillEl ? lvl1.pillEl.id : null;
+                  redraw();
                 } else {
                   expandLevel2(sub.id, pill);
+                  /* Highlight THIS sub-pill so only its path is green */
+                  window.fwmHighlightPill = pill.id;
+                  redraw();
                 }
+              });
+            } else {
+              /* Leaf pill — click to highlight its path */
+              pill.addEventListener("click", function () {
+                if (!fwmInteractive) return;
+                window.fwmHighlightPill = pill.id;
+                redraw();
               });
             }
             row.appendChild(pill);
@@ -24977,10 +24993,20 @@ Margin                       20.0%              6.6%          -13.4pp
             "animation:fwmSlideDown 0.3s ease;";
 
           sub.subs.forEach(function (child) {
-            var pill = makePill(child, false); /* leaf nodes */
+            var pill = makePill(
+              child,
+              true,
+            ); /* leaf nodes — clickable for highlighting */
             pill.style.fontSize = "10px";
             pill.style.padding = "5px 12px";
             pill.style.minWidth = "90px";
+            pill.style.cursor = "pointer";
+            /* Click to highlight path to this leaf pill */
+            pill.addEventListener("click", function () {
+              if (!fwmInteractive) return;
+              window.fwmHighlightPill = pill.id;
+              redraw();
+            });
             row.appendChild(pill);
           });
 
