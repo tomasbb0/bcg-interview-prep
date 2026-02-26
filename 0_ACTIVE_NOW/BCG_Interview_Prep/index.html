@@ -23559,8 +23559,15 @@ Margin                       20.0%              6.6%          -13.4pp
           /* Build highlight set: ancestors (up to root) + descendants (down to leaves) */
           var hlSet = {};
           if (window.fwmHighlightPill) {
-            /* Build parent map (solid connections only for upward walk) */
+            /* Build parent map from ALL connections (solid first, then dashed overrides only if no solid parent) */
             var parentMap = {};
+            /* First pass: dashed connections */
+            FWM_CONNS.forEach(function (conn) {
+              if (conn.d) {
+                if (!parentMap[conn.t]) parentMap[conn.t] = conn.f;
+              }
+            });
+            /* Second pass: solid connections (override dashed) */
             FWM_CONNS.forEach(function (conn) {
               if (!conn.d) {
                 parentMap[conn.t] = conn.f;
