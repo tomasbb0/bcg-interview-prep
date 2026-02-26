@@ -450,7 +450,7 @@
         background: #fff;
         border: 1px solid #e5e5e5;
         border-radius: 50%;
-        cursor: pointer;
+        cursor: ew-resize;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -458,7 +458,8 @@
         color: #888;
         box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
         z-index: 201;
-        transition: all 0.3s ease;
+        transition: left 0.15s ease, width 0.15s ease, height 0.15s ease;
+        user-select: none;
       }
       .sidebar-collapse-btn:hover {
         color: #333;
@@ -1411,8 +1412,7 @@
     <button
       class="sidebar-collapse-btn"
       id="sidebar-collapse-toggle"
-      onclick="toggleSidebarCollapse()"
-      title="Collapse sidebar"
+      title="Collapse sidebar · Drag to resize"
     >
       &#x276E;
     </button>
@@ -25493,13 +25493,72 @@ Margin                       20.0%              6.6%          -13.4pp
           btn.title = "Expand sidebar";
         } else {
           btn.innerHTML = "&#x276E;"; // left arrow
-          btn.title = "Collapse sidebar";
+          btn.title = "Collapse sidebar · Drag to resize";
         }
         // Redraw framework map lines after animation
         setTimeout(function () {
           if (window.drawFwmLines) window.drawFwmLines();
         }, 350);
       }
+
+      /* SIDEBAR DRAG-TO-RESIZE */
+      (function () {
+        var btn = document.getElementById("sidebar-collapse-toggle");
+        if (!btn) return;
+        var startX,
+          startW,
+          isDragging = false,
+          didDrag = false;
+        var MIN_W = 120,
+          MAX_W = 500;
+
+        btn.addEventListener("mousedown", function (e) {
+          if (document.body.classList.contains("sidebar-collapsed")) {
+            /* If collapsed, just toggle on click */
+            return;
+          }
+          startX = e.clientX;
+          startW =
+            parseInt(
+              getComputedStyle(document.documentElement).getPropertyValue(
+                "--sidebar-width",
+              ),
+            ) || 260;
+          isDragging = true;
+          didDrag = false;
+          e.preventDefault();
+        });
+
+        document.addEventListener("mousemove", function (e) {
+          if (!isDragging) return;
+          var dx = e.clientX - startX;
+          if (Math.abs(dx) > 4) didDrag = true;
+          var newW = Math.max(MIN_W, Math.min(MAX_W, startW + dx));
+          document.documentElement.style.setProperty(
+            "--sidebar-width",
+            newW + "px",
+          );
+        });
+
+        document.addEventListener("mouseup", function () {
+          if (!isDragging) return;
+          isDragging = false;
+          if (!didDrag) {
+            /* It was a click, not a drag — toggle collapse */
+            toggleSidebarCollapse();
+          } else {
+            /* Finished dragging — redraw connector lines */
+            if (window.drawFwmLines) window.drawFwmLines();
+          }
+        });
+
+        /* Also handle clicks when collapsed (mousedown listener doesn't call preventDefault) */
+        btn.addEventListener("click", function () {
+          if (document.body.classList.contains("sidebar-collapsed")) {
+            toggleSidebarCollapse();
+          }
+        });
+      })();
 
       function toggleSidebar() {
         document.getElementById("bcg-nav").classList.toggle("open");
