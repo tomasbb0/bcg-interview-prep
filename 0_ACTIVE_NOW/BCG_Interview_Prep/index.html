@@ -22850,22 +22850,22 @@ Margin                       20.0%              6.6%          -13.4pp
                 '<li class="fwm-it-li" data-fwm-it="' +
                 nid +
                 '" style="position:relative;padding:4px 0 4px 16px;margin:0;">';
-              /* Vertical line segment for this item (full height, hidden for last) */
+              /* Vertical line segment for this item (full height, hidden for last) — pointer-events:none so clicks pass through */
               if (!isLast) {
                 html +=
-                  '<span class="fwm-it-v" style="position:absolute;left:0;top:0;bottom:0;width:0;border-left:2px solid #c5e1a5;"></span>';
+                  '<span class="fwm-it-v" style="position:absolute;left:0;top:0;bottom:0;width:0;border-left:2px solid #c5e1a5;pointer-events:none;"></span>';
               } else {
                 html +=
-                  '<span class="fwm-it-v" style="position:absolute;left:0;top:0;height:14px;width:0;border-left:2px solid #c5e1a5;"></span>';
+                  '<span class="fwm-it-v" style="position:absolute;left:0;top:0;height:14px;width:0;border-left:2px solid #c5e1a5;pointer-events:none;"></span>';
               }
-              /* Horizontal connector */
+              /* Horizontal connector — pointer-events:none */
               html +=
-                '<span class="fwm-it-h" style="position:absolute;left:0;top:12px;width:14px;height:0;border-top:2px solid #a5d6a7;"></span>';
+                '<span class="fwm-it-h" style="position:absolute;left:0;top:12px;width:14px;height:0;border-top:2px solid #a5d6a7;pointer-events:none;"></span>';
               html +=
                 '<span class="fwm-it-node" data-fwm-it="' +
                 nid +
                 '" onclick="window.fwmItClick(this,event)" ' +
-                'style="font-weight:600;font-size:0.88em;color:#333;cursor:pointer;padding:1px 6px;border-radius:4px;transition:background 0.15s;">' +
+                'style="display:inline-block;position:relative;z-index:1;font-weight:600;font-size:0.88em;color:#333;cursor:pointer;padding:1px 6px;border-radius:4px;transition:background 0.15s;">' +
                 fwmLangLabel(sub.label) +
                 "</span>";
               if (sub.hint) {
@@ -22912,39 +22912,39 @@ Margin                       20.0%              6.6%          -13.4pp
           el.style.background = "#00a651";
           el.style.color = "#fff";
 
-          /* Walk UP — highlight ONLY the specific path connectors */
+          /* Walk UP — highlight ancestor LABELS + horizontal connectors only (NOT vertical segments of siblings) */
           var curLi = el.closest(".fwm-it-li");
           while (curLi) {
-            /* Color this item's horizontal connector */
+            /* Color this item's horizontal connector only */
             var h = curLi.querySelector(":scope > .fwm-it-h");
             if (h) {
               h.style.borderTopColor = "#00a651";
               h.style.borderTopWidth = "3px";
             }
-            /* Color this item's vertical segment */
-            var v = curLi.querySelector(":scope > .fwm-it-v");
-            if (v) {
-              v.style.borderLeftColor = "#00a651";
-              v.style.borderLeftWidth = "3px";
+            /* Highlight ancestor label (light green, not the clicked one) */
+            var anc = curLi.querySelector(":scope > .fwm-it-node");
+            if (anc && anc !== el) {
+              anc.style.background = "#e8f5e9";
+              anc.style.color = "#2e7d32";
             }
-            /* Color vertical segments of preceding siblings (they form the continuous path) */
-            var prev = curLi.previousElementSibling;
-            while (prev) {
-              var pv = prev.querySelector(":scope > .fwm-it-v");
-              if (pv) {
-                pv.style.borderLeftColor = "#00a651";
-                pv.style.borderLeftWidth = "3px";
-              }
-              prev = prev.previousElementSibling;
-            }
-            /* Go up to parent list's parent item */
+            /* Go up */
             var pul = curLi.closest(".fwm-it-ul");
             curLi = pul ? pul.closest(".fwm-it-li") : null;
           }
+          /* Also highlight root label if we clicked inside a child */
+          if (el.closest(".fwm-it-li")) {
+            box.querySelectorAll(".fwm-it-node").forEach(function (n) {
+              if (!n.closest(".fwm-it-li") && n !== el) {
+                n.style.background = "#e8f5e9";
+                n.style.color = "#2e7d32";
+              }
+            });
+          }
 
-          /* Walk DOWN — highlight all descendant connectors + nodes */
-          var item = el.closest(".fwm-it-li") || el.parentElement;
+          /* Walk DOWN — highlight all DESCENDANT connectors + nodes */
+          var item = el.closest(".fwm-it-li");
           if (item) {
+            /* Clicked inside a tree item — descendants are within this li */
             item.querySelectorAll(".fwm-it-v").forEach(function (v) {
               v.style.borderLeftColor = "#00a651";
               v.style.borderLeftWidth = "3px";
@@ -22954,6 +22954,22 @@ Margin                       20.0%              6.6%          -13.4pp
               h.style.borderTopWidth = "3px";
             });
             item.querySelectorAll(".fwm-it-node").forEach(function (n) {
+              if (n !== el) {
+                n.style.background = "#e8f5e9";
+                n.style.color = "#2e7d32";
+              }
+            });
+          } else {
+            /* Clicked on root node — highlight entire tree below */
+            box.querySelectorAll(".fwm-it-v").forEach(function (v) {
+              v.style.borderLeftColor = "#00a651";
+              v.style.borderLeftWidth = "3px";
+            });
+            box.querySelectorAll(".fwm-it-h").forEach(function (h) {
+              h.style.borderTopColor = "#00a651";
+              h.style.borderTopWidth = "3px";
+            });
+            box.querySelectorAll(".fwm-it-node").forEach(function (n) {
               if (n !== el) {
                 n.style.background = "#e8f5e9";
                 n.style.color = "#2e7d32";
