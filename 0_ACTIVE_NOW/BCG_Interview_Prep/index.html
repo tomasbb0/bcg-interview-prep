@@ -434,6 +434,56 @@
         margin: 8px 20px;
       }
 
+      /* SIDEBAR COLLAPSE TOGGLE (desktop) */
+      .sidebar-collapse-btn {
+        position: absolute;
+        top: 50%;
+        right: -14px;
+        transform: translateY(-50%);
+        width: 28px;
+        height: 28px;
+        background: #fff;
+        border: 1px solid #e5e5e5;
+        border-radius: 50%;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 14px;
+        color: #888;
+        box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+        z-index: 101;
+        transition: all 0.2s;
+      }
+      .sidebar-collapse-btn:hover {
+        color: #333;
+        background: #f5f5f5;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+      }
+      body.sidebar-collapsed .sidebar {
+        width: 0;
+        overflow: hidden;
+        border-right: none;
+      }
+      body.sidebar-collapsed .sidebar > * {
+        opacity: 0;
+        pointer-events: none;
+      }
+      body.sidebar-collapsed .sidebar .sidebar-collapse-btn {
+        opacity: 1;
+        pointer-events: auto;
+        right: -40px;
+        width: 32px;
+        height: 32px;
+        font-size: 16px;
+      }
+      body.sidebar-collapsed .main {
+        margin-left: 0;
+      }
+      body.sidebar-collapsed .menu-toggle {
+        display: none;
+      }
+
       /* MOBILE MENU */
       .menu-toggle {
         display: none;
@@ -455,7 +505,7 @@
       /* MAIN */
       .main {
         margin-left: var(--sidebar-width);
-        max-width: 900px;
+        max-width: 1200px;
         padding: 48px 56px;
         flex: 1;
       }
@@ -1359,6 +1409,7 @@
 
     <!-- SIDEBAR -->
     <aside class="sidebar" id="bcg-nav">
+      <button class="sidebar-collapse-btn" id="sidebar-collapse-toggle" onclick="toggleSidebarCollapse()" title="Collapse sidebar">&#x276E;</button>
       <div class="sidebar-header">
         <h1>BCG PREP</h1>
         <p>Tomás Batalha — 1ª Ronda</p>
@@ -10654,15 +10705,16 @@
           .fwm-tree {
             position: relative;
             width: 100%;
-            overflow-x: auto;
+            overflow-x: hidden;
             padding-bottom: 20px;
           }
           .fwm-row {
             display: flex;
             justify-content: center;
-            gap: 16px;
+            gap: 12px;
             margin-bottom: 56px;
             position: relative;
+            flex-wrap: nowrap;
           }
           .fwm-row.fwm-row-wide {
             gap: 12px;
@@ -10671,9 +10723,9 @@
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            padding: 8px 20px;
+            padding: 8px 16px;
             border-radius: 50px;
-            font-size: 13px;
+            font-size: 12px;
             font-weight: 600;
             cursor: pointer;
             border: 2px solid;
@@ -10681,9 +10733,10 @@
             position: relative;
             z-index: 1;
             white-space: nowrap;
-            min-width: 140px;
+            min-width: 0;
             text-align: center;
             user-select: none;
+            flex-shrink: 1;
           }
           .fwm-pill:hover {
             transform: translateY(-2px);
@@ -21962,349 +22015,845 @@ Margin                       20.0%              6.6%          -13.4pp
       // FRAMEWORK MAP — INTERACTIVE LOGIC (v2)
       // ═══════════════════════════════════════════════
       (function () {
-      // FRAMEWORK MAP — INLINE TREE DATA FOR GRAY BOX
-      window.FWM_INLINE_TREE = {
-        profitability: {
-          label: "How to improve profits? / Como melhorar lucros?",
-          subs: [
-            { label: "Revenue / Receitas", hint: "Revenue = Volume × Price — how many units sold and at what price?",
-              subs: [
-                { label: "Volume / Volume", hint: "# of customers, frequency per customer, units per transaction, channel mix" },
-                { label: "Price / Preço", hint: "list price, discounts, promotions, price per unit, FX effects, price mix" }
-              ] },
-            { label: "Costs / Custos", hint: "Cost = Fixed + Variable — what doesn't change vs what scales with output?",
-              subs: [
-                { label: "Fixed costs / Custos fixos", hint: "rent, salaries, insurance, depreciation, IT, licenses, interest, admin overhead" },
-                { label: "Variable costs / Custos variáveis", hint: "raw materials, packaging, shipping, commissions, payment fees, energy per unit" }
-              ] }
-          ] },
-        revenue: {
-          label: "Revenue / Receitas",
-          hint: "Revenue = Volume × Price — how many units sold and at what price?",
-          subs: [
-            { label: "Volume / Volume", hint: "# of customers, frequency per customer, units per transaction, channel mix" },
-            { label: "Price / Preço", hint: "list price, discounts, promotions, price per unit, FX effects, price mix" }
-          ] },
-        costs: {
-          label: "Costs / Custos",
-          hint: "Cost = Fixed + Variable — what doesn't change vs what scales with output?",
-          subs: [
-            { label: "Fixed costs / Custos fixos", hint: "rent, salaries, insurance, depreciation, IT, licenses, interest, admin overhead" },
-            { label: "Variable costs / Custos variáveis", hint: "raw materials, packaging, shipping, commissions, payment fees, energy per unit" }
-          ] },
-        volume: { label: "Volume / Volume", hint: "# of customers, frequency per customer, units per transaction, channel mix", subs: [] },
-        price: { label: "Price / Preço", hint: "list price, discounts, promotions, price per unit, FX effects, price mix", subs: [] },
-        "fixed-costs": { label: "Fixed costs / Custos fixos", hint: "rent, salaries, insurance, depreciation, IT, licenses, interest, admin overhead", subs: [] },
-        "variable-costs": { label: "Variable costs / Custos variáveis", hint: "raw materials, packaging, shipping, commissions, payment fees, energy per unit", subs: [] },
-        growth: {
-          label: "How to grow a business? / Como crescer?",
-          subs: [
-            { label: "Grow the core business / Crescer no core",
-              hint: "Expand what you already do — sell more to existing customers in existing markets",
-              subs: [
-                { label: "Grow across current segments / Crescer nos segmentos atuais",
-                  hint: "improve product, enhance marketing, adjust pricing, increase retention, boost conversion",
-                  subs: [
-                    { label: "Better products / Melhores produtos", hint: "R&D, new features, higher quality, better UX, faster delivery, innovation pipeline" },
-                    { label: "Improved marketing / Marketing melhorado", hint: "brand awareness, digital channels, content strategy, referral programs, CRM optimization" },
-                    { label: "Competitive prices / Preços competitivos", hint: "benchmarking, volume discounts, loyalty rewards, freemium tiers, flexible payment plans" }
-                  ] },
-                { label: "Invest in fastest-growing segments / Investir nos de maior crescimento", hint: "identify fastest-growing segments, reallocate resources and investment toward them" }
-              ] },
-            { label: "Grow outside of the core / Crescer fora do core",
-              hint: "Go beyond current scope — new products, new customer types, new business models",
-              subs: [
-                { label: "Sell new products to existing clients / Vender novos produtos a clientes atuais", hint: "cross-sell, upsell, bundle, add complementary products or services" },
-                { label: "Use capabilities for new businesses / Usar capacidades para novos negócios", hint: "leverage capabilities into adjacent markets, partnerships, licensing, JVs" }
-              ] }
-          ] },
-        "cost-reduction": {
-          label: "How to cut costs? / Como reduzir custos?",
-          subs: [
-            { label: "Reduce the need / Reduzir a necessidade",
-              hint: "Can we stop doing this entirely or reduce how much is needed?",
-              subs: [
-                { label: "Eliminate the need entirely / Eliminar totalmente", hint: "remove unnecessary steps, sunset low-value activities, automate fully, outsource entirely" },
-                { label: "Reduce the service level / Reduzir o nível de serviço", hint: "offer lower-cost tiers, reduce frequency, shift to self-service, simplify specifications" }
-              ] },
-            { label: "Meet the need with less resource / Cumprir com menos recursos",
-              hint: "Can we do the same thing using fewer resources?",
-              subs: [
-                { label: "Eliminate waste / Eliminar desperdício", hint: "reduce rework, minimize idle time, cut scrap/defects, lean processes, remove duplication" },
-                { label: "Improve productivity / Melhorar produtividade", hint: "upskill staff, invest in tools/technology, optimize workflows, increase throughput per FTE" }
-              ] },
-            { label: "Reduce the cost of resources / Reduzir o custo dos recursos",
-              hint: "Can we get the same resources for less money?",
-              subs: [
-                { label: "Find cheaper alternatives / Encontrar alternativas mais baratas", hint: "alternative suppliers, substitute materials, offshore/nearshore, open-source solutions" },
-                { label: "Renegotiate costs / Renegociar custos", hint: "volume discounts, longer-term contracts, competitive bidding, renegotiate payment terms" }
-              ] }
-          ] },
-        pricing: {
-          label: "How to price a product? / Como definir o preço?",
-          subs: [
-            { label: "Costs / Custos", hint: "Floor: minimum price to cover all costs and earn a margin",
-              subs: [
-                { label: "Variable costs / Custos variáveis", hint: "unit COGS, raw materials, packaging, shipping, commissions, transaction fees" },
-                { label: "Fixed costs / Custos fixos", hint: "rent, salaries, insurance, depreciation, overhead — allocated per unit" },
-                { label: "Investment costs / Custos de investimento", hint: "R&D, tooling, setup, marketing launch spend — amortized over expected volume" },
-                { label: "Plus enough markup / Margem suficiente", hint: "target gross margin %, contribution margin, breakeven volume analysis" }
-              ] },
-            { label: "Competitors or substitutes / Concorrentes ou substitutos",
-              hint: "Benchmark: how are alternatives and substitutes priced?",
-              subs: [
-                { label: "Price above or below? / Fixar acima ou abaixo?", hint: "premium vs discount positioning, feature comparison, brand perception, segment" }
-              ] },
-            { label: "Clients' willingness to pay / Disposição a pagar", hint: "Ceiling: maximum the customer will pay for the value delivered", subs: [] }
-          ] },
-        "competitive-response": {
-          label: "How to respond to a competitive threat? / Como responder a uma ameaça?",
-          subs: [
-            { label: "Potential impact / Impacto potencial", hint: "How much of our business is actually at risk?",
-              subs: [
-                { label: "Segment affected / Segmento afetado", hint: "which customer groups, geographies, or product lines are most exposed" },
-                { label: "Size / Dimensão", hint: "revenue at risk in affected segment, % of total business" },
-                { label: "Profitability / Rentabilidade", hint: "margin on the affected segment — high-margin segments hurt most" },
-                { label: "Estimated loss / Perda estimada", hint: "expected % of customers/revenue lost, over what timeframe" }
-              ] },
-            { label: "Opportunity pursued by competitor / Oportunidade do concorrente", hint: "What exactly is the competitor doing — and what's their advantage?", subs: [] },
-            { label: "Possible responses / Respostas possíveis", hint: "What are our realistic response options — and which is smartest?",
-              subs: [
-                { label: "Do nothing / Não fazer nada", hint: "absorb the impact, focus resources elsewhere, let competitor overextend" },
-                { label: "Mitigate / Mitigar", hint: "loyalty programs, better service, contract extensions, relationship management" },
-                { label: "Replicate / Replicar", hint: "match competitor's product, launch own version, fast-follow strategy" },
-                { label: "Collaborate / Colaborar", hint: "partnership, joint venture, licensing, referral arrangement" },
-                { label: "Align / Alinhar (baixar preços)", hint: "price match, selective discounts, value bundles, promotional offers" }
-              ] }
-          ] },
-        investment: {
-          label: "Whether to make an investment? / Devemos investir?",
-          subs: [
-            { label: "Revenue impact / Impacto nas receitas", hint: "additional volume × price from the investment" },
-            { label: "Cost impact / Impacto nos custos", hint: "savings generated minus new costs incurred" },
-            { label: "Break even / Ponto de equilíbrio", hint: "investment ÷ annual net benefit → years, plus NPV and IRR" },
-            { label: "Implementation / Implementação", hint: "capabilities needed, timeline, change management, risk factors" }
-          ] },
-        "market-entry": {
-          label: "Whether to enter a new market? / Devemos entrar num novo mercado?",
-          subs: [
-            { label: "Market opportunity / Oportunidade de mercado", hint: "Is the market big enough and growing?",
-              subs: [
-                { label: "Market size / Dimensão do mercado", hint: "TAM/SAM/SOM, units × price, current size, historical growth rate" },
-                { label: "Market growth / Crescimento do mercado", hint: "growth rate %, demand drivers, secular trends, regulatory tailwinds/headwinds" }
-              ] },
-            { label: "Potential share / Quota potencial", hint: "Can we realistically win customers against existing players?",
-              subs: [
-                { label: "Customer needs / Necessidades dos clientes", hint: "unmet needs, pain points, willingness to switch, decision criteria" },
-                { label: "Our offering / A nossa oferta", hint: "differentiation, value proposition vs incumbents, product-market fit" },
-                { label: "Competitors / Concorrentes", hint: "# of players, market shares, strengths/weaknesses, barriers to entry" }
-              ] },
-            { label: "Potential profit / Lucro potencial", hint: "Will the economics work — can we make money here?",
-              subs: [
-                { label: "Investment / Investimento", hint: "capex required, working capital, setup costs, time to build, go-to-market spend" },
-                { label: "Running costs / Custos operacionais", hint: "opex, cost to serve, supply chain, distribution, support, compliance" },
-                { label: "Revenue / Receitas", hint: "pricing model, revenue per customer, expected volume, ramp-up timeline, breakeven" }
-              ] },
-            { label: "Capabilities & risks / Capacidades e riscos", hint: "Do we have the skills and can we manage the risks?", subs: [] }
-          ] },
-        "new-product": {
-          label: "How to launch a new product? / Como lançar um novo produto?",
-          subs: [
-            { label: "Choose target segments / Escolher segmentos-alvo", hint: "Which customer groups to target, and why those?",
-              subs: [
-                { label: "Size & growth / Dimensão e crescimento", hint: "segment size, growth rate, addressable market, willingness to pay" },
-                { label: "Competition / Concorrência", hint: "existing solutions, competitive intensity, market gaps, substitutes" },
-                { label: "Customer needs / Necessidades dos clientes", hint: "pain points, jobs-to-be-done, desired features, buying criteria" }
-              ] },
-            { label: "Define marketing strategy / Definir estratégia 4P", hint: "What should the 4P marketing mix look like?",
-              subs: [
-                { label: "Product / Produto", hint: "features, design, quality, MVP scope, differentiation from alternatives" },
-                { label: "Price / Preço", hint: "cost-plus, value-based, competitive, tiered, freemium, subscription" },
-                { label: "Distribution / Distribuição", hint: "online vs offline, direct vs partners, channel strategy, logistics" },
-                { label: "Promotion / Promoção", hint: "go-to-market plan, advertising, content marketing, PR, sales force" }
-              ] },
-            { label: "Implementation / Implementação", hint: "What's needed to build, execute, and deliver?",
-              subs: [
-                { label: "Product design / Design do produto", hint: "R&D, prototyping, user testing, iteration cycles, regulatory approvals" },
-                { label: "Production / Produção", hint: "manufacturing or development, sourcing, capacity planning, quality control" },
-                { label: "Marketing & sales / Marketing e vendas", hint: "launch campaign, sales enablement, channel activation, demos and trials" },
-                { label: "Logistics / Logística", hint: "warehousing, fulfillment, delivery, inventory management, returns handling" },
-                { label: "Aftercare / Pós-venda", hint: "customer support, warranties, maintenance, upgrades, community, feedback" }
-              ] }
-          ] },
-        "m-and-a": {
-          label: "Whether to acquire a business? / Devemos adquirir?",
-          subs: [
-            { label: "Standalone value / Valor autónomo", hint: "What is the target worth on its own? (DCF, multiples, asset value)",
-              subs: [
-                { label: "Future revenue / Receitas futuras", hint: "revenue trend, growth rate, customer base, market position, contract pipeline" },
-                { label: "Future cost / Custos futuros", hint: "cost structure, margin trajectory, expected efficiencies, risks to cost base" },
-                { label: "Valuation multiples / Múltiplos", hint: "EV/EBITDA, P/E, revenue multiples, comparable deals, premium over market price" }
-              ] },
-            { label: "Synergies / Sinergias", hint: "What extra value does combining create? (cost + revenue synergies)",
-              subs: [
-                { label: "Cost reduction / Redução de custos", hint: "eliminate duplicates (HQ, IT, back-office), procurement savings, shared services" },
-                { label: "Revenue growth / Crescimento de receitas", hint: "cross-sell to combined base, enter new markets, bundled offerings, pricing power" }
-              ] },
-            { label: "Capabilities & risks / Capacidades e riscos", hint: "Can we actually make it work? (integration, culture, regulatory risk)", subs: [] }
-          ] },
-        "process-optimization": {
-          label: "How to optimize a process? / Como otimizar um processo?",
-          subs: [
-            { label: "Map out current process / Mapear o processo atual", hint: "What does the process look like today — where's the constraint?",
-              subs: [
-                { label: "Capacity? / Capacidade?", hint: "max throughput (units/day, cases/hour), theoretical vs practical capacity" },
-                { label: "Utilization? / Utilização?", hint: "actual vs capacity, idle time, peak vs off-peak variation, resource allocation" },
-                { label: "Bottleneck? / Gargalo?", hint: "slowest step, longest queue, highest wait time, constraining resource, SPOF" }
-              ] },
-            { label: "Look into each step / Analisar cada etapa", hint: "For each step: can we cut it, speed it up, or redesign it?",
-              subs: [
-                { label: "Eliminate / Eliminar", hint: "remove non-value-adding steps, cut handoffs, delete redundant approvals, automate" },
-                { label: "Anticipate / Antecipar", hint: "pre-process, batch, schedule ahead, predictive triggers, parallel processing" }
-              ] },
-            { label: "Estimate gains / Estimar ganhos", hint: "What's the potential upside — in cost, quality, or speed?",
-              subs: [
-                { label: "Reduce cost / Reduzir custo", hint: "cost per unit processed, labor savings, material savings, overhead reduction" },
-                { label: "Increase quality / Aumentar qualidade", hint: "error rate, defect rate, rework rate, customer satisfaction, accuracy %" },
-                { label: "Increase speed / Aumentar velocidade", hint: "cycle time, lead time, throughput time, response time, time-to-delivery" }
-              ] }
-          ] },
+        // FRAMEWORK MAP — INLINE TREE DATA FOR GRAY BOX
+        window.FWM_INLINE_TREE = {
+          profitability: {
+            label: "How to improve profits? / Como melhorar lucros?",
+            subs: [
+              {
+                label: "Revenue / Receitas",
+                hint: "Revenue = Volume × Price — how many units sold and at what price?",
+                subs: [
+                  {
+                    label: "Volume / Volume",
+                    hint: "# of customers, frequency per customer, units per transaction, channel mix",
+                  },
+                  {
+                    label: "Price / Preço",
+                    hint: "list price, discounts, promotions, price per unit, FX effects, price mix",
+                  },
+                ],
+              },
+              {
+                label: "Costs / Custos",
+                hint: "Cost = Fixed + Variable — what doesn't change vs what scales with output?",
+                subs: [
+                  {
+                    label: "Fixed costs / Custos fixos",
+                    hint: "rent, salaries, insurance, depreciation, IT, licenses, interest, admin overhead",
+                  },
+                  {
+                    label: "Variable costs / Custos variáveis",
+                    hint: "raw materials, packaging, shipping, commissions, payment fees, energy per unit",
+                  },
+                ],
+              },
+            ],
+          },
+          revenue: {
+            label: "Revenue / Receitas",
+            hint: "Revenue = Volume × Price — how many units sold and at what price?",
+            subs: [
+              {
+                label: "Volume / Volume",
+                hint: "# of customers, frequency per customer, units per transaction, channel mix",
+              },
+              {
+                label: "Price / Preço",
+                hint: "list price, discounts, promotions, price per unit, FX effects, price mix",
+              },
+            ],
+          },
+          costs: {
+            label: "Costs / Custos",
+            hint: "Cost = Fixed + Variable — what doesn't change vs what scales with output?",
+            subs: [
+              {
+                label: "Fixed costs / Custos fixos",
+                hint: "rent, salaries, insurance, depreciation, IT, licenses, interest, admin overhead",
+              },
+              {
+                label: "Variable costs / Custos variáveis",
+                hint: "raw materials, packaging, shipping, commissions, payment fees, energy per unit",
+              },
+            ],
+          },
+          volume: {
+            label: "Volume / Volume",
+            hint: "# of customers, frequency per customer, units per transaction, channel mix",
+            subs: [],
+          },
+          price: {
+            label: "Price / Preço",
+            hint: "list price, discounts, promotions, price per unit, FX effects, price mix",
+            subs: [],
+          },
+          "fixed-costs": {
+            label: "Fixed costs / Custos fixos",
+            hint: "rent, salaries, insurance, depreciation, IT, licenses, interest, admin overhead",
+            subs: [],
+          },
+          "variable-costs": {
+            label: "Variable costs / Custos variáveis",
+            hint: "raw materials, packaging, shipping, commissions, payment fees, energy per unit",
+            subs: [],
+          },
+          growth: {
+            label: "How to grow a business? / Como crescer?",
+            subs: [
+              {
+                label: "Grow the core business / Crescer no core",
+                hint: "Expand what you already do — sell more to existing customers in existing markets",
+                subs: [
+                  {
+                    label:
+                      "Grow across current segments / Crescer nos segmentos atuais",
+                    hint: "improve product, enhance marketing, adjust pricing, increase retention, boost conversion",
+                    subs: [
+                      {
+                        label: "Better products / Melhores produtos",
+                        hint: "R&D, new features, higher quality, better UX, faster delivery, innovation pipeline",
+                      },
+                      {
+                        label: "Improved marketing / Marketing melhorado",
+                        hint: "brand awareness, digital channels, content strategy, referral programs, CRM optimization",
+                      },
+                      {
+                        label: "Competitive prices / Preços competitivos",
+                        hint: "benchmarking, volume discounts, loyalty rewards, freemium tiers, flexible payment plans",
+                      },
+                    ],
+                  },
+                  {
+                    label:
+                      "Invest in fastest-growing segments / Investir nos de maior crescimento",
+                    hint: "identify fastest-growing segments, reallocate resources and investment toward them",
+                  },
+                ],
+              },
+              {
+                label: "Grow outside of the core / Crescer fora do core",
+                hint: "Go beyond current scope — new products, new customer types, new business models",
+                subs: [
+                  {
+                    label:
+                      "Sell new products to existing clients / Vender novos produtos a clientes atuais",
+                    hint: "cross-sell, upsell, bundle, add complementary products or services",
+                  },
+                  {
+                    label:
+                      "Use capabilities for new businesses / Usar capacidades para novos negócios",
+                    hint: "leverage capabilities into adjacent markets, partnerships, licensing, JVs",
+                  },
+                ],
+              },
+            ],
+          },
+          "cost-reduction": {
+            label: "How to cut costs? / Como reduzir custos?",
+            subs: [
+              {
+                label: "Reduce the need / Reduzir a necessidade",
+                hint: "Can we stop doing this entirely or reduce how much is needed?",
+                subs: [
+                  {
+                    label: "Eliminate the need entirely / Eliminar totalmente",
+                    hint: "remove unnecessary steps, sunset low-value activities, automate fully, outsource entirely",
+                  },
+                  {
+                    label:
+                      "Reduce the service level / Reduzir o nível de serviço",
+                    hint: "offer lower-cost tiers, reduce frequency, shift to self-service, simplify specifications",
+                  },
+                ],
+              },
+              {
+                label:
+                  "Meet the need with less resource / Cumprir com menos recursos",
+                hint: "Can we do the same thing using fewer resources?",
+                subs: [
+                  {
+                    label: "Eliminate waste / Eliminar desperdício",
+                    hint: "reduce rework, minimize idle time, cut scrap/defects, lean processes, remove duplication",
+                  },
+                  {
+                    label: "Improve productivity / Melhorar produtividade",
+                    hint: "upskill staff, invest in tools/technology, optimize workflows, increase throughput per FTE",
+                  },
+                ],
+              },
+              {
+                label:
+                  "Reduce the cost of resources / Reduzir o custo dos recursos",
+                hint: "Can we get the same resources for less money?",
+                subs: [
+                  {
+                    label:
+                      "Find cheaper alternatives / Encontrar alternativas mais baratas",
+                    hint: "alternative suppliers, substitute materials, offshore/nearshore, open-source solutions",
+                  },
+                  {
+                    label: "Renegotiate costs / Renegociar custos",
+                    hint: "volume discounts, longer-term contracts, competitive bidding, renegotiate payment terms",
+                  },
+                ],
+              },
+            ],
+          },
+          pricing: {
+            label: "How to price a product? / Como definir o preço?",
+            subs: [
+              {
+                label: "Costs / Custos",
+                hint: "Floor: minimum price to cover all costs and earn a margin",
+                subs: [
+                  {
+                    label: "Variable costs / Custos variáveis",
+                    hint: "unit COGS, raw materials, packaging, shipping, commissions, transaction fees",
+                  },
+                  {
+                    label: "Fixed costs / Custos fixos",
+                    hint: "rent, salaries, insurance, depreciation, overhead — allocated per unit",
+                  },
+                  {
+                    label: "Investment costs / Custos de investimento",
+                    hint: "R&D, tooling, setup, marketing launch spend — amortized over expected volume",
+                  },
+                  {
+                    label: "Plus enough markup / Margem suficiente",
+                    hint: "target gross margin %, contribution margin, breakeven volume analysis",
+                  },
+                ],
+              },
+              {
+                label:
+                  "Competitors or substitutes / Concorrentes ou substitutos",
+                hint: "Benchmark: how are alternatives and substitutes priced?",
+                subs: [
+                  {
+                    label: "Price above or below? / Fixar acima ou abaixo?",
+                    hint: "premium vs discount positioning, feature comparison, brand perception, segment",
+                  },
+                ],
+              },
+              {
+                label: "Clients' willingness to pay / Disposição a pagar",
+                hint: "Ceiling: maximum the customer will pay for the value delivered",
+                subs: [],
+              },
+            ],
+          },
+          "competitive-response": {
+            label:
+              "How to respond to a competitive threat? / Como responder a uma ameaça?",
+            subs: [
+              {
+                label: "Potential impact / Impacto potencial",
+                hint: "How much of our business is actually at risk?",
+                subs: [
+                  {
+                    label: "Segment affected / Segmento afetado",
+                    hint: "which customer groups, geographies, or product lines are most exposed",
+                  },
+                  {
+                    label: "Size / Dimensão",
+                    hint: "revenue at risk in affected segment, % of total business",
+                  },
+                  {
+                    label: "Profitability / Rentabilidade",
+                    hint: "margin on the affected segment — high-margin segments hurt most",
+                  },
+                  {
+                    label: "Estimated loss / Perda estimada",
+                    hint: "expected % of customers/revenue lost, over what timeframe",
+                  },
+                ],
+              },
+              {
+                label:
+                  "Opportunity pursued by competitor / Oportunidade do concorrente",
+                hint: "What exactly is the competitor doing — and what's their advantage?",
+                subs: [],
+              },
+              {
+                label: "Possible responses / Respostas possíveis",
+                hint: "What are our realistic response options — and which is smartest?",
+                subs: [
+                  {
+                    label: "Do nothing / Não fazer nada",
+                    hint: "absorb the impact, focus resources elsewhere, let competitor overextend",
+                  },
+                  {
+                    label: "Mitigate / Mitigar",
+                    hint: "loyalty programs, better service, contract extensions, relationship management",
+                  },
+                  {
+                    label: "Replicate / Replicar",
+                    hint: "match competitor's product, launch own version, fast-follow strategy",
+                  },
+                  {
+                    label: "Collaborate / Colaborar",
+                    hint: "partnership, joint venture, licensing, referral arrangement",
+                  },
+                  {
+                    label: "Align / Alinhar (baixar preços)",
+                    hint: "price match, selective discounts, value bundles, promotional offers",
+                  },
+                ],
+              },
+            ],
+          },
+          investment: {
+            label: "Whether to make an investment? / Devemos investir?",
+            subs: [
+              {
+                label: "Revenue impact / Impacto nas receitas",
+                hint: "additional volume × price from the investment",
+              },
+              {
+                label: "Cost impact / Impacto nos custos",
+                hint: "savings generated minus new costs incurred",
+              },
+              {
+                label: "Break even / Ponto de equilíbrio",
+                hint: "investment ÷ annual net benefit → years, plus NPV and IRR",
+              },
+              {
+                label: "Implementation / Implementação",
+                hint: "capabilities needed, timeline, change management, risk factors",
+              },
+            ],
+          },
+          "market-entry": {
+            label:
+              "Whether to enter a new market? / Devemos entrar num novo mercado?",
+            subs: [
+              {
+                label: "Market opportunity / Oportunidade de mercado",
+                hint: "Is the market big enough and growing?",
+                subs: [
+                  {
+                    label: "Market size / Dimensão do mercado",
+                    hint: "TAM/SAM/SOM, units × price, current size, historical growth rate",
+                  },
+                  {
+                    label: "Market growth / Crescimento do mercado",
+                    hint: "growth rate %, demand drivers, secular trends, regulatory tailwinds/headwinds",
+                  },
+                ],
+              },
+              {
+                label: "Potential share / Quota potencial",
+                hint: "Can we realistically win customers against existing players?",
+                subs: [
+                  {
+                    label: "Customer needs / Necessidades dos clientes",
+                    hint: "unmet needs, pain points, willingness to switch, decision criteria",
+                  },
+                  {
+                    label: "Our offering / A nossa oferta",
+                    hint: "differentiation, value proposition vs incumbents, product-market fit",
+                  },
+                  {
+                    label: "Competitors / Concorrentes",
+                    hint: "# of players, market shares, strengths/weaknesses, barriers to entry",
+                  },
+                ],
+              },
+              {
+                label: "Potential profit / Lucro potencial",
+                hint: "Will the economics work — can we make money here?",
+                subs: [
+                  {
+                    label: "Investment / Investimento",
+                    hint: "capex required, working capital, setup costs, time to build, go-to-market spend",
+                  },
+                  {
+                    label: "Running costs / Custos operacionais",
+                    hint: "opex, cost to serve, supply chain, distribution, support, compliance",
+                  },
+                  {
+                    label: "Revenue / Receitas",
+                    hint: "pricing model, revenue per customer, expected volume, ramp-up timeline, breakeven",
+                  },
+                ],
+              },
+              {
+                label: "Capabilities & risks / Capacidades e riscos",
+                hint: "Do we have the skills and can we manage the risks?",
+                subs: [],
+              },
+            ],
+          },
+          "new-product": {
+            label:
+              "How to launch a new product? / Como lançar um novo produto?",
+            subs: [
+              {
+                label: "Choose target segments / Escolher segmentos-alvo",
+                hint: "Which customer groups to target, and why those?",
+                subs: [
+                  {
+                    label: "Size & growth / Dimensão e crescimento",
+                    hint: "segment size, growth rate, addressable market, willingness to pay",
+                  },
+                  {
+                    label: "Competition / Concorrência",
+                    hint: "existing solutions, competitive intensity, market gaps, substitutes",
+                  },
+                  {
+                    label: "Customer needs / Necessidades dos clientes",
+                    hint: "pain points, jobs-to-be-done, desired features, buying criteria",
+                  },
+                ],
+              },
+              {
+                label: "Define marketing strategy / Definir estratégia 4P",
+                hint: "What should the 4P marketing mix look like?",
+                subs: [
+                  {
+                    label: "Product / Produto",
+                    hint: "features, design, quality, MVP scope, differentiation from alternatives",
+                  },
+                  {
+                    label: "Price / Preço",
+                    hint: "cost-plus, value-based, competitive, tiered, freemium, subscription",
+                  },
+                  {
+                    label: "Distribution / Distribuição",
+                    hint: "online vs offline, direct vs partners, channel strategy, logistics",
+                  },
+                  {
+                    label: "Promotion / Promoção",
+                    hint: "go-to-market plan, advertising, content marketing, PR, sales force",
+                  },
+                ],
+              },
+              {
+                label: "Implementation / Implementação",
+                hint: "What's needed to build, execute, and deliver?",
+                subs: [
+                  {
+                    label: "Product design / Design do produto",
+                    hint: "R&D, prototyping, user testing, iteration cycles, regulatory approvals",
+                  },
+                  {
+                    label: "Production / Produção",
+                    hint: "manufacturing or development, sourcing, capacity planning, quality control",
+                  },
+                  {
+                    label: "Marketing & sales / Marketing e vendas",
+                    hint: "launch campaign, sales enablement, channel activation, demos and trials",
+                  },
+                  {
+                    label: "Logistics / Logística",
+                    hint: "warehousing, fulfillment, delivery, inventory management, returns handling",
+                  },
+                  {
+                    label: "Aftercare / Pós-venda",
+                    hint: "customer support, warranties, maintenance, upgrades, community, feedback",
+                  },
+                ],
+              },
+            ],
+          },
+          "m-and-a": {
+            label: "Whether to acquire a business? / Devemos adquirir?",
+            subs: [
+              {
+                label: "Standalone value / Valor autónomo",
+                hint: "What is the target worth on its own? (DCF, multiples, asset value)",
+                subs: [
+                  {
+                    label: "Future revenue / Receitas futuras",
+                    hint: "revenue trend, growth rate, customer base, market position, contract pipeline",
+                  },
+                  {
+                    label: "Future cost / Custos futuros",
+                    hint: "cost structure, margin trajectory, expected efficiencies, risks to cost base",
+                  },
+                  {
+                    label: "Valuation multiples / Múltiplos",
+                    hint: "EV/EBITDA, P/E, revenue multiples, comparable deals, premium over market price",
+                  },
+                ],
+              },
+              {
+                label: "Synergies / Sinergias",
+                hint: "What extra value does combining create? (cost + revenue synergies)",
+                subs: [
+                  {
+                    label: "Cost reduction / Redução de custos",
+                    hint: "eliminate duplicates (HQ, IT, back-office), procurement savings, shared services",
+                  },
+                  {
+                    label: "Revenue growth / Crescimento de receitas",
+                    hint: "cross-sell to combined base, enter new markets, bundled offerings, pricing power",
+                  },
+                ],
+              },
+              {
+                label: "Capabilities & risks / Capacidades e riscos",
+                hint: "Can we actually make it work? (integration, culture, regulatory risk)",
+                subs: [],
+              },
+            ],
+          },
+          "process-optimization": {
+            label: "How to optimize a process? / Como otimizar um processo?",
+            subs: [
+              {
+                label: "Map out current process / Mapear o processo atual",
+                hint: "What does the process look like today — where's the constraint?",
+                subs: [
+                  {
+                    label: "Capacity? / Capacidade?",
+                    hint: "max throughput (units/day, cases/hour), theoretical vs practical capacity",
+                  },
+                  {
+                    label: "Utilization? / Utilização?",
+                    hint: "actual vs capacity, idle time, peak vs off-peak variation, resource allocation",
+                  },
+                  {
+                    label: "Bottleneck? / Gargalo?",
+                    hint: "slowest step, longest queue, highest wait time, constraining resource, SPOF",
+                  },
+                ],
+              },
+              {
+                label: "Look into each step / Analisar cada etapa",
+                hint: "For each step: can we cut it, speed it up, or redesign it?",
+                subs: [
+                  {
+                    label: "Eliminate / Eliminar",
+                    hint: "remove non-value-adding steps, cut handoffs, delete redundant approvals, automate",
+                  },
+                  {
+                    label: "Anticipate / Antecipar",
+                    hint: "pre-process, batch, schedule ahead, predictive triggers, parallel processing",
+                  },
+                ],
+              },
+              {
+                label: "Estimate gains / Estimar ganhos",
+                hint: "What's the potential upside — in cost, quality, or speed?",
+                subs: [
+                  {
+                    label: "Reduce cost / Reduzir custo",
+                    hint: "cost per unit processed, labor savings, material savings, overhead reduction",
+                  },
+                  {
+                    label: "Increase quality / Aumentar qualidade",
+                    hint: "error rate, defect rate, rework rate, customer satisfaction, accuracy %",
+                  },
+                  {
+                    label: "Increase speed / Aumentar velocidade",
+                    hint: "cycle time, lead time, throughput time, response time, time-to-delivery",
+                  },
+                ],
+              },
+            ],
+          },
 
-        "supply-demand": {
-          label: "Supply & Demand / Oferta e Procura",
-          hint: "Where is the equilibrium? What shifts the curves?",
-          subs: [
-            { label: "Supply-side / Lado da oferta", hint: "production costs, number of producers, technology, regulation, input prices",
-              subs: [
-                { label: "Cost changes / Alterações de custo", hint: "raw material prices, labor costs, energy, logistics, tariffs" },
-                { label: "Capacity / Capacidade", hint: "new entrants, factory expansion, exits, supply chain disruptions" }
-              ] },
-            { label: "Demand-side / Lado da procura", hint: "income levels, consumer preferences, substitutes, demographics, seasonality",
-              subs: [
-                { label: "Willingness to pay / Disposição a pagar", hint: "brand value, perceived quality, urgency, alternatives" },
-                { label: "Market size / Dimensão do mercado", hint: "population, income, adoption rate, frequency of purchase" }
-              ] },
-            { label: "Equilibrium / Equilíbrio", hint: "where supply = demand, price clearing point, surplus/shortage" }
-          ] },
-        "three-cs": {
-          label: "Three Cs / Três Cs",
-          hint: "Company, Competitors, Customers — a quick competitive scan",
-          subs: [
-            { label: "Company / Empresa", hint: "strengths, capabilities, cost structure, brand, resources, strategy" },
-            { label: "Competitors / Concorrentes", hint: "market share, strategies, strengths vs weaknesses, likely responses" },
-            { label: "Customers / Clientes", hint: "needs, segments, willingness to pay, switching costs, decision criteria" }
-          ] },
-        "porters-five": {
-          label: "Porter's Five Forces / 5 Forças de Porter",
-          hint: "How attractive is this industry? Higher forces = lower profitability",
-          subs: [
-            { label: "Rivalry / Rivalidade", hint: "# competitors, growth rate, differentiation, switching costs, exit barriers" },
-            { label: "Buyer power / Poder dos compradores", hint: "concentration, switching costs, price sensitivity, backward integration" },
-            { label: "Supplier power / Poder dos fornecedores", hint: "concentration, uniqueness, switching costs, forward integration" },
-            { label: "Substitutes / Substitutos", hint: "availability, price-performance, switching costs" },
-            { label: "New entrants / Novos entrantes", hint: "capital requirements, economies of scale, brand loyalty, regulation, distribution" }
-          ] },
-        "four-ps": {
-          label: "Four Ps / Quatro Ps (Marketing Mix)",
-          hint: "Product, Price, Place, Promotion — the marketing strategy toolkit",
-          subs: [
-            { label: "Product / Produto", hint: "features, quality, design, branding, packaging, lifecycle, differentiation" },
-            { label: "Price / Preço", hint: "cost-plus, value-based, competitive, tiered, freemium, discounts" },
-            { label: "Place / Distribuição", hint: "channels (online/offline), coverage, logistics, partnerships, DTC vs wholesale" },
-            { label: "Promotion / Promoção", hint: "advertising, sales force, PR, digital marketing, content, referrals, events" }
-          ] },
-        "equations": {
-          label: "Equations / Equações",
-          hint: "Express the problem as a formula, then decompose each variable",
-          subs: [
-            { label: "Profit = Revenue − Costs", hint: "the fundamental equation — always start here for profitability cases" },
-            { label: "Revenue = Volume × Price", hint: "decompose volume (customers × frequency × units) and price (list − discounts)" },
-            { label: "Breakeven = Fixed Costs ÷ (Price − Variable Cost)", hint: "units needed to cover all fixed costs" },
-            { label: "Market Size = Population × Adoption × Frequency × Price", hint: "bottom-up sizing approach" },
-            { label: "ROI = Net Benefit ÷ Investment", hint: "or NPV, IRR for time-value analysis" }
-          ] },
-        "key-questions": {
-          label: "Key Questions / Questões-chave",
-          hint: "List 3-5 questions that, if answered, resolve the decision",
-          subs: [
-            { label: "What is the objective?", hint: "clarify what success looks like — revenue, profit, market share, strategic positioning" },
-            { label: "What are the options?", hint: "enumerate the realistic alternatives (do nothing is always an option)" },
-            { label: "What criteria matter?", hint: "financial return, strategic fit, risk, feasibility, timeline, stakeholder impact" },
-            { label: "What evidence decides?", hint: "for each criterion, what data or analysis would tip the decision" }
-          ] },
-        "hypotheses": {
-          label: "Hypotheses / Hipóteses",
-          hint: "State a directional belief, then list conditions that must hold",
-          subs: [
-            { label: "Formulate hypothesis", hint: "'We should do X IF conditions A, B, C are true'" },
-            { label: "List conditions / Listar condições", hint: "each condition is testable — market size, capabilities, margins, risk level" },
-            { label: "Test each condition", hint: "gather data/analysis to confirm or refute each condition" },
-            { label: "Conclude", hint: "if all conditions hold → proceed; if any fails → reject or modify hypothesis" }
-          ] },
-        "root-causes": {
-          label: "Root Causes / Causas-raiz",
-          hint: "Something went wrong — find out why (fishbone / 5 Whys)",
-          subs: [
-            { label: "People / Pessoas", hint: "skills gaps, understaffing, training, motivation, leadership, turnover" },
-            { label: "Process / Processo", hint: "bottlenecks, missing steps, handoff errors, outdated procedures, lack of automation" },
-            { label: "Technology / Tecnologia", hint: "system failures, outdated tools, integration issues, data quality" },
-            { label: "External / Externo", hint: "regulation changes, market shifts, supplier issues, competitive actions, macro events" }
-          ] },
-        "process-map": {
-          label: "Process Map / Mapa de Processo",
-          hint: "Map the end-to-end process, find bottlenecks and waste at each step",
-          subs: [
-            { label: "Step 1: Map current state", hint: "draw the full process chain from input to output, including all handoffs" },
-            { label: "Step 2: Identify bottleneck", hint: "which step has the longest wait, lowest throughput, or highest error rate?" },
-            { label: "Step 3: Analyze each step", hint: "value-add vs non-value-add, can it be eliminated, automated, or parallelized?" },
-            { label: "Step 4: Redesign", hint: "propose improved process, estimate time/cost savings, implementation plan" }
-          ] },
-        "from-to": {
-          label: "From-To / De-Para",
-          hint: "Define current state, target state, gap, and initiatives to close it",
-          subs: [
-            { label: "Current state / Estado atual", hint: "where are we now? metrics, capabilities, performance, market position" },
-            { label: "Target state / Estado-alvo", hint: "where do we want to be? vision, KPIs, benchmarks, timeline" },
-            { label: "Gap analysis / Análise do gap", hint: "what's the delta? in revenue, capability, market share, technology, talent" },
-            { label: "Initiatives / Iniciativas", hint: "what actions close the gap? prioritize by impact vs feasibility, create roadmap" }
-          ] },
-      };
+          "supply-demand": {
+            label: "Supply & Demand / Oferta e Procura",
+            hint: "Where is the equilibrium? What shifts the curves?",
+            subs: [
+              {
+                label: "Supply-side / Lado da oferta",
+                hint: "production costs, number of producers, technology, regulation, input prices",
+                subs: [
+                  {
+                    label: "Cost changes / Alterações de custo",
+                    hint: "raw material prices, labor costs, energy, logistics, tariffs",
+                  },
+                  {
+                    label: "Capacity / Capacidade",
+                    hint: "new entrants, factory expansion, exits, supply chain disruptions",
+                  },
+                ],
+              },
+              {
+                label: "Demand-side / Lado da procura",
+                hint: "income levels, consumer preferences, substitutes, demographics, seasonality",
+                subs: [
+                  {
+                    label: "Willingness to pay / Disposição a pagar",
+                    hint: "brand value, perceived quality, urgency, alternatives",
+                  },
+                  {
+                    label: "Market size / Dimensão do mercado",
+                    hint: "population, income, adoption rate, frequency of purchase",
+                  },
+                ],
+              },
+              {
+                label: "Equilibrium / Equilíbrio",
+                hint: "where supply = demand, price clearing point, surplus/shortage",
+              },
+            ],
+          },
+          "three-cs": {
+            label: "Three Cs / Três Cs",
+            hint: "Company, Competitors, Customers — a quick competitive scan",
+            subs: [
+              {
+                label: "Company / Empresa",
+                hint: "strengths, capabilities, cost structure, brand, resources, strategy",
+              },
+              {
+                label: "Competitors / Concorrentes",
+                hint: "market share, strategies, strengths vs weaknesses, likely responses",
+              },
+              {
+                label: "Customers / Clientes",
+                hint: "needs, segments, willingness to pay, switching costs, decision criteria",
+              },
+            ],
+          },
+          "porters-five": {
+            label: "Porter's Five Forces / 5 Forças de Porter",
+            hint: "How attractive is this industry? Higher forces = lower profitability",
+            subs: [
+              {
+                label: "Rivalry / Rivalidade",
+                hint: "# competitors, growth rate, differentiation, switching costs, exit barriers",
+              },
+              {
+                label: "Buyer power / Poder dos compradores",
+                hint: "concentration, switching costs, price sensitivity, backward integration",
+              },
+              {
+                label: "Supplier power / Poder dos fornecedores",
+                hint: "concentration, uniqueness, switching costs, forward integration",
+              },
+              {
+                label: "Substitutes / Substitutos",
+                hint: "availability, price-performance, switching costs",
+              },
+              {
+                label: "New entrants / Novos entrantes",
+                hint: "capital requirements, economies of scale, brand loyalty, regulation, distribution",
+              },
+            ],
+          },
+          "four-ps": {
+            label: "Four Ps / Quatro Ps (Marketing Mix)",
+            hint: "Product, Price, Place, Promotion — the marketing strategy toolkit",
+            subs: [
+              {
+                label: "Product / Produto",
+                hint: "features, quality, design, branding, packaging, lifecycle, differentiation",
+              },
+              {
+                label: "Price / Preço",
+                hint: "cost-plus, value-based, competitive, tiered, freemium, discounts",
+              },
+              {
+                label: "Place / Distribuição",
+                hint: "channels (online/offline), coverage, logistics, partnerships, DTC vs wholesale",
+              },
+              {
+                label: "Promotion / Promoção",
+                hint: "advertising, sales force, PR, digital marketing, content, referrals, events",
+              },
+            ],
+          },
+          equations: {
+            label: "Equations / Equações",
+            hint: "Express the problem as a formula, then decompose each variable",
+            subs: [
+              {
+                label: "Profit = Revenue − Costs",
+                hint: "the fundamental equation — always start here for profitability cases",
+              },
+              {
+                label: "Revenue = Volume × Price",
+                hint: "decompose volume (customers × frequency × units) and price (list − discounts)",
+              },
+              {
+                label: "Breakeven = Fixed Costs ÷ (Price − Variable Cost)",
+                hint: "units needed to cover all fixed costs",
+              },
+              {
+                label:
+                  "Market Size = Population × Adoption × Frequency × Price",
+                hint: "bottom-up sizing approach",
+              },
+              {
+                label: "ROI = Net Benefit ÷ Investment",
+                hint: "or NPV, IRR for time-value analysis",
+              },
+            ],
+          },
+          "key-questions": {
+            label: "Key Questions / Questões-chave",
+            hint: "List 3-5 questions that, if answered, resolve the decision",
+            subs: [
+              {
+                label: "What is the objective?",
+                hint: "clarify what success looks like — revenue, profit, market share, strategic positioning",
+              },
+              {
+                label: "What are the options?",
+                hint: "enumerate the realistic alternatives (do nothing is always an option)",
+              },
+              {
+                label: "What criteria matter?",
+                hint: "financial return, strategic fit, risk, feasibility, timeline, stakeholder impact",
+              },
+              {
+                label: "What evidence decides?",
+                hint: "for each criterion, what data or analysis would tip the decision",
+              },
+            ],
+          },
+          hypotheses: {
+            label: "Hypotheses / Hipóteses",
+            hint: "State a directional belief, then list conditions that must hold",
+            subs: [
+              {
+                label: "Formulate hypothesis",
+                hint: "'We should do X IF conditions A, B, C are true'",
+              },
+              {
+                label: "List conditions / Listar condições",
+                hint: "each condition is testable — market size, capabilities, margins, risk level",
+              },
+              {
+                label: "Test each condition",
+                hint: "gather data/analysis to confirm or refute each condition",
+              },
+              {
+                label: "Conclude",
+                hint: "if all conditions hold → proceed; if any fails → reject or modify hypothesis",
+              },
+            ],
+          },
+          "root-causes": {
+            label: "Root Causes / Causas-raiz",
+            hint: "Something went wrong — find out why (fishbone / 5 Whys)",
+            subs: [
+              {
+                label: "People / Pessoas",
+                hint: "skills gaps, understaffing, training, motivation, leadership, turnover",
+              },
+              {
+                label: "Process / Processo",
+                hint: "bottlenecks, missing steps, handoff errors, outdated procedures, lack of automation",
+              },
+              {
+                label: "Technology / Tecnologia",
+                hint: "system failures, outdated tools, integration issues, data quality",
+              },
+              {
+                label: "External / Externo",
+                hint: "regulation changes, market shifts, supplier issues, competitive actions, macro events",
+              },
+            ],
+          },
+          "process-map": {
+            label: "Process Map / Mapa de Processo",
+            hint: "Map the end-to-end process, find bottlenecks and waste at each step",
+            subs: [
+              {
+                label: "Step 1: Map current state",
+                hint: "draw the full process chain from input to output, including all handoffs",
+              },
+              {
+                label: "Step 2: Identify bottleneck",
+                hint: "which step has the longest wait, lowest throughput, or highest error rate?",
+              },
+              {
+                label: "Step 3: Analyze each step",
+                hint: "value-add vs non-value-add, can it be eliminated, automated, or parallelized?",
+              },
+              {
+                label: "Step 4: Redesign",
+                hint: "propose improved process, estimate time/cost savings, implementation plan",
+              },
+            ],
+          },
+          "from-to": {
+            label: "From-To / De-Para",
+            hint: "Define current state, target state, gap, and initiatives to close it",
+            subs: [
+              {
+                label: "Current state / Estado atual",
+                hint: "where are we now? metrics, capabilities, performance, market position",
+              },
+              {
+                label: "Target state / Estado-alvo",
+                hint: "where do we want to be? vision, KPIs, benchmarks, timeline",
+              },
+              {
+                label: "Gap analysis / Análise do gap",
+                hint: "what's the delta? in revenue, capability, market share, technology, talent",
+              },
+              {
+                label: "Initiatives / Iniciativas",
+                hint: "what actions close the gap? prioritize by impact vs feasibility, create roadmap",
+              },
+            ],
+          },
+        };
 
-      /* Pick the right half of "EN / PT" labels based on current language */
-      function fwmLangLabel(label) {
-        if (!label) return "";
-        var parts = label.split(" / ");
-        if (parts.length < 2) return label;
-        return (window.fwmLang === "pt") ? parts[parts.length - 1] : parts[0];
-      }
-
-      window.fwmRenderInlineTree = function (node, depth) {
-        depth = depth || 0;
-        var html = "";
-        var indent = depth * 16;
-        var subs = node.subs || [];
-
-        if (depth === 0 && node.label) {
-          html += '<div style="font-weight:700;font-size:0.95em;margin-bottom:8px;color:#2e7d32;">' + fwmLangLabel(node.label) + '</div>';
-          if (node.hint) {
-            html += '<div style="font-size:0.82em;color:#666;margin-bottom:10px;">' + String.fromCodePoint(0x1f4a1) + ' ' + node.hint + '</div>';
-          }
+        /* Pick the right half of "EN / PT" labels based on current language */
+        function fwmLangLabel(label) {
+          if (!label) return "";
+          var parts = label.split(" / ");
+          if (parts.length < 2) return label;
+          return window.fwmLang === "pt" ? parts[parts.length - 1] : parts[0];
         }
 
-        subs.forEach(function (sub) {
-          html += '<div style="margin-left:' + indent + 'px;margin-bottom:6px;">';
-          html += '<span style="font-weight:600;font-size:0.88em;color:#333;">' + fwmLangLabel(sub.label) + '</span>';
-          if (sub.hint) {
-            html += '<br><span style="font-size:0.82em;color:#666;margin-left:4px;">' + String.fromCodePoint(0x1f4a1) + ' ' + sub.hint + '</span>';
-          }
-          if (sub.subs && sub.subs.length > 0) {
-            html += window.fwmRenderInlineTree(sub, depth + 1);
-          }
-          html += '</div>';
-        });
-        return html;
-      };
+        window.fwmRenderInlineTree = function (node, depth) {
+          depth = depth || 0;
+          var html = "";
+          var subs = node.subs || [];
 
+          if (depth === 0 && node.label) {
+            html +=
+              '<div style="font-weight:700;font-size:0.95em;margin-bottom:8px;color:#2e7d32;">' +
+              fwmLangLabel(node.label) +
+              "</div>";
+            if (node.hint) {
+              html +=
+                '<div style="font-size:0.82em;color:#666;margin-bottom:10px;">' +
+                String.fromCodePoint(0x1f4a1) +
+                " " +
+                node.hint +
+                "</div>";
+            }
+          }
+
+          if (subs.length > 0) {
+            html += '<ul style="list-style:none;margin:0 0 0 ' + (depth > 0 ? '8' : '0') + 'px;padding:0;border-left:' + (depth > 0 ? '2px solid #c5e1a5' : 'none') + ';">';
+            subs.forEach(function (sub, idx) {
+              var isLast = idx === subs.length - 1;
+              html += '<li style="position:relative;padding:4px 0 4px ' + (depth > 0 ? '16' : '4') + 'px;margin:0;">';
+              /* Tree connector: horizontal tee line */
+              if (depth > 0) {
+                html += '<span style="position:absolute;left:-2px;top:12px;width:14px;height:0;border-top:2px solid #a5d6a7;"></span>';
+                /* Vertical line cutoff for last item */
+                if (isLast) {
+                  html += '<span style="position:absolute;left:-2px;top:12px;bottom:0;width:4px;background:#f1f8e9;"></span>';
+                  html += '<span style="position:absolute;left:-2px;top:0;height:12px;width:0;border-left:2px solid #a5d6a7;"></span>';
+                }
+              }
+              html += '<span style="font-weight:600;font-size:0.88em;color:#333;">' + fwmLangLabel(sub.label) + '</span>';
+              if (sub.hint) {
+                html += '<br><span style="font-size:0.79em;color:#777;margin-left:2px;">' +
+                  String.fromCodePoint(0x1f4a1) + ' ' + sub.hint + '</span>';
+              }
+              if (sub.subs && sub.subs.length > 0) {
+                html += window.fwmRenderInlineTree(sub, depth + 1);
+              }
+              html += '</li>';
+            });
+            html += '</ul>';
+          }
+          return html;
+        };
 
         var FWM_DATA = {
           profitability: {
@@ -22646,82 +23195,193 @@ Margin                       20.0%              6.6%          -13.4pp
           return html;
         }
 
-
         // Academic & Logical framework data
         FWM_DATA["supply-demand"] = {
           label: "📊 Supply & Demand",
           chain: ["Supply & Demand"],
-          insight: "Classic economics framework. USE WHEN: the case involves price changes, market equilibria, commodity markets, or operations capacity vs. demand. Think about shifts in supply curve (cost changes, new entrants, regulation) and demand curve (income, preferences, substitutes). Key: find equilibrium price/quantity, then analyze what shifts the curves.",
-          tree: null
+          insight:
+            "Classic economics framework. USE WHEN: the case involves price changes, market equilibria, commodity markets, or operations capacity vs. demand. Think about shifts in supply curve (cost changes, new entrants, regulation) and demand curve (income, preferences, substitutes). Key: find equilibrium price/quantity, then analyze what shifts the curves.",
+          tree: null,
         };
         FWM_DATA["three-cs"] = {
           label: "🔺 Three Cs",
           chain: ["Three Cs"],
-          insight: "Company–Competitors–Customers. USE WHEN: you need a quick external/internal scan to understand competitive positioning. Company = our strengths, capabilities, costs. Competitors = who else plays, their share, strategy, advantages. Customers = needs, segments, willingness to pay, switching costs. Pairs well with Market Entry and Competitive Response.",
-          tree: { root: "Three Cs", branches: [
-            { name: "Company / Empresa", children: ["Capabilities / Capacidades", "Cost structure / Estrutura de custos", "Brand & reputation / Marca e reputação"] },
-            { name: "Competitors / Concorrentes", children: ["Market share / Quota de mercado", "Strategy / Estratégia", "Strengths & weaknesses / Forças e fraquezas"] },
-            { name: "Customers / Clientes", children: ["Needs & pain points / Necessidades", "Segments / Segmentos", "Willingness to pay / Disposição a pagar"] }
-          ] }
+          insight:
+            "Company–Competitors–Customers. USE WHEN: you need a quick external/internal scan to understand competitive positioning. Company = our strengths, capabilities, costs. Competitors = who else plays, their share, strategy, advantages. Customers = needs, segments, willingness to pay, switching costs. Pairs well with Market Entry and Competitive Response.",
+          tree: {
+            root: "Three Cs",
+            branches: [
+              {
+                name: "Company / Empresa",
+                children: [
+                  "Capabilities / Capacidades",
+                  "Cost structure / Estrutura de custos",
+                  "Brand & reputation / Marca e reputação",
+                ],
+              },
+              {
+                name: "Competitors / Concorrentes",
+                children: [
+                  "Market share / Quota de mercado",
+                  "Strategy / Estratégia",
+                  "Strengths & weaknesses / Forças e fraquezas",
+                ],
+              },
+              {
+                name: "Customers / Clientes",
+                children: [
+                  "Needs & pain points / Necessidades",
+                  "Segments / Segmentos",
+                  "Willingness to pay / Disposição a pagar",
+                ],
+              },
+            ],
+          },
         };
         FWM_DATA["porters-five"] = {
           label: "⭐ Porter's Five Forces",
           chain: ["Porter's Five Forces"],
-          insight: "Industry attractiveness analysis. USE WHEN: evaluating whether to enter a market, assessing industry profitability, or understanding competitive dynamics. Five forces: (1) Rivalry among existing competitors, (2) Bargaining power of buyers, (3) Bargaining power of suppliers, (4) Threat of substitutes, (5) Threat of new entrants. High forces = lower industry profitability.",
-          tree: { root: "Five Forces / 5 Forças", branches: [
-            { name: "Rivalry / Rivalidade", children: ["# of competitors", "Industry growth rate", "Product differentiation", "Switching costs", "Exit barriers"] },
-            { name: "Buyer Power / Poder dos Compradores", children: ["Concentration", "Switching costs", "Price sensitivity", "Backward integration threat"] },
-            { name: "Supplier Power / Poder dos Fornecedores", children: ["Concentration", "Uniqueness of input", "Switching costs", "Forward integration threat"] },
-            { name: "Substitutes / Substitutos", children: ["Availability", "Price-performance", "Switching costs"] },
-            { name: "New Entrants / Novos Entrantes", children: ["Capital requirements", "Economies of scale", "Brand loyalty", "Regulatory barriers", "Access to distribution"] }
-          ] }
+          insight:
+            "Industry attractiveness analysis. USE WHEN: evaluating whether to enter a market, assessing industry profitability, or understanding competitive dynamics. Five forces: (1) Rivalry among existing competitors, (2) Bargaining power of buyers, (3) Bargaining power of suppliers, (4) Threat of substitutes, (5) Threat of new entrants. High forces = lower industry profitability.",
+          tree: {
+            root: "Five Forces / 5 Forças",
+            branches: [
+              {
+                name: "Rivalry / Rivalidade",
+                children: [
+                  "# of competitors",
+                  "Industry growth rate",
+                  "Product differentiation",
+                  "Switching costs",
+                  "Exit barriers",
+                ],
+              },
+              {
+                name: "Buyer Power / Poder dos Compradores",
+                children: [
+                  "Concentration",
+                  "Switching costs",
+                  "Price sensitivity",
+                  "Backward integration threat",
+                ],
+              },
+              {
+                name: "Supplier Power / Poder dos Fornecedores",
+                children: [
+                  "Concentration",
+                  "Uniqueness of input",
+                  "Switching costs",
+                  "Forward integration threat",
+                ],
+              },
+              {
+                name: "Substitutes / Substitutos",
+                children: [
+                  "Availability",
+                  "Price-performance",
+                  "Switching costs",
+                ],
+              },
+              {
+                name: "New Entrants / Novos Entrantes",
+                children: [
+                  "Capital requirements",
+                  "Economies of scale",
+                  "Brand loyalty",
+                  "Regulatory barriers",
+                  "Access to distribution",
+                ],
+              },
+            ],
+          },
         };
         FWM_DATA["four-ps"] = {
           label: "🎯 Four Ps",
           chain: ["Four Ps (Marketing Mix)"],
-          insight: "Marketing mix framework. USE WHEN: launching a new product, defining go-to-market strategy, or analyzing why a product is underperforming. Product = features, quality, design. Price = pricing strategy, discounts, value perception. Place = distribution channels, coverage, logistics. Promotion = advertising, sales force, PR, digital marketing. Overlaps with New Product framework.",
-          tree: { root: "Four Ps / Quatro Ps", branches: [
-            { name: "Product / Produto", children: ["Features / Características", "Quality / Qualidade", "Design / Design", "Branding / Marca"] },
-            { name: "Price / Preço", children: ["Pricing strategy / Estratégia de preço", "Discounts / Descontos", "Value perception / Perceção de valor"] },
-            { name: "Place / Distribuição", children: ["Channels / Canais", "Coverage / Cobertura", "Logistics / Logística", "Online vs Offline"] },
-            { name: "Promotion / Promoção", children: ["Advertising / Publicidade", "Sales force / Força de vendas", "PR / Relações públicas", "Digital marketing / Marketing digital"] }
-          ] }
+          insight:
+            "Marketing mix framework. USE WHEN: launching a new product, defining go-to-market strategy, or analyzing why a product is underperforming. Product = features, quality, design. Price = pricing strategy, discounts, value perception. Place = distribution channels, coverage, logistics. Promotion = advertising, sales force, PR, digital marketing. Overlaps with New Product framework.",
+          tree: {
+            root: "Four Ps / Quatro Ps",
+            branches: [
+              {
+                name: "Product / Produto",
+                children: [
+                  "Features / Características",
+                  "Quality / Qualidade",
+                  "Design / Design",
+                  "Branding / Marca",
+                ],
+              },
+              {
+                name: "Price / Preço",
+                children: [
+                  "Pricing strategy / Estratégia de preço",
+                  "Discounts / Descontos",
+                  "Value perception / Perceção de valor",
+                ],
+              },
+              {
+                name: "Place / Distribuição",
+                children: [
+                  "Channels / Canais",
+                  "Coverage / Cobertura",
+                  "Logistics / Logística",
+                  "Online vs Offline",
+                ],
+              },
+              {
+                name: "Promotion / Promoção",
+                children: [
+                  "Advertising / Publicidade",
+                  "Sales force / Força de vendas",
+                  "PR / Relações públicas",
+                  "Digital marketing / Marketing digital",
+                ],
+              },
+            ],
+          },
         };
         FWM_DATA["equations"] = {
           label: "🔢 Equations",
           chain: ["Logical Structure: Equations"],
-          insight: "Structure type for QUANTITATIVE questions. USE WHEN: the answer requires a number — profit, breakeven, market size, ROI. Start by writing the equation (e.g., Profit = Revenue − Costs, Revenue = Volume × Price). Then decompose each variable. This is the most common logical structure in case interviews. Always try to express the problem as an equation first.",
-          tree: null
+          insight:
+            "Structure type for QUANTITATIVE questions. USE WHEN: the answer requires a number — profit, breakeven, market size, ROI. Start by writing the equation (e.g., Profit = Revenue − Costs, Revenue = Volume × Price). Then decompose each variable. This is the most common logical structure in case interviews. Always try to express the problem as an equation first.",
+          tree: null,
         };
         FWM_DATA["key-questions"] = {
           label: "❓ Key Questions",
           chain: ["Logical Structure: Key Questions"],
-          insight: "Structure type for QUALITATIVE decisions. USE WHEN: there is no single formula and you need to evaluate multiple criteria. List 3-5 key questions that, if answered, would resolve the decision. Example: Should we acquire company X? → (1) Is the standalone value attractive? (2) Are there meaningful synergies? (3) Can we integrate successfully? (4) What are the risks?",
-          tree: null
+          insight:
+            "Structure type for QUALITATIVE decisions. USE WHEN: there is no single formula and you need to evaluate multiple criteria. List 3-5 key questions that, if answered, would resolve the decision. Example: Should we acquire company X? → (1) Is the standalone value attractive? (2) Are there meaningful synergies? (3) Can we integrate successfully? (4) What are the risks?",
+          tree: null,
         };
         FWM_DATA["hypotheses"] = {
           label: "🧪 Hypotheses",
           chain: ["Logical Structure: Hypotheses"],
-          insight: "Structure type for QUALITATIVE decisions with a testable thesis. USE WHEN: you have a directional belief and need to prove/disprove it. State your hypothesis, then list the conditions that must be TRUE for the hypothesis to hold. Example: 'We should enter market X IF (1) market size > $500M, (2) we can achieve 10%+ share in 3 years, (3) expected margins > 15%.'",
-          tree: null
+          insight:
+            "Structure type for QUALITATIVE decisions with a testable thesis. USE WHEN: you have a directional belief and need to prove/disprove it. State your hypothesis, then list the conditions that must be TRUE for the hypothesis to hold. Example: 'We should enter market X IF (1) market size > $500M, (2) we can achieve 10%+ share in 3 years, (3) expected margins > 15%.'",
+          tree: null,
         };
         FWM_DATA["root-causes"] = {
           label: "🔍 Root Causes",
           chain: ["Logical Structure: Root Causes"],
-          insight: "Structure type for ISSUE INVESTIGATIONS. USE WHEN: something went wrong and you need to find out why. Think 'fishbone diagram' or '5 Whys'. List all possible root causes, then systematically test each. Group causes into categories (people, process, technology, external). Always ask: is this the root cause, or a symptom of something deeper?",
-          tree: null
+          insight:
+            "Structure type for ISSUE INVESTIGATIONS. USE WHEN: something went wrong and you need to find out why. Think 'fishbone diagram' or '5 Whys'. List all possible root causes, then systematically test each. Group causes into categories (people, process, technology, external). Always ask: is this the root cause, or a symptom of something deeper?",
+          tree: null,
         };
         FWM_DATA["process-map"] = {
           label: "🗺️ Process Map",
           chain: ["Logical Structure: Process Map"],
-          insight: "Structure type for OPERATIONS optimization. USE WHEN: the case involves a sequence of steps, a value chain, or a workflow. Map out the process end-to-end, then identify bottlenecks, waste, and improvement opportunities at each step. Example: Attraction → Screening → Selection → Offer → Onboarding. Works perfectly with the Process Optimization framework (#10).",
-          tree: null
+          insight:
+            "Structure type for OPERATIONS optimization. USE WHEN: the case involves a sequence of steps, a value chain, or a workflow. Map out the process end-to-end, then identify bottlenecks, waste, and improvement opportunities at each step. Example: Attraction → Screening → Selection → Offer → Onboarding. Works perfectly with the Process Optimization framework (#10).",
+          tree: null,
         };
         FWM_DATA["from-to"] = {
           label: "➡️ From-To",
           chain: ["Logical Structure: From-To"],
-          insight: "Structure type for REACHING A FUTURE STATE. USE WHEN: the case is about transformation, change management, or strategic planning. Define: (1) Where are we now? (current state), (2) Where do we want to be? (target state), (3) What is the gap? (4) What initiatives close the gap? Example: digital transformation, turnaround, org restructuring.",
-          tree: null
+          insight:
+            "Structure type for REACHING A FUTURE STATE. USE WHEN: the case is about transformation, change management, or strategic planning. Define: (1) Where are we now? (current state), (2) Where do we want to be? (target state), (3) What is the gap? (4) What initiatives close the gap? Example: digital transformation, turnaround, org restructuring.",
+          tree: null,
         };
 
         var currentFwmNode = null;
@@ -22756,7 +23416,9 @@ Margin                       20.0%              6.6%          -13.4pp
               currentFwmNode = key;
 
               // Highlight connector lines path
-              var hlPill = document.querySelector('.fwm-pill[data-fwm="' + key + '"]');
+              var hlPill = document.querySelector(
+                '.fwm-pill[data-fwm="' + key + '"]',
+              );
               window.fwmHighlightPill = hlPill ? hlPill.id : null;
               window.drawFwmLines();
 
@@ -22778,7 +23440,10 @@ Margin                       20.0%              6.6%          -13.4pp
 
               // Build merged gray box: prompt first, then inline tree with hints
               var exDiv = document.getElementById("fwm-examples-display");
-              var treeNode = (typeof window.FWM_INLINE_TREE !== "undefined") ? window.FWM_INLINE_TREE[key] : null;
+              var treeNode =
+                typeof window.FWM_INLINE_TREE !== "undefined"
+                  ? window.FWM_INLINE_TREE[key]
+                  : null;
               var genData =
                 typeof FW_EXAMPLES !== "undefined" &&
                 FW_EXAMPLES[key] &&
@@ -22880,7 +23545,8 @@ Margin                       20.0%              6.6%          -13.4pp
             /* Build parent map from current FWM_CONNS */
             var parentMap = {};
             FWM_CONNS.forEach(function (conn) {
-              if (!conn.d) { /* only solid connections */
+              if (!conn.d) {
+                /* only solid connections */
                 parentMap[conn.t] = conn.f;
               }
             });
@@ -22905,8 +23571,27 @@ Margin                       20.0%              6.6%          -13.4pp
             var y2 = tr.top - cr.top;
 
             var midY = (y1 + y2) / 2;
-            var path = document.createElementNS("http://www.w3.org/2000/svg", "path");
-            var d = "M" + x1 + "," + y1 + " C" + x1 + "," + midY + " " + x2 + "," + midY + " " + x2 + "," + y2;
+            var path = document.createElementNS(
+              "http://www.w3.org/2000/svg",
+              "path",
+            );
+            var d =
+              "M" +
+              x1 +
+              "," +
+              y1 +
+              " C" +
+              x1 +
+              "," +
+              midY +
+              " " +
+              x2 +
+              "," +
+              midY +
+              " " +
+              x2 +
+              "," +
+              y2;
             path.setAttribute("d", d);
             path.setAttribute("fill", "none");
 
@@ -22948,117 +23633,118 @@ Margin                       20.0%              6.6%          -13.4pp
            Static pills use data-en / data-pt attributes set in HTML. */
         window.FWM_PT = {
           /* ── Growth subs ── */
-          "fwm-x-grow-core":    "\ud83d\udcc8 Crescer no Core",
+          "fwm-x-grow-core": "\ud83d\udcc8 Crescer no Core",
           "fwm-x-grow-outside": "\ud83c\udf10 Crescer fora do Core",
-          "fwm-x-gc-current":   "\ud83d\udcca Crescer Segmentos Atuais",
-          "fwm-x-gc-fastest":   "\ud83d\ude80 Investir nos de Maior Crescimento",
-          "fwm-x-go-newprod":   "\ud83c\udd95 Novos Produtos \u2192 Atuais",
-          "fwm-x-go-newbiz":    "\ud83c\udfe2 Capacidades \u2192 Novos Neg\u00f3cios",
+          "fwm-x-gc-current": "\ud83d\udcca Crescer Segmentos Atuais",
+          "fwm-x-gc-fastest": "\ud83d\ude80 Investir nos de Maior Crescimento",
+          "fwm-x-go-newprod": "\ud83c\udd95 Novos Produtos \u2192 Atuais",
+          "fwm-x-go-newbiz":
+            "\ud83c\udfe2 Capacidades \u2192 Novos Neg\u00f3cios",
 
           /* ── Cost Reduction subs ── */
-          "fwm-x-costr-need":   "\ud83d\udeab Reduzir a Necessidade",
-          "fwm-x-costr-less":   "\u26a1 Cumprir com Menos",
-          "fwm-x-costr-cheaper":"\ud83d\udcb0 Recursos mais Baratos",
-          "fwm-x-cn-elim":      "\u274c Eliminar Totalmente",
-          "fwm-x-cn-reduce":    "\ud83d\udcc9 Reduzir N\u00edvel de Servi\u00e7o",
-          "fwm-x-cl-waste":     "\ud83d\uddd1\ufe0f Eliminar Desperd\u00edcio",
-          "fwm-x-cl-prod":      "\ud83d\udcc8 Melhorar Produtividade",
-          "fwm-x-cc-alt":       "\ud83d\udd04 Encontrar Alternativas",
-          "fwm-x-cc-renego":    "\ud83e\udd1d Renegociar Custos",
+          "fwm-x-costr-need": "\ud83d\udeab Reduzir a Necessidade",
+          "fwm-x-costr-less": "\u26a1 Cumprir com Menos",
+          "fwm-x-costr-cheaper": "\ud83d\udcb0 Recursos mais Baratos",
+          "fwm-x-cn-elim": "\u274c Eliminar Totalmente",
+          "fwm-x-cn-reduce": "\ud83d\udcc9 Reduzir N\u00edvel de Servi\u00e7o",
+          "fwm-x-cl-waste": "\ud83d\uddd1\ufe0f Eliminar Desperd\u00edcio",
+          "fwm-x-cl-prod": "\ud83d\udcc8 Melhorar Produtividade",
+          "fwm-x-cc-alt": "\ud83d\udd04 Encontrar Alternativas",
+          "fwm-x-cc-renego": "\ud83e\udd1d Renegociar Custos",
 
           /* ── Pricing subs ── */
-          "fwm-x-price-floor":  "\ud83d\udcca Custos (Piso)",
-          "fwm-x-price-bench":  "\u2696\ufe0f Concorrentes (Refer\u00eancia)",
-          "fwm-x-price-ceil":   "\ud83c\udfaf DaP (Teto)",
-          "fwm-x-pf-var":       "\ud83d\udce6 Custos Vari\u00e1veis",
-          "fwm-x-pf-fix":       "\ud83c\udfe2 Custos Fixos",
-          "fwm-x-pf-inv":       "\ud83d\udcb0 Custos de Investimento",
-          "fwm-x-pf-markup":    "\ud83d\udcc8 Margem",
+          "fwm-x-price-floor": "\ud83d\udcca Custos (Piso)",
+          "fwm-x-price-bench": "\u2696\ufe0f Concorrentes (Refer\u00eancia)",
+          "fwm-x-price-ceil": "\ud83c\udfaf DaP (Teto)",
+          "fwm-x-pf-var": "\ud83d\udce6 Custos Vari\u00e1veis",
+          "fwm-x-pf-fix": "\ud83c\udfe2 Custos Fixos",
+          "fwm-x-pf-inv": "\ud83d\udcb0 Custos de Investimento",
+          "fwm-x-pf-markup": "\ud83d\udcc8 Margem",
 
           /* ── Competitive Response subs ── */
-          "fwm-x-cr-impact":    "\ud83d\udcc9 Impacto Potencial",
-          "fwm-x-cr-opp":       "\ud83d\udd0d Oportunidade do Concorrente",
-          "fwm-x-cr-resp":      "\ud83d\udee1\ufe0f Respostas Poss\u00edveis",
-          "fwm-x-cri-seg":      "\ud83c\udfaf Segmento Afetado",
-          "fwm-x-cri-size":     "\ud83d\udcca Dimens\u00e3o do Impacto",
-          "fwm-x-cri-profit":   "\ud83d\udcb0 Rentabilidade em Risco",
-          "fwm-x-cri-loss":     "\ud83d\udcc9 Perda Estimada",
-          "fwm-x-crr-nothing":  "\u23f8\ufe0f N\u00e3o Fazer Nada",
+          "fwm-x-cr-impact": "\ud83d\udcc9 Impacto Potencial",
+          "fwm-x-cr-opp": "\ud83d\udd0d Oportunidade do Concorrente",
+          "fwm-x-cr-resp": "\ud83d\udee1\ufe0f Respostas Poss\u00edveis",
+          "fwm-x-cri-seg": "\ud83c\udfaf Segmento Afetado",
+          "fwm-x-cri-size": "\ud83d\udcca Dimens\u00e3o do Impacto",
+          "fwm-x-cri-profit": "\ud83d\udcb0 Rentabilidade em Risco",
+          "fwm-x-cri-loss": "\ud83d\udcc9 Perda Estimada",
+          "fwm-x-crr-nothing": "\u23f8\ufe0f N\u00e3o Fazer Nada",
           "fwm-x-crr-mitigate": "\ud83d\udee1\ufe0f Mitigar",
-          "fwm-x-crr-replicate":"\ud83d\udccb Replicar",
-          "fwm-x-crr-collab":   "\ud83e\udd1d Colaborar",
-          "fwm-x-crr-align":    "\ud83d\udd04 Alinhar / Pivotar",
+          "fwm-x-crr-replicate": "\ud83d\udccb Replicar",
+          "fwm-x-crr-collab": "\ud83e\udd1d Colaborar",
+          "fwm-x-crr-align": "\ud83d\udd04 Alinhar / Pivotar",
 
           /* ── Investment subs ── */
-          "fwm-x-inv-rev":      "\ud83d\udcc8 Impacto nas Receitas",
-          "fwm-x-inv-cost":     "\ud83d\udcc9 Impacto nos Custos",
-          "fwm-x-inv-be":       "\u2696\ufe0f Ponto de Equil\u00edbrio",
-          "fwm-x-inv-impl":     "\ud83d\udd27 Implementa\u00e7\u00e3o",
-          "fwm-x-invi-cap":     "\ud83c\udfaf Capacidades Necess\u00e1rias",
-          "fwm-x-invi-time":    "\u23f1\ufe0f Cronograma",
-          "fwm-x-invi-risk":    "\u26a0\ufe0f Riscos",
+          "fwm-x-inv-rev": "\ud83d\udcc8 Impacto nas Receitas",
+          "fwm-x-inv-cost": "\ud83d\udcc9 Impacto nos Custos",
+          "fwm-x-inv-be": "\u2696\ufe0f Ponto de Equil\u00edbrio",
+          "fwm-x-inv-impl": "\ud83d\udd27 Implementa\u00e7\u00e3o",
+          "fwm-x-invi-cap": "\ud83c\udfaf Capacidades Necess\u00e1rias",
+          "fwm-x-invi-time": "\u23f1\ufe0f Cronograma",
+          "fwm-x-invi-risk": "\u26a0\ufe0f Riscos",
 
           /* ── Market Entry subs ── */
-          "fwm-x-me-opp":       "\ud83d\udcca Oportunidade de Mercado",
-          "fwm-x-me-share":     "\ud83c\udfaf Quota Potencial",
-          "fwm-x-me-profit":    "\ud83d\udcb0 Lucro Potencial",
-          "fwm-x-me-cap":       "\ud83d\udd27 Capacidades e Riscos",
-          "fwm-x-meo-size":     "\ud83d\udccf Dimens\u00e3o do Mercado",
-          "fwm-x-meo-growth":   "\ud83d\udcc8 Taxa de Crescimento",
-          "fwm-x-mes-needs":    "\ud83d\udca1 Necessidades dos Clientes",
-          "fwm-x-mes-offer":    "\ud83c\udff7\ufe0f A Nossa Oferta",
-          "fwm-x-mes-comp":     "\u2694\ufe0f Concorrentes",
-          "fwm-x-mep-inv":      "\ud83d\udcb8 Investimento Necess\u00e1rio",
-          "fwm-x-mep-run":      "\ud83d\udd04 Custos Operacionais",
-          "fwm-x-mep-rev":      "\ud83d\udcc8 Receitas Esperadas",
-          "fwm-x-mec-cap":      "\ud83c\udfaf Temos Capacidades?",
-          "fwm-x-mec-risk":     "\u26a0\ufe0f Riscos-Chave",
+          "fwm-x-me-opp": "\ud83d\udcca Oportunidade de Mercado",
+          "fwm-x-me-share": "\ud83c\udfaf Quota Potencial",
+          "fwm-x-me-profit": "\ud83d\udcb0 Lucro Potencial",
+          "fwm-x-me-cap": "\ud83d\udd27 Capacidades e Riscos",
+          "fwm-x-meo-size": "\ud83d\udccf Dimens\u00e3o do Mercado",
+          "fwm-x-meo-growth": "\ud83d\udcc8 Taxa de Crescimento",
+          "fwm-x-mes-needs": "\ud83d\udca1 Necessidades dos Clientes",
+          "fwm-x-mes-offer": "\ud83c\udff7\ufe0f A Nossa Oferta",
+          "fwm-x-mes-comp": "\u2694\ufe0f Concorrentes",
+          "fwm-x-mep-inv": "\ud83d\udcb8 Investimento Necess\u00e1rio",
+          "fwm-x-mep-run": "\ud83d\udd04 Custos Operacionais",
+          "fwm-x-mep-rev": "\ud83d\udcc8 Receitas Esperadas",
+          "fwm-x-mec-cap": "\ud83c\udfaf Temos Capacidades?",
+          "fwm-x-mec-risk": "\u26a0\ufe0f Riscos-Chave",
 
           /* ── New Product subs ── */
-          "fwm-x-np-seg":       "\ud83c\udfaf Segmentos-Alvo",
-          "fwm-x-np-mkt":       "\ud83d\udce3 Estrat\u00e9gia de Marketing",
-          "fwm-x-np-impl":      "\ud83d\udd27 Implementa\u00e7\u00e3o",
-          "fwm-x-nps-size":     "\ud83d\udccf Dimens\u00e3o e Crescimento",
-          "fwm-x-nps-comp":     "\u2694\ufe0f Concorr\u00eancia",
-          "fwm-x-nps-needs":    "\ud83d\udca1 Necessidades dos Clientes",
-          "fwm-x-npm-prod":     "\ud83d\udce6 Produto",
-          "fwm-x-npm-price":    "\ud83d\udcb2 Pre\u00e7o",
-          "fwm-x-npm-dist":     "\ud83d\ude9a Distribui\u00e7\u00e3o",
-          "fwm-x-npm-promo":    "\ud83d\udce2 Promo\u00e7\u00e3o",
-          "fwm-x-npi-design":   "\ud83c\udfa8 Design do Produto",
-          "fwm-x-npi-prod":     "\ud83c\udfed Produ\u00e7\u00e3o",
-          "fwm-x-npi-mkt":      "\ud83d\udce3 Marketing e Vendas",
-          "fwm-x-npi-log":      "\ud83d\ude9a Log\u00edstica",
-          "fwm-x-npi-after":    "\ud83d\udd27 P\u00f3s-Venda",
+          "fwm-x-np-seg": "\ud83c\udfaf Segmentos-Alvo",
+          "fwm-x-np-mkt": "\ud83d\udce3 Estrat\u00e9gia de Marketing",
+          "fwm-x-np-impl": "\ud83d\udd27 Implementa\u00e7\u00e3o",
+          "fwm-x-nps-size": "\ud83d\udccf Dimens\u00e3o e Crescimento",
+          "fwm-x-nps-comp": "\u2694\ufe0f Concorr\u00eancia",
+          "fwm-x-nps-needs": "\ud83d\udca1 Necessidades dos Clientes",
+          "fwm-x-npm-prod": "\ud83d\udce6 Produto",
+          "fwm-x-npm-price": "\ud83d\udcb2 Pre\u00e7o",
+          "fwm-x-npm-dist": "\ud83d\ude9a Distribui\u00e7\u00e3o",
+          "fwm-x-npm-promo": "\ud83d\udce2 Promo\u00e7\u00e3o",
+          "fwm-x-npi-design": "\ud83c\udfa8 Design do Produto",
+          "fwm-x-npi-prod": "\ud83c\udfed Produ\u00e7\u00e3o",
+          "fwm-x-npi-mkt": "\ud83d\udce3 Marketing e Vendas",
+          "fwm-x-npi-log": "\ud83d\ude9a Log\u00edstica",
+          "fwm-x-npi-after": "\ud83d\udd27 P\u00f3s-Venda",
 
           /* ── M&A subs ── */
-          "fwm-x-ma-stand":     "\ud83d\udcca Valor Aut\u00f3nomo",
-          "fwm-x-ma-syn":       "\ud83e\udd1d Sinergias",
-          "fwm-x-ma-cap":       "\ud83d\udd27 Capacidades e Riscos",
-          "fwm-x-mav-rev":      "\ud83d\udcc8 Receitas Futuras",
-          "fwm-x-mav-cost":     "\ud83d\udcc9 Custos Futuros",
-          "fwm-x-mav-mult":     "\ud83d\udcca M\u00faltiplos",
-          "fwm-x-may-cost":     "\ud83d\udcc9 Sinergias de Custo",
-          "fwm-x-may-rev":      "\ud83d\udcc8 Sinergias de Receita",
-          "fwm-x-mac-int":      "\ud83d\udd04 Plano de Integra\u00e7\u00e3o",
-          "fwm-x-mac-cult":     "\ud83d\udc65 Encaixe Cultural",
-          "fwm-x-mac-reg":      "\u2696\ufe0f Regulat\u00f3rio",
+          "fwm-x-ma-stand": "\ud83d\udcca Valor Aut\u00f3nomo",
+          "fwm-x-ma-syn": "\ud83e\udd1d Sinergias",
+          "fwm-x-ma-cap": "\ud83d\udd27 Capacidades e Riscos",
+          "fwm-x-mav-rev": "\ud83d\udcc8 Receitas Futuras",
+          "fwm-x-mav-cost": "\ud83d\udcc9 Custos Futuros",
+          "fwm-x-mav-mult": "\ud83d\udcca M\u00faltiplos",
+          "fwm-x-may-cost": "\ud83d\udcc9 Sinergias de Custo",
+          "fwm-x-may-rev": "\ud83d\udcc8 Sinergias de Receita",
+          "fwm-x-mac-int": "\ud83d\udd04 Plano de Integra\u00e7\u00e3o",
+          "fwm-x-mac-cult": "\ud83d\udc65 Encaixe Cultural",
+          "fwm-x-mac-reg": "\u2696\ufe0f Regulat\u00f3rio",
 
           /* ── Process Optimization subs ── */
-          "fwm-x-po-map":       "\ud83d\uddfa\ufe0f Mapear Processo",
-          "fwm-x-po-step":      "\ud83d\udd0d Otimizar Etapas",
-          "fwm-x-po-gain":      "\ud83d\udcc8 Estimar Ganhos",
-          "fwm-x-pom-cap":      "\ud83d\udcca Capacidade Total",
-          "fwm-x-pom-util":     "\ud83d\udcc8 Utiliza\u00e7\u00e3o",
-          "fwm-x-pom-bottle":   "\ud83d\udd34 Gargalo",
-          "fwm-x-pos-elim":     "\u274c Eliminar Baixo Valor",
-          "fwm-x-pos-antic":    "\ud83d\udd2e Antecipar e Prevenir",
-          "fwm-x-pog-cost":     "\ud83d\udcb0 Redu\u00e7\u00e3o de Custo",
-          "fwm-x-pog-qual":     "\u2b50 Melhoria de Qualidade",
-          "fwm-x-pog-speed":    "\u26a1 Aumento de Velocidade"
+          "fwm-x-po-map": "\ud83d\uddfa\ufe0f Mapear Processo",
+          "fwm-x-po-step": "\ud83d\udd0d Otimizar Etapas",
+          "fwm-x-po-gain": "\ud83d\udcc8 Estimar Ganhos",
+          "fwm-x-pom-cap": "\ud83d\udcca Capacidade Total",
+          "fwm-x-pom-util": "\ud83d\udcc8 Utiliza\u00e7\u00e3o",
+          "fwm-x-pom-bottle": "\ud83d\udd34 Gargalo",
+          "fwm-x-pos-elim": "\u274c Eliminar Baixo Valor",
+          "fwm-x-pos-antic": "\ud83d\udd2e Antecipar e Prevenir",
+          "fwm-x-pog-cost": "\ud83d\udcb0 Redu\u00e7\u00e3o de Custo",
+          "fwm-x-pog-qual": "\u2b50 Melhoria de Qualidade",
+          "fwm-x-pog-speed": "\u26a1 Aumento de Velocidade",
         };
 
-          // Academic & Logical framework translations
+        // Academic & Logical framework translations
         window.FWM_PT["supply-demand"] = "📊 Oferta e Procura";
         window.FWM_PT["three-cs"] = "🔺 Três Cs";
         window.FWM_PT["porters-five"] = "⭐ 5 Forças de Porter";
@@ -23070,7 +23756,7 @@ Margin                       20.0%              6.6%          -13.4pp
         window.FWM_PT["process-map"] = "🗺️ Mapa de Processo";
         window.FWM_PT["from-to"] = "➡️ De-Para";
 
-      window.fwmSetLang = function (lang) {
+        window.fwmSetLang = function (lang) {
           window.fwmLang = lang;
           /* Update toggle buttons appearance */
           var enBtn = document.getElementById("fwm-lang-en");
@@ -23130,26 +23816,44 @@ Margin                       20.0%              6.6%          -13.4pp
           growth: {
             subs: [
               {
-                id: "fwm-x-grow-core", label: "\ud83d\udcc8 Grow the Core",
+                id: "fwm-x-grow-core",
+                label: "\ud83d\udcc8 Grow the Core",
                 tip: "Existing markets & segments",
                 subs: [
-                  { id: "fwm-x-gc-current", label: "\ud83d\udcca Grow Current Segments", tip: "Better products, marketing, prices" },
-                  { id: "fwm-x-gc-fastest", label: "\ud83d\ude80 Invest in Fastest-Growing", tip: "Shift resources to high-growth areas" }
-                ]
+                  {
+                    id: "fwm-x-gc-current",
+                    label: "\ud83d\udcca Grow Current Segments",
+                    tip: "Better products, marketing, prices",
+                  },
+                  {
+                    id: "fwm-x-gc-fastest",
+                    label: "\ud83d\ude80 Invest in Fastest-Growing",
+                    tip: "Shift resources to high-growth areas",
+                  },
+                ],
               },
               {
-                id: "fwm-x-grow-outside", label: "\ud83c\udf10 Grow Outside Core",
+                id: "fwm-x-grow-outside",
+                label: "\ud83c\udf10 Grow Outside Core",
                 tip: "New markets, products, businesses",
                 subs: [
-                  { id: "fwm-x-go-newprod", label: "\ud83c\udd95 New Products \u2192 Existing", tip: "Cross-sell to current customer base" },
-                  { id: "fwm-x-go-newbiz", label: "\ud83c\udfe2 Capabilities \u2192 New Biz", tip: "Leverage strengths in new domains" }
-                ]
-              }
+                  {
+                    id: "fwm-x-go-newprod",
+                    label: "\ud83c\udd95 New Products \u2192 Existing",
+                    tip: "Cross-sell to current customer base",
+                  },
+                  {
+                    id: "fwm-x-go-newbiz",
+                    label: "\ud83c\udfe2 Capabilities \u2192 New Biz",
+                    tip: "Leverage strengths in new domains",
+                  },
+                ],
+              },
             ],
             removeConns: [
               ["fwm-n-growth", "fwm-n-market-entry"],
               ["fwm-n-growth", "fwm-n-new-product"],
-              ["fwm-n-growth", "fwm-n-m-and-a"]
+              ["fwm-n-growth", "fwm-n-m-and-a"],
             ],
             addConns: [
               { f: "fwm-n-growth", t: "fwm-x-grow-core" },
@@ -23157,7 +23861,7 @@ Margin                       20.0%              6.6%          -13.4pp
               { f: "fwm-x-grow-outside", t: "fwm-n-market-entry" },
               { f: "fwm-x-grow-core", t: "fwm-n-new-product" },
               { f: "fwm-x-grow-outside", t: "fwm-n-new-product" },
-              { f: "fwm-x-grow-outside", t: "fwm-n-m-and-a" }
+              { f: "fwm-x-grow-outside", t: "fwm-n-m-and-a" },
             ],
             lvl2Conns: {
               "fwm-x-grow-core": {
@@ -23165,116 +23869,162 @@ Margin                       20.0%              6.6%          -13.4pp
                 addConns: [
                   { f: "fwm-x-grow-core", t: "fwm-x-gc-current" },
                   { f: "fwm-x-grow-core", t: "fwm-x-gc-fastest" },
-                  { f: "fwm-x-gc-current", t: "fwm-n-new-product" }
-                ]
+                  { f: "fwm-x-gc-current", t: "fwm-n-new-product" },
+                ],
               },
               "fwm-x-grow-outside": {
                 removeConns: [
                   ["fwm-x-grow-outside", "fwm-n-market-entry"],
                   ["fwm-x-grow-outside", "fwm-n-new-product"],
-                  ["fwm-x-grow-outside", "fwm-n-m-and-a"]
+                  ["fwm-x-grow-outside", "fwm-n-m-and-a"],
                 ],
                 addConns: [
                   { f: "fwm-x-grow-outside", t: "fwm-x-go-newprod" },
                   { f: "fwm-x-grow-outside", t: "fwm-x-go-newbiz" },
                   { f: "fwm-x-go-newprod", t: "fwm-n-new-product" },
                   { f: "fwm-x-go-newbiz", t: "fwm-n-market-entry" },
-                  { f: "fwm-x-go-newbiz", t: "fwm-n-m-and-a" }
-                ]
-              }
-            }
+                  { f: "fwm-x-go-newbiz", t: "fwm-n-m-and-a" },
+                ],
+              },
+            },
           },
 
           /* ── COST REDUCTION ── */
           "cost-reduction": {
             subs: [
               {
-                id: "fwm-x-costr-need", label: "\ud83d\udeab Reduce the Need",
+                id: "fwm-x-costr-need",
+                label: "\ud83d\udeab Reduce the Need",
                 tip: "Eliminate or reduce service level",
                 subs: [
-                  { id: "fwm-x-cn-elim", label: "\u274c Eliminate Entirely", tip: "Remove the need altogether" },
-                  { id: "fwm-x-cn-reduce", label: "\ud83d\udcc9 Reduce Service Level", tip: "Do less, accept lower quality" }
-                ]
+                  {
+                    id: "fwm-x-cn-elim",
+                    label: "\u274c Eliminate Entirely",
+                    tip: "Remove the need altogether",
+                  },
+                  {
+                    id: "fwm-x-cn-reduce",
+                    label: "\ud83d\udcc9 Reduce Service Level",
+                    tip: "Do less, accept lower quality",
+                  },
+                ],
               },
               {
-                id: "fwm-x-costr-less", label: "\u26a1 Meet with Less",
+                id: "fwm-x-costr-less",
+                label: "\u26a1 Meet with Less",
                 tip: "Eliminate waste, improve productivity",
                 subs: [
-                  { id: "fwm-x-cl-waste", label: "\ud83d\uddd1\ufe0f Eliminate Waste", tip: "Remove non-value-adding steps" },
-                  { id: "fwm-x-cl-prod", label: "\ud83d\udcc8 Improve Productivity", tip: "Do more with same resources" }
-                ]
+                  {
+                    id: "fwm-x-cl-waste",
+                    label: "\ud83d\uddd1\ufe0f Eliminate Waste",
+                    tip: "Remove non-value-adding steps",
+                  },
+                  {
+                    id: "fwm-x-cl-prod",
+                    label: "\ud83d\udcc8 Improve Productivity",
+                    tip: "Do more with same resources",
+                  },
+                ],
               },
               {
-                id: "fwm-x-costr-cheaper", label: "\ud83d\udcb0 Cheaper Resources",
+                id: "fwm-x-costr-cheaper",
+                label: "\ud83d\udcb0 Cheaper Resources",
                 tip: "Find alternatives, renegotiate",
                 subs: [
-                  { id: "fwm-x-cc-alt", label: "\ud83d\udd04 Find Alternatives", tip: "Substitute cheaper inputs" },
-                  { id: "fwm-x-cc-renego", label: "\ud83e\udd1d Renegotiate Costs", tip: "Better terms with suppliers" }
-                ]
-              }
+                  {
+                    id: "fwm-x-cc-alt",
+                    label: "\ud83d\udd04 Find Alternatives",
+                    tip: "Substitute cheaper inputs",
+                  },
+                  {
+                    id: "fwm-x-cc-renego",
+                    label: "\ud83e\udd1d Renegotiate Costs",
+                    tip: "Better terms with suppliers",
+                  },
+                ],
+              },
             ],
             removeConns: [["fwm-n-cost-red", "fwm-n-process-opt"]],
             addConns: [
               { f: "fwm-n-cost-red", t: "fwm-x-costr-need" },
               { f: "fwm-n-cost-red", t: "fwm-x-costr-less" },
               { f: "fwm-n-cost-red", t: "fwm-x-costr-cheaper" },
-              { f: "fwm-x-costr-less", t: "fwm-n-process-opt" }
+              { f: "fwm-x-costr-less", t: "fwm-n-process-opt" },
             ],
             lvl2Conns: {
               "fwm-x-costr-need": {
                 removeConns: [],
                 addConns: [
                   { f: "fwm-x-costr-need", t: "fwm-x-cn-elim" },
-                  { f: "fwm-x-costr-need", t: "fwm-x-cn-reduce" }
-                ]
+                  { f: "fwm-x-costr-need", t: "fwm-x-cn-reduce" },
+                ],
               },
               "fwm-x-costr-less": {
                 removeConns: [["fwm-x-costr-less", "fwm-n-process-opt"]],
                 addConns: [
                   { f: "fwm-x-costr-less", t: "fwm-x-cl-waste" },
                   { f: "fwm-x-costr-less", t: "fwm-x-cl-prod" },
-                  { f: "fwm-x-cl-prod", t: "fwm-n-process-opt" }
-                ]
+                  { f: "fwm-x-cl-prod", t: "fwm-n-process-opt" },
+                ],
               },
               "fwm-x-costr-cheaper": {
                 removeConns: [],
                 addConns: [
                   { f: "fwm-x-costr-cheaper", t: "fwm-x-cc-alt" },
-                  { f: "fwm-x-costr-cheaper", t: "fwm-x-cc-renego" }
-                ]
-              }
-            }
+                  { f: "fwm-x-costr-cheaper", t: "fwm-x-cc-renego" },
+                ],
+              },
+            },
           },
 
           /* ── PRICING ── */
           pricing: {
             subs: [
               {
-                id: "fwm-x-price-floor", label: "\ud83d\udcca Costs (Floor)",
+                id: "fwm-x-price-floor",
+                label: "\ud83d\udcca Costs (Floor)",
                 tip: "Variable + fixed + investment + margin",
                 subs: [
-                  { id: "fwm-x-pf-var", label: "\ud83d\udce6 Variable Costs", tip: "Per-unit production costs" },
-                  { id: "fwm-x-pf-fix", label: "\ud83c\udfe2 Fixed Costs", tip: "Overhead allocated per unit" },
-                  { id: "fwm-x-pf-inv", label: "\ud83d\udcb0 Investment Costs", tip: "Amortized investment per unit" },
-                  { id: "fwm-x-pf-markup", label: "\ud83d\udcc8 Markup", tip: "Required margin above costs" }
-                ]
+                  {
+                    id: "fwm-x-pf-var",
+                    label: "\ud83d\udce6 Variable Costs",
+                    tip: "Per-unit production costs",
+                  },
+                  {
+                    id: "fwm-x-pf-fix",
+                    label: "\ud83c\udfe2 Fixed Costs",
+                    tip: "Overhead allocated per unit",
+                  },
+                  {
+                    id: "fwm-x-pf-inv",
+                    label: "\ud83d\udcb0 Investment Costs",
+                    tip: "Amortized investment per unit",
+                  },
+                  {
+                    id: "fwm-x-pf-markup",
+                    label: "\ud83d\udcc8 Markup",
+                    tip: "Required margin above costs",
+                  },
+                ],
               },
               {
-                id: "fwm-x-price-bench", label: "\u2696\ufe0f Competitors (Benchmark)",
+                id: "fwm-x-price-bench",
+                label: "\u2696\ufe0f Competitors (Benchmark)",
                 tip: "Price above or below?",
-                subs: []
+                subs: [],
               },
               {
-                id: "fwm-x-price-ceil", label: "\ud83c\udfaf WTP (Ceiling)",
+                id: "fwm-x-price-ceil",
+                label: "\ud83c\udfaf WTP (Ceiling)",
                 tip: "Clients' willingness to pay",
-                subs: []
-              }
+                subs: [],
+              },
             ],
             removeConns: [],
             addConns: [
               { f: "fwm-n-pricing", t: "fwm-x-price-floor" },
               { f: "fwm-n-pricing", t: "fwm-x-price-bench" },
-              { f: "fwm-n-pricing", t: "fwm-x-price-ceil" }
+              { f: "fwm-n-pricing", t: "fwm-x-price-ceil" },
             ],
             lvl2Conns: {
               "fwm-x-price-floor": {
@@ -23283,47 +24033,86 @@ Margin                       20.0%              6.6%          -13.4pp
                   { f: "fwm-x-price-floor", t: "fwm-x-pf-var" },
                   { f: "fwm-x-price-floor", t: "fwm-x-pf-fix" },
                   { f: "fwm-x-price-floor", t: "fwm-x-pf-inv" },
-                  { f: "fwm-x-price-floor", t: "fwm-x-pf-markup" }
-                ]
-              }
-            }
+                  { f: "fwm-x-price-floor", t: "fwm-x-pf-markup" },
+                ],
+              },
+            },
           },
 
           /* ── COMPETITIVE RESPONSE ── */
           "competitive-response": {
             subs: [
               {
-                id: "fwm-x-cr-impact", label: "\ud83d\udcc9 Potential Impact",
+                id: "fwm-x-cr-impact",
+                label: "\ud83d\udcc9 Potential Impact",
                 tip: "Segment, size, profitability, estimated loss",
                 subs: [
-                  { id: "fwm-x-cri-seg", label: "\ud83c\udfaf Segment Affected", tip: "Which segments are at risk?" },
-                  { id: "fwm-x-cri-size", label: "\ud83d\udcca Size of Impact", tip: "How big could the loss be?" },
-                  { id: "fwm-x-cri-profit", label: "\ud83d\udcb0 Profitability at Risk", tip: "Impact on margins" },
-                  { id: "fwm-x-cri-loss", label: "\ud83d\udcc9 Estimated Loss", tip: "Quantify revenue/profit loss" }
-                ]
+                  {
+                    id: "fwm-x-cri-seg",
+                    label: "\ud83c\udfaf Segment Affected",
+                    tip: "Which segments are at risk?",
+                  },
+                  {
+                    id: "fwm-x-cri-size",
+                    label: "\ud83d\udcca Size of Impact",
+                    tip: "How big could the loss be?",
+                  },
+                  {
+                    id: "fwm-x-cri-profit",
+                    label: "\ud83d\udcb0 Profitability at Risk",
+                    tip: "Impact on margins",
+                  },
+                  {
+                    id: "fwm-x-cri-loss",
+                    label: "\ud83d\udcc9 Estimated Loss",
+                    tip: "Quantify revenue/profit loss",
+                  },
+                ],
               },
               {
-                id: "fwm-x-cr-opp", label: "\ud83d\udd0d Opportunity Pursued",
+                id: "fwm-x-cr-opp",
+                label: "\ud83d\udd0d Opportunity Pursued",
                 tip: "What & why is the competitor doing this?",
-                subs: []
+                subs: [],
               },
               {
-                id: "fwm-x-cr-resp", label: "\ud83d\udee1\ufe0f Possible Responses",
+                id: "fwm-x-cr-resp",
+                label: "\ud83d\udee1\ufe0f Possible Responses",
                 tip: "Do nothing, mitigate, replicate, collaborate, align",
                 subs: [
-                  { id: "fwm-x-crr-nothing", label: "\u23f8\ufe0f Do Nothing", tip: "Wait and monitor" },
-                  { id: "fwm-x-crr-mitigate", label: "\ud83d\udee1\ufe0f Mitigate", tip: "Defend existing position" },
-                  { id: "fwm-x-crr-replicate", label: "\ud83d\udccb Replicate", tip: "Copy the competitor's move" },
-                  { id: "fwm-x-crr-collab", label: "\ud83e\udd1d Collaborate", tip: "Partner with competitor" },
-                  { id: "fwm-x-crr-align", label: "\ud83d\udd04 Align / Pivot", tip: "Shift strategy altogether" }
-                ]
-              }
+                  {
+                    id: "fwm-x-crr-nothing",
+                    label: "\u23f8\ufe0f Do Nothing",
+                    tip: "Wait and monitor",
+                  },
+                  {
+                    id: "fwm-x-crr-mitigate",
+                    label: "\ud83d\udee1\ufe0f Mitigate",
+                    tip: "Defend existing position",
+                  },
+                  {
+                    id: "fwm-x-crr-replicate",
+                    label: "\ud83d\udccb Replicate",
+                    tip: "Copy the competitor's move",
+                  },
+                  {
+                    id: "fwm-x-crr-collab",
+                    label: "\ud83e\udd1d Collaborate",
+                    tip: "Partner with competitor",
+                  },
+                  {
+                    id: "fwm-x-crr-align",
+                    label: "\ud83d\udd04 Align / Pivot",
+                    tip: "Shift strategy altogether",
+                  },
+                ],
+              },
             ],
             removeConns: [],
             addConns: [
               { f: "fwm-n-comp-resp", t: "fwm-x-cr-impact" },
               { f: "fwm-n-comp-resp", t: "fwm-x-cr-opp" },
-              { f: "fwm-n-comp-resp", t: "fwm-x-cr-resp" }
+              { f: "fwm-n-comp-resp", t: "fwm-x-cr-resp" },
             ],
             lvl2Conns: {
               "fwm-x-cr-impact": {
@@ -23332,8 +24121,8 @@ Margin                       20.0%              6.6%          -13.4pp
                   { f: "fwm-x-cr-impact", t: "fwm-x-cri-seg" },
                   { f: "fwm-x-cr-impact", t: "fwm-x-cri-size" },
                   { f: "fwm-x-cr-impact", t: "fwm-x-cri-profit" },
-                  { f: "fwm-x-cr-impact", t: "fwm-x-cri-loss" }
-                ]
+                  { f: "fwm-x-cr-impact", t: "fwm-x-cri-loss" },
+                ],
               },
               "fwm-x-cr-resp": {
                 removeConns: [],
@@ -23342,46 +24131,62 @@ Margin                       20.0%              6.6%          -13.4pp
                   { f: "fwm-x-cr-resp", t: "fwm-x-crr-mitigate" },
                   { f: "fwm-x-cr-resp", t: "fwm-x-crr-replicate" },
                   { f: "fwm-x-cr-resp", t: "fwm-x-crr-collab" },
-                  { f: "fwm-x-cr-resp", t: "fwm-x-crr-align" }
-                ]
-              }
-            }
+                  { f: "fwm-x-cr-resp", t: "fwm-x-crr-align" },
+                ],
+              },
+            },
           },
 
           /* ── INVESTMENT ── */
           investment: {
             subs: [
               {
-                id: "fwm-x-inv-rev", label: "\ud83d\udcc8 Revenue Impact",
+                id: "fwm-x-inv-rev",
+                label: "\ud83d\udcc8 Revenue Impact",
                 tip: "Additional volume \u00d7 price",
-                subs: []
+                subs: [],
               },
               {
-                id: "fwm-x-inv-cost", label: "\ud83d\udcc9 Cost Impact",
+                id: "fwm-x-inv-cost",
+                label: "\ud83d\udcc9 Cost Impact",
                 tip: "Savings minus new costs",
-                subs: []
+                subs: [],
               },
               {
-                id: "fwm-x-inv-be", label: "\u2696\ufe0f Break Even",
+                id: "fwm-x-inv-be",
+                label: "\u2696\ufe0f Break Even",
                 tip: "Investment \u00f7 annual net benefit",
-                subs: []
+                subs: [],
               },
               {
-                id: "fwm-x-inv-impl", label: "\ud83d\udd27 Implementation",
+                id: "fwm-x-inv-impl",
+                label: "\ud83d\udd27 Implementation",
                 tip: "Capabilities, timeline, risks",
                 subs: [
-                  { id: "fwm-x-invi-cap", label: "\ud83c\udfaf Capabilities Needed", tip: "Skills, tech, partnerships" },
-                  { id: "fwm-x-invi-time", label: "\u23f1\ufe0f Timeline", tip: "Implementation schedule" },
-                  { id: "fwm-x-invi-risk", label: "\u26a0\ufe0f Risks", tip: "What could go wrong?" }
-                ]
-              }
+                  {
+                    id: "fwm-x-invi-cap",
+                    label: "\ud83c\udfaf Capabilities Needed",
+                    tip: "Skills, tech, partnerships",
+                  },
+                  {
+                    id: "fwm-x-invi-time",
+                    label: "\u23f1\ufe0f Timeline",
+                    tip: "Implementation schedule",
+                  },
+                  {
+                    id: "fwm-x-invi-risk",
+                    label: "\u26a0\ufe0f Risks",
+                    tip: "What could go wrong?",
+                  },
+                ],
+              },
             ],
             removeConns: [],
             addConns: [
               { f: "fwm-n-investment", t: "fwm-x-inv-rev" },
               { f: "fwm-n-investment", t: "fwm-x-inv-cost" },
               { f: "fwm-n-investment", t: "fwm-x-inv-be" },
-              { f: "fwm-n-investment", t: "fwm-x-inv-impl" }
+              { f: "fwm-n-investment", t: "fwm-x-inv-impl" },
             ],
             lvl2Conns: {
               "fwm-x-inv-impl": {
@@ -23389,49 +24194,93 @@ Margin                       20.0%              6.6%          -13.4pp
                 addConns: [
                   { f: "fwm-x-inv-impl", t: "fwm-x-invi-cap" },
                   { f: "fwm-x-inv-impl", t: "fwm-x-invi-time" },
-                  { f: "fwm-x-inv-impl", t: "fwm-x-invi-risk" }
-                ]
-              }
-            }
+                  { f: "fwm-x-inv-impl", t: "fwm-x-invi-risk" },
+                ],
+              },
+            },
           },
 
           /* ── MARKET ENTRY ── */
           "market-entry": {
             subs: [
               {
-                id: "fwm-x-me-opp", label: "\ud83d\udcca Market Opportunity",
+                id: "fwm-x-me-opp",
+                label: "\ud83d\udcca Market Opportunity",
                 tip: "Size (TAM/SAM/SOM) & growth",
                 subs: [
-                  { id: "fwm-x-meo-size", label: "\ud83d\udccf Market Size", tip: "TAM / SAM / SOM" },
-                  { id: "fwm-x-meo-growth", label: "\ud83d\udcc8 Growth Rate", tip: "Historical & projected" }
-                ]
+                  {
+                    id: "fwm-x-meo-size",
+                    label: "\ud83d\udccf Market Size",
+                    tip: "TAM / SAM / SOM",
+                  },
+                  {
+                    id: "fwm-x-meo-growth",
+                    label: "\ud83d\udcc8 Growth Rate",
+                    tip: "Historical & projected",
+                  },
+                ],
               },
               {
-                id: "fwm-x-me-share", label: "\ud83c\udfaf Potential Share",
+                id: "fwm-x-me-share",
+                label: "\ud83c\udfaf Potential Share",
                 tip: "Customer needs, offering, competitors",
                 subs: [
-                  { id: "fwm-x-mes-needs", label: "\ud83d\udca1 Customer Needs", tip: "What do they want?" },
-                  { id: "fwm-x-mes-offer", label: "\ud83c\udff7\ufe0f Our Offering", tip: "How does ours compare?" },
-                  { id: "fwm-x-mes-comp", label: "\u2694\ufe0f Competitors", tip: "Competitive landscape" }
-                ]
+                  {
+                    id: "fwm-x-mes-needs",
+                    label: "\ud83d\udca1 Customer Needs",
+                    tip: "What do they want?",
+                  },
+                  {
+                    id: "fwm-x-mes-offer",
+                    label: "\ud83c\udff7\ufe0f Our Offering",
+                    tip: "How does ours compare?",
+                  },
+                  {
+                    id: "fwm-x-mes-comp",
+                    label: "\u2694\ufe0f Competitors",
+                    tip: "Competitive landscape",
+                  },
+                ],
               },
               {
-                id: "fwm-x-me-profit", label: "\ud83d\udcb0 Potential Profit",
+                id: "fwm-x-me-profit",
+                label: "\ud83d\udcb0 Potential Profit",
                 tip: "Investment, running costs, revenue",
                 subs: [
-                  { id: "fwm-x-mep-inv", label: "\ud83d\udcb8 Required Investment", tip: "Upfront costs" },
-                  { id: "fwm-x-mep-run", label: "\ud83d\udd04 Running Costs", tip: "Ongoing operational costs" },
-                  { id: "fwm-x-mep-rev", label: "\ud83d\udcc8 Expected Revenue", tip: "Projected income" }
-                ]
+                  {
+                    id: "fwm-x-mep-inv",
+                    label: "\ud83d\udcb8 Required Investment",
+                    tip: "Upfront costs",
+                  },
+                  {
+                    id: "fwm-x-mep-run",
+                    label: "\ud83d\udd04 Running Costs",
+                    tip: "Ongoing operational costs",
+                  },
+                  {
+                    id: "fwm-x-mep-rev",
+                    label: "\ud83d\udcc8 Expected Revenue",
+                    tip: "Projected income",
+                  },
+                ],
               },
               {
-                id: "fwm-x-me-cap", label: "\ud83d\udd27 Capabilities & Risks",
+                id: "fwm-x-me-cap",
+                label: "\ud83d\udd27 Capabilities & Risks",
                 tip: "Can we do it? What could go wrong?",
                 subs: [
-                  { id: "fwm-x-mec-cap", label: "\ud83c\udfaf Do We Have Capabilities?", tip: "Skills, assets, partnerships needed" },
-                  { id: "fwm-x-mec-risk", label: "\u26a0\ufe0f Key Risks", tip: "Market, execution, regulatory" }
-                ]
-              }
+                  {
+                    id: "fwm-x-mec-cap",
+                    label: "\ud83c\udfaf Do We Have Capabilities?",
+                    tip: "Skills, assets, partnerships needed",
+                  },
+                  {
+                    id: "fwm-x-mec-risk",
+                    label: "\u26a0\ufe0f Key Risks",
+                    tip: "Market, execution, regulatory",
+                  },
+                ],
+              },
             ],
             removeConns: [["fwm-n-market-entry", "fwm-n-pricing"]],
             addConns: [
@@ -23439,23 +24288,23 @@ Margin                       20.0%              6.6%          -13.4pp
               { f: "fwm-n-market-entry", t: "fwm-x-me-share" },
               { f: "fwm-n-market-entry", t: "fwm-x-me-profit" },
               { f: "fwm-n-market-entry", t: "fwm-x-me-cap" },
-              { f: "fwm-x-me-profit", t: "fwm-n-pricing", d: 1 }
+              { f: "fwm-x-me-profit", t: "fwm-n-pricing", d: 1 },
             ],
             lvl2Conns: {
               "fwm-x-me-opp": {
                 removeConns: [],
                 addConns: [
                   { f: "fwm-x-me-opp", t: "fwm-x-meo-size" },
-                  { f: "fwm-x-me-opp", t: "fwm-x-meo-growth" }
-                ]
+                  { f: "fwm-x-me-opp", t: "fwm-x-meo-growth" },
+                ],
               },
               "fwm-x-me-share": {
                 removeConns: [],
                 addConns: [
                   { f: "fwm-x-me-share", t: "fwm-x-mes-needs" },
                   { f: "fwm-x-me-share", t: "fwm-x-mes-offer" },
-                  { f: "fwm-x-me-share", t: "fwm-x-mes-comp" }
-                ]
+                  { f: "fwm-x-me-share", t: "fwm-x-mes-comp" },
+                ],
               },
               "fwm-x-me-profit": {
                 removeConns: [["fwm-x-me-profit", "fwm-n-pricing"]],
@@ -23463,59 +24312,110 @@ Margin                       20.0%              6.6%          -13.4pp
                   { f: "fwm-x-me-profit", t: "fwm-x-mep-inv" },
                   { f: "fwm-x-me-profit", t: "fwm-x-mep-run" },
                   { f: "fwm-x-me-profit", t: "fwm-x-mep-rev" },
-                  { f: "fwm-x-mep-rev", t: "fwm-n-pricing", d: 1 }
-                ]
+                  { f: "fwm-x-mep-rev", t: "fwm-n-pricing", d: 1 },
+                ],
               },
               "fwm-x-me-cap": {
                 removeConns: [],
                 addConns: [
                   { f: "fwm-x-me-cap", t: "fwm-x-mec-cap" },
-                  { f: "fwm-x-me-cap", t: "fwm-x-mec-risk" }
-                ]
-              }
-            }
+                  { f: "fwm-x-me-cap", t: "fwm-x-mec-risk" },
+                ],
+              },
+            },
           },
 
           /* ── NEW PRODUCT ── */
           "new-product": {
             subs: [
               {
-                id: "fwm-x-np-seg", label: "\ud83c\udfaf Target Segments",
+                id: "fwm-x-np-seg",
+                label: "\ud83c\udfaf Target Segments",
                 tip: "Size, growth, competition, needs",
                 subs: [
-                  { id: "fwm-x-nps-size", label: "\ud83d\udccf Size & Growth", tip: "How big and how fast?" },
-                  { id: "fwm-x-nps-comp", label: "\u2694\ufe0f Competition", tip: "Who else is there?" },
-                  { id: "fwm-x-nps-needs", label: "\ud83d\udca1 Customer Needs", tip: "What do they want?" }
-                ]
+                  {
+                    id: "fwm-x-nps-size",
+                    label: "\ud83d\udccf Size & Growth",
+                    tip: "How big and how fast?",
+                  },
+                  {
+                    id: "fwm-x-nps-comp",
+                    label: "\u2694\ufe0f Competition",
+                    tip: "Who else is there?",
+                  },
+                  {
+                    id: "fwm-x-nps-needs",
+                    label: "\ud83d\udca1 Customer Needs",
+                    tip: "What do they want?",
+                  },
+                ],
               },
               {
-                id: "fwm-x-np-mkt", label: "\ud83d\udce3 Marketing Strategy",
+                id: "fwm-x-np-mkt",
+                label: "\ud83d\udce3 Marketing Strategy",
                 tip: "Product, Price, Distribution, Promotion",
                 subs: [
-                  { id: "fwm-x-npm-prod", label: "\ud83d\udce6 Product", tip: "Features, design, branding" },
-                  { id: "fwm-x-npm-price", label: "\ud83d\udcb2 Price", tip: "Pricing strategy" },
-                  { id: "fwm-x-npm-dist", label: "\ud83d\ude9a Distribution", tip: "Channels to market" },
-                  { id: "fwm-x-npm-promo", label: "\ud83d\udce2 Promotion", tip: "Marketing mix" }
-                ]
+                  {
+                    id: "fwm-x-npm-prod",
+                    label: "\ud83d\udce6 Product",
+                    tip: "Features, design, branding",
+                  },
+                  {
+                    id: "fwm-x-npm-price",
+                    label: "\ud83d\udcb2 Price",
+                    tip: "Pricing strategy",
+                  },
+                  {
+                    id: "fwm-x-npm-dist",
+                    label: "\ud83d\ude9a Distribution",
+                    tip: "Channels to market",
+                  },
+                  {
+                    id: "fwm-x-npm-promo",
+                    label: "\ud83d\udce2 Promotion",
+                    tip: "Marketing mix",
+                  },
+                ],
               },
               {
-                id: "fwm-x-np-impl", label: "\ud83d\udd27 Implementation",
+                id: "fwm-x-np-impl",
+                label: "\ud83d\udd27 Implementation",
                 tip: "Design, production, logistics, aftercare",
                 subs: [
-                  { id: "fwm-x-npi-design", label: "\ud83c\udfa8 Product Design", tip: "R&D and prototyping" },
-                  { id: "fwm-x-npi-prod", label: "\ud83c\udfed Production", tip: "Manufacturing setup" },
-                  { id: "fwm-x-npi-mkt", label: "\ud83d\udce3 Marketing & Sales", tip: "Go-to-market" },
-                  { id: "fwm-x-npi-log", label: "\ud83d\ude9a Logistics", tip: "Supply chain setup" },
-                  { id: "fwm-x-npi-after", label: "\ud83d\udd27 Aftercare", tip: "Customer support" }
-                ]
-              }
+                  {
+                    id: "fwm-x-npi-design",
+                    label: "\ud83c\udfa8 Product Design",
+                    tip: "R&D and prototyping",
+                  },
+                  {
+                    id: "fwm-x-npi-prod",
+                    label: "\ud83c\udfed Production",
+                    tip: "Manufacturing setup",
+                  },
+                  {
+                    id: "fwm-x-npi-mkt",
+                    label: "\ud83d\udce3 Marketing & Sales",
+                    tip: "Go-to-market",
+                  },
+                  {
+                    id: "fwm-x-npi-log",
+                    label: "\ud83d\ude9a Logistics",
+                    tip: "Supply chain setup",
+                  },
+                  {
+                    id: "fwm-x-npi-after",
+                    label: "\ud83d\udd27 Aftercare",
+                    tip: "Customer support",
+                  },
+                ],
+              },
             ],
             removeConns: [["fwm-n-new-product", "fwm-n-pricing"]],
             addConns: [
               { f: "fwm-n-new-product", t: "fwm-x-np-seg" },
               { f: "fwm-n-new-product", t: "fwm-x-np-mkt" },
               { f: "fwm-n-new-product", t: "fwm-x-np-impl" },
-              { f: "fwm-x-np-mkt", t: "fwm-n-pricing", d: 1 }
+              { f: "fwm-x-np-mkt", t: "fwm-n-pricing", d: 1 },
             ],
             lvl2Conns: {
               "fwm-x-np-seg": {
@@ -23523,8 +24423,8 @@ Margin                       20.0%              6.6%          -13.4pp
                 addConns: [
                   { f: "fwm-x-np-seg", t: "fwm-x-nps-size" },
                   { f: "fwm-x-np-seg", t: "fwm-x-nps-comp" },
-                  { f: "fwm-x-np-seg", t: "fwm-x-nps-needs" }
-                ]
+                  { f: "fwm-x-np-seg", t: "fwm-x-nps-needs" },
+                ],
               },
               "fwm-x-np-mkt": {
                 removeConns: [["fwm-x-np-mkt", "fwm-n-pricing"]],
@@ -23533,8 +24433,8 @@ Margin                       20.0%              6.6%          -13.4pp
                   { f: "fwm-x-np-mkt", t: "fwm-x-npm-price" },
                   { f: "fwm-x-np-mkt", t: "fwm-x-npm-dist" },
                   { f: "fwm-x-np-mkt", t: "fwm-x-npm-promo" },
-                  { f: "fwm-x-npm-price", t: "fwm-n-pricing", d: 1 }
-                ]
+                  { f: "fwm-x-npm-price", t: "fwm-n-pricing", d: 1 },
+                ],
               },
               "fwm-x-np-impl": {
                 removeConns: [],
@@ -23543,47 +24443,82 @@ Margin                       20.0%              6.6%          -13.4pp
                   { f: "fwm-x-np-impl", t: "fwm-x-npi-prod" },
                   { f: "fwm-x-np-impl", t: "fwm-x-npi-mkt" },
                   { f: "fwm-x-np-impl", t: "fwm-x-npi-log" },
-                  { f: "fwm-x-np-impl", t: "fwm-x-npi-after" }
-                ]
-              }
-            }
+                  { f: "fwm-x-np-impl", t: "fwm-x-npi-after" },
+                ],
+              },
+            },
           },
 
           /* ── M&A ── */
           "m-and-a": {
             subs: [
               {
-                id: "fwm-x-ma-stand", label: "\ud83d\udcca Standalone Value",
+                id: "fwm-x-ma-stand",
+                label: "\ud83d\udcca Standalone Value",
                 tip: "Future revenue, cost, multiples",
                 subs: [
-                  { id: "fwm-x-mav-rev", label: "\ud83d\udcc8 Future Revenue", tip: "Projected top-line" },
-                  { id: "fwm-x-mav-cost", label: "\ud83d\udcc9 Future Costs", tip: "Projected cost base" },
-                  { id: "fwm-x-mav-mult", label: "\ud83d\udcca Multiples", tip: "EV/EBITDA, P/E, etc." }
-                ]
+                  {
+                    id: "fwm-x-mav-rev",
+                    label: "\ud83d\udcc8 Future Revenue",
+                    tip: "Projected top-line",
+                  },
+                  {
+                    id: "fwm-x-mav-cost",
+                    label: "\ud83d\udcc9 Future Costs",
+                    tip: "Projected cost base",
+                  },
+                  {
+                    id: "fwm-x-mav-mult",
+                    label: "\ud83d\udcca Multiples",
+                    tip: "EV/EBITDA, P/E, etc.",
+                  },
+                ],
               },
               {
-                id: "fwm-x-ma-syn", label: "\ud83e\udd1d Synergies",
+                id: "fwm-x-ma-syn",
+                label: "\ud83e\udd1d Synergies",
                 tip: "Cost reduction + revenue growth",
                 subs: [
-                  { id: "fwm-x-may-cost", label: "\ud83d\udcc9 Cost Synergies", tip: "Shared ops, scale economies" },
-                  { id: "fwm-x-may-rev", label: "\ud83d\udcc8 Revenue Synergies", tip: "Cross-sell, new markets" }
-                ]
+                  {
+                    id: "fwm-x-may-cost",
+                    label: "\ud83d\udcc9 Cost Synergies",
+                    tip: "Shared ops, scale economies",
+                  },
+                  {
+                    id: "fwm-x-may-rev",
+                    label: "\ud83d\udcc8 Revenue Synergies",
+                    tip: "Cross-sell, new markets",
+                  },
+                ],
               },
               {
-                id: "fwm-x-ma-cap", label: "\ud83d\udd27 Capabilities & Risks",
+                id: "fwm-x-ma-cap",
+                label: "\ud83d\udd27 Capabilities & Risks",
                 tip: "Integration, culture, regulatory",
                 subs: [
-                  { id: "fwm-x-mac-int", label: "\ud83d\udd04 Integration Plan", tip: "How to merge operations" },
-                  { id: "fwm-x-mac-cult", label: "\ud83d\udc65 Cultural Fit", tip: "Will teams work together?" },
-                  { id: "fwm-x-mac-reg", label: "\u2696\ufe0f Regulatory", tip: "Antitrust, approvals" }
-                ]
-              }
+                  {
+                    id: "fwm-x-mac-int",
+                    label: "\ud83d\udd04 Integration Plan",
+                    tip: "How to merge operations",
+                  },
+                  {
+                    id: "fwm-x-mac-cult",
+                    label: "\ud83d\udc65 Cultural Fit",
+                    tip: "Will teams work together?",
+                  },
+                  {
+                    id: "fwm-x-mac-reg",
+                    label: "\u2696\ufe0f Regulatory",
+                    tip: "Antitrust, approvals",
+                  },
+                ],
+              },
             ],
             removeConns: [],
             addConns: [
               { f: "fwm-n-m-and-a", t: "fwm-x-ma-stand" },
               { f: "fwm-n-m-and-a", t: "fwm-x-ma-syn" },
-              { f: "fwm-n-m-and-a", t: "fwm-x-ma-cap" }
+              { f: "fwm-n-m-and-a", t: "fwm-x-ma-cap" },
             ],
             lvl2Conns: {
               "fwm-x-ma-stand": {
@@ -23591,62 +24526,97 @@ Margin                       20.0%              6.6%          -13.4pp
                 addConns: [
                   { f: "fwm-x-ma-stand", t: "fwm-x-mav-rev" },
                   { f: "fwm-x-ma-stand", t: "fwm-x-mav-cost" },
-                  { f: "fwm-x-ma-stand", t: "fwm-x-mav-mult" }
-                ]
+                  { f: "fwm-x-ma-stand", t: "fwm-x-mav-mult" },
+                ],
               },
               "fwm-x-ma-syn": {
                 removeConns: [],
                 addConns: [
                   { f: "fwm-x-ma-syn", t: "fwm-x-may-cost" },
-                  { f: "fwm-x-ma-syn", t: "fwm-x-may-rev" }
-                ]
+                  { f: "fwm-x-ma-syn", t: "fwm-x-may-rev" },
+                ],
               },
               "fwm-x-ma-cap": {
                 removeConns: [],
                 addConns: [
                   { f: "fwm-x-ma-cap", t: "fwm-x-mac-int" },
                   { f: "fwm-x-ma-cap", t: "fwm-x-mac-cult" },
-                  { f: "fwm-x-ma-cap", t: "fwm-x-mac-reg" }
-                ]
-              }
-            }
+                  { f: "fwm-x-ma-cap", t: "fwm-x-mac-reg" },
+                ],
+              },
+            },
           },
 
           /* ── PROCESS OPTIMIZATION ── */
           "process-optimization": {
             subs: [
               {
-                id: "fwm-x-po-map", label: "\ud83d\uddfa\ufe0f Map Process",
+                id: "fwm-x-po-map",
+                label: "\ud83d\uddfa\ufe0f Map Process",
                 tip: "Capacity, utilization, bottleneck",
                 subs: [
-                  { id: "fwm-x-pom-cap", label: "\ud83d\udcca Total Capacity", tip: "What's the max throughput?" },
-                  { id: "fwm-x-pom-util", label: "\ud83d\udcc8 Utilization", tip: "% of capacity in use" },
-                  { id: "fwm-x-pom-bottle", label: "\ud83d\udd34 Bottleneck", tip: "Where's the constraint?" }
-                ]
+                  {
+                    id: "fwm-x-pom-cap",
+                    label: "\ud83d\udcca Total Capacity",
+                    tip: "What's the max throughput?",
+                  },
+                  {
+                    id: "fwm-x-pom-util",
+                    label: "\ud83d\udcc8 Utilization",
+                    tip: "% of capacity in use",
+                  },
+                  {
+                    id: "fwm-x-pom-bottle",
+                    label: "\ud83d\udd34 Bottleneck",
+                    tip: "Where's the constraint?",
+                  },
+                ],
               },
               {
-                id: "fwm-x-po-step", label: "\ud83d\udd0d Optimize Steps",
+                id: "fwm-x-po-step",
+                label: "\ud83d\udd0d Optimize Steps",
                 tip: "Eliminate, anticipate",
                 subs: [
-                  { id: "fwm-x-pos-elim", label: "\u274c Eliminate Low-Value", tip: "Remove unnecessary steps" },
-                  { id: "fwm-x-pos-antic", label: "\ud83d\udd2e Anticipate & Prevent", tip: "Predict and preempt issues" }
-                ]
+                  {
+                    id: "fwm-x-pos-elim",
+                    label: "\u274c Eliminate Low-Value",
+                    tip: "Remove unnecessary steps",
+                  },
+                  {
+                    id: "fwm-x-pos-antic",
+                    label: "\ud83d\udd2e Anticipate & Prevent",
+                    tip: "Predict and preempt issues",
+                  },
+                ],
               },
               {
-                id: "fwm-x-po-gain", label: "\ud83d\udcc8 Estimate Gains",
+                id: "fwm-x-po-gain",
+                label: "\ud83d\udcc8 Estimate Gains",
                 tip: "Cost, quality, speed",
                 subs: [
-                  { id: "fwm-x-pog-cost", label: "\ud83d\udcb0 Cost Reduction", tip: "How much cheaper?" },
-                  { id: "fwm-x-pog-qual", label: "\u2b50 Quality Improvement", tip: "How much better?" },
-                  { id: "fwm-x-pog-speed", label: "\u26a1 Speed Increase", tip: "How much faster?" }
-                ]
-              }
+                  {
+                    id: "fwm-x-pog-cost",
+                    label: "\ud83d\udcb0 Cost Reduction",
+                    tip: "How much cheaper?",
+                  },
+                  {
+                    id: "fwm-x-pog-qual",
+                    label: "\u2b50 Quality Improvement",
+                    tip: "How much better?",
+                  },
+                  {
+                    id: "fwm-x-pog-speed",
+                    label: "\u26a1 Speed Increase",
+                    tip: "How much faster?",
+                  },
+                ],
+              },
             ],
             removeConns: [],
             addConns: [
               { f: "fwm-n-process-opt", t: "fwm-x-po-map" },
               { f: "fwm-n-process-opt", t: "fwm-x-po-step" },
-              { f: "fwm-n-process-opt", t: "fwm-x-po-gain" }
+              { f: "fwm-n-process-opt", t: "fwm-x-po-gain" },
             ],
             lvl2Conns: {
               "fwm-x-po-map": {
@@ -23654,26 +24624,26 @@ Margin                       20.0%              6.6%          -13.4pp
                 addConns: [
                   { f: "fwm-x-po-map", t: "fwm-x-pom-cap" },
                   { f: "fwm-x-po-map", t: "fwm-x-pom-util" },
-                  { f: "fwm-x-po-map", t: "fwm-x-pom-bottle" }
-                ]
+                  { f: "fwm-x-po-map", t: "fwm-x-pom-bottle" },
+                ],
               },
               "fwm-x-po-step": {
                 removeConns: [],
                 addConns: [
                   { f: "fwm-x-po-step", t: "fwm-x-pos-elim" },
-                  { f: "fwm-x-po-step", t: "fwm-x-pos-antic" }
-                ]
+                  { f: "fwm-x-po-step", t: "fwm-x-pos-antic" },
+                ],
               },
               "fwm-x-po-gain": {
                 removeConns: [],
                 addConns: [
                   { f: "fwm-x-po-gain", t: "fwm-x-pog-cost" },
                   { f: "fwm-x-po-gain", t: "fwm-x-pog-qual" },
-                  { f: "fwm-x-po-gain", t: "fwm-x-pog-speed" }
-                ]
-              }
-            }
-          }
+                  { f: "fwm-x-po-gain", t: "fwm-x-pog-speed" },
+                ],
+              },
+            },
+          },
         }; /* end FWM_TREE */
 
         /* ── BUILD REVERSE LOOKUPS ── */
@@ -23698,9 +24668,7 @@ Margin                       20.0%              6.6%          -13.4pp
             "background:#fff;color:#2e7d32;border:2px solid #00a651;" +
             "font-size:11px;padding:6px 14px;min-width:100px;border-radius:50px;" +
             "text-align:center;transition:all 0.2s ease;" +
-            (clickable
-              ? "cursor:pointer;"
-              : "cursor:default;");
+            (clickable ? "cursor:pointer;" : "cursor:default;");
           /* Store EN label and apply current language */
           div.setAttribute("data-en", sub.label);
           if (window.fwmLang === "pt" && window.FWM_PT[sub.id]) {
@@ -23725,7 +24693,7 @@ Margin                       20.0%              6.6%          -13.4pp
             /* clamp so pills don't go off-screen */
             var offset = Math.max(
               0,
-              Math.min(parentCenter - rowWidth / 2, containerWidth - rowWidth)
+              Math.min(parentCenter - rowWidth / 2, containerWidth - rowWidth),
             );
             row.style.justifyContent = "flex-start";
             row.style.paddingLeft = offset + "px";
@@ -24311,6 +25279,21 @@ Margin                       20.0%              6.6%          -13.4pp
       }
 
       // Mobile sidebar
+      function toggleSidebarCollapse() {
+        var body = document.body;
+        body.classList.toggle('sidebar-collapsed');
+        var btn = document.getElementById('sidebar-collapse-toggle');
+        if (body.classList.contains('sidebar-collapsed')) {
+          btn.innerHTML = '&#x276F;'; // right arrow
+          btn.title = 'Expand sidebar';
+        } else {
+          btn.innerHTML = '&#x276E;'; // left arrow
+          btn.title = 'Collapse sidebar';
+        }
+        // Redraw framework map lines after animation
+        setTimeout(function() { if (window.drawFwmLines) window.drawFwmLines(); }, 350);
+      }
+
       function toggleSidebar() {
         document.getElementById("bcg-nav").classList.toggle("open");
       }
