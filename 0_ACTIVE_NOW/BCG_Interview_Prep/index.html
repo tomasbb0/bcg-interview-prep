@@ -23576,6 +23576,8 @@ Margin                       20.0%              6.6%          -13.4pp
             }
           }
 
+          var highlightedPaths = [];
+
           FWM_CONNS.forEach(function (conn) {
             var fe = document.getElementById(conn.f);
             var te = document.getElementById(conn.t);
@@ -23588,10 +23590,6 @@ Margin                       20.0%              6.6%          -13.4pp
             var y2 = tr.top - cr.top;
 
             var midY = (y1 + y2) / 2;
-            var path = document.createElementNS(
-              "http://www.w3.org/2000/svg",
-              "path",
-            );
             var d =
               "M" +
               x1 +
@@ -23609,20 +23607,37 @@ Margin                       20.0%              6.6%          -13.4pp
               x2 +
               "," +
               y2;
-            path.setAttribute("d", d);
-            path.setAttribute("fill", "none");
 
-            /* Determine color: black if on highlight path, else gray */
+            /* Determine color: green+thick if on highlight path, else light gray */
             var connKey = conn.f + "|" + conn.t;
             var isHighlighted = window.fwmHighlightPill && hlSet[connKey];
             if (isHighlighted) {
-              path.setAttribute("stroke", "#222");
-              path.setAttribute("stroke-width", "3");
+              highlightedPaths.push({ d: d, dashed: conn.d });
             } else {
-              path.setAttribute("stroke", "#ddd");
-              path.setAttribute("stroke-width", "2");
+              var path = document.createElementNS(
+                "http://www.w3.org/2000/svg",
+                "path",
+              );
+              path.setAttribute("d", d);
+              path.setAttribute("fill", "none");
+              path.setAttribute("stroke", "#e0e0e0");
+              path.setAttribute("stroke-width", "1.5");
+              if (conn.d) path.setAttribute("stroke-dasharray", "6,4");
+              svg.appendChild(path);
             }
-            if (conn.d) path.setAttribute("stroke-dasharray", "6,4");
+          });
+
+          /* Draw highlighted paths LAST so they render on top */
+          highlightedPaths.forEach(function (hp) {
+            var path = document.createElementNS(
+              "http://www.w3.org/2000/svg",
+              "path",
+            );
+            path.setAttribute("d", hp.d);
+            path.setAttribute("fill", "none");
+            path.setAttribute("stroke", "#00a651");
+            path.setAttribute("stroke-width", "4");
+            if (hp.dashed) path.setAttribute("stroke-dasharray", "6,4");
             svg.appendChild(path);
           });
         };
