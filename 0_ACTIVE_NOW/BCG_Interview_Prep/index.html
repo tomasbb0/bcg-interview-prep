@@ -22889,10 +22889,8 @@ Margin                       20.0%              6.6%          -13.4pp
         /* Click handler for inline tree nodes — highlights ONLY the selected path */
         window.fwmItClick = function (el, e) {
           e.stopPropagation();
-          var box =
-            el.closest('[style*="border-left:3px solid"]') ||
-            el.closest('[style*="border-radius:8px"]');
-          if (!box) return;
+          var box = el.closest('.fwm-it-box');
+          if (!box) { console.warn('fwmItClick: no .fwm-it-box found'); return; }
 
           /* Reset ALL highlights */
           box.querySelectorAll(".fwm-it-node").forEach(function (n) {
@@ -23576,7 +23574,7 @@ Margin                       20.0%              6.6%          -13.4pp
                   : null;
               if (treeNode || genData) {
                 var html =
-                  '<div style="background:#f1f8e9;border-radius:8px;padding:12px 16px;border-left:3px solid #7cb342;">';
+                  '<div class="fwm-it-box" style="background:#f1f8e9;border-radius:8px;padding:12px 16px;border-left:3px solid #7cb342;">';
                 // PROMPT FIRST
                 if (genData && genData.prompts && genData.prompts.length > 0) {
                   var randPrompt =
