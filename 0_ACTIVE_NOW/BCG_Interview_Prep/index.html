@@ -10559,7 +10559,15 @@
         </div>
 
         <div class="card" style="margin-bottom: 20px; padding: 16px">
-          <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;">
+          <div
+            style="
+              display: flex;
+              align-items: center;
+              justify-content: space-between;
+              flex-wrap: wrap;
+              gap: 12px;
+            "
+          >
             <p
               style="
                 color: var(--text-muted);
@@ -10569,14 +10577,33 @@
                 flex: 1;
               "
             >
-              <strong>Key insight:</strong> Every case framework is a "zoom-in" on
-              a branch of the Profitability tree. Click any node to see its
+              <strong>Key insight:</strong> Every case framework is a "zoom-in"
+              on a branch of the Profitability tree. Click any node to see its
               framework chain and expand the framework tree below.
             </p>
-            <label style="display:flex;align-items:center;gap:8px;cursor:pointer;font-size:0.85em;color:var(--text-muted);white-space:nowrap;">
-              <input type="checkbox" id="fwm-interactive-toggle" checked
-                style="width:18px;height:18px;accent-color:var(--bcg-green);cursor:pointer;"
-                onchange="window.fwmSetInteractive(this.checked)">
+            <label
+              style="
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                cursor: pointer;
+                font-size: 0.85em;
+                color: var(--text-muted);
+                white-space: nowrap;
+              "
+            >
+              <input
+                type="checkbox"
+                id="fwm-interactive-toggle"
+                checked
+                style="
+                  width: 18px;
+                  height: 18px;
+                  accent-color: var(--bcg-green);
+                  cursor: pointer;
+                "
+                onchange="window.fwmSetInteractive(this.checked)"
+              />
               🔀 Interactive Mode
             </label>
           </div>
@@ -11049,7 +11076,10 @@
             class="fwm-fw-tree"
             style="display: none"
           ></div>
-          <div id="fwm-examples-display" style="display:none;margin-top:14px;"></div>
+          <div
+            id="fwm-examples-display"
+            style="display: none; margin-top: 14px"
+          ></div>
         </div>
 
         <!-- Legend -->
@@ -22010,28 +22040,51 @@ Margin                       20.0%              6.6%          -13.4pp
 
               // Build generic examples & prompt from FW_EXAMPLES general data
               var exDiv = document.getElementById("fwm-examples-display");
-              var genData = (typeof FW_EXAMPLES !== "undefined" && FW_EXAMPLES[key] && FW_EXAMPLES[key].examples && FW_EXAMPLES[key].examples.general) ? FW_EXAMPLES[key].examples.general : null;
+              var genData =
+                typeof FW_EXAMPLES !== "undefined" &&
+                FW_EXAMPLES[key] &&
+                FW_EXAMPLES[key].examples &&
+                FW_EXAMPLES[key].examples.general
+                  ? FW_EXAMPLES[key].examples.general
+                  : null;
               if (genData) {
-                var html = '<div style="background:#f1f8e9;border-radius:8px;padding:12px 16px;border-left:3px solid #7cb342;">';
-                html += '<p style="margin:0 0 8px;font-weight:700;font-size:0.9em;color:#33691e;">💡 Generic Examples (Template)</p>';
+                var html =
+                  '<div style="background:#f1f8e9;border-radius:8px;padding:12px 16px;border-left:3px solid #7cb342;">';
+                html +=
+                  '<p style="margin:0 0 8px;font-weight:700;font-size:0.9em;color:#33691e;">💡 Generic Examples (Template)</p>';
                 if (genData.lvl2 && genData.lvl2.length > 0) {
-                  html += '<p style="margin:0 0 4px;font-size:0.82em;color:#558b2f;font-weight:600;">Level 2 (branches):</p>';
-                  html += '<ul style="margin:0 0 8px;padding-left:18px;font-size:0.82em;color:#555;">';
-                  genData.lvl2.forEach(function(ex) { html += '<li style="margin-bottom:2px;">' + ex + '</li>'; });
-                  html += '</ul>';
+                  html +=
+                    '<p style="margin:0 0 4px;font-size:0.82em;color:#558b2f;font-weight:600;">Level 2 (branches):</p>';
+                  html +=
+                    '<ul style="margin:0 0 8px;padding-left:18px;font-size:0.82em;color:#555;">';
+                  genData.lvl2.forEach(function (ex) {
+                    html += '<li style="margin-bottom:2px;">' + ex + "</li>";
+                  });
+                  html += "</ul>";
                 }
                 if (genData.lvl3 && genData.lvl3.length > 0) {
-                  html += '<p style="margin:0 0 4px;font-size:0.82em;color:#558b2f;font-weight:600;">Level 3 (drivers — MECE lists):</p>';
-                  html += '<ul style="margin:0 0 8px;padding-left:18px;font-size:0.82em;color:#555;">';
-                  genData.lvl3.forEach(function(ex) { html += '<li style="margin-bottom:2px;">' + ex + '</li>'; });
-                  html += '</ul>';
+                  html +=
+                    '<p style="margin:0 0 4px;font-size:0.82em;color:#558b2f;font-weight:600;">Level 3 (drivers — MECE lists):</p>';
+                  html +=
+                    '<ul style="margin:0 0 8px;padding-left:18px;font-size:0.82em;color:#555;">';
+                  genData.lvl3.forEach(function (ex) {
+                    html += '<li style="margin-bottom:2px;">' + ex + "</li>";
+                  });
+                  html += "</ul>";
                 }
                 if (genData.prompts && genData.prompts.length > 0) {
-                  var randPrompt = genData.prompts[Math.floor(Math.random() * genData.prompts.length)];
-                  html += '<p style="margin:8px 0 4px;font-size:0.82em;color:#558b2f;font-weight:600;">📋 Sample Case Prompt:</p>';
-                  html += '<p style="margin:0;font-size:0.85em;font-family:\'Courier New\',monospace;color:#333;line-height:1.5;padding:8px;background:#fff;border-radius:4px;border:1px solid #c5e1a5;">&ldquo;' + randPrompt + '&rdquo;</p>';
+                  var randPrompt =
+                    genData.prompts[
+                      Math.floor(Math.random() * genData.prompts.length)
+                    ];
+                  html +=
+                    '<p style="margin:8px 0 4px;font-size:0.82em;color:#558b2f;font-weight:600;">📋 Sample Case Prompt:</p>';
+                  html +=
+                    "<p style=\"margin:0;font-size:0.85em;font-family:'Courier New',monospace;color:#333;line-height:1.5;padding:8px;background:#fff;border-radius:4px;border:1px solid #c5e1a5;\">&ldquo;" +
+                    randPrompt +
+                    "&rdquo;</p>";
                 }
-                html += '</div>';
+                html += "</div>";
                 exDiv.innerHTML = html;
                 exDiv.style.display = "block";
               } else {
@@ -22086,7 +22139,7 @@ Margin                       20.0%              6.6%          -13.4pp
           { f: "fwm-n-new-product", t: "fwm-n-pricing", d: 1 },
         ];
 
-        window.drawFwmLines = function() {
+        window.drawFwmLines = function () {
           var c = document.getElementById("fwm-tree-container");
           var svg = document.getElementById("fwm-lines");
           if (!c || !svg) return;
@@ -22139,7 +22192,7 @@ Margin                       20.0%              6.6%          -13.4pp
             if (conn.d) path.setAttribute("stroke-dasharray", "6,4");
             svg.appendChild(path);
           });
-        }
+        };
 
         // Monkey-patch showSection to draw lines when fw-map becomes visible
         var _origShow = window.showSection;
@@ -22162,23 +22215,39 @@ Margin                       20.0%              6.6%          -13.4pp
         var fwmInteractive = true;
         window.fwmSetInteractive = function (on) {
           fwmInteractive = on;
-          if (!on && expandedFw) collapseFramework();
+          if (!on) collapseAll();
         };
 
-        /* ── DATA: sub-factors & child-link mappings for each framework ── */
-        var FWM_EXPAND = {
+        /* ══════════════════════════════════════════════
+           NESTED TREE DATA — each framework's sub-factors
+           and each sub-factor's sub-sub-factors (level 2)
+           ══════════════════════════════════════════════ */
+        var FWM_TREE = {
+          /* ── GROWTH ── */
           growth: {
             subs: [
-              { id: "fwm-x-grow-core", label: "📈 Grow the Core", tip: "Existing markets & segments" },
-              { id: "fwm-x-grow-outside", label: "🌐 Grow Outside Core", tip: "New markets, products, businesses" }
+              {
+                id: "fwm-x-grow-core", label: "\ud83d\udcc8 Grow the Core",
+                tip: "Existing markets & segments",
+                subs: [
+                  { id: "fwm-x-gc-current", label: "\ud83d\udcca Grow Current Segments", tip: "Better products, marketing, prices" },
+                  { id: "fwm-x-gc-fastest", label: "\ud83d\ude80 Invest in Fastest-Growing", tip: "Shift resources to high-growth areas" }
+                ]
+              },
+              {
+                id: "fwm-x-grow-outside", label: "\ud83c\udf10 Grow Outside Core",
+                tip: "New markets, products, businesses",
+                subs: [
+                  { id: "fwm-x-go-newprod", label: "\ud83c\udd95 New Products \u2192 Existing", tip: "Cross-sell to current customer base" },
+                  { id: "fwm-x-go-newbiz", label: "\ud83c\udfe2 Capabilities \u2192 New Biz", tip: "Leverage strengths in new domains" }
+                ]
+              }
             ],
-            /* Which original connections to REMOVE (parent→child) when expanded */
             removeConns: [
               ["fwm-n-growth", "fwm-n-market-entry"],
               ["fwm-n-growth", "fwm-n-new-product"],
               ["fwm-n-growth", "fwm-n-m-and-a"]
             ],
-            /* New connections to ADD when expanded */
             addConns: [
               { f: "fwm-n-growth", t: "fwm-x-grow-core" },
               { f: "fwm-n-growth", t: "fwm-x-grow-outside" },
@@ -22186,56 +22255,223 @@ Margin                       20.0%              6.6%          -13.4pp
               { f: "fwm-x-grow-core", t: "fwm-n-new-product" },
               { f: "fwm-x-grow-outside", t: "fwm-n-new-product" },
               { f: "fwm-x-grow-outside", t: "fwm-n-m-and-a" }
-            ]
+            ],
+            lvl2Conns: {
+              "fwm-x-grow-core": {
+                removeConns: [["fwm-x-grow-core", "fwm-n-new-product"]],
+                addConns: [
+                  { f: "fwm-x-grow-core", t: "fwm-x-gc-current" },
+                  { f: "fwm-x-grow-core", t: "fwm-x-gc-fastest" },
+                  { f: "fwm-x-gc-current", t: "fwm-n-new-product" }
+                ]
+              },
+              "fwm-x-grow-outside": {
+                removeConns: [
+                  ["fwm-x-grow-outside", "fwm-n-market-entry"],
+                  ["fwm-x-grow-outside", "fwm-n-new-product"],
+                  ["fwm-x-grow-outside", "fwm-n-m-and-a"]
+                ],
+                addConns: [
+                  { f: "fwm-x-grow-outside", t: "fwm-x-go-newprod" },
+                  { f: "fwm-x-grow-outside", t: "fwm-x-go-newbiz" },
+                  { f: "fwm-x-go-newprod", t: "fwm-n-new-product" },
+                  { f: "fwm-x-go-newbiz", t: "fwm-n-market-entry" },
+                  { f: "fwm-x-go-newbiz", t: "fwm-n-m-and-a" }
+                ]
+              }
+            }
           },
+
+          /* ── COST REDUCTION ── */
           "cost-reduction": {
             subs: [
-              { id: "fwm-x-costr-need", label: "🚫 Reduce the Need", tip: "Eliminate or reduce service level" },
-              { id: "fwm-x-costr-less", label: "⚡ Meet with Less", tip: "Eliminate waste, improve productivity" },
-              { id: "fwm-x-costr-cheaper", label: "💰 Cheaper Resources", tip: "Find alternatives, renegotiate" }
+              {
+                id: "fwm-x-costr-need", label: "\ud83d\udeab Reduce the Need",
+                tip: "Eliminate or reduce service level",
+                subs: [
+                  { id: "fwm-x-cn-elim", label: "\u274c Eliminate Entirely", tip: "Remove the need altogether" },
+                  { id: "fwm-x-cn-reduce", label: "\ud83d\udcc9 Reduce Service Level", tip: "Do less, accept lower quality" }
+                ]
+              },
+              {
+                id: "fwm-x-costr-less", label: "\u26a1 Meet with Less",
+                tip: "Eliminate waste, improve productivity",
+                subs: [
+                  { id: "fwm-x-cl-waste", label: "\ud83d\uddd1\ufe0f Eliminate Waste", tip: "Remove non-value-adding steps" },
+                  { id: "fwm-x-cl-prod", label: "\ud83d\udcc8 Improve Productivity", tip: "Do more with same resources" }
+                ]
+              },
+              {
+                id: "fwm-x-costr-cheaper", label: "\ud83d\udcb0 Cheaper Resources",
+                tip: "Find alternatives, renegotiate",
+                subs: [
+                  { id: "fwm-x-cc-alt", label: "\ud83d\udd04 Find Alternatives", tip: "Substitute cheaper inputs" },
+                  { id: "fwm-x-cc-renego", label: "\ud83e\udd1d Renegotiate Costs", tip: "Better terms with suppliers" }
+                ]
+              }
             ],
-            removeConns: [
-              ["fwm-n-cost-red", "fwm-n-process-opt"]
-            ],
+            removeConns: [["fwm-n-cost-red", "fwm-n-process-opt"]],
             addConns: [
               { f: "fwm-n-cost-red", t: "fwm-x-costr-need" },
               { f: "fwm-n-cost-red", t: "fwm-x-costr-less" },
               { f: "fwm-n-cost-red", t: "fwm-x-costr-cheaper" },
               { f: "fwm-x-costr-less", t: "fwm-n-process-opt" }
-            ]
+            ],
+            lvl2Conns: {
+              "fwm-x-costr-need": {
+                removeConns: [],
+                addConns: [
+                  { f: "fwm-x-costr-need", t: "fwm-x-cn-elim" },
+                  { f: "fwm-x-costr-need", t: "fwm-x-cn-reduce" }
+                ]
+              },
+              "fwm-x-costr-less": {
+                removeConns: [["fwm-x-costr-less", "fwm-n-process-opt"]],
+                addConns: [
+                  { f: "fwm-x-costr-less", t: "fwm-x-cl-waste" },
+                  { f: "fwm-x-costr-less", t: "fwm-x-cl-prod" },
+                  { f: "fwm-x-cl-prod", t: "fwm-n-process-opt" }
+                ]
+              },
+              "fwm-x-costr-cheaper": {
+                removeConns: [],
+                addConns: [
+                  { f: "fwm-x-costr-cheaper", t: "fwm-x-cc-alt" },
+                  { f: "fwm-x-costr-cheaper", t: "fwm-x-cc-renego" }
+                ]
+              }
+            }
           },
+
+          /* ── PRICING ── */
           pricing: {
             subs: [
-              { id: "fwm-x-price-floor", label: "📊 Costs (Floor)", tip: "Variable + fixed + investment + margin" },
-              { id: "fwm-x-price-bench", label: "⚖️ Competitors (Benchmark)", tip: "Price above or below?" },
-              { id: "fwm-x-price-ceil", label: "🎯 WTP (Ceiling)", tip: "Clients' willingness to pay" }
+              {
+                id: "fwm-x-price-floor", label: "\ud83d\udcca Costs (Floor)",
+                tip: "Variable + fixed + investment + margin",
+                subs: [
+                  { id: "fwm-x-pf-var", label: "\ud83d\udce6 Variable Costs", tip: "Per-unit production costs" },
+                  { id: "fwm-x-pf-fix", label: "\ud83c\udfe2 Fixed Costs", tip: "Overhead allocated per unit" },
+                  { id: "fwm-x-pf-inv", label: "\ud83d\udcb0 Investment Costs", tip: "Amortized investment per unit" },
+                  { id: "fwm-x-pf-markup", label: "\ud83d\udcc8 Markup", tip: "Required margin above costs" }
+                ]
+              },
+              {
+                id: "fwm-x-price-bench", label: "\u2696\ufe0f Competitors (Benchmark)",
+                tip: "Price above or below?",
+                subs: []
+              },
+              {
+                id: "fwm-x-price-ceil", label: "\ud83c\udfaf WTP (Ceiling)",
+                tip: "Clients' willingness to pay",
+                subs: []
+              }
             ],
             removeConns: [],
             addConns: [
               { f: "fwm-n-pricing", t: "fwm-x-price-floor" },
               { f: "fwm-n-pricing", t: "fwm-x-price-bench" },
               { f: "fwm-n-pricing", t: "fwm-x-price-ceil" }
-            ]
+            ],
+            lvl2Conns: {
+              "fwm-x-price-floor": {
+                removeConns: [],
+                addConns: [
+                  { f: "fwm-x-price-floor", t: "fwm-x-pf-var" },
+                  { f: "fwm-x-price-floor", t: "fwm-x-pf-fix" },
+                  { f: "fwm-x-price-floor", t: "fwm-x-pf-inv" },
+                  { f: "fwm-x-price-floor", t: "fwm-x-pf-markup" }
+                ]
+              }
+            }
           },
+
+          /* ── COMPETITIVE RESPONSE ── */
           "competitive-response": {
             subs: [
-              { id: "fwm-x-cr-impact", label: "📉 Potential Impact", tip: "Segment, size, profitability, estimated loss" },
-              { id: "fwm-x-cr-opp", label: "🔍 Opportunity Pursued", tip: "What & why is the competitor doing this?" },
-              { id: "fwm-x-cr-resp", label: "🛡️ Possible Responses", tip: "Do nothing, mitigate, replicate, collaborate, align" }
+              {
+                id: "fwm-x-cr-impact", label: "\ud83d\udcc9 Potential Impact",
+                tip: "Segment, size, profitability, estimated loss",
+                subs: [
+                  { id: "fwm-x-cri-seg", label: "\ud83c\udfaf Segment Affected", tip: "Which segments are at risk?" },
+                  { id: "fwm-x-cri-size", label: "\ud83d\udcca Size of Impact", tip: "How big could the loss be?" },
+                  { id: "fwm-x-cri-profit", label: "\ud83d\udcb0 Profitability at Risk", tip: "Impact on margins" },
+                  { id: "fwm-x-cri-loss", label: "\ud83d\udcc9 Estimated Loss", tip: "Quantify revenue/profit loss" }
+                ]
+              },
+              {
+                id: "fwm-x-cr-opp", label: "\ud83d\udd0d Opportunity Pursued",
+                tip: "What & why is the competitor doing this?",
+                subs: []
+              },
+              {
+                id: "fwm-x-cr-resp", label: "\ud83d\udee1\ufe0f Possible Responses",
+                tip: "Do nothing, mitigate, replicate, collaborate, align",
+                subs: [
+                  { id: "fwm-x-crr-nothing", label: "\u23f8\ufe0f Do Nothing", tip: "Wait and monitor" },
+                  { id: "fwm-x-crr-mitigate", label: "\ud83d\udee1\ufe0f Mitigate", tip: "Defend existing position" },
+                  { id: "fwm-x-crr-replicate", label: "\ud83d\udccb Replicate", tip: "Copy the competitor's move" },
+                  { id: "fwm-x-crr-collab", label: "\ud83e\udd1d Collaborate", tip: "Partner with competitor" },
+                  { id: "fwm-x-crr-align", label: "\ud83d\udd04 Align / Pivot", tip: "Shift strategy altogether" }
+                ]
+              }
             ],
             removeConns: [],
             addConns: [
               { f: "fwm-n-comp-resp", t: "fwm-x-cr-impact" },
               { f: "fwm-n-comp-resp", t: "fwm-x-cr-opp" },
               { f: "fwm-n-comp-resp", t: "fwm-x-cr-resp" }
-            ]
+            ],
+            lvl2Conns: {
+              "fwm-x-cr-impact": {
+                removeConns: [],
+                addConns: [
+                  { f: "fwm-x-cr-impact", t: "fwm-x-cri-seg" },
+                  { f: "fwm-x-cr-impact", t: "fwm-x-cri-size" },
+                  { f: "fwm-x-cr-impact", t: "fwm-x-cri-profit" },
+                  { f: "fwm-x-cr-impact", t: "fwm-x-cri-loss" }
+                ]
+              },
+              "fwm-x-cr-resp": {
+                removeConns: [],
+                addConns: [
+                  { f: "fwm-x-cr-resp", t: "fwm-x-crr-nothing" },
+                  { f: "fwm-x-cr-resp", t: "fwm-x-crr-mitigate" },
+                  { f: "fwm-x-cr-resp", t: "fwm-x-crr-replicate" },
+                  { f: "fwm-x-cr-resp", t: "fwm-x-crr-collab" },
+                  { f: "fwm-x-cr-resp", t: "fwm-x-crr-align" }
+                ]
+              }
+            }
           },
+
+          /* ── INVESTMENT ── */
           investment: {
             subs: [
-              { id: "fwm-x-inv-rev", label: "📈 Revenue Impact", tip: "Additional volume × price" },
-              { id: "fwm-x-inv-cost", label: "📉 Cost Impact", tip: "Savings minus new costs" },
-              { id: "fwm-x-inv-be", label: "⚖️ Break Even", tip: "Investment ÷ annual net benefit" },
-              { id: "fwm-x-inv-impl", label: "🔧 Implementation", tip: "Capabilities, timeline, risks" }
+              {
+                id: "fwm-x-inv-rev", label: "\ud83d\udcc8 Revenue Impact",
+                tip: "Additional volume \u00d7 price",
+                subs: []
+              },
+              {
+                id: "fwm-x-inv-cost", label: "\ud83d\udcc9 Cost Impact",
+                tip: "Savings minus new costs",
+                subs: []
+              },
+              {
+                id: "fwm-x-inv-be", label: "\u2696\ufe0f Break Even",
+                tip: "Investment \u00f7 annual net benefit",
+                subs: []
+              },
+              {
+                id: "fwm-x-inv-impl", label: "\ud83d\udd27 Implementation",
+                tip: "Capabilities, timeline, risks",
+                subs: [
+                  { id: "fwm-x-invi-cap", label: "\ud83c\udfaf Capabilities Needed", tip: "Skills, tech, partnerships" },
+                  { id: "fwm-x-invi-time", label: "\u23f1\ufe0f Timeline", tip: "Implementation schedule" },
+                  { id: "fwm-x-invi-risk", label: "\u26a0\ufe0f Risks", tip: "What could go wrong?" }
+                ]
+              }
             ],
             removeConns: [],
             addConns: [
@@ -22243,179 +22479,541 @@ Margin                       20.0%              6.6%          -13.4pp
               { f: "fwm-n-investment", t: "fwm-x-inv-cost" },
               { f: "fwm-n-investment", t: "fwm-x-inv-be" },
               { f: "fwm-n-investment", t: "fwm-x-inv-impl" }
-            ]
+            ],
+            lvl2Conns: {
+              "fwm-x-inv-impl": {
+                removeConns: [],
+                addConns: [
+                  { f: "fwm-x-inv-impl", t: "fwm-x-invi-cap" },
+                  { f: "fwm-x-inv-impl", t: "fwm-x-invi-time" },
+                  { f: "fwm-x-inv-impl", t: "fwm-x-invi-risk" }
+                ]
+              }
+            }
           },
+
+          /* ── MARKET ENTRY ── */
           "market-entry": {
             subs: [
-              { id: "fwm-x-me-opp", label: "📊 Market Opportunity", tip: "Size (TAM/SAM/SOM) & growth" },
-              { id: "fwm-x-me-share", label: "🎯 Potential Share", tip: "Customer needs, offering, competitors" },
-              { id: "fwm-x-me-profit", label: "💰 Potential Profit", tip: "Investment, running costs, revenue" },
-              { id: "fwm-x-me-cap", label: "🔧 Capabilities & Risks", tip: "Can we do it? What could go wrong?" }
+              {
+                id: "fwm-x-me-opp", label: "\ud83d\udcca Market Opportunity",
+                tip: "Size (TAM/SAM/SOM) & growth",
+                subs: [
+                  { id: "fwm-x-meo-size", label: "\ud83d\udccf Market Size", tip: "TAM / SAM / SOM" },
+                  { id: "fwm-x-meo-growth", label: "\ud83d\udcc8 Growth Rate", tip: "Historical & projected" }
+                ]
+              },
+              {
+                id: "fwm-x-me-share", label: "\ud83c\udfaf Potential Share",
+                tip: "Customer needs, offering, competitors",
+                subs: [
+                  { id: "fwm-x-mes-needs", label: "\ud83d\udca1 Customer Needs", tip: "What do they want?" },
+                  { id: "fwm-x-mes-offer", label: "\ud83c\udff7\ufe0f Our Offering", tip: "How does ours compare?" },
+                  { id: "fwm-x-mes-comp", label: "\u2694\ufe0f Competitors", tip: "Competitive landscape" }
+                ]
+              },
+              {
+                id: "fwm-x-me-profit", label: "\ud83d\udcb0 Potential Profit",
+                tip: "Investment, running costs, revenue",
+                subs: [
+                  { id: "fwm-x-mep-inv", label: "\ud83d\udcb8 Required Investment", tip: "Upfront costs" },
+                  { id: "fwm-x-mep-run", label: "\ud83d\udd04 Running Costs", tip: "Ongoing operational costs" },
+                  { id: "fwm-x-mep-rev", label: "\ud83d\udcc8 Expected Revenue", tip: "Projected income" }
+                ]
+              },
+              {
+                id: "fwm-x-me-cap", label: "\ud83d\udd27 Capabilities & Risks",
+                tip: "Can we do it? What could go wrong?",
+                subs: [
+                  { id: "fwm-x-mec-cap", label: "\ud83c\udfaf Do We Have Capabilities?", tip: "Skills, assets, partnerships needed" },
+                  { id: "fwm-x-mec-risk", label: "\u26a0\ufe0f Key Risks", tip: "Market, execution, regulatory" }
+                ]
+              }
             ],
-            removeConns: [
-              ["fwm-n-market-entry", "fwm-n-pricing"]
-            ],
+            removeConns: [["fwm-n-market-entry", "fwm-n-pricing"]],
             addConns: [
               { f: "fwm-n-market-entry", t: "fwm-x-me-opp" },
               { f: "fwm-n-market-entry", t: "fwm-x-me-share" },
               { f: "fwm-n-market-entry", t: "fwm-x-me-profit" },
               { f: "fwm-n-market-entry", t: "fwm-x-me-cap" },
               { f: "fwm-x-me-profit", t: "fwm-n-pricing", d: 1 }
-            ]
+            ],
+            lvl2Conns: {
+              "fwm-x-me-opp": {
+                removeConns: [],
+                addConns: [
+                  { f: "fwm-x-me-opp", t: "fwm-x-meo-size" },
+                  { f: "fwm-x-me-opp", t: "fwm-x-meo-growth" }
+                ]
+              },
+              "fwm-x-me-share": {
+                removeConns: [],
+                addConns: [
+                  { f: "fwm-x-me-share", t: "fwm-x-mes-needs" },
+                  { f: "fwm-x-me-share", t: "fwm-x-mes-offer" },
+                  { f: "fwm-x-me-share", t: "fwm-x-mes-comp" }
+                ]
+              },
+              "fwm-x-me-profit": {
+                removeConns: [["fwm-x-me-profit", "fwm-n-pricing"]],
+                addConns: [
+                  { f: "fwm-x-me-profit", t: "fwm-x-mep-inv" },
+                  { f: "fwm-x-me-profit", t: "fwm-x-mep-run" },
+                  { f: "fwm-x-me-profit", t: "fwm-x-mep-rev" },
+                  { f: "fwm-x-mep-rev", t: "fwm-n-pricing", d: 1 }
+                ]
+              },
+              "fwm-x-me-cap": {
+                removeConns: [],
+                addConns: [
+                  { f: "fwm-x-me-cap", t: "fwm-x-mec-cap" },
+                  { f: "fwm-x-me-cap", t: "fwm-x-mec-risk" }
+                ]
+              }
+            }
           },
+
+          /* ── NEW PRODUCT ── */
           "new-product": {
             subs: [
-              { id: "fwm-x-np-seg", label: "🎯 Target Segments", tip: "Size, growth, competition, needs" },
-              { id: "fwm-x-np-mkt", label: "📣 Marketing Strategy", tip: "Product, Price, Distribution, Promotion" },
-              { id: "fwm-x-np-impl", label: "🔧 Implementation", tip: "Design, production, logistics, aftercare" }
+              {
+                id: "fwm-x-np-seg", label: "\ud83c\udfaf Target Segments",
+                tip: "Size, growth, competition, needs",
+                subs: [
+                  { id: "fwm-x-nps-size", label: "\ud83d\udccf Size & Growth", tip: "How big and how fast?" },
+                  { id: "fwm-x-nps-comp", label: "\u2694\ufe0f Competition", tip: "Who else is there?" },
+                  { id: "fwm-x-nps-needs", label: "\ud83d\udca1 Customer Needs", tip: "What do they want?" }
+                ]
+              },
+              {
+                id: "fwm-x-np-mkt", label: "\ud83d\udce3 Marketing Strategy",
+                tip: "Product, Price, Distribution, Promotion",
+                subs: [
+                  { id: "fwm-x-npm-prod", label: "\ud83d\udce6 Product", tip: "Features, design, branding" },
+                  { id: "fwm-x-npm-price", label: "\ud83d\udcb2 Price", tip: "Pricing strategy" },
+                  { id: "fwm-x-npm-dist", label: "\ud83d\ude9a Distribution", tip: "Channels to market" },
+                  { id: "fwm-x-npm-promo", label: "\ud83d\udce2 Promotion", tip: "Marketing mix" }
+                ]
+              },
+              {
+                id: "fwm-x-np-impl", label: "\ud83d\udd27 Implementation",
+                tip: "Design, production, logistics, aftercare",
+                subs: [
+                  { id: "fwm-x-npi-design", label: "\ud83c\udfa8 Product Design", tip: "R&D and prototyping" },
+                  { id: "fwm-x-npi-prod", label: "\ud83c\udfed Production", tip: "Manufacturing setup" },
+                  { id: "fwm-x-npi-mkt", label: "\ud83d\udce3 Marketing & Sales", tip: "Go-to-market" },
+                  { id: "fwm-x-npi-log", label: "\ud83d\ude9a Logistics", tip: "Supply chain setup" },
+                  { id: "fwm-x-npi-after", label: "\ud83d\udd27 Aftercare", tip: "Customer support" }
+                ]
+              }
             ],
-            removeConns: [
-              ["fwm-n-new-product", "fwm-n-pricing"]
-            ],
+            removeConns: [["fwm-n-new-product", "fwm-n-pricing"]],
             addConns: [
               { f: "fwm-n-new-product", t: "fwm-x-np-seg" },
               { f: "fwm-n-new-product", t: "fwm-x-np-mkt" },
               { f: "fwm-n-new-product", t: "fwm-x-np-impl" },
               { f: "fwm-x-np-mkt", t: "fwm-n-pricing", d: 1 }
-            ]
+            ],
+            lvl2Conns: {
+              "fwm-x-np-seg": {
+                removeConns: [],
+                addConns: [
+                  { f: "fwm-x-np-seg", t: "fwm-x-nps-size" },
+                  { f: "fwm-x-np-seg", t: "fwm-x-nps-comp" },
+                  { f: "fwm-x-np-seg", t: "fwm-x-nps-needs" }
+                ]
+              },
+              "fwm-x-np-mkt": {
+                removeConns: [["fwm-x-np-mkt", "fwm-n-pricing"]],
+                addConns: [
+                  { f: "fwm-x-np-mkt", t: "fwm-x-npm-prod" },
+                  { f: "fwm-x-np-mkt", t: "fwm-x-npm-price" },
+                  { f: "fwm-x-np-mkt", t: "fwm-x-npm-dist" },
+                  { f: "fwm-x-np-mkt", t: "fwm-x-npm-promo" },
+                  { f: "fwm-x-npm-price", t: "fwm-n-pricing", d: 1 }
+                ]
+              },
+              "fwm-x-np-impl": {
+                removeConns: [],
+                addConns: [
+                  { f: "fwm-x-np-impl", t: "fwm-x-npi-design" },
+                  { f: "fwm-x-np-impl", t: "fwm-x-npi-prod" },
+                  { f: "fwm-x-np-impl", t: "fwm-x-npi-mkt" },
+                  { f: "fwm-x-np-impl", t: "fwm-x-npi-log" },
+                  { f: "fwm-x-np-impl", t: "fwm-x-npi-after" }
+                ]
+              }
+            }
           },
+
+          /* ── M&A ── */
           "m-and-a": {
             subs: [
-              { id: "fwm-x-ma-stand", label: "📊 Standalone Value", tip: "Future revenue, cost, multiples" },
-              { id: "fwm-x-ma-syn", label: "🤝 Synergies", tip: "Cost reduction + revenue growth" },
-              { id: "fwm-x-ma-cap", label: "🔧 Capabilities & Risks", tip: "Integration, culture, regulatory" }
+              {
+                id: "fwm-x-ma-stand", label: "\ud83d\udcca Standalone Value",
+                tip: "Future revenue, cost, multiples",
+                subs: [
+                  { id: "fwm-x-mav-rev", label: "\ud83d\udcc8 Future Revenue", tip: "Projected top-line" },
+                  { id: "fwm-x-mav-cost", label: "\ud83d\udcc9 Future Costs", tip: "Projected cost base" },
+                  { id: "fwm-x-mav-mult", label: "\ud83d\udcca Multiples", tip: "EV/EBITDA, P/E, etc." }
+                ]
+              },
+              {
+                id: "fwm-x-ma-syn", label: "\ud83e\udd1d Synergies",
+                tip: "Cost reduction + revenue growth",
+                subs: [
+                  { id: "fwm-x-may-cost", label: "\ud83d\udcc9 Cost Synergies", tip: "Shared ops, scale economies" },
+                  { id: "fwm-x-may-rev", label: "\ud83d\udcc8 Revenue Synergies", tip: "Cross-sell, new markets" }
+                ]
+              },
+              {
+                id: "fwm-x-ma-cap", label: "\ud83d\udd27 Capabilities & Risks",
+                tip: "Integration, culture, regulatory",
+                subs: [
+                  { id: "fwm-x-mac-int", label: "\ud83d\udd04 Integration Plan", tip: "How to merge operations" },
+                  { id: "fwm-x-mac-cult", label: "\ud83d\udc65 Cultural Fit", tip: "Will teams work together?" },
+                  { id: "fwm-x-mac-reg", label: "\u2696\ufe0f Regulatory", tip: "Antitrust, approvals" }
+                ]
+              }
             ],
             removeConns: [],
             addConns: [
               { f: "fwm-n-m-and-a", t: "fwm-x-ma-stand" },
               { f: "fwm-n-m-and-a", t: "fwm-x-ma-syn" },
               { f: "fwm-n-m-and-a", t: "fwm-x-ma-cap" }
-            ]
+            ],
+            lvl2Conns: {
+              "fwm-x-ma-stand": {
+                removeConns: [],
+                addConns: [
+                  { f: "fwm-x-ma-stand", t: "fwm-x-mav-rev" },
+                  { f: "fwm-x-ma-stand", t: "fwm-x-mav-cost" },
+                  { f: "fwm-x-ma-stand", t: "fwm-x-mav-mult" }
+                ]
+              },
+              "fwm-x-ma-syn": {
+                removeConns: [],
+                addConns: [
+                  { f: "fwm-x-ma-syn", t: "fwm-x-may-cost" },
+                  { f: "fwm-x-ma-syn", t: "fwm-x-may-rev" }
+                ]
+              },
+              "fwm-x-ma-cap": {
+                removeConns: [],
+                addConns: [
+                  { f: "fwm-x-ma-cap", t: "fwm-x-mac-int" },
+                  { f: "fwm-x-ma-cap", t: "fwm-x-mac-cult" },
+                  { f: "fwm-x-ma-cap", t: "fwm-x-mac-reg" }
+                ]
+              }
+            }
           },
+
+          /* ── PROCESS OPTIMIZATION ── */
           "process-optimization": {
             subs: [
-              { id: "fwm-x-po-map", label: "🗺️ Map Process", tip: "Capacity, utilization, bottleneck" },
-              { id: "fwm-x-po-step", label: "🔍 Optimize Steps", tip: "Eliminate, anticipate" },
-              { id: "fwm-x-po-gain", label: "📈 Estimate Gains", tip: "Cost, quality, speed" }
+              {
+                id: "fwm-x-po-map", label: "\ud83d\uddfa\ufe0f Map Process",
+                tip: "Capacity, utilization, bottleneck",
+                subs: [
+                  { id: "fwm-x-pom-cap", label: "\ud83d\udcca Total Capacity", tip: "What's the max throughput?" },
+                  { id: "fwm-x-pom-util", label: "\ud83d\udcc8 Utilization", tip: "% of capacity in use" },
+                  { id: "fwm-x-pom-bottle", label: "\ud83d\udd34 Bottleneck", tip: "Where's the constraint?" }
+                ]
+              },
+              {
+                id: "fwm-x-po-step", label: "\ud83d\udd0d Optimize Steps",
+                tip: "Eliminate, anticipate",
+                subs: [
+                  { id: "fwm-x-pos-elim", label: "\u274c Eliminate Low-Value", tip: "Remove unnecessary steps" },
+                  { id: "fwm-x-pos-antic", label: "\ud83d\udd2e Anticipate & Prevent", tip: "Predict and preempt issues" }
+                ]
+              },
+              {
+                id: "fwm-x-po-gain", label: "\ud83d\udcc8 Estimate Gains",
+                tip: "Cost, quality, speed",
+                subs: [
+                  { id: "fwm-x-pog-cost", label: "\ud83d\udcb0 Cost Reduction", tip: "How much cheaper?" },
+                  { id: "fwm-x-pog-qual", label: "\u2b50 Quality Improvement", tip: "How much better?" },
+                  { id: "fwm-x-pog-speed", label: "\u26a1 Speed Increase", tip: "How much faster?" }
+                ]
+              }
             ],
             removeConns: [],
             addConns: [
               { f: "fwm-n-process-opt", t: "fwm-x-po-map" },
               { f: "fwm-n-process-opt", t: "fwm-x-po-step" },
               { f: "fwm-n-process-opt", t: "fwm-x-po-gain" }
-            ]
+            ],
+            lvl2Conns: {
+              "fwm-x-po-map": {
+                removeConns: [],
+                addConns: [
+                  { f: "fwm-x-po-map", t: "fwm-x-pom-cap" },
+                  { f: "fwm-x-po-map", t: "fwm-x-pom-util" },
+                  { f: "fwm-x-po-map", t: "fwm-x-pom-bottle" }
+                ]
+              },
+              "fwm-x-po-step": {
+                removeConns: [],
+                addConns: [
+                  { f: "fwm-x-po-step", t: "fwm-x-pos-elim" },
+                  { f: "fwm-x-po-step", t: "fwm-x-pos-antic" }
+                ]
+              },
+              "fwm-x-po-gain": {
+                removeConns: [],
+                addConns: [
+                  { f: "fwm-x-po-gain", t: "fwm-x-pog-cost" },
+                  { f: "fwm-x-po-gain", t: "fwm-x-pog-qual" },
+                  { f: "fwm-x-po-gain", t: "fwm-x-pog-speed" }
+                ]
+              }
+            }
           }
-        };
+        }; /* end FWM_TREE */
+
+        /* ── BUILD REVERSE LOOKUPS ── */
+        var subById = {};
+        Object.keys(FWM_TREE).forEach(function (fwKey) {
+          FWM_TREE[fwKey].subs.forEach(function (sub) {
+            subById[sub.id] = sub;
+          });
+        });
 
         /* ── STATE ── */
-        var expandedFw = null;          // currently expanded framework key (or null)
-        var insertedRow = null;          // the DOM row we inserted
-        var origConns = null;            // snapshot of FWM_CONNS before modification
+        var lvl1 = { fw: null, row: null, origConns: null, pillEl: null };
+        var lvl2 = { subId: null, row: null, preConns: null, pillEl: null };
 
-        /* ── HELPERS ── */
-        function connKey(f, t) { return f + "|" + t; }
-
-        function makePill(sub) {
+        /* ══════════════ HELPERS ══════════════ */
+        function makePill(sub, clickable) {
           var div = document.createElement("div");
           div.className = "fwm-pill fwm-pill-sub";
           div.id = sub.id;
           div.setAttribute("title", sub.tip || "");
-          div.style.cssText = "background:#f1f8e9;color:#33691e;border-color:#7cb342;font-size:11px;padding:6px 14px;min-width:120px;cursor:default;";
+          div.style.cssText =
+            "background:#fff;color:#2e7d32;border:2px solid #00a651;" +
+            "font-size:11px;padding:6px 14px;min-width:100px;border-radius:50px;" +
+            "text-align:center;transition:all 0.2s ease;" +
+            (clickable
+              ? "cursor:pointer;"
+              : "cursor:default;");
           div.textContent = sub.label;
           return div;
         }
 
-        function expandFramework(fwKey, pillEl) {
-          var data = FWM_EXPAND[fwKey];
-          if (!data) return;
-
-          // Collapse any currently expanded framework first
-          if (expandedFw) collapseFramework();
-
-          expandedFw = fwKey;
-          origConns = JSON.parse(JSON.stringify(FWM_CONNS));
-
-          // 1. Create a new row with sub-factor pills
-          var row = document.createElement("div");
-          row.className = "fwm-row fwm-row-expanded";
-          row.style.cssText = "gap:14px;margin-bottom:56px;animation:fwmSlideDown 0.3s ease;";
-          data.subs.forEach(function (sub) {
-            row.appendChild(makePill(sub));
+        function positionRow(row, parentPillEl) {
+          /* Center the row's pills underneath the parent pill.
+             Use requestAnimationFrame to wait for layout. */
+          requestAnimationFrame(function () {
+            var container = document.getElementById("fwm-tree-container");
+            if (!container) return;
+            var cRect = container.getBoundingClientRect();
+            var pRect = parentPillEl.getBoundingClientRect();
+            var parentCenter = pRect.left + pRect.width / 2 - cRect.left;
+            var rowWidth = row.scrollWidth;
+            var containerWidth = cRect.width;
+            /* clamp so pills don't go off-screen */
+            var offset = Math.max(
+              0,
+              Math.min(parentCenter - rowWidth / 2, containerWidth - rowWidth)
+            );
+            row.style.justifyContent = "flex-start";
+            row.style.paddingLeft = offset + "px";
+            row.style.boxSizing = "border-box";
           });
+        }
 
-          // 2. Insert the row AFTER the pill's parent row
-          var parentRow = pillEl.closest(".fwm-row");
-          parentRow.parentNode.insertBefore(row, parentRow.nextSibling);
-          insertedRow = row;
-
-          // 3. Modify FWM_CONNS: remove specified connections, add new ones
-          data.removeConns.forEach(function (rc) {
-            for (var i = FWM_CONNS.length - 1; i >= 0; i--) {
-              if (FWM_CONNS[i].f === rc[0] && FWM_CONNS[i].t === rc[1]) {
-                FWM_CONNS.splice(i, 1);
+        function modifyConns(removeList, addList) {
+          (removeList || []).forEach(function (rc) {
+            for (var i = window.FWM_CONNS.length - 1; i >= 0; i--) {
+              if (
+                window.FWM_CONNS[i].f === rc[0] &&
+                window.FWM_CONNS[i].t === rc[1]
+              ) {
+                window.FWM_CONNS.splice(i, 1);
               }
             }
           });
-          data.addConns.forEach(function (ac) {
-            FWM_CONNS.push(ac);
+          (addList || []).forEach(function (ac) {
+            window.FWM_CONNS.push(ac);
           });
-
-          // 4. Highlight expanded pill
-          pillEl.classList.add("active");
-
-          // 5. Redraw SVG lines (with delay for DOM layout)
-          setTimeout(function () { drawFwmLines(); }, 30);
         }
 
-        function collapseFramework() {
-          if (!expandedFw) return;
+        function redraw() {
+          setTimeout(function () {
+            window.drawFwmLines();
+          }, 40);
+        }
 
-          // Remove inserted row
-          if (insertedRow && insertedRow.parentNode) {
-            insertedRow.parentNode.removeChild(insertedRow);
+        /* ══════════ LEVEL 1: EXPAND / COLLAPSE FRAMEWORK ══════════ */
+        function expandLevel1(fwKey, pillEl) {
+          var data = FWM_TREE[fwKey];
+          if (!data) return;
+
+          /* collapse everything first */
+          collapseAll();
+
+          lvl1.fw = fwKey;
+          lvl1.pillEl = pillEl;
+          lvl1.origConns = JSON.parse(JSON.stringify(window.FWM_CONNS));
+
+          /* 1. Build the sub-factor row */
+          var row = document.createElement("div");
+          row.className = "fwm-row fwm-row-expanded";
+          row.style.cssText =
+            "display:flex;flex-wrap:wrap;gap:14px;margin-bottom:56px;" +
+            "animation:fwmSlideDown 0.3s ease;";
+
+          data.subs.forEach(function (sub) {
+            var hasChildren = sub.subs && sub.subs.length > 0;
+            var pill = makePill(sub, hasChildren);
+
+            if (hasChildren) {
+              pill.addEventListener("click", function () {
+                if (!fwmInteractive) return;
+                if (lvl2.subId === sub.id) {
+                  collapseLevel2();
+                } else {
+                  expandLevel2(sub.id, pill);
+                }
+              });
+            }
+            row.appendChild(pill);
+          });
+
+          /* 2. Insert after parent's row */
+          var parentRow = pillEl.closest(".fwm-row");
+          parentRow.parentNode.insertBefore(row, parentRow.nextSibling);
+          lvl1.row = row;
+
+          /* 3. Modify connections */
+          modifyConns(data.removeConns, data.addConns);
+
+          /* 4. Highlight */
+          pillEl.classList.add("active");
+
+          /* 5. Position & redraw */
+          positionRow(row, pillEl);
+          redraw();
+        }
+
+        /* ══════════ LEVEL 2: EXPAND / COLLAPSE SUB-FACTOR ══════════ */
+        function expandLevel2(subId, pillEl) {
+          /* collapse any existing level-2 first */
+          collapseLevel2();
+
+          var fwKey = lvl1.fw;
+          var data = FWM_TREE[fwKey];
+          if (!data || !data.lvl2Conns || !data.lvl2Conns[subId]) return;
+          var sub = subById[subId];
+          if (!sub || !sub.subs || sub.subs.length === 0) return;
+
+          lvl2.subId = subId;
+          lvl2.pillEl = pillEl;
+          lvl2.preConns = JSON.parse(JSON.stringify(window.FWM_CONNS));
+
+          /* 1. Build the sub-sub-factor row */
+          var row = document.createElement("div");
+          row.className = "fwm-row fwm-row-expanded fwm-row-lvl2";
+          row.style.cssText =
+            "display:flex;flex-wrap:wrap;gap:12px;margin-bottom:56px;" +
+            "animation:fwmSlideDown 0.3s ease;";
+
+          sub.subs.forEach(function (child) {
+            var pill = makePill(child, false); /* leaf nodes */
+            pill.style.fontSize = "10px";
+            pill.style.padding = "5px 12px";
+            pill.style.minWidth = "90px";
+            row.appendChild(pill);
+          });
+
+          /* 2. Insert after level-1 row */
+          lvl1.row.parentNode.insertBefore(row, lvl1.row.nextSibling);
+          lvl2.row = row;
+
+          /* 3. Modify connections for level 2 */
+          var l2 = data.lvl2Conns[subId];
+          modifyConns(l2.removeConns, l2.addConns);
+
+          /* 4. Highlight */
+          pillEl.classList.add("active");
+
+          /* 5. Position & redraw */
+          positionRow(row, pillEl);
+          redraw();
+        }
+
+        function collapseLevel2() {
+          if (!lvl2.subId) return;
+
+          /* remove row */
+          if (lvl2.row && lvl2.row.parentNode) {
+            lvl2.row.parentNode.removeChild(lvl2.row);
           }
-          insertedRow = null;
 
-          // Restore original connections
-          if (origConns) {
-            FWM_CONNS.length = 0;
-            origConns.forEach(function (c) { FWM_CONNS.push(c); });
+          /* restore connections to pre-lvl2 state */
+          if (lvl2.preConns) {
+            window.FWM_CONNS.length = 0;
+            lvl2.preConns.forEach(function (c) {
+              window.FWM_CONNS.push(c);
+            });
           }
-          origConns = null;
-          expandedFw = null;
 
-          // Remove active state from all pills
+          /* remove highlight from lvl2 pill */
+          if (lvl2.pillEl) lvl2.pillEl.classList.remove("active");
+
+          lvl2 = { subId: null, row: null, preConns: null, pillEl: null };
+          redraw();
+        }
+
+        function collapseAll() {
+          collapseLevel2();
+          if (!lvl1.fw) return;
+
+          /* remove row */
+          if (lvl1.row && lvl1.row.parentNode) {
+            lvl1.row.parentNode.removeChild(lvl1.row);
+          }
+
+          /* restore original connections */
+          if (lvl1.origConns) {
+            window.FWM_CONNS.length = 0;
+            lvl1.origConns.forEach(function (c) {
+              window.FWM_CONNS.push(c);
+            });
+          }
+
+          /* remove all highlights */
           document.querySelectorAll(".fwm-pill").forEach(function (p) {
             p.classList.remove("active");
           });
 
-          // Redraw
-          setTimeout(function () { drawFwmLines(); }, 30);
+          lvl1 = { fw: null, row: null, origConns: null, pillEl: null };
+          redraw();
         }
 
-        /* ── ATTACH EXPAND CLICK HANDLERS ── */
-        // Wait for DOM, then attach to all framework pills
+        /* ── ATTACH CLICK HANDLERS TO FRAMEWORK PILLS ── */
         setTimeout(function () {
-          var frameworkKeys = Object.keys(FWM_EXPAND);
+          var frameworkKeys = Object.keys(FWM_TREE);
 
-          document.querySelectorAll(".fwm-pill[data-fwm]").forEach(function (pill) {
-            var fwKey = pill.getAttribute("data-fwm");
-            if (frameworkKeys.indexOf(fwKey) === -1) return; // skip non-expandable pills (profitability, revenue, etc.)
+          document
+            .querySelectorAll(".fwm-pill[data-fwm]")
+            .forEach(function (pill) {
+              var fwKey = pill.getAttribute("data-fwm");
+              if (frameworkKeys.indexOf(fwKey) === -1) return;
 
-            pill.addEventListener("click", function (e) {
-              if (!fwmInteractive) return; // interactive mode off — skip expansion
-              // If this framework is already expanded, collapse it
-              if (expandedFw === fwKey) {
-                collapseFramework();
-                return;
-              }
-              // Otherwise expand it
-              expandFramework(fwKey, pill);
+              pill.addEventListener("click", function () {
+                if (!fwmInteractive) return;
+                if (lvl1.fw === fwKey) {
+                  collapseAll();
+                } else {
+                  expandLevel1(fwKey, pill);
+                }
+              });
             });
-          });
         }, 300);
       })();
-
 
       // ═══════════════════════════════════════════════
       // INDUSTRY TABLE — 3RD COLUMN: EXPLANATIONS
