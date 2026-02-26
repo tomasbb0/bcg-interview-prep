@@ -11128,7 +11128,8 @@
         </div>
 
         <!-- Expandable framework panel (shows on click) -->
-        <div id="fwm-expand-panel" class="fwm-expand">
+        <div id="fwm-expand-panel" class="fwm-expand" style="position:relative;">
+          <button id="fwm-panel-close" onclick="this.parentElement.classList.remove('show');document.querySelectorAll('.fwm-pill.active').forEach(function(p){p.classList.remove('active')});" style="position:absolute;top:8px;right:10px;background:none;border:none;font-size:20px;cursor:pointer;color:#888;line-height:1;padding:2px 6px;border-radius:4px;z-index:2;" title="Close panel" onmouseover="this.style.color='#333';this.style.background='#eee'" onmouseout="this.style.color='#888';this.style.background='none'">✕</button>
           <div class="fwm-chain" id="fwm-chain-display"></div>
           <p
             id="fwm-insight"
