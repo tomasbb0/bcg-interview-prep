@@ -25724,9 +25724,9 @@ Margin                       20.0%              6.6%          -13.4pp
         btn.classList.toggle("visible", window.scrollY > 300);
       });
 
-      // Countdown
+      // Countdown — LIVE, updates every second
       function updateCountdown() {
-        const interview = new Date("2026-02-28T15:30:00");
+        const interview = new Date("2025-02-27T15:30:00+00:00"); // Fri 27 Feb 15:30 Lisbon (WET = UTC+0)
         const now = new Date();
         const diff = interview - now;
         if (diff <= 0) {
@@ -25736,11 +25736,14 @@ Margin                       20.0%              6.6%          -13.4pp
         const days = Math.floor(diff / 86400000);
         const hours = Math.floor((diff % 86400000) / 3600000);
         const mins = Math.floor((diff % 3600000) / 60000);
-        document.getElementById("countdown").textContent =
-          `⏱ ${days}d ${hours}h ${mins}m até à entrevista`;
+        const secs = Math.floor((diff % 60000) / 1000);
+        var txt = "\u23f1 ";
+        if (days > 0) txt += days + "d ";
+        txt += hours + "h " + mins + "m " + secs + "s";
+        document.getElementById("countdown").textContent = txt;
       }
       updateCountdown();
-      setInterval(updateCountdown, 60000);
+      setInterval(updateCountdown, 1000);
 
       // Schedule checkbox persistence
       function saveCheck(cb) {
