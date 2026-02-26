@@ -4529,7 +4529,7 @@
               cursor: pointer;
             "
           >
-            <option value="general"> General / Template (MECE lists)</option>
+            <option value="general">General / Template (MECE lists)</option>
             <option value="retail">🛒 Retail & Consumer Goods</option>
             <option value="healthcare">🏥 Healthcare & Pharma</option>
             <option value="tech">💻 Technology / SaaS</option>
@@ -10550,216 +10550,590 @@
       <div class="section" id="fw-map">
         <div class="section-title">🗺️ Framework Map</div>
         <div class="section-subtitle">
-          How the 10 case frameworks nest inside each other — all roads start from Profitability.
-          <span style="font-size:0.85em;color:var(--highlight);font-weight:600;">BETA — Experimental</span>
+          How the 10 case frameworks nest inside each other — all roads start
+          from Profitability.
+          <span
+            style="font-size: 0.85em; color: var(--highlight); font-weight: 600"
+            >BETA — Experimental</span
+          >
         </div>
 
-        <div class="card" style="margin-bottom:20px;padding:16px;">
-          <p style="color:var(--text-muted);font-size:0.9em;line-height:1.6;margin-bottom:0;">
-            <strong>Key insight:</strong> Every case framework is a "zoom-in" on a branch of the Profitability tree.
-            Click any node to see its framework chain and expand the framework tree below. The same framework (e.g. Pricing) can appear in multiple places.
+        <div class="card" style="margin-bottom: 20px; padding: 16px">
+          <p
+            style="
+              color: var(--text-muted);
+              font-size: 0.9em;
+              line-height: 1.6;
+              margin-bottom: 0;
+            "
+          >
+            <strong>Key insight:</strong> Every case framework is a "zoom-in" on
+            a branch of the Profitability tree. Click any node to see its
+            framework chain and expand the framework tree below. The same
+            framework (e.g. Pricing) can appear in multiple places.
           </p>
         </div>
 
         <!-- CSS for the map -->
         <style>
-          .fwm-tree { position:relative; width:100%; overflow-x:auto; padding-bottom:20px; }
-          .fwm-row { display:flex; justify-content:center; gap:16px; margin-bottom:14px; position:relative; }
-          .fwm-row.fwm-row-wide { gap:12px; }
-          .fwm-pill { 
-            display:inline-flex; align-items:center; justify-content:center;
-            padding:8px 20px; border-radius:50px; font-size:13px; font-weight:600;
-            cursor:pointer; border:2px solid; transition: all 0.2s; position:relative;
-            z-index:1;
-            white-space:nowrap; min-width:140px; text-align:center; user-select:none;
+          .fwm-tree {
+            position: relative;
+            width: 100%;
+            overflow-x: auto;
+            padding-bottom: 20px;
           }
-          .fwm-pill:hover { transform:translateY(-2px); box-shadow:0 4px 12px rgba(0,0,0,0.15); }
-          .fwm-pill.active { box-shadow:0 0 0 3px rgba(0,166,81,0.4); transform:translateY(-2px); }
-          .fwm-connector { display:flex; justify-content:center; margin:2px 0; }
-          .fwm-connector svg { display:block; }
-          .fwm-label { text-align:center; color:#888; font-size:11px; font-style:italic; margin:6px 0; }
+          .fwm-row {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            margin-bottom: 14px;
+            position: relative;
+          }
+          .fwm-row.fwm-row-wide {
+            gap: 12px;
+          }
+          .fwm-pill {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            border: 2px solid;
+            transition: all 0.2s;
+            position: relative;
+            z-index: 1;
+            white-space: nowrap;
+            min-width: 140px;
+            text-align: center;
+            user-select: none;
+          }
+          .fwm-pill:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+          }
+          .fwm-pill.active {
+            box-shadow: 0 0 0 3px rgba(0, 166, 81, 0.4);
+            transform: translateY(-2px);
+          }
+          .fwm-connector {
+            display: flex;
+            justify-content: center;
+            margin: 2px 0;
+          }
+          .fwm-connector svg {
+            display: block;
+          }
+          .fwm-label {
+            text-align: center;
+            color: #888;
+            font-size: 11px;
+            font-style: italic;
+            margin: 6px 0;
+          }
           .fwm-expand {
-            margin-top:16px; padding:16px; background:var(--card-bg); border:1px solid var(--card-border);
-            border-radius:12px; display:none; animation: fwmSlideDown 0.25s ease;
+            margin-top: 16px;
+            padding: 16px;
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 12px;
+            display: none;
+            animation: fwmSlideDown 0.25s ease;
           }
-          .fwm-expand.show { display:block; }
-          @keyframes fwmSlideDown { from { opacity:0; transform:translateY(-8px); } to { opacity:1; transform:translateY(0); } }
-          .fwm-chain { font-size:1em; margin-bottom:10px; }
-          .fwm-chain-step { color:var(--text); font-weight:500; }
-          .fwm-chain-final { background:var(--bcg-green); color:#fff; padding:3px 12px; border-radius:50px; font-weight:700; }
-          .fwm-chain-arrow { color:var(--bcg-green); font-weight:bold; margin:0 4px; }
-          .fwm-fw-tree { margin-top:12px; padding:12px 16px; background:#f8f8f8; border-radius:8px; border-left:3px solid var(--bcg-green); }
-          .fwm-fw-tree ul { margin:4px 0 4px 18px; padding:0; list-style:none; }
-          .fwm-fw-tree li { position:relative; padding:2px 0; font-size:0.9em; color:var(--text); }
-          .fwm-fw-tree li::before { content:"├─ "; color:#ccc; font-family:monospace; }
-          .fwm-fw-tree li:last-child::before { content:"└─ "; }
-          .fwm-fw-tree .branch-name { font-weight:600; color:#333; }
-          .fwm-fw-tree .leaf { color:#666; font-size:0.88em; }
-          .fwm-legend { margin-top:16px; display:flex; gap:16px; flex-wrap:wrap; font-size:0.82em; color:#999; }
-          .fwm-legend-item { display:flex; align-items:center; gap:4px; }
-          .fwm-legend-line { width:24px; height:2px; }
-          .fwm-group { display:flex; flex-direction:column; align-items:center; gap:0; }
-          .fwm-vline { width:2px; height:20px; background:#ccc; }
-          .fwm-hline-group { display:flex; align-items:flex-start; position:relative; }
-          .fwm-fork { position:relative; display:flex; justify-content:center; }
-          .fwm-fork-line { position:absolute; top:0; height:2px; background:#ccc; }
-          .fwm-note { font-size:0.8em; color:#999; font-style:italic; text-align:center; margin:2px 0; }
-          @media (max-width:900px) {
-            .fwm-pill { font-size:11px; padding:6px 12px; min-width:110px; }
-            .fwm-row { gap:8px; flex-wrap:wrap; }
+          .fwm-expand.show {
+            display: block;
+          }
+          @keyframes fwmSlideDown {
+            from {
+              opacity: 0;
+              transform: translateY(-8px);
+            }
+            to {
+              opacity: 1;
+              transform: translateY(0);
+            }
+          }
+          .fwm-chain {
+            font-size: 1em;
+            margin-bottom: 10px;
+          }
+          .fwm-chain-step {
+            color: var(--text);
+            font-weight: 500;
+          }
+          .fwm-chain-final {
+            background: var(--bcg-green);
+            color: #fff;
+            padding: 3px 12px;
+            border-radius: 50px;
+            font-weight: 700;
+          }
+          .fwm-chain-arrow {
+            color: var(--bcg-green);
+            font-weight: bold;
+            margin: 0 4px;
+          }
+          .fwm-fw-tree {
+            margin-top: 12px;
+            padding: 12px 16px;
+            background: #f8f8f8;
+            border-radius: 8px;
+            border-left: 3px solid var(--bcg-green);
+          }
+          .fwm-fw-tree ul {
+            margin: 4px 0 4px 18px;
+            padding: 0;
+            list-style: none;
+          }
+          .fwm-fw-tree li {
+            position: relative;
+            padding: 2px 0;
+            font-size: 0.9em;
+            color: var(--text);
+          }
+          .fwm-fw-tree li::before {
+            content: "├─ ";
+            color: #ccc;
+            font-family: monospace;
+          }
+          .fwm-fw-tree li:last-child::before {
+            content: "└─ ";
+          }
+          .fwm-fw-tree .branch-name {
+            font-weight: 600;
+            color: #333;
+          }
+          .fwm-fw-tree .leaf {
+            color: #666;
+            font-size: 0.88em;
+          }
+          .fwm-legend {
+            margin-top: 16px;
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+            font-size: 0.82em;
+            color: #999;
+          }
+          .fwm-legend-item {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+          }
+          .fwm-legend-line {
+            width: 24px;
+            height: 2px;
+          }
+          .fwm-group {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0;
+          }
+          .fwm-vline {
+            width: 2px;
+            height: 20px;
+            background: #ccc;
+          }
+          .fwm-hline-group {
+            display: flex;
+            align-items: flex-start;
+            position: relative;
+          }
+          .fwm-fork {
+            position: relative;
+            display: flex;
+            justify-content: center;
+          }
+          .fwm-fork-line {
+            position: absolute;
+            top: 0;
+            height: 2px;
+            background: #ccc;
+          }
+          .fwm-note {
+            font-size: 0.8em;
+            color: #999;
+            font-style: italic;
+            text-align: center;
+            margin: 2px 0;
+          }
+          @media (max-width: 900px) {
+            .fwm-pill {
+              font-size: 11px;
+              padding: 6px 12px;
+              min-width: 110px;
+            }
+            .fwm-row {
+              gap: 8px;
+              flex-wrap: wrap;
+            }
           }
         </style>
 
         <!-- The Tree Map (dynamic connectors) -->
-        <div class="fwm-tree" id="fwm-tree-container" style="position:relative;">
+        <div
+          class="fwm-tree"
+          id="fwm-tree-container"
+          style="position: relative"
+        >
           <!-- Dynamic SVG overlay for connector lines -->
-          <svg id="fwm-lines" style="position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0;overflow:visible;"></svg>
+          <svg
+            id="fwm-lines"
+            style="
+              position: absolute;
+              top: 0;
+              left: 0;
+              width: 100%;
+              height: 100%;
+              pointer-events: none;
+              z-index: 0;
+              overflow: visible;
+            "
+          ></svg>
 
           <!-- ROW 0: PROFITABILITY -->
           <div class="fwm-row">
-            <div class="fwm-pill" id="fwm-n-profitability" data-fwm="profitability" style="background:#00a651;color:#fff;border-color:#008c44;font-size:15px;padding:10px 28px;">
+            <div
+              class="fwm-pill"
+              id="fwm-n-profitability"
+              data-fwm="profitability"
+              style="
+                background: #00a651;
+                color: #fff;
+                border-color: #008c44;
+                font-size: 15px;
+                padding: 10px 28px;
+              "
+            >
               💰 PROFITABILITY
             </div>
           </div>
 
-          <div class="fwm-label">"How to improve profits?" = Revenue − Costs</div>
-
           <!-- CONNECTOR: split into Revenue / Costs -->
-          
 
           <!-- ROW 1: Revenue / Costs -->
-          <div class="fwm-row" style="gap:200px;">
-            <div class="fwm-pill" id="fwm-n-revenue" data-fwm="revenue" style="background:#e3f2fd;color:#1976d2;border-color:#1976d2;">
+          <div class="fwm-row" style="gap: 200px">
+            <div
+              class="fwm-pill"
+              id="fwm-n-revenue"
+              data-fwm="revenue"
+              style="background: #fff; color: #2e7d32; border-color: #00a651"
+            >
               📈 Revenue
             </div>
-            <div class="fwm-pill" id="fwm-n-costs" data-fwm="costs" style="background:#fce4ec;color:#d32f2f;border-color:#d32f2f;">
+            <div
+              class="fwm-pill"
+              id="fwm-n-costs"
+              data-fwm="costs"
+              style="background: #fff; color: #2e7d32; border-color: #00a651"
+            >
               📉 Costs
             </div>
           </div>
 
           <!-- CONNECTOR: Revenue splits into Volume/Price, Costs splits into FC/VC -->
-          
 
           <!-- ROW 2: Volume / Price / FC / VC -->
-          <div class="fwm-row" style="gap:24px;">
-            <div class="fwm-pill" id="fwm-n-volume" data-fwm="volume" style="background:#e8f5e9;color:#2e7d32;border-color:#a5d6a7;font-size:12px;">
+          <div class="fwm-row" style="gap: 24px">
+            <div
+              class="fwm-pill"
+              id="fwm-n-volume"
+              data-fwm="volume"
+              style="
+                background: #fff;
+                color: #2e7d32;
+                border-color: #00a651;
+                font-size: 12px;
+              "
+            >
               📊 Volume
             </div>
-            <div class="fwm-pill" id="fwm-n-price" data-fwm="price" style="background:#fff8e1;color:#f57f17;border-color:#ffe082;font-size:12px;">
+            <div
+              class="fwm-pill"
+              id="fwm-n-price"
+              data-fwm="price"
+              style="
+                background: #fff;
+                color: #2e7d32;
+                border-color: #00a651;
+                font-size: 12px;
+              "
+            >
               💲 Price
             </div>
-            <div style="width:60px;"></div>
-            <div class="fwm-pill" id="fwm-n-fc" data-fwm="fixed-costs" style="background:#fce4ec;color:#c62828;border-color:#ef9a9a;font-size:12px;">
+            <div style="width: 60px"></div>
+            <div
+              class="fwm-pill"
+              id="fwm-n-fc"
+              data-fwm="fixed-costs"
+              style="
+                background: #fff;
+                color: #2e7d32;
+                border-color: #00a651;
+                font-size: 12px;
+              "
+            >
               🏢 Fixed Costs
             </div>
-            <div class="fwm-pill" id="fwm-n-vc" data-fwm="variable-costs" style="background:#fce4ec;color:#c62828;border-color:#ef9a9a;font-size:12px;">
+            <div
+              class="fwm-pill"
+              id="fwm-n-vc"
+              data-fwm="variable-costs"
+              style="
+                background: #fff;
+                color: #2e7d32;
+                border-color: #00a651;
+                font-size: 12px;
+              "
+            >
               📦 Variable Costs
             </div>
           </div>
 
-          <div class="fwm-label">"How to increase volume? → Growth" &nbsp;&nbsp; "How to optimize price? → Pricing" &nbsp;&nbsp; "How to cut costs? → Cost Reduction"</div>
-
           <!-- CONNECTOR: down to frameworks -->
-          
 
           <!-- ROW 3: GROWTH / PRICING / COST REDUCTION / INVESTMENT -->
-          <div class="fwm-row" style="gap:16px;">
-            <div class="fwm-pill" id="fwm-n-growth" data-fwm="growth" style="background:#e8f5e9;color:#2e7d32;border-color:#2e7d32;">
+          <div class="fwm-row" style="gap: 16px">
+            <div
+              class="fwm-pill"
+              id="fwm-n-growth"
+              data-fwm="growth"
+              style="background: #e8f5e9; color: #2e7d32; border-color: #2e7d32; font-size: 12px"
+            >
               📈 2. GROWTH
             </div>
-            <div class="fwm-pill" id="fwm-n-pricing" data-fwm="pricing" style="background:#fffde7;color:#f57f17;border-color:#f57f17;">
+            <div
+              class="fwm-pill"
+              id="fwm-n-pricing"
+              data-fwm="pricing"
+              style="background: #fffde7; color: #f57f17; border-color: #f57f17; font-size: 12px"
+            >
               🏷️ 6. PRICING
             </div>
-            <div class="fwm-pill" id="fwm-n-comp-resp" data-fwm="competitive-response" style="background:#fff3e0;color:#e65100;border-color:#e65100;">
+            <div
+              class="fwm-pill"
+              id="fwm-n-comp-resp"
+              data-fwm="competitive-response"
+              style="background: #fff3e0; color: #e65100; border-color: #e65100; font-size: 12px"
+            >
               ⚔️ 9. COMP. RESPONSE
             </div>
-            <div class="fwm-pill" id="fwm-n-cost-red" data-fwm="cost-reduction" style="background:#ffebee;color:#c62828;border-color:#c62828;">
+            <div
+              class="fwm-pill"
+              id="fwm-n-cost-red"
+              data-fwm="cost-reduction"
+              style="background: #ffebee; color: #c62828; border-color: #c62828; font-size: 12px"
+            >
               📉 3. COST REDUCTION
             </div>
-            <div class="fwm-pill" id="fwm-n-investment" data-fwm="investment" style="background:#ede7f6;color:#5e35b1;border-color:#5e35b1;">
+            <div
+              class="fwm-pill"
+              id="fwm-n-investment"
+              data-fwm="investment"
+              style="background: #ede7f6; color: #5e35b1; border-color: #5e35b1; font-size: 12px"
+            >
               💼 7. INVESTMENT
             </div>
           </div>
 
-          <div class="fwm-note">⚔️ Comp. Response = defending revenue from threats &nbsp;&nbsp;|&nbsp;&nbsp; 💼 Investment can sit on both sides (invest to grow OR invest to save costs)</div>
-
           <!-- CONNECTOR: Growth branches down -->
-          
 
           <!-- ROW 4: MARKET ENTRY / NEW PRODUCT / M&A / PROCESS OPT -->
-          <div class="fwm-row fwm-row-wide" style="gap:14px;">
-            <div class="fwm-pill" id="fwm-n-market-entry" data-fwm="market-entry" style="background:#e0f7fa;color:#00838f;border-color:#00838f;font-size:12px;">
+          <div class="fwm-row fwm-row-wide" style="gap: 14px">
+            <div
+              class="fwm-pill"
+              id="fwm-n-market-entry"
+              data-fwm="market-entry"
+              style="
+                background: #e0f7fa;
+                color: #00838f;
+                border-color: #00838f;
+                font-size: 12px;
+              "
+            >
               🚀 4. MARKET ENTRY
             </div>
-            <div class="fwm-pill" id="fwm-n-new-product" data-fwm="new-product" style="background:#f3e5f5;color:#7b1fa2;border-color:#7b1fa2;font-size:12px;">
+            <div
+              class="fwm-pill"
+              id="fwm-n-new-product"
+              data-fwm="new-product"
+              style="
+                background: #f3e5f5;
+                color: #7b1fa2;
+                border-color: #7b1fa2;
+                font-size: 12px;
+              "
+            >
               🆕 5. NEW PRODUCT
             </div>
-            <div class="fwm-pill" id="fwm-n-m-and-a" data-fwm="m-and-a" style="background:#e8eaf6;color:#283593;border-color:#283593;font-size:12px;">
+            <div
+              class="fwm-pill"
+              id="fwm-n-m-and-a"
+              data-fwm="m-and-a"
+              style="
+                background: #e8eaf6;
+                color: #283593;
+                border-color: #283593;
+                font-size: 12px;
+              "
+            >
               🤝 8. M&A
             </div>
-            <div style="width:100px;"></div>
-            <div class="fwm-pill" id="fwm-n-process-opt" data-fwm="process-optimization" style="background:#efebe9;color:#4e342e;border-color:#4e342e;font-size:12px;">
+            <div style="width: 100px"></div>
+            <div
+              class="fwm-pill"
+              id="fwm-n-process-opt"
+              data-fwm="process-optimization"
+              style="
+                background: #efebe9;
+                color: #4e342e;
+                border-color: #4e342e;
+                font-size: 12px;
+              "
+            >
               ⚙️ 10. PROCESS OPT.
             </div>
-          </div>
-
-          <div class="fwm-note" style="margin-top:8px;">
-            🏷️ Pricing can also be triggered from Market Entry / New Product (dashed connection) &nbsp;&nbsp;|&nbsp;&nbsp;
-            🤝 M&A = inorganic growth path
           </div>
         </div>
 
         <!-- Expandable framework panel (shows on click) -->
         <div id="fwm-expand-panel" class="fwm-expand">
           <div class="fwm-chain" id="fwm-chain-display"></div>
-          <p id="fwm-insight" style="color:var(--text-muted);font-size:0.9em;line-height:1.6;margin-bottom:12px;"></p>
-          <div id="fwm-fw-tree-display" class="fwm-fw-tree" style="display:none;"></div>
+          <p
+            id="fwm-insight"
+            style="
+              color: var(--text-muted);
+              font-size: 0.9em;
+              line-height: 1.6;
+              margin-bottom: 12px;
+            "
+          ></p>
+          <div
+            id="fwm-fw-tree-display"
+            class="fwm-fw-tree"
+            style="display: none"
+          ></div>
         </div>
 
         <!-- Legend -->
-        <div class="fwm-legend" style="margin-top:16px;">
-          <div class="fwm-legend-item"><div class="fwm-legend-line" style="background:#bbb;"></div> Connection (parent → child)</div>
-          <div class="fwm-legend-item"><div class="fwm-legend-line" style="background:#bbb;border-top:2px dashed #bbb;height:0;"></div> Cross-cutting (e.g. Pricing)</div>
-          <div class="fwm-legend-item">Click a pill to expand the framework tree</div>
+        <div class="fwm-legend" style="margin-top: 16px">
+          <div class="fwm-legend-item">
+            <div class="fwm-legend-line" style="background: #bbb"></div>
+            Connection (parent → child)
+          </div>
+          <div class="fwm-legend-item">
+            <div
+              class="fwm-legend-line"
+              style="background: #bbb; border-top: 2px dashed #bbb; height: 0"
+            ></div>
+            Cross-cutting (e.g. Pricing)
+          </div>
+          <div class="fwm-legend-item">
+            Click a pill to expand the framework tree
+          </div>
         </div>
 
         <!-- Reasoning table -->
-        <div class="card" style="margin-top:20px;padding:16px;">
-          <h3 style="margin-bottom:12px;">🧠 How to read this map</h3>
+        <div class="card" style="margin-top: 20px; padding: 16px">
+          <h3 style="margin-bottom: 12px">🧠 How to read this map</h3>
           <table>
-            <thead><tr><th>Level</th><th>Question</th><th>Framework</th></tr></thead>
+            <thead>
+              <tr>
+                <th>Level</th>
+                <th>Question</th>
+                <th>Framework</th>
+              </tr>
+            </thead>
             <tbody>
-              <tr><td><strong>0 — Start</strong></td><td>"How to improve profits?"</td><td>💰 Profitability (Revenue − Costs)</td></tr>
-              <tr><td><strong>1 — Revenue</strong></td><td>"Volume problem or price problem?"</td><td>Volume / Price decomposition</td></tr>
-              <tr><td><strong>1 — Costs</strong></td><td>"Fixed costs or variable costs?"</td><td>Fixed / Variable decomposition</td></tr>
-              <tr><td><strong>2a — Volume</strong></td><td>"How to sell more?"</td><td>📈 Growth</td></tr>
-              <tr><td><strong>2b — Price</strong></td><td>"How to optimize price?"</td><td>🏷️ Pricing</td></tr>
-              <tr><td><strong>2c — Revenue</strong></td><td>"How to defend from threats?"</td><td>⚔️ Competitive Response</td></tr>
-              <tr><td><strong>2d — Costs</strong></td><td>"How to reduce costs?"</td><td>📉 Cost Reduction</td></tr>
-              <tr><td><strong>2e — Costs</strong></td><td>"Should we invest to improve?"</td><td>💼 Investment</td></tr>
-              <tr><td><strong>3a — Growth</strong></td><td>"Enter a new market?"</td><td>🚀 Market Entry</td></tr>
-              <tr><td><strong>3b — Growth</strong></td><td>"Launch a new product?"</td><td>🆕 New Product</td></tr>
-              <tr><td><strong>3c — Growth</strong></td><td>"Acquire a company?"</td><td>🤝 M&A</td></tr>
-              <tr><td><strong>3d — Cost Red.</strong></td><td>"Optimize this process?"</td><td>⚙️ Process Optimization</td></tr>
+              <tr>
+                <td><strong>0 — Start</strong></td>
+                <td>"How to improve profits?"</td>
+                <td>💰 Profitability (Revenue − Costs)</td>
+              </tr>
+              <tr>
+                <td><strong>1 — Revenue</strong></td>
+                <td>"Volume problem or price problem?"</td>
+                <td>Volume / Price decomposition</td>
+              </tr>
+              <tr>
+                <td><strong>1 — Costs</strong></td>
+                <td>"Fixed costs or variable costs?"</td>
+                <td>Fixed / Variable decomposition</td>
+              </tr>
+              <tr>
+                <td><strong>2a — Volume</strong></td>
+                <td>"How to sell more?"</td>
+                <td>📈 Growth</td>
+              </tr>
+              <tr>
+                <td><strong>2b — Price</strong></td>
+                <td>"How to optimize price?"</td>
+                <td>🏷️ Pricing</td>
+              </tr>
+              <tr>
+                <td><strong>2c — Revenue</strong></td>
+                <td>"How to defend from threats?"</td>
+                <td>⚔️ Competitive Response</td>
+              </tr>
+              <tr>
+                <td><strong>2d — Costs</strong></td>
+                <td>"How to reduce costs?"</td>
+                <td>📉 Cost Reduction</td>
+              </tr>
+              <tr>
+                <td><strong>2e — Costs</strong></td>
+                <td>"Should we invest to improve?"</td>
+                <td>💼 Investment</td>
+              </tr>
+              <tr>
+                <td><strong>3a — Growth</strong></td>
+                <td>"Enter a new market?"</td>
+                <td>🚀 Market Entry</td>
+              </tr>
+              <tr>
+                <td><strong>3b — Growth</strong></td>
+                <td>"Launch a new product?"</td>
+                <td>🆕 New Product</td>
+              </tr>
+              <tr>
+                <td><strong>3c — Growth</strong></td>
+                <td>"Acquire a company?"</td>
+                <td>🤝 M&A</td>
+              </tr>
+              <tr>
+                <td><strong>3d — Cost Red.</strong></td>
+                <td>"Optimize this process?"</td>
+                <td>⚙️ Process Optimization</td>
+              </tr>
             </tbody>
           </table>
         </div>
 
         <!-- Venn insight -->
-        <div class="card card-accent" style="margin-top:16px;">
+        <div class="card card-accent" style="margin-top: 16px">
           <h4>💡 The Venn Diagram Insight</h4>
-          <p style="margin-top:8px;line-height:1.6;color:var(--text-muted);">
-            Think of it as concentric circles: <strong>Profitability</strong> is the outer ring (every case is ultimately about profit).
-            Inside it, <strong>Revenue</strong> and <strong>Costs</strong> are the two halves.
-            Revenue decomposes into <strong>Volume</strong> and <strong>Price</strong>; Costs into <strong>Fixed</strong> and <strong>Variable</strong>.
-            Each of those leads to specific frameworks.
-            <strong>Pricing</strong> and <strong>Investment</strong> cut across both sides.
-            <strong>Competitive Response</strong> defends revenue when external threats appear.
+          <p
+            style="margin-top: 8px; line-height: 1.6; color: var(--text-muted)"
+          >
+            Think of it as concentric circles: <strong>Profitability</strong> is
+            the outer ring (every case is ultimately about profit). Inside it,
+            <strong>Revenue</strong> and <strong>Costs</strong> are the two
+            halves. Revenue decomposes into <strong>Volume</strong> and
+            <strong>Price</strong>; Costs into <strong>Fixed</strong> and
+            <strong>Variable</strong>. Each of those leads to specific
+            frameworks. <strong>Pricing</strong> and
+            <strong>Investment</strong> cut across both sides.
+            <strong>Competitive Response</strong> defends revenue when external
+            threats appear.
           </p>
-          <p style="margin-top:8px;line-height:1.6;">
-            <strong>In an interview:</strong> The prompt tells you WHERE in this map you are.
-            "Profits are declining" → start at Level 0. "Should we enter China?" → jump to Level 3a.
-            But always know which outer framework led here — it gives context for your recommendation.
+          <p style="margin-top: 8px; line-height: 1.6">
+            <strong>In an interview:</strong> The prompt tells you WHERE in this
+            map you are. "Profits are declining" → start at Level 0. "Should we
+            enter China?" → jump to Level 3a. But always know which outer
+            framework led here — it gives context for your recommendation.
           </p>
         </div>
       </div>
@@ -21214,116 +21588,192 @@ Margin                       20.0%              6.6%          -13.4pp
           profitability: {
             label: "💰 Profitability",
             chain: ["Profitability"],
-            insight: "The ROOT framework — every case ultimately connects here. USE WHEN: the prompt says \"profits declining\", \"margins shrinking\", or any broad \"improve performance\". IMPLIES: you\'re at the very top of the tree; no parent framework above. NEXT: Decompose into Revenue vs. Costs. If revenue is the problem → Growth, Pricing, or Competitive Response. If costs → Cost Reduction or Investment. This is always your starting anchor.",
+            insight:
+              'The ROOT framework — every case ultimately connects here. USE WHEN: the prompt says "profits declining", "margins shrinking", or any broad "improve performance". IMPLIES: you\'re at the very top of the tree; no parent framework above. NEXT: Decompose into Revenue vs. Costs. If revenue is the problem → Growth, Pricing, or Competitive Response. If costs → Cost Reduction or Investment. This is always your starting anchor.',
             tree: {
               root: "How to improve profits?",
               branches: [
-                { name: "Revenue / Receitas", children: ["Volume / Volume", "Price / Preço"] },
-                { name: "Costs / Custos", children: ["Fixed costs / Custos fixos", "Variable costs / Custos variáveis"] },
+                {
+                  name: "Revenue / Receitas",
+                  children: ["Volume / Volume", "Price / Preço"],
+                },
+                {
+                  name: "Costs / Custos",
+                  children: [
+                    "Fixed costs / Custos fixos",
+                    "Variable costs / Custos variáveis",
+                  ],
+                },
               ],
             },
           },
           revenue: {
             label: "📈 Revenue Side",
             chain: ["Profitability", "Revenue"],
-            insight: "The revenue branch of Profitability. USE WHEN: you\'ve isolated that the problem sits on the top line — sales are down or not growing enough. IMPLIES: you\'re studying Profitability and have ruled out (or parked) the cost side. NEXT: Ask \"Is it a Volume problem or a Price problem?\" — then dive into Growth (volume) or Pricing (price). If it\'s an external threat eating revenue, consider Competitive Response.",
+            insight:
+              "The revenue branch of Profitability. USE WHEN: you\'ve isolated that the problem sits on the top line — sales are down or not growing enough. IMPLIES: you\'re studying Profitability and have ruled out (or parked) the cost side. NEXT: Ask \"Is it a Volume problem or a Price problem?\" — then dive into Growth (volume) or Pricing (price). If it\'s an external threat eating revenue, consider Competitive Response.",
             tree: null,
           },
           costs: {
             label: "📉 Costs Side",
             chain: ["Profitability", "Costs"],
-            insight: "The cost branch of Profitability. USE WHEN: revenue looks healthy but margins are shrinking — the problem is on the expense side. IMPLIES: you\'re studying Profitability and have identified costs as the lever. NEXT: Decompose into Fixed Costs vs. Variable Costs. Then apply Cost Reduction to cut them, Investment to evaluate spending, or Process Optimization for operational efficiency.",
+            insight:
+              "The cost branch of Profitability. USE WHEN: revenue looks healthy but margins are shrinking — the problem is on the expense side. IMPLIES: you\'re studying Profitability and have identified costs as the lever. NEXT: Decompose into Fixed Costs vs. Variable Costs. Then apply Cost Reduction to cut them, Investment to evaluate spending, or Process Optimization for operational efficiency.",
             tree: null,
           },
           volume: {
             label: "📊 Volume",
             chain: ["Profitability", "Revenue", "Volume"],
-            insight: "The volume lever under Revenue. USE WHEN: revenue is declining because fewer units are being sold, fewer customers are buying, or purchase frequency dropped. IMPLIES: you\'re studying Revenue → Profitability. You\'ve already identified it\'s not a pricing issue. NEXT: Apply the Growth framework — \"How do we sell more?\" leads to growing the core, Market Entry, New Product, or M&A.",
+            insight:
+              "The volume lever under Revenue. USE WHEN: revenue is declining because fewer units are being sold, fewer customers are buying, or purchase frequency dropped. IMPLIES: you\'re studying Revenue → Profitability. You\'ve already identified it\'s not a pricing issue. NEXT: Apply the Growth framework — \"How do we sell more?\" leads to growing the core, Market Entry, New Product, or M&A.",
             tree: null,
           },
           price: {
             label: "💲 Price",
             chain: ["Profitability", "Revenue", "Price"],
-            insight: "The price lever under Revenue. USE WHEN: volume is fine but revenue per unit is too low — discounts are too aggressive, pricing power is weak, or the pricing model is wrong. IMPLIES: you\'re studying Revenue → Profitability. You\'ve identified that the issue is price, not volume. NEXT: Apply the Pricing framework — analyze costs (floor), competitors (benchmark), and willingness to pay (ceiling). Pricing also gets triggered from New Product or Market Entry when setting prices for new offerings.",
+            insight:
+              "The price lever under Revenue. USE WHEN: volume is fine but revenue per unit is too low — discounts are too aggressive, pricing power is weak, or the pricing model is wrong. IMPLIES: you\'re studying Revenue → Profitability. You\'ve identified that the issue is price, not volume. NEXT: Apply the Pricing framework — analyze costs (floor), competitors (benchmark), and willingness to pay (ceiling). Pricing also gets triggered from New Product or Market Entry when setting prices for new offerings.",
             tree: null,
           },
           "fixed-costs": {
             label: "🏢 Fixed Costs",
             chain: ["Profitability", "Costs", "Fixed Costs"],
-            insight: "Fixed costs — expenses that don\'t change with output: rent, salaries, insurance, depreciation, IT, licenses. USE WHEN: the cost problem is structural — high overhead regardless of how much you produce. IMPLIES: you\'re studying Costs → Profitability. You\'ve split costs into fixed vs. variable. NEXT: Apply Cost Reduction to these costs — can we eliminate the need, do more with less, or find cheaper resources? Investment framework also connects here (e.g., \"Should we invest in automation to reduce fixed labor costs?\").",
+            insight:
+              "Fixed costs — expenses that don\'t change with output: rent, salaries, insurance, depreciation, IT, licenses. USE WHEN: the cost problem is structural — high overhead regardless of how much you produce. IMPLIES: you\'re studying Costs → Profitability. You\'ve split costs into fixed vs. variable. NEXT: Apply Cost Reduction to these costs — can we eliminate the need, do more with less, or find cheaper resources? Investment framework also connects here (e.g., \"Should we invest in automation to reduce fixed labor costs?\").",
             tree: null,
           },
           "variable-costs": {
             label: "📦 Variable Costs",
             chain: ["Profitability", "Costs", "Variable Costs"],
-            insight: "Variable costs — expenses that scale with output: raw materials, packaging, shipping, commissions, energy per unit. USE WHEN: per-unit costs are too high, eating into margins as volume grows. IMPLIES: you\'re studying Costs → Profitability. You\'ve identified the variable component as the issue. NEXT: Apply Cost Reduction and specifically Process Optimization — optimize the process to reduce cost per unit. Common levers: renegotiate supplier contracts, reduce waste, improve production efficiency.",
+            insight:
+              "Variable costs — expenses that scale with output: raw materials, packaging, shipping, commissions, energy per unit. USE WHEN: per-unit costs are too high, eating into margins as volume grows. IMPLIES: you\'re studying Costs → Profitability. You\'ve identified the variable component as the issue. NEXT: Apply Cost Reduction and specifically Process Optimization — optimize the process to reduce cost per unit. Common levers: renegotiate supplier contracts, reduce waste, improve production efficiency.",
             tree: null,
           },
           growth: {
             label: "📈 2. Growth",
             chain: ["Profitability", "Revenue", "Volume", "Growth"],
-            insight: "The Growth framework — \"How to grow the business?\" USE WHEN: the prompt asks about increasing revenue, expanding the business, or scaling up. You\'ve identified a volume gap. IMPLIES: you\'re studying Volume → Revenue → Profitability. The fact that you\'re here means you believe the company needs to sell MORE. NEXT: Branch into three paths — Market Entry (\"enter a new geography/segment?\"), New Product (\"launch something new?\"), or M&A (\"acquire growth inorganically?\"). Each of these is a deeper zoom-in on a specific growth mechanism.",
+            insight:
+              'The Growth framework — "How to grow the business?" USE WHEN: the prompt asks about increasing revenue, expanding the business, or scaling up. You\'ve identified a volume gap. IMPLIES: you\'re studying Volume → Revenue → Profitability. The fact that you\'re here means you believe the company needs to sell MORE. NEXT: Branch into three paths — Market Entry ("enter a new geography/segment?"), New Product ("launch something new?"), or M&A ("acquire growth inorganically?"). Each of these is a deeper zoom-in on a specific growth mechanism.',
             tree: {
               root: "How to grow a business?",
               branches: [
-                { name: "Grow the core / Crescer no core", children: [
-                  "Grow across current segments / Crescer nos segmentos atuais → (Better products, Improved marketing, Competitive prices)",
-                  "Invest in fastest-growing segments / Investir nos segmentos de maior crescimento"
-                ]},
-                { name: "Grow outside of the core / Crescer fora do core", children: [
-                  "Sell new products to existing clients / Vender novos produtos a clientes atuais",
-                  "Use capabilities to enter new businesses / Usar capacidades para novos negócios"
-                ]},
+                {
+                  name: "Grow the core / Crescer no core",
+                  children: [
+                    "Grow across current segments / Crescer nos segmentos atuais → (Better products, Improved marketing, Competitive prices)",
+                    "Invest in fastest-growing segments / Investir nos segmentos de maior crescimento",
+                  ],
+                },
+                {
+                  name: "Grow outside of the core / Crescer fora do core",
+                  children: [
+                    "Sell new products to existing clients / Vender novos produtos a clientes atuais",
+                    "Use capabilities to enter new businesses / Usar capacidades para novos negócios",
+                  ],
+                },
               ],
             },
           },
           pricing: {
             label: "🏷️ 6. Pricing",
             chain: ["Profitability", "Revenue", "Price", "Pricing"],
-            insight: "The Pricing framework — \"How to price a product/service?\" USE WHEN: the prompt asks about pricing strategy, price optimization, or when you\'re launching something new and need to set a price. IMPLIES: you\'re studying Price → Revenue → Profitability. The core question is \"what price maximizes profit?\" This is a CROSS-CUTTING framework — it can be triggered from Market Entry (pricing for a new market), New Product (pricing a new launch), or directly from the Price lever. STRUCTURE: Costs (floor) → Competitors (benchmark) → Willingness to Pay (ceiling).",
+            insight:
+              'The Pricing framework — "How to price a product/service?" USE WHEN: the prompt asks about pricing strategy, price optimization, or when you\'re launching something new and need to set a price. IMPLIES: you\'re studying Price → Revenue → Profitability. The core question is "what price maximizes profit?" This is a CROSS-CUTTING framework — it can be triggered from Market Entry (pricing for a new market), New Product (pricing a new launch), or directly from the Price lever. STRUCTURE: Costs (floor) → Competitors (benchmark) → Willingness to Pay (ceiling).',
             tree: {
               root: "How to price a product?",
               branches: [
-                { name: "Costs / Custos (floor)", children: ["Variable costs", "Fixed costs", "Investment costs", "Plus enough markup for margin"] },
-                { name: "Competitors or substitutes / Concorrentes (benchmark)", children: ["Should we price above or below?"] },
-                { name: "Clients' willingness to pay / Disposição a pagar (ceiling)", children: [] },
+                {
+                  name: "Costs / Custos (floor)",
+                  children: [
+                    "Variable costs",
+                    "Fixed costs",
+                    "Investment costs",
+                    "Plus enough markup for margin",
+                  ],
+                },
+                {
+                  name: "Competitors or substitutes / Concorrentes (benchmark)",
+                  children: ["Should we price above or below?"],
+                },
+                {
+                  name: "Clients' willingness to pay / Disposição a pagar (ceiling)",
+                  children: [],
+                },
               ],
             },
           },
           "competitive-response": {
             label: "⚔️ 9. Competitive Response",
             chain: ["Profitability", "Revenue", "Competitive Response"],
-            insight: "The Competitive Response framework — \"How to respond to a competitive threat?\" USE WHEN: a competitor has entered the market, launched a disruptive product, or is stealing market share. Revenue is under external threat. IMPLIES: you\'re DEFENDING Revenue → Profitability. Unlike Growth (which is proactive), this is reactive — something is attacking your top line. NEXT: Assess the impact, understand the competitor\'s play, then choose a response: do nothing, mitigate (retain clients), replicate (copy their offer), collaborate, or align (lower prices). May trigger Pricing (if you need to adjust prices) or Growth (if you need to outgrow the threat).",
+            insight:
+              "The Competitive Response framework — \"How to respond to a competitive threat?\" USE WHEN: a competitor has entered the market, launched a disruptive product, or is stealing market share. Revenue is under external threat. IMPLIES: you\'re DEFENDING Revenue → Profitability. Unlike Growth (which is proactive), this is reactive — something is attacking your top line. NEXT: Assess the impact, understand the competitor\'s play, then choose a response: do nothing, mitigate (retain clients), replicate (copy their offer), collaborate, or align (lower prices). May trigger Pricing (if you need to adjust prices) or Growth (if you need to outgrow the threat).",
             tree: {
               root: "How to respond to a competitive threat?",
               branches: [
-                { name: "Potential impact / Impacto potencial", children: ["Segment affected", "Size", "Profitability", "Estimated loss"] },
-                { name: "Opportunity pursued by competitor / Oportunidade do concorrente", children: [] },
-                { name: "Possible responses / Respostas possíveis", children: ["Do nothing", "Mitigate (retain clients)", "Replicate (launch competing offer)", "Collaborate", "Align (lower prices)"] },
+                {
+                  name: "Potential impact / Impacto potencial",
+                  children: [
+                    "Segment affected",
+                    "Size",
+                    "Profitability",
+                    "Estimated loss",
+                  ],
+                },
+                {
+                  name: "Opportunity pursued by competitor / Oportunidade do concorrente",
+                  children: [],
+                },
+                {
+                  name: "Possible responses / Respostas possíveis",
+                  children: [
+                    "Do nothing",
+                    "Mitigate (retain clients)",
+                    "Replicate (launch competing offer)",
+                    "Collaborate",
+                    "Align (lower prices)",
+                  ],
+                },
               ],
             },
           },
           "cost-reduction": {
             label: "📉 3. Cost Reduction",
             chain: ["Profitability", "Costs", "Cost Reduction"],
-            insight: "The Cost Reduction framework — \"How to cut costs?\" USE WHEN: the prompt asks about reducing expenses, improving margins on the cost side, or making operations leaner. IMPLIES: you\'re studying Costs → Profitability. You\'ve identified that the business spends too much (fixed, variable, or both). NEXT: For operational and process-specific cost issues, zoom into Process Optimization. STRUCTURE: (1) Reduce the need entirely, (2) Meet the need with fewer resources, (3) Reduce the cost of resources. Each of these can apply to both fixed and variable costs.",
+            insight:
+              "The Cost Reduction framework — \"How to cut costs?\" USE WHEN: the prompt asks about reducing expenses, improving margins on the cost side, or making operations leaner. IMPLIES: you\'re studying Costs → Profitability. You\'ve identified that the business spends too much (fixed, variable, or both). NEXT: For operational and process-specific cost issues, zoom into Process Optimization. STRUCTURE: (1) Reduce the need entirely, (2) Meet the need with fewer resources, (3) Reduce the cost of resources. Each of these can apply to both fixed and variable costs.",
             tree: {
               root: "How to cut costs?",
               branches: [
-                { name: "Reduce the need / Reduzir a necessidade", children: ["Eliminate the need entirely", "Reduce the service level"] },
-                { name: "Meet the need with less resource / Cumprir com menos recursos", children: ["Eliminate waste", "Improve productivity"] },
-                { name: "Reduce the cost of resources / Reduzir custo dos recursos", children: ["Find cheaper alternatives", "Renegotiate costs"] },
+                {
+                  name: "Reduce the need / Reduzir a necessidade",
+                  children: [
+                    "Eliminate the need entirely",
+                    "Reduce the service level",
+                  ],
+                },
+                {
+                  name: "Meet the need with less resource / Cumprir com menos recursos",
+                  children: ["Eliminate waste", "Improve productivity"],
+                },
+                {
+                  name: "Reduce the cost of resources / Reduzir custo dos recursos",
+                  children: ["Find cheaper alternatives", "Renegotiate costs"],
+                },
               ],
             },
           },
           investment: {
             label: "💼 7. Investment",
             chain: ["Profitability", "Costs / Revenue", "Investment"],
-            insight: "The Investment framework — \"Should we make this investment?\" USE WHEN: the prompt asks about buying equipment, building a factory, entering a new business, or any major CAPEX decision. IMPLIES: this is CROSS-CUTTING — it can sit on both sides of the Profitability tree. Invest to GROW (Revenue side: new market, new product) or invest to SAVE (Cost side: automation, process improvement). STRUCTURE: Impact on revenue + Impact on costs → Break-even analysis → Implementation feasibility. Often follows Growth or Cost Reduction as the \"financial validation\" step.",
+            insight:
+              'The Investment framework — "Should we make this investment?" USE WHEN: the prompt asks about buying equipment, building a factory, entering a new business, or any major CAPEX decision. IMPLIES: this is CROSS-CUTTING — it can sit on both sides of the Profitability tree. Invest to GROW (Revenue side: new market, new product) or invest to SAVE (Cost side: automation, process improvement). STRUCTURE: Impact on revenue + Impact on costs → Break-even analysis → Implementation feasibility. Often follows Growth or Cost Reduction as the "financial validation" step.',
             tree: {
               root: "Whether to make an investment?",
               branches: [
-                { name: "Impact on revenue / Impacto nas receitas", children: [] },
+                {
+                  name: "Impact on revenue / Impacto nas receitas",
+                  children: [],
+                },
                 { name: "Impact on costs / Impacto nos custos", children: [] },
                 { name: "Break even? / Ponto de equilíbrio?", children: [] },
                 { name: "Implementation / Implementação", children: [] },
@@ -21333,53 +21783,115 @@ Margin                       20.0%              6.6%          -13.4pp
           "market-entry": {
             label: "🚀 4. Market Entry",
             chain: ["Profitability", "Revenue", "Growth", "Market Entry"],
-            insight: "The Market Entry framework — \"Should we enter a new market?\" USE WHEN: the prompt asks about expanding to a new geography, entering a new customer segment, or launching in a new country. IMPLIES: you\'re studying Growth → Volume → Revenue → Profitability. The full chain means: someone decided profits need to improve → via revenue → via selling more → via entering a new market. NEXT: May trigger Pricing (what price for this new market?) and Investment (what does entry cost?). STRUCTURE: Market opportunity (size, growth) → Potential share (customers, competitors) → Potential profit → Capabilities & risks.",
+            insight:
+              'The Market Entry framework — "Should we enter a new market?" USE WHEN: the prompt asks about expanding to a new geography, entering a new customer segment, or launching in a new country. IMPLIES: you\'re studying Growth → Volume → Revenue → Profitability. The full chain means: someone decided profits need to improve → via revenue → via selling more → via entering a new market. NEXT: May trigger Pricing (what price for this new market?) and Investment (what does entry cost?). STRUCTURE: Market opportunity (size, growth) → Potential share (customers, competitors) → Potential profit → Capabilities & risks.',
             tree: {
               root: "Whether to enter a new market?",
               branches: [
-                { name: "Market opportunity / Oportunidade de mercado", children: ["Market size", "Market growth"] },
-                { name: "Potential share / Quota potencial", children: ["Customer needs", "Our offering", "Competitors"] },
-                { name: "Potential profit / Lucro potencial", children: ["Investment", "Running costs", "Revenue"] },
-                { name: "Capabilities & risks / Capacidades e riscos", children: [] },
+                {
+                  name: "Market opportunity / Oportunidade de mercado",
+                  children: ["Market size", "Market growth"],
+                },
+                {
+                  name: "Potential share / Quota potencial",
+                  children: ["Customer needs", "Our offering", "Competitors"],
+                },
+                {
+                  name: "Potential profit / Lucro potencial",
+                  children: ["Investment", "Running costs", "Revenue"],
+                },
+                {
+                  name: "Capabilities & risks / Capacidades e riscos",
+                  children: [],
+                },
               ],
             },
           },
           "new-product": {
             label: "🆕 5. New Product",
             chain: ["Profitability", "Revenue", "Growth", "New Product"],
-            insight: "The New Product framework — \"Should we launch a new product?\" USE WHEN: the prompt asks about product launches, new product lines, product diversification, or R&D decisions. IMPLIES: you\'re studying Growth → Volume → Revenue → Profitability. The chain tells you: we need more profit → via more revenue → via more volume → via a NEW offering customers can buy. NEXT: Almost always triggers Pricing (\"what do we charge?\") and Investment (\"what does development cost?\"). STRUCTURE: Choose target segments → Define 4P strategy (Product, Price, Distribution, Promotion) → Implementation plan.",
+            insight:
+              'The New Product framework — "Should we launch a new product?" USE WHEN: the prompt asks about product launches, new product lines, product diversification, or R&D decisions. IMPLIES: you\'re studying Growth → Volume → Revenue → Profitability. The chain tells you: we need more profit → via more revenue → via more volume → via a NEW offering customers can buy. NEXT: Almost always triggers Pricing ("what do we charge?") and Investment ("what does development cost?"). STRUCTURE: Choose target segments → Define 4P strategy (Product, Price, Distribution, Promotion) → Implementation plan.',
             tree: {
               root: "How to launch a new product?",
               branches: [
-                { name: "Choose target segments / Escolher segmentos-alvo", children: ["Size & growth", "Competition", "Customer needs"] },
-                { name: "Define marketing strategy / Definir estratégia 4P", children: ["Product", "Price", "Distribution", "Promotion"] },
-                { name: "Implementation / Implementação", children: ["Product design", "Production", "Marketing & sales", "Logistics", "Aftercare"] },
+                {
+                  name: "Choose target segments / Escolher segmentos-alvo",
+                  children: ["Size & growth", "Competition", "Customer needs"],
+                },
+                {
+                  name: "Define marketing strategy / Definir estratégia 4P",
+                  children: ["Product", "Price", "Distribution", "Promotion"],
+                },
+                {
+                  name: "Implementation / Implementação",
+                  children: [
+                    "Product design",
+                    "Production",
+                    "Marketing & sales",
+                    "Logistics",
+                    "Aftercare",
+                  ],
+                },
               ],
             },
           },
           "m-and-a": {
             label: "🤝 8. M&A",
             chain: ["Profitability", "Revenue", "Growth", "M&A"],
-            insight: "The M&A framework — \"Should we acquire this company?\" USE WHEN: the prompt asks about mergers, acquisitions, or any \"should we buy this business?\" question. IMPLIES: you\'re studying Growth → Volume → Revenue → Profitability — but through the INORGANIC path. Instead of building growth organically (Market Entry, New Product), you\'re buying it. NEXT: Connects to Investment (valuation, break-even) and Cost Reduction (synergies on the cost side). STRUCTURE: Standalone value (future revenue, costs, multiples) → Synergies (cost + revenue) → Capabilities & risks.",
+            insight:
+              'The M&A framework — "Should we acquire this company?" USE WHEN: the prompt asks about mergers, acquisitions, or any "should we buy this business?" question. IMPLIES: you\'re studying Growth → Volume → Revenue → Profitability — but through the INORGANIC path. Instead of building growth organically (Market Entry, New Product), you\'re buying it. NEXT: Connects to Investment (valuation, break-even) and Cost Reduction (synergies on the cost side). STRUCTURE: Standalone value (future revenue, costs, multiples) → Synergies (cost + revenue) → Capabilities & risks.',
             tree: {
               root: "Whether to acquire a business?",
               branches: [
-                { name: "Standalone value / Valor autónomo", children: ["Future revenue", "Future cost", "Valuation multiples"] },
-                { name: "Synergies / Sinergias", children: ["Cost reduction", "Revenue growth"] },
-                { name: "Capabilities & risks / Capacidades e riscos", children: [] },
+                {
+                  name: "Standalone value / Valor autónomo",
+                  children: [
+                    "Future revenue",
+                    "Future cost",
+                    "Valuation multiples",
+                  ],
+                },
+                {
+                  name: "Synergies / Sinergias",
+                  children: ["Cost reduction", "Revenue growth"],
+                },
+                {
+                  name: "Capabilities & risks / Capacidades e riscos",
+                  children: [],
+                },
               ],
             },
           },
           "process-optimization": {
             label: "⚙️ 10. Process Optimization",
-            chain: ["Profitability", "Costs", "Cost Reduction", "Process Optimization"],
-            insight: "The Process Optimization framework — \"How to optimize this process?\" USE WHEN: the prompt asks about improving operations, fixing a bottleneck, reducing waste, or increasing throughput. IMPLIES: you\'re studying Cost Reduction → Costs → Profitability. You\'ve already identified WHAT costs to cut; now you\'re zooming into the operational HOW — mapping the process, finding inefficiencies, and fixing them. This is the deepest \"zoom-in\" on the cost side of the map. STRUCTURE: Map current process (capacity, utilization, bottleneck) → Analyze each step (eliminate, anticipate) → Estimate gains (cost, quality, speed).",
+            chain: [
+              "Profitability",
+              "Costs",
+              "Cost Reduction",
+              "Process Optimization",
+            ],
+            insight:
+              'The Process Optimization framework — "How to optimize this process?" USE WHEN: the prompt asks about improving operations, fixing a bottleneck, reducing waste, or increasing throughput. IMPLIES: you\'re studying Cost Reduction → Costs → Profitability. You\'ve already identified WHAT costs to cut; now you\'re zooming into the operational HOW — mapping the process, finding inefficiencies, and fixing them. This is the deepest "zoom-in" on the cost side of the map. STRUCTURE: Map current process (capacity, utilization, bottleneck) → Analyze each step (eliminate, anticipate) → Estimate gains (cost, quality, speed).',
             tree: {
               root: "How to optimize a process?",
               branches: [
-                { name: "Map out current process / Mapear o processo atual", children: ["Capacity?", "Utilization?", "Bottleneck?"] },
-                { name: "Look into each step / Analisar cada etapa", children: ["Eliminate", "Anticipate"] },
-                { name: "Estimate gains / Estimar ganhos", children: ["Reduce cost", "Increase quality", "Increase speed"] },
+                {
+                  name: "Map out current process / Mapear o processo atual",
+                  children: ["Capacity?", "Utilization?", "Bottleneck?"],
+                },
+                {
+                  name: "Look into each step / Analisar cada etapa",
+                  children: ["Eliminate", "Anticipate"],
+                },
+                {
+                  name: "Estimate gains / Estimar ganhos",
+                  children: [
+                    "Reduce cost",
+                    "Increase quality",
+                    "Increase speed",
+                  ],
+                },
               ],
             },
           },
@@ -21387,33 +21899,41 @@ Margin                       20.0%              6.6%          -13.4pp
 
         function fwmRenderTree(tree) {
           if (!tree) return "";
-          var html = '<div style="font-weight:700;margin-bottom:8px;font-size:0.95em;">' + tree.root + '</div>';
-          tree.branches.forEach(function(br) {
+          var html =
+            '<div style="font-weight:700;margin-bottom:8px;font-size:0.95em;">' +
+            tree.root +
+            "</div>";
+          tree.branches.forEach(function (br) {
             html += '<div style="margin-bottom:6px;">';
-            html += '<span class="branch-name">├─ ' + br.name + '</span>';
+            html += '<span class="branch-name">├─ ' + br.name + "</span>";
             if (br.children && br.children.length > 0) {
-              html += '<ul>';
-              br.children.forEach(function(child, i) {
-                var prefix = (i === br.children.length - 1) ? "└─" : "├─";
-                html += '<li class="leaf" style="margin-left:16px;">' + prefix + ' ' + child + '</li>';
+              html += "<ul>";
+              br.children.forEach(function (child, i) {
+                var prefix = i === br.children.length - 1 ? "└─" : "├─";
+                html +=
+                  '<li class="leaf" style="margin-left:16px;">' +
+                  prefix +
+                  " " +
+                  child +
+                  "</li>";
               });
-              html += '</ul>';
+              html += "</ul>";
             }
-            html += '</div>';
+            html += "</div>";
           });
           return html;
         }
 
         var currentFwmNode = null;
-        setTimeout(function() {
+        setTimeout(function () {
           var pills = document.querySelectorAll(".fwm-pill[data-fwm]");
           var panel = document.getElementById("fwm-expand-panel");
           var chainEl = document.getElementById("fwm-chain-display");
           var insightEl = document.getElementById("fwm-insight");
           var treeEl = document.getElementById("fwm-fw-tree-display");
 
-          pills.forEach(function(pill) {
-            pill.addEventListener("click", function() {
+          pills.forEach(function (pill) {
+            pill.addEventListener("click", function () {
               var key = pill.getAttribute("data-fwm");
               var data = FWM_DATA[key];
               if (!data) return;
@@ -21427,18 +21947,21 @@ Margin                       20.0%              6.6%          -13.4pp
               }
 
               // Remove active from all pills
-              pills.forEach(function(p) { p.classList.remove("active"); });
+              pills.forEach(function (p) {
+                p.classList.remove("active");
+              });
               pill.classList.add("active");
               currentFwmNode = key;
 
               // Build chain
               var chainHtml = "";
-              data.chain.forEach(function(step, i) {
-                if (i > 0) chainHtml += ' <span class="fwm-chain-arrow">→</span> ';
-                var isFinal = (i === data.chain.length - 1);
+              data.chain.forEach(function (step, i) {
+                if (i > 0)
+                  chainHtml += ' <span class="fwm-chain-arrow">→</span> ';
+                var isFinal = i === data.chain.length - 1;
                 chainHtml += isFinal
-                  ? '<span class="fwm-chain-final">' + step + '</span>'
-                  : '<span class="fwm-chain-step">' + step + '</span>';
+                  ? '<span class="fwm-chain-final">' + step + "</span>"
+                  : '<span class="fwm-chain-step">' + step + "</span>";
               });
               chainEl.innerHTML = chainHtml;
               insightEl.textContent = data.insight;
@@ -21453,92 +21976,114 @@ Margin                       20.0%              6.6%          -13.4pp
 
               panel.classList.add("show");
               // Scroll panel into view
-              setTimeout(function() { panel.scrollIntoView({behavior:"smooth",block:"nearest"}); }, 50);
+              setTimeout(function () {
+                panel.scrollIntoView({ behavior: "smooth", block: "nearest" });
+              }, 50);
             });
           });
         }, 200);
       })();
 
-
       // ═══════════════════════════════════════════════
       // FRAMEWORK MAP — DYNAMIC CONNECTOR LINES
       // ═══════════════════════════════════════════════
-      (function(){
+      (function () {
         var FWM_CONNS = [
           // Profitability splits
-          {f:'fwm-n-profitability', t:'fwm-n-revenue'},
-          {f:'fwm-n-profitability', t:'fwm-n-costs'},
+          { f: "fwm-n-profitability", t: "fwm-n-revenue" },
+          { f: "fwm-n-profitability", t: "fwm-n-costs" },
           // Revenue decomposition
-          {f:'fwm-n-revenue', t:'fwm-n-volume'},
-          {f:'fwm-n-revenue', t:'fwm-n-price'},
+          { f: "fwm-n-revenue", t: "fwm-n-volume" },
+          { f: "fwm-n-revenue", t: "fwm-n-price" },
           // Revenue → Competitive Response (dashed: protection)
-          {f:'fwm-n-revenue', t:'fwm-n-comp-resp', d:1},
+          { f: "fwm-n-revenue", t: "fwm-n-comp-resp", d: 1 },
           // Costs decomposition
-          {f:'fwm-n-costs', t:'fwm-n-fc'},
-          {f:'fwm-n-costs', t:'fwm-n-vc'},
+          { f: "fwm-n-costs", t: "fwm-n-fc" },
+          { f: "fwm-n-costs", t: "fwm-n-vc" },
           // Costs → Investment (dashed: cross-cutting)
-          {f:'fwm-n-costs', t:'fwm-n-investment', d:1},
+          { f: "fwm-n-costs", t: "fwm-n-investment", d: 1 },
+          // Revenue → Investment (dashed: cross-cutting — invest to grow)
+          { f: "fwm-n-revenue", t: "fwm-n-investment", d: 1 },
           // Volume → Growth
-          {f:'fwm-n-volume', t:'fwm-n-growth'},
+          { f: "fwm-n-volume", t: "fwm-n-growth" },
           // Price → Pricing
-          {f:'fwm-n-price', t:'fwm-n-pricing'},
+          { f: "fwm-n-price", t: "fwm-n-pricing" },
           // FC / VC → Cost Reduction
-          {f:'fwm-n-fc', t:'fwm-n-cost-red'},
-          {f:'fwm-n-vc', t:'fwm-n-cost-red'},
+          { f: "fwm-n-fc", t: "fwm-n-cost-red" },
+          { f: "fwm-n-vc", t: "fwm-n-cost-red" },
           // Growth sub-frameworks
-          {f:'fwm-n-growth', t:'fwm-n-market-entry'},
-          {f:'fwm-n-growth', t:'fwm-n-new-product'},
-          {f:'fwm-n-growth', t:'fwm-n-m-and-a'},
+          { f: "fwm-n-growth", t: "fwm-n-market-entry" },
+          { f: "fwm-n-growth", t: "fwm-n-new-product" },
+          { f: "fwm-n-growth", t: "fwm-n-m-and-a" },
           // Cost Reduction → Process Optimization
-          {f:'fwm-n-cost-red', t:'fwm-n-process-opt'},
+          { f: "fwm-n-cost-red", t: "fwm-n-process-opt" },
           // Cross-cutting: Market Entry / New Product → Pricing (dashed)
-          {f:'fwm-n-market-entry', t:'fwm-n-pricing', d:1},
-          {f:'fwm-n-new-product', t:'fwm-n-pricing', d:1}
+          { f: "fwm-n-market-entry", t: "fwm-n-pricing", d: 1 },
+          { f: "fwm-n-new-product", t: "fwm-n-pricing", d: 1 },
         ];
 
-        function drawFwmLines(){
-          var c = document.getElementById('fwm-tree-container');
-          var svg = document.getElementById('fwm-lines');
-          if(!c || !svg) return;
+        function drawFwmLines() {
+          var c = document.getElementById("fwm-tree-container");
+          var svg = document.getElementById("fwm-lines");
+          if (!c || !svg) return;
           // Check if fw-map section is visible
-          var fwMap = document.getElementById('fw-map');
-          if(fwMap && !fwMap.classList.contains('active')) return;
-          
-          svg.innerHTML = '';
+          var fwMap = document.getElementById("fw-map");
+          if (fwMap && !fwMap.classList.contains("active")) return;
+
+          svg.innerHTML = "";
           var cr = c.getBoundingClientRect();
-          
-          FWM_CONNS.forEach(function(conn){
+
+          FWM_CONNS.forEach(function (conn) {
             var fe = document.getElementById(conn.f);
             var te = document.getElementById(conn.t);
-            if(!fe || !te) return;
+            if (!fe || !te) return;
             var fr = fe.getBoundingClientRect();
             var tr = te.getBoundingClientRect();
             // From bottom-center of parent pill to top-center of child pill
-            var x1 = fr.left + fr.width/2 - cr.left;
+            var x1 = fr.left + fr.width / 2 - cr.left;
             var y1 = fr.bottom - cr.top;
-            var x2 = tr.left + tr.width/2 - cr.left;
+            var x2 = tr.left + tr.width / 2 - cr.left;
             var y2 = tr.top - cr.top;
-            
+
             // Use curved paths for cleaner look
             var midY = (y1 + y2) / 2;
-            var path = document.createElementNS('http://www.w3.org/2000/svg','path');
-            var d = 'M'+x1+','+y1+' C'+x1+','+midY+' '+x2+','+midY+' '+x2+','+y2;
-            path.setAttribute('d', d);
-            path.setAttribute('fill', 'none');
-            path.setAttribute('stroke', conn.d ? '#ccc' : '#aaa');
-            path.setAttribute('stroke-width', conn.d ? '1.5' : '2');
-            if(conn.d) path.setAttribute('stroke-dasharray','6,4');
+            var path = document.createElementNS(
+              "http://www.w3.org/2000/svg",
+              "path",
+            );
+            var d =
+              "M" +
+              x1 +
+              "," +
+              y1 +
+              " C" +
+              x1 +
+              "," +
+              midY +
+              " " +
+              x2 +
+              "," +
+              midY +
+              " " +
+              x2 +
+              "," +
+              y2;
+            path.setAttribute("d", d);
+            path.setAttribute("fill", "none");
+            path.setAttribute("stroke", conn.d ? "#ccc" : "#aaa");
+            path.setAttribute("stroke-width", "2");
+            if (conn.d) path.setAttribute("stroke-dasharray", "6,4");
             svg.appendChild(path);
           });
         }
 
         // Monkey-patch showSection to draw lines when fw-map becomes visible
         var _origShow = window.showSection;
-        window.showSection = function(id){
+        window.showSection = function (id) {
           _origShow(id);
-          if(id === 'fw-map') setTimeout(drawFwmLines, 60);
+          if (id === "fw-map") setTimeout(drawFwmLines, 60);
         };
-        window.addEventListener('resize', drawFwmLines);
+        window.addEventListener("resize", drawFwmLines);
         // Draw on initial load (with delay for layout)
         setTimeout(drawFwmLines, 400);
         // Also try after a longer delay in case section is visible at start
