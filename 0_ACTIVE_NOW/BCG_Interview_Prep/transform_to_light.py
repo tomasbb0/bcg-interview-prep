@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Transform BCG Prep HTML from dark theme to Burnay Labs light theme."""
+"""Transform BCG Prep HTML from dark theme to Bytarc Labs light theme."""
 
 import re
 
